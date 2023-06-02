@@ -1,0 +1,128 @@
+.search {
+    padding: 20px 0;
+}
+
+.search .logo img {
+    width: 50px;
+    height: 50px;
+}
+
+.search .width {
+    width: 20%;
+}
+
+.search-box {
+    width: 80%;
+    border: 2px solid rgba(0, 0, 0, 0.1);
+    /*padding: 10px;*/
+    border-radius: 50px;
+}
+
+.search-box i {
+    width: 5%;
+    text-align: center;
+    font-size: 20px;
+    opacity: 0.5;
+    padding: 15px 20px;
+    font-size: 17px;
+}
+
+.search-box input {
+    width: 100%;
+    padding: 10px;
+}
+
+::placeholder {
+    font-size: 15px;
+}
+
+.search-box span {
+    width: 20%;
+    opacity: 0.5;
+    border-left: 2px solid rgba(0, 0, 0, 0.1);
+    padding: 10px;
+}
+
+.cart {
+    position: relative;
+}
+
+.search .cart span {
+    position: absolute;
+    top: -10px;
+    right: 0px;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    text-align: center;
+    background-color: #e94560;
+    font-size: 12px;
+    color: #fff;
+}
+
+.search .f_flex {
+    justify-content: end;
+}
+
+/*------search-----------*/
+
+/* .container {
+    max-width: 90%;
+    margin: auto;
+} */
+
+.c_flex {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.f_flex {
+    display: flex;
+}
+
+a {
+    text-decoration: none;
+    color: black;
+}
+
+li {
+    list-style: none;
+}
+
+.uppercase {
+    text-transform: uppercase;
+}
+
+.capitalize {
+    text-transform: capitalize;
+}
+
+.RText {
+    text-align-last: right;
+}
+
+input,
+button {
+    border: none;
+    outline: none;
+    background-color: none;
+}
+
+.row {
+    width: 50%;
+}
+
+.icon-circle {
+    width: 50px;
+    height: 50px;
+    line-height: 50px;
+    background: #f3f5f9;
+    margin-left: 20px;
+    text-align: center;
+    border-radius: 50%;
+}
+
+.boxShadow {
+    box-shadow: rgb(43 52 69 / 10%) 0px 4px 16px;
+}

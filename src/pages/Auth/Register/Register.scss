@@ -1,0 +1,125 @@
+.Register-Wrapper {
+    background-image: url('../../../assets/images/Hinh-anh.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: 50%;
+    height: 100vh;
+    display: grid;
+    place-items: center;
+
+    .Register-body {
+        background-color: #fff;
+        border-radius: 10px;
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        position: absolute;
+
+        .form-body {
+            background-color: var(--white-color);
+            border-radius: 8px;
+            width: 450px;
+
+            .form-content {
+                padding: 14px 17px;
+
+                >h2 {
+                    // margin: 9px 0;
+                    font-size: 24px;
+                    color: var(--primary-color);
+                }
+
+                .form-group {
+                    >span {
+                        display: block;
+                        font-weight: 500;
+                        font-size: 14px;
+                    }
+                }
+
+                .input-box {
+                    display: block;
+                    margin: 0 auto;
+                    padding: 10px;
+                    border-radius: 4px;
+                    border: 1px solid #2dc2d0;
+                    margin-top: 7px;
+
+                    &.error {
+                        border: 1px solid red;
+                        background-color: #ffebeb;
+                    }
+                }
+
+                .input-feild {
+                    display: block;
+                    margin: 0 auto;
+                    width: 400px;
+                    padding: 10px;
+                    border-radius: 4px;
+                    border: 1px solid #ccc;
+                    margin-top: 3px;
+
+                    &:hover {
+                        border: 1px solid #2dc2d0;
+                    }
+
+                    &.error {
+                        border: 1px solid red;
+                        background-color: #ffebeb;
+                        ;
+                    }
+                }
+
+                .btn-register {
+                    padding: 13px 27px;
+                    border: 1px solid #286ba6;
+                    border-radius: 8px;
+                    width: 100%;
+                    font-weight: 500;
+                    background-color: #286ba6;
+                    color: var(--white-color);
+                }
+
+                .sex {
+                    display: flex;
+                    align-items: center;
+                    margin-top: 8px;
+                    justify-content: center;
+                    gap: 30px;
+
+                    .form-select {
+                        width: fit-content;
+                        height: 38px;
+                    }
+
+                    >span {
+                        width: 40px;
+                    }
+
+                    .checkbox-group {
+                        >input {
+                            margin-right: 6px;
+                        }
+                    }
+                }
+
+            }
+
+            .input-box {
+                display: block;
+                padding: 13px;
+                width: 100%;
+                border-radius: 8px;
+                border: 1px solid #cccc;
+            }
+
+            .sign-up {
+                a {
+                    color: #206cb4;
+                    margin-left: 10px;
+                }
+            }
+        }
+    }
+}
