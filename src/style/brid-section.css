@@ -1,0 +1,61 @@
+.bird__title {
+    font-size: 2.5rem;
+    line-height: 55px;
+}
+
+.brid__content {
+    padding-top: 70px;
+}
+
+.bird__title span {
+    color: #df2020;
+}
+
+.bird__content p {
+    font-size: 1 rem;
+    line-height: 30px;
+    color: #777;
+}
+
+.bird__btns button {
+    border: none;
+    outline: none;
+    padding: 7px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: 600;
+}
+
+.order__btn {
+    background: #df2020;
+    color: #fff;
+    transition: 0.3s;
+}
+
+.all__bird-btn {
+    background: transparent;
+    border: 1px solid #df2020 !important;
+}
+
+.all__bird-btn a {
+    color: #df2020;
+    text-decoration: none;
+}
+
+.order__btn:hover {
+    background: #212245;
+}
+
+.brid__service p {
+    color: #212245;
+    font-weight: 600;
+    font-size: 0, 9.rem;
+}
+
+.money__icon i {
+    padding: 5px;
+    background: #df2020;
+    color: #fff;
+    border-radius: 50%;
+    font-family: 500 !important;
+}

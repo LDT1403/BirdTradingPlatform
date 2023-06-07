@@ -1,6 +1,7 @@
 import axios from "axios";
 import { loginFailed, loginStart, loginSuccess, registerFailed, registerStart, registerSuccess } from "./authSilce";
 import { toast } from 'react-toastify';
+// import { getBirdsFailed, getBirdsSuccess, getBridsStart } from "./birdSlice";
 
 export const loginUser = async (user, dispatch, navigate) => {
     dispatch(loginStart());
@@ -29,3 +30,15 @@ export const registerUser = async (user, dispatch, navigate) => {
         dispatch(registerFailed);
     }
 }
+
+// export const getAllBrids = async (dispatch) => {
+//     console.log("dfs")
+//     dispatch(getBridsStart());
+//     try {
+//         const res = await axios.get("https://dummyjson.com/products");
+//         console.log(res.data);
+//         dispatch(getBirdsSuccess(res.data));
+//     } catch (err) {
+//         dispatch(getBirdsFailed());
+//     }
+// }

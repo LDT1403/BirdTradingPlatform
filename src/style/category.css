@@ -1,0 +1,37 @@
+.category__item {
+    background-color: rgb(66, 164, 182);
+    padding: 30px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.category__item:hover {
+    transform: translateY(-15px);
+}
+
+.category__img img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+}
+
+.category__img h6 {
+    padding: 10px;
+    color: #fff;
+}
+
+@media only screen and (max-width: 576px) {
+    .category__img {
+        padding: 20px 15px;
+    }
+
+    .category__img img {
+        width: 40px;
+        height: 40px;
+    }
+
+    .category__img h6 {
+        font-size: 0.8rem;
+    }
+}
