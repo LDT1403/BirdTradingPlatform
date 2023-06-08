@@ -4,7 +4,18 @@ const authSlice = createSlice({
     name: "auth",
     initialState: {
         login: {
-            currentUser: null,
+            currentUser: {
+                Email: "",
+                UserId: "",
+                email: "",
+                exp: "",
+                iat: "",
+                jti: "",
+                nbf: "",
+                sub: "",
+                role: "",
+                unique_name: ""
+            },
             isFetching: false,
             error: false
         },

@@ -3,13 +3,15 @@ import { loginFailed, loginStart, loginSuccess, registerFailed, registerStart, r
 import { toast } from 'react-toastify';
 // import { getBirdsFailed, getBirdsSuccess, getBridsStart } from "./birdSlice";
 
+
 export const loginUser = async (user, dispatch, navigate) => {
     dispatch(loginStart());
     console.log(dispatch)
     try {
-        const res = await axios.post("https://reqres.in/api/login", user);
-        console.log(res.data);
-        dispatch(loginSuccess(res.data));
+        const res = await axios.post("https://localhost:7067/api/User/Login", user);
+        const token = parseJwt(res.data.data);
+        dispatch(loginSuccess(token));
+        saveTokenToLocalStorage(res.data.data);
         toast.success("Login Success");
         navigate("/");
 
@@ -18,6 +20,19 @@ export const loginUser = async (user, dispatch, navigate) => {
         toast.error("Sai Email hoac Password");
     }
 };
+function saveTokenToLocalStorage(token) {
+    localStorage.setItem('jwtToken', token);
+}
+function parseJwt(token) {
+    var base64Url = token.split('.')[1];
+    var base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+    var jsonPayload = decodeURIComponent(window.atob(base64).split('').map(function (c) {
+        return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+    }).join(''));
+
+    return JSON.parse(jsonPayload);
+}
+
 
 export const registerUser = async (user, dispatch, navigate) => {
     dispatch(registerStart());
@@ -28,6 +43,7 @@ export const registerUser = async (user, dispatch, navigate) => {
 
     } catch (err) {
         dispatch(registerFailed);
+        console.log("dsadsa");
     }
 }
 

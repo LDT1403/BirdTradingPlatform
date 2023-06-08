@@ -5,32 +5,32 @@ import { useDispatch } from "react-redux";
 import { cartActions } from "../../../pages/redux/cartSlice";
 
 const CartItem = ({ item }) => {
-    const { id, title, images, price, quantity, totalPrice } = item || {}
+    const { productId, name, image, price, quantity, totalPrice } = item || {}
 
     const dispatch = useDispatch()
 
     const incrementItem = () => {
         dispatch(cartActions.addItem({
-            id,
-            title,
+            productId,
+            name,
             price,
-            images
+            image
         }))
     }
     const decrementItem = () => {
-        dispatch(cartActions.removeItem(id))
+        dispatch(cartActions.removeItem(productId))
     }
     const deleteItem = () => {
-        dispatch(cartActions.deleteItem(id))
+        dispatch(cartActions.deleteItem(productId))
     }
 
     return (
         <ListGroupItem className="border-0 cart__item">
             <div className="cart__item-info d-flex gap-2">
-                <img src={images} alt="product-img" />
+                <img src={image} alt="product-img" />
                 <div className="cart__product-info w-100 d-flex align-items-center gap-4 justify-content-between">
                     <div>
-                        <h6 className="cart__product-title">{title}</h6>
+                        <h6 className="cart__product-title">{name}</h6>
                         <p className="d-flex align-items-center gap-5 cart__product-price">{quantity}x <span>{totalPrice}$</span></p>
                         <div className="d-flex align-items-center justify-content-between
                          increase__decrease-btn">

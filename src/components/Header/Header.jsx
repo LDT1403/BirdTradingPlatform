@@ -1,4 +1,4 @@
-import React, { useRef, useEffect } from "react"
+import React, { useRef, useEffect, useState } from "react"
 import { Container } from "reactstrap";
 import logo from '../../assets/images/logo bird.png';
 import { NavLink, Link } from "react-router-dom";
@@ -31,13 +31,24 @@ const Header = () => {
     const headerRef = useRef(null);
     const dispatch = useDispatch();
     const user = useSelector((state) => state.auth.login.currentUser);
-
+    console.log(user);
     const toggleMenu = () => menuRef.current.classList.toggle("show__menu");
     const totalQuantity = useSelector(state => state.cart.totalQuantity);
 
     const toggleCart = () => {
         dispatch(cartUiActions.toggle());
     };
+
+    const [isHovered, setIsHovered] = useState(false);
+
+    const handleMouseEnter = () => {
+        setIsHovered(true);
+    };
+
+    const handleMouseLeave = () => {
+        setIsHovered(false);
+    };
+
 
     useEffect(() => {
         window.addEventListener("scroll", () => {
@@ -96,17 +107,34 @@ const Header = () => {
                         <span className="user">
                             {/* <Link to='/login'> */}
                             {user ? (
-                                <> <span>
-                                    <select>
-                                        <option value="username"><h6>{user.token}</h6></option>
-                                        <option ><Link to="/logout">Logout</Link></option>
+                                <> <Link to='/login'>
+                                    <i className="ri-user-line"></i>
+                                </Link>
+                                    <span className="avatar"
+                                        onMouseEnter={handleMouseEnter}
+                                        onMouseLeave={handleMouseLeave}>
+                                        <h6>{user.unique_name}</h6>
+                                        {isHovered && (
+                                            <div className="manager-info">
+                                                {/* Display manager account */}
+                                                <p>Manager Account</p>
 
-                                    </select>
-                                    {/* <select>
+                                                {/* Display logout option */}
+                                                <p>Logout</p>
+                                            </div>
+                                        )}
+
+
+                                        {/* <h6 onclick={toggleDiv}></h6>
+                                    <div id="myDiv"> <Link to="/logout">Logout</Link></div> */}
+
+                                        {/* <h6 onClick={toggleDiv}>{user.token}</h6>
+                                    {!isVisible && <div><Link to="/logout">Logout</Link></div>} */}
+                                        {/* <select>
                                             <option></option>
                                             <option><Link to="/logout" class="nav-link active" >Logout</Link></option>
                                         </select> */}
-                                </span>
+                                    </span>
                                 </>
                             ) : (
 

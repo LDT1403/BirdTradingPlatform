@@ -12,15 +12,45 @@ import ProductCard from "../components/UI/product-card/ProductCard";
 const Home = () => {
     const [data, setData] = useState([]);
     useEffect(() => {
-        axios.get('https://dummyjson.com/products')
+        axios.get('https://localhost:7067/api/Products/Hot_Product')
             .then(res => {
                 console.log(res.data);
-                setData(res.data.products);
+                setData(res.data);
             })
             .catch(err => {
                 console.log(err)
             })
     }, []);
+
+    const productsPerPage = 4;
+    const [currentPage, setCurrentPage] = useState(1);
+    const [loadingMore, setLoadingMore] = useState(false);
+    const [showLoadMore, setShowLoadMore] = useState(true);
+    const [showRetry, setShowRetry] = useState(false);
+
+    const loadMoreProducts = () => {
+        setLoadingMore(true);
+
+        setTimeout(() => {
+            setCurrentPage(currentPage + 1);
+            setLoadingMore(false);
+
+            if (currentPage * productsPerPage >= data.length) {
+                setShowLoadMore(false);
+                setShowRetry(true);
+            }
+        }, 200);
+    };
+
+    const retryLoadMore = () => {
+        setCurrentPage(1);
+        setShowRetry(false);
+        setShowLoadMore(true);
+    };
+
+    const start = (currentPage - 1) * productsPerPage;
+    const end = start + productsPerPage;
+    const displayedProducts = data.slice(0, end);
 
     return (
         <Helmet title="Home">
@@ -75,17 +105,36 @@ const Home = () => {
             <section>
                 <Container>
                     <Row>
-                        <Col lg='12' className="text-center">
-                            <h2>Brids Hot</h2>
+                        <Col lg='12' className="text-center mb-5">
+                            <h2>Best Seller</h2>
                         </Col>
                         {
-                            data?.map(item => (
-                                <Col lg='3' md='4' key={item.id}>
+                            displayedProducts?.map(item => (
+                                <Col lg='3' md='4' key={item.productId}>
                                     <ProductCard item={item} />
                                 </Col>
                             ))
                         }
+
                     </Row>
+                    {showLoadMore && !loadingMore && (
+                        <button className="load-more-button" onClick={loadMoreProducts}>
+                            Load More
+                        </button>
+                    )}
+                    {loadingMore && (
+                        <div className="loading-message">
+                            Loading more products...
+                        </div>
+                    )}
+                    {!showLoadMore && showRetry && (
+                        <div className="no-more-products-message">
+                            No more products available
+                            <button className="retry-button" onClick={retryLoadMore}>
+                                Retry
+                            </button>
+                        </div>
+                    )}
                 </Container>
             </section>
         </Helmet>
