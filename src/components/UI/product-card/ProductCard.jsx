@@ -3,6 +3,7 @@ import '../../../style/product-card.css';
 import { useDispatch } from "react-redux";
 import { cartActions } from "../../../pages/redux/cartSlice";
 import { Link } from "react-router-dom";
+import ShopDetail from "../../../pages/ShopDetail";
 
 
 const ProductCard = (props) => {
@@ -54,14 +55,26 @@ const ProductCard = (props) => {
         //         </button>
         //     </div>
         // </div>
+    
         <div className="product-tag card">
-            <img src={image} alt="Product Image" className="card-img-top" />
+            <Link to={`/shop/${productId}`}>
+                <img src={image} alt="Product Image" className="card-img-top" />
+                <ShopDetail
+                id = {productId}/>
+            </Link>
             <div className="card-body">
-                <h3 className="card-title"><Link to={`/bird/${productId}`}>{name}</Link></h3>
+                <h3 className="card-title">
+                    <Link to={`/shop/${productId}`}>{name}</Link>
+                </h3>
                 <p className="card-text">
-                    <span className="original-price">Price: {price}$</span><br />
-                    <span className="discount-price">Discount Price: <span className="discount-price-color">{discountPercent}$</span></span><br />
-                    <span className="rate">Rating: {renderRating()}</span><br />
+                    <span className="original-price">Price: {price}$</span>
+                    <br />
+                    <span className="discount-price">
+                        Discount Price: <span className="discount-price-color">{discountPercent}$</span>
+                    </span>
+                    <br />
+                    <span className="rate">Rating: {renderRating()}</span>
+                    <br />
                     <span className="quantity-sold">Quantity Sold: {quantitySold}</span>
                     <div className="text-center mt-2">
                         <button className="addTOCART__btn" onClick={addToCart}>

@@ -74,10 +74,14 @@
     transition: 0.4s;
 }
 
-.card-img-top:hover {
-    transform: scale(1.2);
-}
-
+.product-tag.card {
+  
+    transition: transform 0.322s; 
+    &:hover {
+      transform: scale(1.01); 
+      box-shadow: 0 0 8px 0.9px gray;
+    }
+  }
 .card-body {
     padding: 10px;
 }
