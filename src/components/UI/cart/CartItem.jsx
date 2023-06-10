@@ -5,16 +5,16 @@ import { useDispatch } from "react-redux";
 import { cartActions } from "../../../pages/redux/cartSlice";
 
 const CartItem = ({ item }) => {
-    const { productId, name, image, price, quantity, totalPrice } = item || {}
+    const { productId, productName, thumbnail, price, quantity, totalPrice } = item || {}
 
     const dispatch = useDispatch()
 
     const incrementItem = () => {
         dispatch(cartActions.addItem({
             productId,
-            name,
+            productName,
             price,
-            image
+            thumbnail
         }))
     }
     const decrementItem = () => {
@@ -27,10 +27,10 @@ const CartItem = ({ item }) => {
     return (
         <ListGroupItem className="border-0 cart__item">
             <div className="cart__item-info d-flex gap-2">
-                <img src={image} alt="product-img" />
+                <img src={thumbnail} alt="product-img" />
                 <div className="cart__product-info w-100 d-flex align-items-center gap-4 justify-content-between">
                     <div>
-                        <h6 className="cart__product-title">{name}</h6>
+                        <h6 className="cart__product-title">{productName}</h6>
                         <p className="d-flex align-items-center gap-5 cart__product-price">{quantity}x <span>{totalPrice}$</span></p>
                         <div className="d-flex align-items-center justify-content-between
                          increase__decrease-btn">

@@ -12,9 +12,9 @@ import ProductCard from "../components/UI/product-card/ProductCard";
 const Home = () => {
     const [data, setData] = useState([]);
     useEffect(() => {
-        axios.get('https://localhost:7067/api/Products/Hot_Product')
+        axios.get('https://localhost:7241/api/Products/Hot_Product')
             .then(res => {
-                console.log(res.data);
+                // console.log(res.data);
                 setData(res.data);
             })
             .catch(err => {

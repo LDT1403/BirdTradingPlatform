@@ -4,6 +4,10 @@ import { useDispatch } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
 import { loginUser } from "./redux/apiRequest";
 import { Link } from "react-router-dom";
+import Helmet from "../components/Helmet/Helmet";
+import '../style/Login.scss';
+import "animate.css";
+
 
 const Login = () => {
     const [password, setPassword] = useState("");
@@ -60,62 +64,68 @@ const Login = () => {
     };
 
     return (
-        <form
-            className="login__form-content"
-            onSubmit={handleSubmit}
-        >
-            <header className="Login__header">
-                <h2>Đăng Nhập</h2>
-                {/* <Tippy content="Trang chủ">
-                                    <Link to={state?.guest || "/"} >
-                                        <FontAwesomeIcon icon={faHouse} className="Login__home-icon" />
-                                    </Link>
-                                </Tippy> */}
-            </header>
-            <div className="login_form-group">
-                <input
-                    type="email"
-                    placeholder="Email"
-                    className="login__input-box mt-4"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    onInput={(e) => {
-                        hanldeOnInput(e);
-                    }}
-                    ref={inputRef}
-                />
-                <span ref={errorAlert}>{/* error alert */}</span>
+        <Helmet title="Login">
+            {/* <CommonSection title="Login" /> */}
+            <div className="Login-Wrapper">
+                <div className="Login animate__animated animate__fadeInDown">
+                    <div className="login-body">
+                        <div className="login__form-body">
+                            <form
+                                className="login__form-content"
+                                onSubmit={handleSubmit}
+                            >
+                                <header className="Login__header">
+                                    <h2>Login</h2>
+                                </header>
+                                <div className="login_form-group">
+                                    <input
+                                        type="email"
+                                        placeholder="Email"
+                                        className="login__input-box mt-4"
+                                        value={email}
+                                        onChange={(e) => setEmail(e.target.value)}
+                                        onInput={(e) => {
+                                            hanldeOnInput(e);
+                                        }}
+                                        ref={inputRef}
+                                    />
+                                    <span ref={errorAlert}>{/* error alert */}</span>
+                                </div>
+                                <div className="login__form-group">
+                                    <input
+                                        type="password"
+                                        placeholder="Password"
+                                        className="login__input-box mt-4"
+                                        value={password}
+                                        onChange={(e) => setPassword(e.target.value)}
+                                        onInput={(e) => {
+                                            hanldeOnInput(e);
+                                        }}
+                                    />
+                                    <span ref={errorPassword}>{/* error alert */}</span>
+                                </div>
+                                <Link to="/forgotPassword" className="forgot-password mb-2 d-block">Quên mật khẩu</Link>
+                                <button className="btn-sign-in">
+                                    Submit
+                                </button>
+                                <div className="separate mt-4 mb-4">
+                                    <div className="line"></div>
+                                    <span>Or</span>
+                                    <div className="line"></div>
+                                </div>
+                                <div className="login__google mt-3" >
+                                    <img className="google-icon" />
+                                </div>
+                                <div className="sign-up mt-3">
+                                    <span>Don't have Account ?</span>
+                                    <Link to="/register">Register</Link>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div className="login__form-group">
-                <input
-                    type="password"
-                    placeholder="Mật khẩu"
-                    className="login__input-box mt-4"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    onInput={(e) => {
-                        hanldeOnInput(e);
-                    }}
-                />
-                <span ref={errorPassword}>{/* error alert */}</span>
-            </div>
-            <Link to="/forgotPassword" className="forgot-password mb-2 d-block">Quên mật khẩu</Link>
-            <button className="btn-sign-in">
-                Đăng Nhập
-            </button>
-            <div className="separate mt-4 mb-4">
-                <div className="line"></div>
-                <span>Hoặc</span>
-                <div className="line"></div>
-            </div>
-            <div className="login__google mt-3" >
-                <img className="google-icon" />
-            </div>
-            <div className="sign-up mt-3">
-                <span>Bạn Chưa Có Tài Khoản ?</span>
-                <Link to="/register">Đăng Kí</Link>
-            </div>
-        </form>
+        </Helmet>
     )
 }
 

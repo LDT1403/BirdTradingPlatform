@@ -39,16 +39,9 @@ const Header = () => {
         dispatch(cartUiActions.toggle());
     };
 
-    const [isHovered, setIsHovered] = useState(false);
+    const profileActionRef = useRef(null);
 
-    const handleMouseEnter = () => {
-        setIsHovered(true);
-    };
-
-    const handleMouseLeave = () => {
-        setIsHovered(false);
-    };
-
+    const toggleProfileActions = () => profileActionRef.current.classList.toggle('show__profileActions');
 
     useEffect(() => {
         window.addEventListener("scroll", () => {
@@ -69,7 +62,7 @@ const Header = () => {
             <Container>
                 <div className="nav__wrapper d-flex align-items-center justify-content-between">
                     <div className="logo" >
-                        <img src={logo} alt="logo" />
+                        <Link to='/home'><img src={logo} alt="logo" /></Link>
                         <h5>Brid Trading</h5>
                     </div>
                     {/* ======= menu ======= */}
@@ -102,57 +95,34 @@ const Header = () => {
                     <div className="nav__right d-flex align-items-center gap-4">
                         <span className="cart__icon" onClick={toggleCart}>
                             <i className="ri-shopping-basket-line"></i>
+
                             <span className="cart__badge">{totalQuantity}</span>
                         </span>
-                        <span className="user">
-                            {/* <Link to='/login'> */}
-                            {user ? (
-                                <> <Link to='/login'>
-                                    <i className="ri-user-line"></i>
-                                </Link>
-                                    <span className="avatar"
-                                        onMouseEnter={handleMouseEnter}
-                                        onMouseLeave={handleMouseLeave}>
-                                        <h6>{user.unique_name}</h6>
-                                        {isHovered && (
-                                            <div className="manager-info">
-                                                {/* Display manager account */}
-                                                <p>Manager Account</p>
+                        <div className="profile">
+                            <i className="ri-user-line" onClick={toggleProfileActions}>{user.unique_name}</i>
+                            <div className="profile__actions" ref={profileActionRef} onClick={toggleProfileActions}>
+                                {user.UserId ? (
+                                    <div className="d-flex align-items-center justify-content-center flex-column">
+                                        <Link to="/logout">Account</Link>
+                                        <Link to="/logout">Logout</Link>
+                                    </div>
+                                ) : (
+                                    <Link to='/login'>Login
+                                        {/* <i className="ri-user-line"></i> */}
+                                    </Link>
+                                )
 
-                                                {/* Display logout option */}
-                                                <p>Logout</p>
-                                            </div>
-                                        )}
-
-
-                                        {/* <h6 onclick={toggleDiv}></h6>
-                                    <div id="myDiv"> <Link to="/logout">Logout</Link></div> */}
-
-                                        {/* <h6 onClick={toggleDiv}>{user.token}</h6>
-                                    {!isVisible && <div><Link to="/logout">Logout</Link></div>} */}
-                                        {/* <select>
-                                            <option></option>
-                                            <option><Link to="/logout" class="nav-link active" >Logout</Link></option>
-                                        </select> */}
-                                    </span>
-                                </>
-                            ) : (
-
-                                <Link to='/login'>
-                                    <i className="ri-user-line"></i>
-                                </Link>
-                            )
-
-                            }
+                                }
+                            </div>
                             {/* </Link> */}
-                        </span>
+                        </div>
                         <span className="mobile__menu" onClick={toggleMenu} >
                             <i className="ri-menu-line"></i>
                         </span>
                     </div>
                 </div>
             </Container>
-        </header>
+        </header >
     )
 }
 

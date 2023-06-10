@@ -85,8 +85,44 @@
     justify-content: center;
 }
 
+
+
 .nav__right {
     font-size: 20px;
+}
+
+.nav__right .profile i {
+    cursor: pointer;
+    position: relative;
+    z-index: 9;
+}
+
+.nav__right .profile .profile__actions {
+    position: absolute;
+    right: 0;
+    width: 150px;
+    z-index: 1;
+    padding: 10px;
+    display: flex;
+    text-align: center;
+    align-items: center;
+    flex-direction: column;
+    background: rgba(202, 184, 126, 0.425);
+    line-height: 30px;
+    display: none;
+    cursor: pointer;
+    border-radius: 5px;
+    margin-right: 50px;
+}
+
+.profile__actions a {
+    text-decoration: none;
+    color: #000;
+    font-size: 17px;
+}
+
+.show__profileActions {
+    display: block !important;
 }
 
 .user a {

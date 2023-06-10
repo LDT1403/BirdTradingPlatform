@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 
 
 const ProductCard = (props) => {
-    const { productId, name, image, price, quantitySold, rate, discountPercent } = props.item;
+    const { productId, productName, thumbnail, price, quantitySold, rate, soldPrice, discountPercent } = props.item;
     const dispatch = useDispatch();
 
 
@@ -15,8 +15,8 @@ const ProductCard = (props) => {
         dispatch(
             cartActions.addItem({
                 productId,
-                name,
-                image,
+                productName,
+                thumbnail,
                 price,
             })
 
@@ -55,14 +55,21 @@ const ProductCard = (props) => {
         //     </div>
         // </div>
         <div className="product-tag card">
-            <img src={image} alt="Product Image" className="card-img-top" />
+            <img src={thumbnail} alt="Product Image" className="card-img-top" />
             <div className="card-body">
-                <h3 className="card-title"><Link to={`/bird/${productId}`}>{name}</Link></h3>
+                <h3 className="card-title"><Link to={`/shop/${productId}`}>{productName}</Link></h3>
                 <p className="card-text">
-                    <span className="original-price">Price: {price}$</span><br />
-                    <span className="discount-price">Discount Price: <span className="discount-price-color">{discountPercent}$</span></span><br />
+                    {soldPrice && (
+                        <span className="original-price">Price: {soldPrice}$ </span>
+                    )}
+                    <br />
+                    <span className="discount-price">Sale Price: <span className="discount-price-color">{price}$</span></span><br />
                     <span className="rate">Rating: {renderRating()}</span><br />
                     <span className="quantity-sold">Quantity Sold: {quantitySold}</span>
+                    {discountPercent && (
+                        <span className="discount-badge">{discountPercent}%</span>
+                    )}
+
                     <div className="text-center mt-2">
                         <button className="addTOCART__btn" onClick={addToCart}>
                             Add to Cart
