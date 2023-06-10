@@ -18,11 +18,11 @@ export default function Shopping() {
 
 
     useEffect(() => {
-        axios.get('https://localhost:7067/api/Products/Hot_Product')
+        axios.get('https://localhost:7241/api/Products/Hot_Product')
             .then(res => {
                 setProductsData(res.data);
                 const uniqueCategories = Array.from(
-                    new Set(res.data.map((product) => product.name))
+                    new Set(res.data.map((product) => product.cateName))
                 );
                 setCategories(uniqueCategories);
             })
@@ -39,7 +39,7 @@ export default function Shopping() {
                 if (selectedCategory === 'All Product') {
                     return true;
                 } else {
-                    return product.name === selectedCategory;
+                    return product.cateName === selectedCategory;
                 }
             });
             const sortedProducts = sortProducts(updatedFilteredProducts);
@@ -66,17 +66,17 @@ export default function Shopping() {
     const handlePreviousPage = () => {
         // Xử lý sự kiện khi nhấn nút Previous
         if (currentPage > 1) {
-          setCurrentPage(currentPage - 1);
+            setCurrentPage(currentPage - 1);
         }
-      };
-      
-  const handleNextPage = () => {
-    // Xử lý sự kiện khi nhấn nút Next
-    if (currentPage < totalPages) {
-      setCurrentPage(currentPage + 1);
-    }
-  };
-  
+    };
+
+    const handleNextPage = () => {
+        // Xử lý sự kiện khi nhấn nút Next
+        if (currentPage < totalPages) {
+            setCurrentPage(currentPage + 1);
+        }
+    };
+
     const productsPerPage = 20;
     const totalProducts = filteredProducts?.length;
     const totalPages = Math.ceil(totalProducts / productsPerPage);
@@ -85,7 +85,7 @@ export default function Shopping() {
     const currentPageProducts = filteredProducts?.slice(startIndex, endIndex);
     if (productsData === null) {
         return <div>Loading...</div>;
-      }
+    }
     return (
 
         <div className="Shopping">
