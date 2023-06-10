@@ -3,6 +3,7 @@ import '../../../style/product-card.css';
 import { useDispatch } from "react-redux";
 import { cartActions } from "../../../pages/redux/cartSlice";
 import { Link } from "react-router-dom";
+import ShopDetail from "../../../pages/ShopDetail";
 
 
 const ProductCard = (props) => {
@@ -54,7 +55,9 @@ const ProductCard = (props) => {
         //         </button>
         //     </div>
         // </div>
+    
         <div className="product-tag card">
+<<<<<<< HEAD
             <img src={thumbnail} alt="Product Image" className="card-img-top" />
             <div className="card-body">
                 <h3 className="card-title"><Link to={`/shop/${productId}`}>{productName}</Link></h3>
@@ -65,6 +68,26 @@ const ProductCard = (props) => {
                     <br />
                     <span className="discount-price">Sale Price: <span className="discount-price-color">{price}$</span></span><br />
                     <span className="rate">Rating: {renderRating()}</span><br />
+=======
+            <Link to={`/shop/${productId}`}>
+                <img src={image} alt="Product Image" className="card-img-top" />
+                <ShopDetail
+                id = {productId}/>
+            </Link>
+            <div className="card-body">
+                <h3 className="card-title">
+                    <Link to={`/shop/${productId}`}>{name}</Link>
+                </h3>
+                <p className="card-text">
+                    <span className="original-price">Price: {price}$</span>
+                    <br />
+                    <span className="discount-price">
+                        Discount Price: <span className="discount-price-color">{discountPercent}$</span>
+                    </span>
+                    <br />
+                    <span className="rate">Rating: {renderRating()}</span>
+                    <br />
+>>>>>>> 8e50a3f0b306614235b75889ab5de7f30cb20f8b
                     <span className="quantity-sold">Quantity Sold: {quantitySold}</span>
                     {discountPercent && (
                         <span className="discount-badge">{discountPercent}%</span>
