@@ -118,7 +118,7 @@ const Home = () => {
 
                     </Row>
                     {showLoadMore && !loadingMore && (
-                        <button className="load-more-button" onClick={loadMoreProducts}>
+                        <button className="load-more-button mt-2" onClick={loadMoreProducts}>
                             Load More
                         </button>
                     )}

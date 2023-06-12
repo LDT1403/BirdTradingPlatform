@@ -1,7 +1,4 @@
 .Login-Wrapper {
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-position: 50%;
     height: 100vh;
     position: relative;
     display: flex;
@@ -9,8 +6,10 @@
     align-items: center;
 
     .Login {
-        background-color: #74f1f163;
-        border-radius: 10px;
+        background-color: #f2f2f2;
+        border-radius: 5px;
+        border: 1px solid #ccc;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 
         .login-title {
             width: 50%;

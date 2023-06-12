@@ -77,7 +77,7 @@ export default function Shopping() {
         }
     };
 
-    const productsPerPage = 20;
+    const productsPerPage = 8;
     const totalProducts = filteredProducts?.length;
     const totalPages = Math.ceil(totalProducts / productsPerPage);
     const startIndex = (currentPage - 1) * productsPerPage;
@@ -87,63 +87,73 @@ export default function Shopping() {
         return <div>Loading...</div>;
     }
     return (
-
-        <div className="Shopping">
-            <div className="shopContainer">
-                <div className="shopCate">
-                    <div className="cate">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="2" stroke="currentColor" className="cateicon">
-                            <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 6.75h12M8.25 12h12m-12 5.25h12M3.75 6.75h.007v.008H3.75V6.75zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zM3.75 12h.007v.008H3.75V12zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm-.375 5.25h.007v.008H3.75v-.008zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z" />
-                        </svg>
-                        Categoryt
-                    </div>
-                    <div
-                        className={`allProduct ${selectedCategory === 'All Product' ? 'active' : ''}`}
-                        onClick={() => handleCategoryClick('All Product')}
-                    >
-                        All Product
-                    </div>
-                    {categories.map((category) => (
-                        <div
-                            key={category}
-                            className={`allProduct ${selectedCategory === category ? 'active' : ''}`}
-                            onClick={() => handleCategoryClick(category)}
-                        >
-                            {category.charAt(0).toUpperCase() + category.slice(1)}
+        <Container className="mt-5">
+            <Row>
+                <Col lg='3' md='3'>
+                    <div className="shopContainer">
+                        <div className="shopCate">
+                            <div className="cate">
+                                <svg xmlns="http://www.w3.org/800/svg" fill="none" viewBox="0 0 24 24" strokeWidth="2" stroke="currentColor" className="cateicon">
+                                    <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 6.75h12M8.25 12h12m-12 5.25h12M3.75 6.75h.007v.008H3.75V6.75zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zM3.75 12h.007v.008H3.75V12zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm-.375 5.25h.007v.008H3.75v-.008zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z" />
+                                </svg>
+                                Categoryt
+                            </div>
+                            <div
+                                className={`allProduct ${selectedCategory === 'All Product' ? 'active' : ''}`}
+                                onClick={() => handleCategoryClick('All Product')}
+                            >
+                                All Product
+                            </div>
+                            {categories.map((category) => (
+                                <div
+                                    key={category}
+                                    className={`allProduct ${selectedCategory === category ? 'active' : ''}`}
+                                    onClick={() => handleCategoryClick(category)}
+                                >
+                                    {category.charAt(0).toUpperCase() + category.slice(1)}
+                                </div>
+                            ))}
                         </div>
-                    ))}
-                </div>
-            </div>
-            <div className="product">
-                <div className="productList">
-                    <Container>
-                        <Row>
+                    </div>
+                </Col>
 
-                            {
-                                currentPageProducts?.map(item => (
-                                    <Col lg='3' md='4' key={item.productId}>
-                                        <ProductCard item={item} />
-                                    </Col>
-                                ))
-                            }
+                <Col lg='9' md='9' >
+                    <div className="Shopping">
+                        <div className="product">
+                            <div className="productList">
+                                <Container>
+                                    <Row>
+                                        {
+                                            currentPageProducts?.map(item => (
+                                                <Col lg='3' md='4' key={item.productId}>
+                                                    <ProductCard item={item} />
+                                                </Col>
+                                            ))
+                                        }
+                                    </Row>
+                                </Container>
+                            </div>
+                            <div className="pagination">
+                                {/* Xử lý sự kiện trang trước */}
+                                <button onClick={handlePreviousPage} disabled={currentPage === 1}>
+                                    <FontAwesomeIcon icon={faChevronLeft} />
+                                </button>
+                                <span>{currentPage}</span>
+                                {/* Xử lý sự kiện trang tiếp theo */}
+                                <button onClick={handleNextPage} disabled={currentPage === totalPages}>
+                                    <FontAwesomeIcon icon={faChevronRight} />
+                                </button>
+                            </div>
+                        </div>
 
-                        </Row>
-                    </Container>
-                </div>
-                <div className="pagination">
-                    {/* Xử lý sự kiện trang trước */}
-                    <button onClick={handlePreviousPage} disabled={currentPage === 1}>
-                        <FontAwesomeIcon icon={faChevronLeft} />
-                    </button>
-                    <span>{currentPage}</span>
-                    {/* Xử lý sự kiện trang tiếp theo */}
-                    <button onClick={handleNextPage} disabled={currentPage === totalPages}>
-                        <FontAwesomeIcon icon={faChevronRight} />
-                    </button>
-                </div>
-            </div>
+                    </div>
 
-        </div>
+
+                </Col>
+            </Row>
+
+        </Container>
+
 
 
     )

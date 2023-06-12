@@ -40,24 +40,11 @@ const ProductCard = (props) => {
     };
 
     return (
-        // <div className="product__item d-flex flex-column justify-content-between mt-5">
-        //     <div className="product__content">
-        //         <img className="product__img w-50" src={image} alt="Bird" />
-        //         <h5>
-        //             <Link to={`/bird/${productId}`}>{name}</Link>
-        //         </h5>
-        //     </div>
-        //     <div className="d-flex flex-column align-items-center justify-content-between">
-        //         <span className="product__price mb-2">{price} $ </span>
-        //         <button className="addTOCART__btn" onClick={addToCart}>
-        //             Add to Cart
-        //         </button>
-        //     </div>
-        // </div>
-        <div className="product-tag card">
+
+        <div className="product-tag card mt-3">
             <img src={thumbnail} alt="Product Image" className="card-img-top" />
             <div className="card-body">
-                <h3 className="card-title"><Link to={`/shop/${productId}`}>{productName}</Link></h3>
+                <div className="card-title"><Link to={`/shop/${productId}`}>{productName}</Link></div>
                 <p className="card-text">
                     {soldPrice && (
                         <span className="original-price">Price: {soldPrice}$ </span>

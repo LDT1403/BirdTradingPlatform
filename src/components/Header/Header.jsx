@@ -103,7 +103,7 @@ const Header = () => {
                             <div className="profile__actions" ref={profileActionRef} onClick={toggleProfileActions}>
                                 {user.UserId ? (
                                     <div className="d-flex align-items-center justify-content-center flex-column">
-                                        <Link to="/logout">Account</Link>
+                                        <Link to="/registerShop">Register Shop</Link>
                                         <Link to="/logout">Logout</Link>
                                     </div>
                                 ) : (
