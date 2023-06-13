@@ -1,13 +1,52 @@
-import { configureStore } from '@reduxjs/toolkit';
+import { combineReducers, configureStore } from '@reduxjs/toolkit';
 import authReducer from './authSilce';
 import cartReducer from './cartSlice';
 import cartUiSlice from '../../store/shopping-cart/cartUiSlice';
+import {
+    persistStore,
+    persistReducer,
+    FLUSH,
+    REHYDRATE,
+    PAUSE,
+    PERSIST,
+    PURGE,
+    REGISTER,
+} from 'redux-persist';
+import storage from 'redux-persist/lib/storage';
 
 
-export default configureStore({
-    reducer: {
-        auth: authReducer,
-        cart: cartReducer,
-        cartUi: cartUiSlice.reducer,
-    }
+const persistConfig = {
+    key: 'root',
+    version: 1,
+    storage,
+}
+
+const rootReducer = combineReducers({
+    auth: authReducer, cart: cartReducer,
+    cartUi: cartUiSlice.reducer,
+});
+
+const persistedReducer = persistReducer(persistConfig, rootReducer);
+
+export const store = configureStore({
+    reducer: persistedReducer,
+    middleware: (getDefaultMiddleware) =>
+        getDefaultMiddleware({
+            serializableCheck: {
+                ignoredActions: [FLUSH,
+                    REHYDRATE,
+                    PAUSE,
+                    PERSIST,
+                    PURGE,
+                    REGISTER],
+            },
+        }),
 })
+
+export let persistor = persistStore(store);
+
+// export default configureStore({
+//     reducer: {
+
+//     }
+// })

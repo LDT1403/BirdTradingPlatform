@@ -8,25 +8,20 @@ import { useDispatch } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
 
 
+
 const Register = () => {
 
     const inputRef = useRef({});
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
-    // const [registerInfo, setRegisterInfo] = useState({
-    //     fullname: "",
-    //     email: "",
-    //     role: "",
-    //     password: "",
-    //     confirmPassword: "",
-    // });
 
     const [email, setEmail] = useState('');
     const [fullName, setFullName] = useState('');
     const [role, setRole] = useState('CUS');
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
+    const [gender, setGender] = useState('');
 
 
 
@@ -67,16 +62,8 @@ const Register = () => {
         //     password,
         //     confirmPassword,
         // } = registerInfo;
-        console.log(role)
 
-        const newUser = {
-            email: email,
-            name: fullName,
-            roleId: role,
-            password: password
-        }
 
-        registerUser(newUser, dispatch, navigate);
 
 
         if (!email) {
@@ -104,10 +91,10 @@ const Register = () => {
         }
 
         // Role
-        if (!role) {
-            inputRef.current["role"].className = "input-box error";
-            return;
-        }
+        // if (!role) {
+        //     inputRef.current["role"].className = "input-box error";
+        //     return;
+        // }
 
 
         // validate password
@@ -130,6 +117,19 @@ const Register = () => {
             toast.error("Mật khẩu nhập lại không chính xác");
             return;
         }
+        if (!gender) {
+            inputRef.current["isValidGender"].innerText = "Chọn giới tính của bạn";
+            return;
+        }
+        const newUser = {
+            email: email,
+            name: fullName,
+            password: password,
+            gender: gender,
+        }
+        console.log(newUser);
+
+        registerUser(newUser, dispatch, navigate);
 
     }
 
@@ -138,6 +138,9 @@ const Register = () => {
             e.target.className = "input-box error";
         } else {
             e.target.className = "input-box";
+        }
+        if (e.target.checked) {
+            inputRef.current["isValidGender"].innerText = "";
         }
     };
 
@@ -151,6 +154,15 @@ const Register = () => {
             }
         }
     };
+
+    const hanldeCheckEmptyCheckBox = (e) => {
+        if (e.target.value) {
+            inputRef.current["isValidGender"].innerText = "";
+        }
+    };
+    const handleGenderChange = (e) => {
+        setGender(e.target.checked ? e.target.value : '');
+    };
     return (
         <Helmet title="Signup">
             {/* <CommonSection title="Signup" /> */}
@@ -158,7 +170,7 @@ const Register = () => {
                 <div className="Register-body animate__animated animate__fadeInDown">
                     <div className="form-body">
                         <div className="form-content">
-                            <h2>Register</h2>
+                            <h2 className="text-center">Register</h2>
 
                             <div className="form-group mt-3">
                                 <span>Email (*)</span>
@@ -205,7 +217,7 @@ const Register = () => {
                                     className="errorAlert mt-2"
                                 ></span>
                             </div>
-                            <div className="form-group mt-3">
+                            {/* <div className="form-group mt-3">
                                 <span>Role (*)</span>
                                 <select name="role"
                                     className="input-box"
@@ -227,7 +239,7 @@ const Register = () => {
                                     <option value={'SP'}>Shop</option>
                                 </select>
 
-                            </div>
+                            </div> */}
                             <div className="form-group mt-3">
                                 <span>Password (*)</span>
                                 <input
@@ -282,7 +294,67 @@ const Register = () => {
                                     className="errorAlert mt-2"
                                 ></span>
                             </div>
-                            <button className="btn-register" onClick={handleRegister}>
+
+                            <div className="form-group mt-3">
+                                <span>Gender (*)</span>
+                                <div className="sex">
+                                    <div className="checkbox-group">
+                                        <input
+                                            // className="form-check-input"
+                                            type="radio"
+                                            name="gender"
+                                            id="flexRadioDefault1"
+                                            value="male"
+                                            // required
+                                            ref={(element) => {
+                                                inputRef.current["male"] = element;
+                                            }}
+                                            checked={gender === "male"}
+                                            onChange={handleGenderChange}
+                                            onInput={(e) => {
+                                                hanldeCheckEmptyCheckBox(e);
+                                            }}
+                                        />
+                                        <label
+                                            className="form-check-label"
+                                            htmlFor="flexRadioDefault1"
+                                        >
+                                            Male
+                                        </label>
+                                    </div>
+                                    <div className="checkbox-group">
+                                        <input
+                                            type="radio"
+                                            name="gender"
+                                            id="flexRadioDefault1"
+                                            value="female"
+                                            ref={(element) => {
+                                                inputRef.current["female"] = element;
+                                            }}
+                                            checked={gender === "female"}
+                                            onChange={handleGenderChange}
+                                            onInput={(e) => {
+                                                hanldeCheckEmptyCheckBox(e);
+                                            }}
+                                        />
+                                        <label
+                                            className="form-check-label"
+                                            htmlFor="flexRadioDefault1"
+                                        >
+                                            Female
+                                        </label>
+                                    </div>
+                                </div>
+                                <center>
+                                    <span
+                                        ref={(element) => {
+                                            inputRef.current["isValidGender"] = element;
+                                        }}
+                                        className="errorAlert mt-2"
+                                    ></span>
+                                </center>
+                            </div>
+                            <button className="btn-register mt-3" onClick={handleRegister}>
                                 Register
                             </button>
                             <div className="sign-up mt-3">

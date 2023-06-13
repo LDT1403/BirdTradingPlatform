@@ -1,18 +1,28 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import '../../../style/registerShop.css';
 import "animate.css";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 const RegisterShop = () => {
     const [shopName, setShopName] = useState('');
     const [address, setAddress] = useState('');
     const [phoneNumber, setPhoneNumber] = useState('');
-
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
     const handleSubmit = (e) => {
         e.preventDefault();
         // Xử lý logic khi form được gửi đi (gửi dữ liệu lên máy chủ, lưu vào cơ sở dữ liệu, v.v.)
-        console.log('Shop Name:', shopName);
-        console.log('Address:', address);
-        console.log('Phone Number:', phoneNumber);
+        // console.log('Shop Name:', shopName);
+        // console.log('Address:', address);
+        // console.log('Phone Number:', phoneNumber);
+
+        const newShoper = {
+            shopName: shopName,
+            address: address,
+            phoneNumber: phoneNumber,
+        }
+
     }
     return (
         <div className="contains mb-5 mt-5">

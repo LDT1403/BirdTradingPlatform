@@ -4,17 +4,21 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { Provider } from 'react-redux';
-import store from './pages/redux/store';
+// import store from './pages/redux/store';
 // import store from './store/store';
 import { BrowserRouter as Router, Route } from 'react-router-dom'
 import "bootstrap/dist/css/bootstrap.css";
 import "remixicon/fonts/remixicon.css";
+import { PersistGate } from 'redux-persist/integration/react';
+import { persistor, store } from './pages/redux/store';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <Router>
     <Provider store={store}>
-      <App />
+      <PersistGate loading={null} persistor={persistor}>
+        <App />
+      </PersistGate>
     </Provider>
   </Router>
 

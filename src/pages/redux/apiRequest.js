@@ -40,8 +40,9 @@ function saveTokenToLocalStorage(token) {
 export const registerUser = async (user, dispatch, navigate) => {
     dispatch(registerStart());
     try {
-        await axios.post("https://localhost:7067/api/User/Register", user);
         console.log("sfdfs")
+        await axios.post("https://localhost:7241/api/User/Register", user);
+
         dispatch(registerSuccess());
 
         navigate("/login");
