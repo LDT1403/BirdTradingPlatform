@@ -50,18 +50,18 @@ const cartSlice = createSlice({
                     productId: newItem.productId,
                     productName: newItem.productName,
                     thumbnail: newItem.thumbnail,
-                    price: newItem.price,
+                    soldPrice: newItem.soldPrice,
                     quantity: 1,
-                    totalPrice: newItem.price,
+                    totalPrice: newItem.soldPrice,
                 });
             } else {
                 existingItem.quantity++;
                 existingItem.totalPrice =
-                    Number(existingItem.totalPrice) + Number(newItem.price);
+                    Number(existingItem.totalPrice) + Number(newItem.soldPrice);
             }
 
             state.totalAmount = state.cartItems.reduce(
-                (total, item) => total + Number(item.price) * Number(item.quantity), 0
+                (total, item) => total + Number(item.soldPrice) * Number(item.quantity), 0
 
             );
 
@@ -87,10 +87,10 @@ const cartSlice = createSlice({
             else {
                 existingItem.quantity--
                 existingItem.totalPrice = Number(existingItem.totalPrice) - Number
-                    (existingItem.price)
+                    (existingItem.soldPrice)
             }
             state.totalAmount = state.cartItems.reduce((total, item) => (
-                total + Number(item.price) * Number(item.quantity)
+                total + Number(item.soldPrice) * Number(item.quantity)
 
             ), 0);
 
@@ -111,7 +111,7 @@ const cartSlice = createSlice({
                 state.totalQuantity = state.totalQuantity - existingItem.quantity
             }
             state.totalAmount = state.cartItems.reduce((total, item) => (
-                total + Number(item.price) * Number(item.quantity)
+                total + Number(item.soldPrice) * Number(item.quantity)
 
             ), 0);
             setItemFunc(

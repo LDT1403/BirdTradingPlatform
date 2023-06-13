@@ -28,11 +28,13 @@
     background: #fde4e4;
     padding: 2px 5px;
     border-radius: 5px;
+    height: 30px;
 }
 
 .increase__btn,
 .decrease__btn {
     cursor: pointer;
+
 }
 
 .delete__btn {

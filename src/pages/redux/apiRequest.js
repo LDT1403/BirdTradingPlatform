@@ -1,5 +1,5 @@
 import axios from "axios";
-import { loginFailed, loginStart, loginSuccess, registerFailed, registerStart, registerSuccess } from "./authSilce";
+import { loginFailed, loginStart, loginSuccess, registerFailed, registerStart, registerSuccess, logoutFailed, logoutStart, logoutSuccess } from "./authSilce";
 import { toast } from 'react-toastify';
 import jwt_decode from "jwt-decode";
 // import { getBirdsFailed, getBirdsSuccess, getBridsStart } from "./birdSlice";
@@ -15,11 +15,10 @@ export const loginUser = async (user, dispatch, navigate) => {
         const token = jwt_decode(res.data.data.accessToken);
         dispatch(loginSuccess(token));
         saveTokenToLocalStorage(res.data.data.accessToken);
-        toast.success("Login Success");
         navigate("/");
 
     } catch (err) {
-        dispatch(loginFailed);
+        dispatch(loginFailed());
         toast.error("Sai Email hoac Password");
     }
 };
@@ -49,8 +48,26 @@ export const registerUser = async (user, dispatch, navigate) => {
 
     } catch (err) {
         console.log("err")
-        dispatch(registerFailed);
+        dispatch(registerFailed());
 
     }
 }
 
+
+export const logOut = async (dispatch, navigate, accessToken) => {
+    dispatch(logoutStart());
+    try {
+        console.log("dddf")
+        await axios.post("https://localhost:7241/api/Author/logout", {
+            headers: { token: `Bearer ${accessToken}` }
+        });
+        dispatch(logoutSuccess());
+        localStorage.removeItem('jwtToken');
+        navigate("/home");
+    } catch (err) {
+        console.log("err")
+        dispatch(logoutFailed());
+
+    }
+
+}

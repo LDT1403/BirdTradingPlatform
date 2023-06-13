@@ -18,7 +18,6 @@ const Register = () => {
 
     const [email, setEmail] = useState('');
     const [fullName, setFullName] = useState('');
-    const [role, setRole] = useState('CUS');
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
     const [gender, setGender] = useState('');

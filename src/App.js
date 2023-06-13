@@ -10,7 +10,22 @@ import Layout from './components/Layout/Layout';
 
 function App() {
   return (
-    <Layout />
+    <>
+      <Layout />
+      {/* <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+      /> */}
+    </>
+
     // <div className="App">
     //   <header className="App-header">
     //     <Router>

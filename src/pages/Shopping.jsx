@@ -18,7 +18,7 @@ export default function Shopping() {
 
 
     useEffect(() => {
-        axios.get('https://localhost:7241/api/Products/Product_ShopId?shopId=1')
+        axios.get('https://localhost:7241/api/Products/All_Product')
             .then(res => {
                 setProductsData(res.data);
                 const uniqueCategories = Array.from(

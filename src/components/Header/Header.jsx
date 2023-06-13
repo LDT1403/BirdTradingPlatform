@@ -1,10 +1,11 @@
 import React, { useRef, useEffect, useState } from "react"
 import { Container } from "reactstrap";
 import logo from '../../assets/images/logo bird.png';
-import { NavLink, Link } from "react-router-dom";
+import { NavLink, Link, useNavigate } from "react-router-dom";
 import '../../style/header.css'
 import { useDispatch, useSelector } from "react-redux";
 import { cartUiActions } from "../../store/shopping-cart/cartUiSlice";
+import { logOut } from "../../pages/redux/apiRequest";
 
 
 const nav__links = [
@@ -31,13 +32,19 @@ const Header = () => {
     const headerRef = useRef(null);
     const dispatch = useDispatch();
     const user = useSelector((state) => state.auth.login.currentUser);
-    console.log(user);
     const toggleMenu = () => menuRef.current.classList.toggle("show__menu");
     const totalQuantity = useSelector(state => state.cart.totalQuantity);
 
     const toggleCart = () => {
         dispatch(cartUiActions.toggle());
     };
+    const navigate = useNavigate();
+    const accessToken = localStorage.getItem('jwtToken');
+    const handleLogOut = () => {
+        logOut(dispatch, navigate, accessToken);
+    }
+
+
 
     const profileActionRef = useRef(null);
 
@@ -104,7 +111,7 @@ const Header = () => {
                                 {user.UserId ? (
                                     <div className="d-flex align-items-center justify-content-center flex-column">
                                         <Link to="/registerShop">Register Shop</Link>
-                                        <Link to="/logout">Logout</Link>
+                                        <Link to="/logout" onClick={handleLogOut}>Logout</Link>
                                     </div>
                                 ) : (
                                     <Link to='/login'>Login

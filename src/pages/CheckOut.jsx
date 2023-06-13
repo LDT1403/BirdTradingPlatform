@@ -3,6 +3,7 @@ import { useSelector } from "react-redux";
 import { Container, Row, Col } from "reactstrap";
 import Helmet from "../components/Helmet/Helmet";
 import '../style/checkout.css';
+import VnPay from "../components/UI/product-card/VnPay";
 
 const CheckOut = () => {
 
@@ -113,16 +114,9 @@ const CheckOut = () => {
                                                 <option value="PayPal">PayPal</option>
                                             </select>
                                         </label>
-                                        {/* {paymentMethod === 'PayPal' && (
-                                            <PayPalButton
-                                                amount={/* Tổng số tiền cần thanh toán */}
-                                        {/* onSuccess={handlePayPalPayment}
-                                                options={{
-                                                    // Cấu hình PayPal
-                                                    clientId: 'YOUR_PAYPAL_CLIENT_ID',
-                                                }}
-                                            />
-                                        )} */}
+                                        {paymentMethod === 'PayPal' && (
+                                            <VnPay />
+                                        )}
                                     </div>
                                     <button className="checkout-button" type="submit">Đặt hàng</button>
                                 </form>

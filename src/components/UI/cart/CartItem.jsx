@@ -5,7 +5,7 @@ import { useDispatch } from "react-redux";
 import { cartActions } from "../../../pages/redux/cartSlice";
 
 const CartItem = ({ item }) => {
-    const { productId, productName, thumbnail, price, quantity, totalPrice } = item || {}
+    const { productId, productName, thumbnail, soldPrice, quantity, totalPrice } = item || {}
 
     const dispatch = useDispatch()
 
@@ -13,7 +13,7 @@ const CartItem = ({ item }) => {
         dispatch(cartActions.addItem({
             productId,
             productName,
-            price,
+            soldPrice,
             thumbnail
         }))
     }
@@ -31,11 +31,11 @@ const CartItem = ({ item }) => {
                 <div className="cart__product-info w-100 d-flex align-items-center gap-4 justify-content-between">
                     <div>
                         <h6 className="cart__product-title">{productName}</h6>
-                        <p className="d-flex align-items-center gap-5 cart__product-price">{quantity}x <span>{totalPrice}$</span></p>
+                        <p className="d-flex align-items-center  gap-5 cart__product-price">{quantity}x <span>{totalPrice}$</span></p>
                         <div className="d-flex align-items-center justify-content-between
                          increase__decrease-btn">
                             <span className="increase__btn" onClick={incrementItem}><i className="ri-add-line"></i></span>
-                            <span className="quantity">{quantity}</span>
+                            <span className="quantity justify-content-center">{quantity}</span>
                             <span className="decrease__btn" onClick={decrementItem}><i className="ri-subtract-line"></i></span>
 
                         </div>
