@@ -4,7 +4,10 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { Provider } from 'react-redux';
+
 // import store from './pages/redux/store';
+// import store from './pages/redux/store';
+import ScrollToTop from './routes/ScrollToTop';
 // import store from './store/store';
 import { BrowserRouter as Router, Route } from 'react-router-dom'
 import "bootstrap/dist/css/bootstrap.css";
@@ -16,9 +19,13 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <Router>
     <Provider store={store}>
+
       <PersistGate loading={null} persistor={persistor}>
         <App />
+        <ScrollToTop />
       </PersistGate>
+
+      <App />
     </Provider>
   </Router>
 

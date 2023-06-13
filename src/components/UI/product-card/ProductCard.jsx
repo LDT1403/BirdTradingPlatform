@@ -6,9 +6,11 @@ import { Link } from "react-router-dom";
 
 
 const ProductCard = (props) => {
+    
     const { productId, productName, thumbnail, price, quantitySold, rate, soldPrice, discountPercent } = props.item;
+    console.log(productId);
     const dispatch = useDispatch();
-
+    const handleProductClick = props.handleProductClick;
 
 
     const addToCart = () => {
@@ -18,6 +20,7 @@ const ProductCard = (props) => {
                 productName,
                 thumbnail,
                 price,
+                
             })
 
         );
@@ -40,31 +43,33 @@ const ProductCard = (props) => {
     };
 
     return (
-
-        <div className="product-tag card mt-3">
+        <div className="product-tag card" onClick={handleProductClick}>
+        <Link to={`/shop/${productId}`} className="productDetail">
             <img src={thumbnail} alt="Product Image" className="card-img-top" />
-            <div className="card-body">
-                <div className="card-title"><Link to={`/shop/${productId}`}>{productName}</Link></div>
-                <p className="card-text">
-                    {soldPrice && (
-                        <span className="original-price">Price: {soldPrice}$ </span>
-                    )}
-                    <br />
-                    <span className="discount-price">Sale Price: <span className="discount-price-color">{price}$</span></span><br />
-                    <span className="rate">Rating: {renderRating()}</span><br />
-                    <span className="quantity-sold">Quantity Sold: {quantitySold}</span>
-                    {discountPercent && (
-                        <span className="discount-badge">{discountPercent}%</span>
-                    )}
+        </Link>
 
-                    <div className="text-center mt-2">
-                        <button className="addTOCART__btn" onClick={addToCart}>
-                            Add to Cart
-                        </button>
-                    </div>
-                </p>
-            </div>
+        <div className="card-body">
+            <div className="card-title"><Link to={`/shop/${productId}`}>{productName}</Link></div>
+            <p className="card-text">
+                {soldPrice && (
+                    <span className="original-price">Price: {soldPrice}$ </span>
+                )}
+                <br />
+                <span className="discount-price">Sale Price: <span className="discount-price-color">{price}$</span></span><br />
+                <span className="rate">{rate} {renderRating()}</span><br />
+                <span className="quantity-sold">Quantity Sold: {quantitySold}</span>
+                {discountPercent && (
+                    <span className="discount-badge">{discountPercent}%</span>
+                )}
+
+                <div className="text-center mt-2">
+                    <button className="addTOCART__btn" onClick={addToCart}>
+                        Add to Cart
+                    </button>
+                </div>
+            </p>
         </div>
+    </div>
     );
 };
 
