@@ -67,7 +67,10 @@
 } */
 
 .product-tag {
+    padding: 0;
     position: relative;
+    width: 105%;
+    margin-bottom: 10px;
 }
 
 .product-tag .discount-badge {
@@ -85,14 +88,14 @@
     width: 100%;
     height: 200px;
     object-fit: cover;
-    border-radius: 5px;
+    border-radius-bottom: 5px;
     transition: 0.4s;
 }
 
 
-.card-img-top:hover {
+/* .card-img-top:hover {
     transform: scale(1.03);
-}
+} */
 
 
 .product-tag.card {
@@ -112,7 +115,7 @@
 
 
 .card-title {
-    font-size: 18px;
+    font-size: 15px;
     font-weight: bold;
     margin-bottom: 10px;
 

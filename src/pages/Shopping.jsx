@@ -18,7 +18,7 @@ export default function Shopping() {
 
 
     useEffect(() => {
-        axios.get('https://localhost:7241/api/Products/Hot_Product')
+        axios.get('https://localhost:7241/api/Products/Product_ShopId?shopId=1')
             .then(res => {
                 setProductsData(res.data);
                 const uniqueCategories = Array.from(
@@ -77,7 +77,7 @@ export default function Shopping() {
         }
     };
 
-    const productsPerPage = 8;
+    const productsPerPage = 12;
     const totalProducts = filteredProducts?.length;
     const totalPages = Math.ceil(totalProducts / productsPerPage);
     const startIndex = (currentPage - 1) * productsPerPage;
@@ -89,7 +89,7 @@ export default function Shopping() {
     return (
         <Container className="mt-5">
             <Row>
-                <Col lg='3' md='3'>
+                <Col lg='2' md='4'>
                     <div className="shopContainer">
                         <div className="shopCate">
                             <div className="cate">
@@ -117,7 +117,7 @@ export default function Shopping() {
                     </div>
                 </Col>
 
-                <Col lg='9' md='9' >
+                <Col lg='10' md='10' >
                     <div className="Shopping">
                         <div className="product">
                             <div className="productList">
