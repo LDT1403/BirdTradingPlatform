@@ -1,6 +1,7 @@
 import React from "react";
 import { useEffect, useState } from 'react';
 import axios from "axios";
+import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { cartActions } from "./redux/cartSlice";
 import { useParams } from "react-router-dom";
@@ -10,64 +11,53 @@ import ProductCard from "../components/UI/product-card/ProductCard";
 import '../style/shop-detail.css';
 
 
-
 const ShopDetail = () => {
     const id = useParams();
     const [productsData, setProductsData] = useState([]);
-    const [dataProduct, setData] = useState([]);
+    const [infoShop, setInfoShop] = useState([]);
+    const [details, setDetails] = useState([]);
     const [refreshPage, setRefreshPage] = useState(0);
     const scrollToTopRef = useRef(null);
-
+    const [ListImg, setListImg] = useState([]);
+    const [selectedImage, setSelectedImage] = useState();
     useEffect(() => {
         window.scrollTo({ top: 0, behavior: 'smooth' });
         axios.get(`https://localhost:7241/api/Products/detail_product?id=${id.id}`)
-            .then(res => {
-                setData(res.data);
-
+            .then(resp => {
+                setDetails(resp.data);
+                axios.get(`https://localhost:7241/api/Products/Shop_Detail_Product?id=${resp.data.shopId}`)
+                    .then(responseShop => {
+                        setInfoShop(responseShop.data)
+                    })
+                axios.get(`https://localhost:7241/api/Products/List_Image_ProductID?productId=${resp.data.productId}`)
+                    .then(res => {
+                        setSelectedImage(res.data[0])
+                        setListImg(res.data)
+                    })
+                axios.get(`https://localhost:7241/api/Products/Product_ShopId?shopId=${resp.data.shopId}`)
+                    .then(resp => {
+                        const maxProducts = resp.data.slice(0, 8); // Lấy tối đa 10 sản phẩm
+                        setProductsData(maxProducts);
+                    })
             })
-
             .catch(err => {
                 console.log(err)
             })
-
     }, [refreshPage]);
+
+
     const handleProductClick = () => {
-        // Cập nhật giá trị biến state để kích hoạt useEffect và load lại trang
         setRefreshPage(prevCount => prevCount + 1);
     };
-    const details = {
-        id: dataProduct.productId,
-        cateName: "Phụ kiện cho chim",
-        name: dataProduct.name,
-        decription: dataProduct.decription,
-        detail: dataProduct.detail,
-        quantity: 2,
-        quantitySold: dataProduct.quantitySold,
-        price: dataProduct.price,
-        soldPrice: 2000,
-        rate: dataProduct.rate,
-        discountPercent: "20",
-        thumbnail: "https://th.bing.com/th/id/OIP.IVXF78pv_P7FeH199El99wHaHa?pid=ImgDet&rs=1",
-        image: [
-            "https://th.bing.com/th/id/OIP.IVXF78pv_P7FeH199El99wHaHa?pid=ImgDet&rs=1",
-            "https://cf.shopee.vn/file/59e2c691601487c692dea145cf3433b2",
-            "https://cf.shopee.vn/file/927bf619bd9b3c4de3ab764e5317f8a8",
-            "https://cf.shopee.vn/file/262b61bc7babfe00afb78d10ca72c682_tn",
-            "https://cf.shopee.vn/file/5a8d5a63ccc3776a3488f9377a716887_tn"
-        ],
-        shopId: dataProduct.shopId,
-        shopName: "ShopHoangDuong",
-        shopImg: "https://scontent.fsgn2-4.fna.fbcdn.net/v/t39.30808-6/337174354_585248473539778_6125410582784034143_n.jpg?_nc_cat=101&ccb=1-7&_nc_sid=174925&_nc_ohc=FK-uBoFD6WUAX8dogc-&_nc_ht=scontent.fsgn2-4.fna&oh=00_AfAXX9HUGbzC-fN98QALjPBfX0_-I9WWLUZkOWx7jKqPzQ&oe=648B3AEE",
-        shopDateCre: "22/5/2023",
-        shopRate: 5,
-    }
+
+
     const dispatch = useDispatch();
     const addToCart = () => {
         dispatch(
             cartActions.addItem({
-                productId: details.id,
-                productName: details.name,
-                thumbnail: details.thumbnail,
+                productId: details.productId,
+                productName: details.productName,
+                thumbnail: details.images[0],
                 price: details.soldPrice,
             })
 
@@ -109,7 +99,7 @@ const ShopDetail = () => {
 
     const totalFeedback = countFeedback(feedback);
 
-    const [selectedImage, setSelectedImage] = useState(details.image[0]);
+
     const handleThumbnailClick = (image) => {
         setSelectedImage(image);
     };
@@ -150,7 +140,7 @@ const ShopDetail = () => {
     const [galleryIndex, setGalleryIndex] = useState(0);
 
     const handleNextClick = () => {
-        if (galleryIndex < details.image.length - 4) {
+        if (galleryIndex < ListImg.length - 4) {
             setGalleryIndex(galleryIndex + 1);
         }
     };
@@ -227,7 +217,8 @@ const ShopDetail = () => {
 
                         </div>
                         <div className="gallery">
-                            {details.image.slice(galleryIndex, galleryIndex + 4).map((image, index) => (
+                            {ListImg.slice(galleryIndex, galleryIndex + 4).map((image, index) => (
+                                console.log(image),
                                 <img
                                     key={index}
                                     src={image}
@@ -237,7 +228,7 @@ const ShopDetail = () => {
                                 />
                             ))}
                         </div>
-                        <div className={`gallery-next ${galleryIndex >= details.image.length - 4 ? "disabled" : ""}`} onClick={handleNextClick}>
+                        <div className={`gallery-next ${galleryIndex >= ListImg.length - 4 ? "disabled" : ""}`} onClick={handleNextClick}>
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
                                 <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
                             </svg>
@@ -249,7 +240,7 @@ const ShopDetail = () => {
                 </div>
                 <div className="viewInfor">
                     <div className="infor">
-                        <div className="decription">{details.decription}</div>
+                        <div className="decription">{details.productName}</div>
                         <div className="productRate">
                             <div className="rate-detail">
                                 <div className="num-rate">{details.rate}</div>
@@ -266,10 +257,15 @@ const ShopDetail = () => {
                         </div>
                     </div>
                     <div className="viewPrice">
-                        <div className="price">{details.price} </div>
+                        {details.discountPercent !== 0 && (
+                            <div className="price">{details.price}</div>
+                        )}
                         <div className="soldPrice">{details.soldPrice}</div>
-                        <div className="discount">{details.discountPercent}% Sale </div>
+                        {details.discountPercent !== 0 && (
+                            <div className="discount">{details.discountPercent}% Sale</div>
+                        )}
                     </div>
+
                     {/* select quantity */}
                     <div className="quantity">
                         <div className="quantityText">Quantity</div>
@@ -301,32 +297,64 @@ const ShopDetail = () => {
 
             {/* Shop infomationg */}
             <div className="Shop-info">
-                <div className="shopImg"><img src={details.shopImg} alt="" /></div>
+                <Link to={`/viewShop/${infoShop.shopId}`} className="shopImg">
+                    <img src={infoShop.avatar} alt="" />
+                </Link>
+
                 <div className="shop-1">
-                    <div className="shopName">
-                        {details.shopName}
+                    <div className="shop-Name">
+                      
+                            {infoShop.shopName}
+                       
+
                     </div>
                     <div className="shopButton">
-                        <button className="viewShop">
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="iconShop">
-                                <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 21v-7.5a.75.75 0 01.75-.75h3a.75.75 0 01.75.75V21m-4.5 0H2.36m11.14 0H18m0 0h3.64m-1.39 0V9.349m-16.5 11.65V9.35m0 0a3.001 3.001 0 003.75-.615A2.993 2.993 0 009.75 9.75c.896 0 1.7-.393 2.25-1.016a2.993 2.993 0 002.25 1.016c.896 0 1.7-.393 2.25-1.016a3.001 3.001 0 003.75.614m-16.5 0a3.004 3.004 0 01-.621-4.72L4.318 3.44A1.5 1.5 0 015.378 3h13.243a1.5 1.5 0 011.06.44l1.19 1.189a3 3 0 01-.621 4.72m-13.5 8.65h3.75a.75.75 0 00.75-.75V13.5a.75.75 0 00-.75-.75H6.75a.75.75 0 00-.75.75v3.75c0 .415.336.75.75.75z" />
-                            </svg>
+                        <Link to={`/viewShop/${infoShop.shopId}`}>
+                            <button className="viewShop">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="iconShop">
+                                    <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 21v-7.5a.75.75 0 01.75-.75h3a.75.75 0 01.75.75V21m-4.5 0H2.36m11.14 0H18m0 0h3.64m-1.39 0V9.349m-16.5 11.65V9.35m0 0a3.001 3.001 0 003.75-.615A2.993 2.993 0 009.75 9.75c.896 0 1.7-.393 2.25-1.016a2.993 2.993 0 002.25 1.016c.896 0 1.7-.393 2.25-1.016a3.001 3.001 0 003.75.614m-16.5 0a3.004 3.004 0 01-.621-4.72L4.318 3.44A1.5 1.5 0 015.378 3h13.243a1.5 1.5 0 011.06.44l1.19 1.189a3 3 0 01-.621 4.72m-13.5 8.65h3.75a.75.75 0 00.75-.75V13.5a.75.75 0 00-.75-.75H6.75a.75.75 0 00-.75.75v3.75c0 .415.336.75.75.75z" />
+                                </svg>
 
-                            View Shop
-                        </button>
+                                <div>View shop</div>
+                            </button>
+                        </Link>
+                    </div>
+                </div>
+                <div className="shopInfo-details">
+                    <div className="shopInfo-detail-info">
+                        <div className="detail-name">Evaluate </div>
+                        <div className="detail-value">{infoShop.rate} </div>
+                    </div>
+                    <div className="shopInfo-detail-info">
+                        <div className="detail-name">Total Products </div>
+                        <div className="detail-value">{infoShop.totalProduct} </div>
+                    </div>
+                </div>
+                <div className="shopInfo-details">
+                    <div className="shopInfo-detail-info">
+                        <div className="detail-name">Participation date</div>
+                        <div className="detail-value">"" </div>
+                    </div>
+                    <div className="shopInfo-detail-info">
+                        <div className="detail-name">Address</div>
+                        <div className="detail-value">{infoShop.address} </div>
                     </div>
                 </div>
             </div>
             {/* Product Description */}
             <div className="description-product">
                 <div className="description-text">
-                    Product Description:
+                    Product Detail:
                 </div>
                 <div className="description-value">
                     {details && details.detail && formatDescriptionValue(details.detail)}
                 </div>
-
-
+                <div className="description-text">
+                    Product Description:
+                </div>
+                <div className="description-value">
+                    {details && details.decription && formatDescriptionValue(details.decription)}
+                </div>
             </div>
             {/* Feeback Product */}
             <div class="feedback-product">
@@ -388,14 +416,6 @@ const ShopDetail = () => {
 
             </div>
         </div>
-
-
-
-
-
-
-
-
     )
 }
 
