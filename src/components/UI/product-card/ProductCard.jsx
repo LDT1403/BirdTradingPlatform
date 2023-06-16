@@ -51,7 +51,7 @@ const ProductCard = (props) => {
             <div className="card-body">
                 <div className="card-title"><Link to={`/shop/${productId}`}>{productName}</Link></div>
                 <p className="card-text">
-                    {price && (
+                    {discountPercent !== 0 && (
                         <span className="original-price">Price: {price}$ </span>
                     )}
                     <br />
