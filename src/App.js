@@ -6,6 +6,7 @@
 
 
 import Layout from './components/Layout/Layout';
+import HomeShop from './pageShop/HomeShop';
 
 
 function App() {

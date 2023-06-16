@@ -3,6 +3,7 @@ import { ListGroupItem } from "reactstrap";
 import "../../../style/cart-item.css";
 import { useDispatch } from "react-redux";
 import { cartActions } from "../../../pages/redux/cartSlice";
+import { Link } from "react-router-dom";
 
 const CartItem = ({ item }) => {
     const { productId, productName, thumbnail, soldPrice, quantity, totalPrice } = item || {}
@@ -27,7 +28,8 @@ const CartItem = ({ item }) => {
     return (
         <ListGroupItem className="border-0 cart__item">
             <div className="cart__item-info d-flex gap-2">
-                <img src={thumbnail} alt="product-img" />
+                <Link to={`/shop/${productId}`}>
+                    <img src={thumbnail} alt="product-img" /></Link>
                 <div className="cart__product-info w-100 d-flex align-items-center gap-4 justify-content-between">
                     <div>
                         <h6 className="cart__product-title">{productName}</h6>

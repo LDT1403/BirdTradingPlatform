@@ -271,12 +271,12 @@ const ShopDetail = () => {
                         <div className="discount">{details.discountPercent}% Sale </div>
                     </div>
                     {/* select quantity */}
-                    <div className="quantity">
+                    <div className="quantityDetail">
                         <div className="quantityText">Quantity</div>
-                        <div className="quantitySelect">
-                            <button className="buttonSelect" onClick={decreaseQuantity}>-</button>
+                        <div className="quantity-Select">
+                            <button className="button-Select" onClick={decreaseQuantity}>-</button>
                             <input type="text" value={quantity} readOnly />
-                            <button className="buttonSelect" onClick={increaseQuantity}>+</button>
+                            <button className="button-Select" onClick={increaseQuantity}>+</button>
                         </div>
                         <div className="quantityText">{details.quantity} products available</div>
                     </div>

@@ -1,11 +1,13 @@
 import React, { useRef, useEffect, useState } from "react"
 import { Container } from "reactstrap";
 import logo from '../../assets/images/logo bird.png';
+import logo1 from '../../assets/images/Food.png';
 import { NavLink, Link, useNavigate } from "react-router-dom";
 import '../../style/header.css'
 import { useDispatch, useSelector } from "react-redux";
 import { cartUiActions } from "../../store/shopping-cart/cartUiSlice";
 import { logOut } from "../../pages/redux/apiRequest";
+import HomeShop from "../../pageShop/HomeShop";
 
 
 const nav__links = [
@@ -44,6 +46,8 @@ const Header = () => {
         logOut(dispatch, navigate, accessToken);
     }
 
+    const isShopExist = user?.IsShop;
+
 
 
     const profileActionRef = useRef(null);
@@ -51,7 +55,7 @@ const Header = () => {
     const toggleProfileActions = () => profileActionRef.current.classList.toggle('show__profileActions');
 
     useEffect(() => {
-        window.addEventListener("scroll", () => {
+        const handleScroll = () => {
             if (
                 document.body.scrollTop > 80 ||
                 document.documentElement.scrollTop > 80
@@ -60,9 +64,13 @@ const Header = () => {
             } else {
                 headerRef.current.classList.remove("header__shrink");
             }
-        });
+        };
 
-        return () => window.removeEventListener("scroll");
+        window.addEventListener("scroll", handleScroll);
+
+        return () => {
+            window.removeEventListener("scroll", handleScroll);
+        };
     }, []);
     return (
         <header className="header" ref={headerRef}>
@@ -106,11 +114,20 @@ const Header = () => {
                             <span className="cart__badge">{totalQuantity}</span>
                         </span>
                         <div className="profile">
-                            <i className="ri-user-line" onClick={toggleProfileActions}>{user.unique_name}</i>
+                            {
+                                user.UserId ? (<div className="d-flex align-items-center justify-content-center profile__wrapper " onClick={toggleProfileActions}>
+                                    <img className="profile__image" src={user.Avatar} alt="User Profile" />
+                                    <h6 className="profile__title">{user.unique_name}</h6>
+                                </div>
+                                ) : (
+                                    <i className="ri-user-line" onClick={toggleProfileActions}>{user.unique_name}</i>
+                                )
+                            }
+                            {/* <i className="ri-user-line" onClick={toggleProfileActions}>{user.unique_name}</i> */}
                             <div className="profile__actions" ref={profileActionRef} onClick={toggleProfileActions}>
                                 {user.UserId ? (
                                     <div className="d-flex align-items-center justify-content-center flex-column">
-                                        <Link to="/registerShop">Register Shop</Link>
+                                        <Link to={isShopExist ? "/homeShop" : "/registerShop"}>My Shop</Link>
                                         <Link to="/logout" onClick={handleLogOut}>Logout</Link>
                                     </div>
                                 ) : (

@@ -2,6 +2,7 @@ import axios from "axios";
 import { loginFailed, loginStart, loginSuccess, registerFailed, registerStart, registerSuccess, logoutFailed, logoutStart, logoutSuccess } from "./authSilce";
 import { toast } from 'react-toastify';
 import jwt_decode from "jwt-decode";
+import { registerShopFailed, registerShopStart, registerShopSuccess } from "./userSlice";
 // import { getBirdsFailed, getBirdsSuccess, getBridsStart } from "./birdSlice";
 
 
@@ -58,8 +59,10 @@ export const logOut = async (dispatch, navigate, accessToken) => {
     dispatch(logoutStart());
     try {
         console.log("dddf")
-        await axios.post("https://localhost:7241/api/Author/logout", {
-            headers: { token: `Bearer ${accessToken}` }
+        await axios.post("https://localhost:7241/api/User/logout", {
+            headers: {
+                Authorization: `Bearer ${accessToken}`
+            }
         });
         dispatch(logoutSuccess());
         localStorage.removeItem('jwtToken');
@@ -70,4 +73,28 @@ export const logOut = async (dispatch, navigate, accessToken) => {
 
     }
 
+}
+
+export const registerShop = async (shop, dispatch, navigate, accessToken) => {
+    console.log(shop);
+    console.log(accessToken)
+    dispatch(registerShopStart());
+    try {
+
+        const res = await axios.post("https://localhost:7241/api/Shop/registerShop", shop, {
+            headers: {
+                Authorization: `Bearer ${accessToken}`
+            }
+        })
+        if (res.status === 200) {
+            dispatch(registerShopSuccess());
+            navigate("/homeShop");
+        }
+
+
+    } catch (err) {
+        console.log(err)
+        dispatch(registerShopFailed());
+
+    }
 }

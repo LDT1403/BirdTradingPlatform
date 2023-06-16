@@ -14,7 +14,9 @@ const authSlice = createSlice({
                 nbf: "",
                 sub: "",
                 role: "",
-                unique_name: ""
+                unique_name: "",
+                IsShop: "",
+                Avatar: "",
             },
             isFetching: false,
             error: false
@@ -73,7 +75,9 @@ const authSlice = createSlice({
                 nbf: "",
                 sub: "",
                 role: "",
-                unique_name: ""
+                unique_name: "",
+                IsShop: "",
+                Avatar: "",
             };
             state.logout.error = false;
         },

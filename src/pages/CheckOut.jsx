@@ -1,148 +1,174 @@
 import React, { useState } from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { Container, Row, Col } from "reactstrap";
 import Helmet from "../components/Helmet/Helmet";
 import '../style/checkout.css';
-import VnPay from "../components/UI/product-card/VnPay";
+import { cartActions } from "./redux/cartSlice";
 
 const CheckOut = () => {
 
-    const [name, setName] = useState('');
-    const [phone, setPhone] = useState('');
-    const [email, setEmail] = useState('');
-    const [address, setAddress] = useState('');
-    const [paymentMethod, setPaymentMethod] = useState('COD');
-
-    const handleNameChange = (e) => {
-        setName(e.target.value);
-    };
-
-    const handlePhoneChange = (e) => {
-        setPhone(e.target.value);
-    };
-
-    const handleEmailChange = (e) => {
-        setEmail(e.target.value);
-    };
-
-    const handleAddressChange = (e) => {
-        setAddress(e.target.value);
-    };
-
-    const handlePaymentMethodChange = (e) => {
-        setPaymentMethod(e.target.value);
-    };
-
-    const handleSubmit = (e) => {
+    const [checkoutInput, setCheckoutInput] = useState({
+        firstname: '',
+        lastname: '',
+        phone: '',
+        email: '',
+        address: '',
+        city: '',
+        state: '',
+        zipcode: '',
+    });
+    const handleInput = (e) => {
+        e.persist();
+        setCheckoutInput({ ...checkoutInput, [e.target.name]: e.target.value });
+    }
+    const submitOrder = (e, payment_mode) => {
         e.preventDefault();
-        // Xử lý yêu cầu đơn hàng tùy thuộc vào phương thức thanh toán (COD hoặc PayPal)
-        if (paymentMethod === 'COD') {
-            // Xử lý thanh toán COD tại đây
-            alert('Cảm ơn bạn đã đặt hàng! Đơn hàng của bạn sẽ được giao trong thời gian sớm nhất.');
-            // Reset form sau khi xử lý thanh toán thành công
-            setName('');
-            setPhone('');
-            setEmail('');
-            setAddress('');
+
+        var data = {
+            firstname: checkoutInput.firstname,
+            lastname: checkoutInput.lastname,
+            phone: checkoutInput.phone,
+            email: checkoutInput.email,
+            address: checkoutInput.address,
+            city: checkoutInput.city,
+            state: checkoutInput.state,
+            zipcode: checkoutInput.zipcode,
+            payment_mode: payment_mode,
+            payment_id: '',
         }
-        // if (paymentMethod === 'COD') {
-        //     // Xử lý thanh toán COD tại đây
-        //   } else if (paymentMethod === 'PayPal') {
-        //     // Thực hiện thanh toán PayPal
-        //   }
-    };
+    }
 
-    const shippingInfo = [];
-    const cartTotalAmount = useSelector((state) => state.cart.totalAmount);
-    const shippingCost = 30;
+    const cartItems = useSelector(state => state.cart.cartItems);
+    const totalAmount = useSelector(state => state.cart.totalAmount);
 
-    const totalAmount = cartTotalAmount + Number(shippingCost);
-
-    // const submitHandler = (e) => {
-    //     e.preventDefault();
-    //     const userShippingAddress = {
-    //         name: enterName,
-    //         email: enterEmail,
-    //         phone: enterNumber,
-    //         country: enterCountry,
-    //         city: enterCity,
-    //         postalCode: postalCode,
-    //     };
-    //     alert("SUccess")
-    //     //   shippingInfo.push(userShippingAddress);
-    //     //   console.log(shippingInfo);
-    // };
     return (
         <Helmet title="Checkout">
-            {/* <CommonSection title="Checkout" /> */}
             <section>
                 <Container>
                     <Row>
-                        <Col lg="8" md="6">
-                            <div className="checkout-container">
-                                <h2>Checkout</h2>
-                                <form className="checkout-form" onSubmit={handleSubmit}>
-                                    <div className="checkout-form-group">
-                                        <label className="checkout-label">
-                                            Họ và tên:
-                                            <input className="checkout-input" type="text" value={name} onChange={handleNameChange} />
-                                        </label>
-                                    </div>
-                                    <div className="checkout-form-group">
-                                        <label className="checkout-label">
-                                            Số điện thoại:
-                                            <input className="checkout-input" type="tel" value={phone} onChange={handlePhoneChange} />
-                                        </label>
-                                    </div>
-                                    <div className="checkout-form-group">
-                                        <label className="checkout-label">
-                                            Email:
-                                            <input className="checkout-input" type="email" value={email} onChange={handleEmailChange} />
-                                        </label>
-                                    </div>
-                                    <div className="checkout-form-group">
-                                        <label className="checkout-label">
-                                            Địa chỉ:
-                                            <textarea className="checkout-input" value={address} onChange={handleAddressChange} />
-                                        </label>
-                                    </div>
-                                    <div className="checkout-form-group">
-                                        <label className="checkout-label">
-                                            Phương thức thanh toán:
-                                            <select className="checkout-input" value={paymentMethod} onChange={handlePaymentMethodChange}>
-                                                <option value="COD">Cash on Delivery</option>
-                                                <option value="PayPal">PayPal</option>
-                                            </select>
-                                        </label>
-                                        {paymentMethod === 'PayPal' && (
-                                            <VnPay />
-                                        )}
-                                    </div>
-                                    <button className="checkout-button" type="submit">Đặt hàng</button>
-                                </form>
-                            </div>
-                        </Col>
+                        {/* <Col lg="8" md="8"> */}
+                        <div className="col-md-7">
+                            <div className="card">
+                                <div className="card-header">
+                                    <h4>Check Out</h4>
+                                </div>
+                                <div className="card-body">
 
-                        <Col lg="4" md="6">
-                            <div className="checkout__bill">
-                                <h6 className="d-flex align-items-center justify-content-between mb-3">
-                                    Subtotal: <span>${cartTotalAmount}</span>
-                                </h6>
-                                <h6 className="d-flex align-items-center justify-content-between mb-3">
-                                    Shipping: <span>${shippingCost}</span>
-                                </h6>
-                                <div className="checkout__total">
-                                    <h5 className="d-flex align-items-center justify-content-between">
-                                        Total: <span>${totalAmount}</span>
-                                    </h5>
+                                    <div className="row">
+                                        <div className="col-md-6">
+                                            <div className="form-group mb-3">
+                                                <label> First Name</label>
+                                                <input type="text" name="firstname" onChange={handleInput} value={checkoutInput.firstname} className="form-control" />
+                                                {/* <small className="text-danger">{error.firstname}</small> */}
+                                            </div>
+                                        </div>
+                                        <div className="col-md-6">
+                                            <div className="form-group mb-3">
+                                                <label> Last Name</label>
+                                                <input type="text" name="lastname" onChange={handleInput} value={checkoutInput.lastname} className="form-control" />
+                                                {/* <small className="text-danger">{error.lastname}</small> */}
+                                            </div>
+                                        </div>
+                                        <div className="col-md-6">
+                                            <div className="form-group mb-3">
+                                                <label> Phone Number</label>
+                                                <input type="number" name="phone" onChange={handleInput} value={checkoutInput.phone} className="form-control" />
+                                                {/* <small className="text-danger">{error.phone}</small> */}
+                                            </div>
+                                        </div>
+                                        <div className="col-md-6">
+                                            <div className="form-group mb-3">
+                                                <label> Email Address</label>
+                                                <input type="email" name="email" onChange={handleInput} value={checkoutInput.email} className="form-control" />
+                                                {/* <small className="text-danger">{error.email}</small> */}
+                                            </div>
+                                        </div>
+                                        <div className="col-md-12">
+                                            <div className="form-group mb-3">
+                                                <label> Full Address</label>
+                                                <textarea rows="3" name="address" onChange={handleInput} value={checkoutInput.address} className="form-control"></textarea>
+                                                {/* <small className="text-danger">{error.address}</small> */}
+                                            </div>
+                                        </div>
+                                        <div className="col-md-4">
+                                            <div className="form-group mb-3">
+                                                <label>City</label>
+                                                <input type="text" name="city" onChange={handleInput} value={checkoutInput.city} className="form-control" />
+                                                {/* <small className="text-danger">{error.city}</small> */}
+                                            </div>
+                                        </div>
+                                        <div className="col-md-4">
+                                            <div className="form-group mb-3">
+                                                <label>State</label>
+                                                <input type="text" name="state" onChange={handleInput} value={checkoutInput.state} className="form-control" />
+                                                {/* <small className="text-danger">{error.state}</small> */}
+                                            </div>
+                                        </div>
+                                        <div className="col-md-4">
+                                            <div className="form-group mb-3">
+                                                <label>Zip Code</label>
+                                                <input type="text" name="zipcode" onChange={handleInput} value={checkoutInput.zipcode} className="form-control" />
+                                                {/* <small className="text-danger">{error.zipcode}</small> */}
+                                            </div>
+                                        </div>
+                                        <div className="col-md-12">
+                                            <div className="form-group text-end">
+                                                <button type="button" className="btn btn-primary mx-1" onClick={(e) => submitOrder(e, 'cod')}>Place Order</button>
+                                                {/* <button type="button" className="btn btn-primary mx-1" onClick={(e) => submitOrder(e, 'razorpay')}>Pay by Razorpay</button>
+                                <button type="button" className="btn btn-warning mx-1" onClick={(e) => submitOrder(e, 'payonline')}>Pay Online</button> */}
+
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                        </Col>
+                        </div>
+                        {/* </Col> */}
+
+                        <div className="col-md-5">
+                            <table className="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th>Image</th>
+                                        <th width="50%">Product</th>
+                                        <th>Price</th>
+                                        <th>Qty</th>
+                                        <th>Total</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {cartItems.map((item) => (
+                                        <Tr item={item} key={item.productId} />
+                                    ))}
+                                    <tr>
+                                        <td colSpan="4" className="text-end fw-bold">Grand Total</td>
+                                        <td colSpan="3" className="text-end fw-bold">{totalAmount}$</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
                     </Row>
                 </Container>
-            </section>
-        </Helmet>
+            </section >
+        </Helmet >
     )
 }
+const Tr = (props) => {
+    const { thumbnail, productName, soldPrice, quantity } = props.item;
+    const dispatch = useDispatch();
+
+
+    return (
+        <tr>
+            <td className="text-center cart__img-box">
+                <img src={thumbnail} alt="" />
+            </td>
+            <td className="text-center">{productName}</td>
+            <td className="text-center">${soldPrice}</td>
+            <td className="text-center">{quantity}px</td>
+            <td className="text-center">{quantity * soldPrice}$</td>
+        </tr>
+    );
+};
 
 export default CheckOut;
