@@ -55,7 +55,7 @@
 
 .gallery img {
      width: 18%;
-     height:75px;
+     height: 75px;
      box-shadow: 0 0 3px 0px gray;
      margin: 10px;
 }
@@ -251,7 +251,7 @@
 }
 
 .addButton {
-    
+
      padding: 0PX 20PX;
      width: 27%;
      display: flex;
@@ -264,7 +264,7 @@
 }
 
 .orderButton {
-   
+
      padding: 0PX 20PX;
      width: 15%;
      display: flex;
@@ -272,7 +272,7 @@
      text-align: center;
      justify-content: center;
      background-color: #176eb0;
-       border: 3px solid #176eb0;
+     border: 3px solid #176eb0;
      font-size: 17px;
      color: #fff;
      font-weight: 500;
@@ -293,19 +293,24 @@
      margin-right: auto;
      background-color: #fff;
      margin-top: 20px;
-     padding: 2%;
+     padding: 1%;
 }
 
 .shopImg {
      width: 7%;
-  
+     border-radius: 2px 100% #000;
      display: flex;
      align-items: center;
      text-align: center;
      justify-content: center;
 
 }
-.shopImg img { height:70px;}
+.shopImg img {
+     width: 100%;
+     border-radius: 100%;
+     box-shadow: 0 0 3px 0px gray;
+     height: 90px;
+}
 
 .shop-1 {
      margin-left: 15px;
@@ -317,16 +322,6 @@
      margin-bottom: 15px;
 }
 
-.shopImg {
-
-     border-radius: 2px 100% #000;
-}
-
-.shopImg img {
-     width: 80%;
-     border-radius: 100%;
-     box-shadow: 0 0 3px 0px gray;
-}
 
 .shopButton {
      margin-top: 15px;
@@ -349,31 +344,35 @@
      margin-right: 5px;
 }
 
-.shopInfo-details{
+.shopInfo-details {
      width: 30%;
      align-items: center;
      justify-content: center;
-     
-    
+
+
 }
-.shopInfo-detail-info{
+
+.shopInfo-detail-info {
      display: flex;
-     padding:10px 20px;
+     padding: 10px 20px;
      color: #767a7e
 }
-.detail-name{
-width: 40%;
+
+.detail-name {
+     width: 40%;
 }
-.detail-value{
+
+.detail-value {
      width: 60%;
      padding-left: 15px;
      color: #0b61d0;
      font-size: 17px;
      font-weight: 500;
 }
+
 /* Discription Product */
 .description-product {
-    
+
      width: 1300px;
      margin-left: auto;
      margin-right: auto;
@@ -389,9 +388,10 @@ width: 40%;
      background-color: #f8f8f8;
      font-weight: 500;
 }
-.description-value{
+
+.description-value {
      white-space: pre-line;
-     
+
      padding: 5px 14px;
 }
 
@@ -501,25 +501,28 @@ width: 40%;
      width: 20%;
      /* Hiển thị ảnh đã click */
 }
-.product-reldate{
-     
+
+.product-reldate {
+
      width: 1300px;
      margin-left: auto;
      margin-right: auto;
      margin-top: 20px;
 
-     
+
 }
-.product-text{
+
+.product-text {
      background-color: #fdfdfd;
      color: #0f0f10;
      padding: 15px;
      font-size: 30px;
      font-weight: 500;
-    
+
      margin-bottom: 20px;
 }
-.product-item{
+
+.product-item {
      width: 100%;
      padding-right: 15px;
 }

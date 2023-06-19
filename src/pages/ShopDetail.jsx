@@ -12,7 +12,7 @@ import '../style/shop-detail.css';
 
 
 const ShopDetail = () => {
-    const id = useParams();
+    const idpro = useParams();
     const [productsData, setProductsData] = useState([]);
     const [infoShop, setInfoShop] = useState([]);
     const [details, setDetails] = useState([]);
@@ -20,9 +20,10 @@ const ShopDetail = () => {
     const scrollToTopRef = useRef(null);
     const [ListImg, setListImg] = useState([]);
     const [selectedImage, setSelectedImage] = useState();
+    const [quantity, setQuantity] = useState(1);
     useEffect(() => {
         window.scrollTo({ top: 0, behavior: 'smooth' });
-        axios.get(`https://localhost:7241/api/Products/detail_product?id=${id.id}`)
+        axios.get(`https://localhost:7241/api/Products/detail_product?id=${idpro.id}`)
             .then(resp => {
                 setDetails(resp.data);
                 axios.get(`https://localhost:7241/api/Products/Shop_Detail_Product?id=${resp.data.shopId}`)
@@ -58,14 +59,20 @@ const ShopDetail = () => {
                 productId: details.productId,
                 productName: details.productName,
                 thumbnail: details.images[0],
-                price: details.soldPrice,
+                soldPrice: details.soldPrice,
+                quantity: quantity
             })
-
         );
+        setQuantity(1)
     };
-    const formatDescriptionValue = (text) => {
-        return text.replace(/([A-ZĐÁÀẢẠÃĂẮẰẲẶẴÂẤẦẨẬẪÉÈẺẸẼÊẾỀỂỆỄÍÌỈỊĨÓÒỎỌÕÔỐỒỔỘỖƠỚỜỞỢỠÚÙỦỤŨƯỨỪỬỰỮÝỲỶỴỸ])/g, '-$1');
-    };
+    function formatDescriptionValue(description) {
+        if (!description) {
+            return null;
+        }
+
+        const formattedValue = description.replace(/^(.*)$/gm, ' $1');
+        return formattedValue;
+    }
 
 
     const feedback =
@@ -150,7 +157,7 @@ const ShopDetail = () => {
             setGalleryIndex(galleryIndex - 1);
         }
     };
-    const [quantity, setQuantity] = useState(1);
+    
 
     const decreaseQuantity = () => {
         if (quantity > 1) {
@@ -258,9 +265,9 @@ const ShopDetail = () => {
                     </div>
                     <div className="viewPrice">
                         {details.discountPercent !== 0 && (
-                            <div className="price">{details.price}</div>
+                            <div className="price">{details.price}$</div>
                         )}
-                        <div className="soldPrice">{details.soldPrice}</div>
+                        <div className="soldPrice">{details.soldPrice}$</div>
                         {details.discountPercent !== 0 && (
                             <div className="discount">{details.discountPercent}% Sale</div>
                         )}
@@ -287,7 +294,7 @@ const ShopDetail = () => {
                         </button>
 
                         <button className="orderButton">
-                            Order
+                            Buy
                         </button>
 
                     </div>
@@ -303,9 +310,9 @@ const ShopDetail = () => {
 
                 <div className="shop-1">
                     <div className="shop-Name">
-                      
-                            {infoShop.shopName}
-                       
+
+                        {infoShop.shopName}
+
 
                     </div>
                     <div className="shopButton">
