@@ -16,12 +16,12 @@ function NavBar() {
                         {user ? (
                             <>
                                 <li className="nav-item"><span className="nav-link active"> {user.token} </span> </li>
-                                <li className="nav-item"><Link to="/logout" class="nav-link active" > Logout</Link></li>
+                                <li className="nav-item"><Link to="/logout" className="nav-link active" > Logout</Link></li>
                             </>
                         ) : (
                             <>
                                 <li className="nav-item"><Link to="/login" className="nav-link active">Login</Link></li>
-                                <li className="nav-item"><Link to="/register" class="nav-link active"> Register</Link></li>
+                                <li className="nav-item"><Link to="/register" className="nav-link active"> Register</Link></li>
                             </>
                         )
 
