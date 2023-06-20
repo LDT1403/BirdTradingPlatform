@@ -50,7 +50,7 @@ const ShopDetail = () => {
         setRefreshPage(prevCount => prevCount + 1);
     };
 
-
+    console.log(details.shopId)
     const dispatch = useDispatch();
     const addToCart = () => {
         dispatch(
@@ -59,6 +59,7 @@ const ShopDetail = () => {
                 productName: details.productName,
                 thumbnail: details.images[0],
                 price: details.soldPrice,
+                shopId: details.shopId,
             })
 
         );
@@ -303,9 +304,9 @@ const ShopDetail = () => {
 
                 <div className="shop-1">
                     <div className="shop-Name">
-                      
-                            {infoShop.shopName}
-                       
+
+                        {infoShop.shopName}
+
 
                     </div>
                     <div className="shopButton">

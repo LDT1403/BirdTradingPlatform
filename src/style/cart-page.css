@@ -11,7 +11,7 @@ th {
     width: 100%;
 }
 
-.cart__item-del i {
+.cart__item-del {
     cursor: pointer;
 }
 

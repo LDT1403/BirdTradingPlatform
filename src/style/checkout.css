@@ -19,7 +19,7 @@ label {
     border-radius: 4px;
 }
 
-.btn-primary {
+/* .btn-primary {
     background-color: #ee4d2d;
     border-color: #ee4d2d;
 }
@@ -27,7 +27,7 @@ label {
 .btn-primary:hover {
     background-color: #df3b1f;
     border-color: #df3b1f;
-}
+} */
 
 .btn-primary:focus {
     box-shadow: none;

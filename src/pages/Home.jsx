@@ -8,7 +8,6 @@ import Category from "../components/UI/category/Category";
 import '../style/home.css';
 import axios from "axios";
 import ProductCard from "../components/UI/product-card/ProductCard";
-import jwt_decode from "jwt-decode";
 
 const Home = () => {
     const [data, setData] = useState([]);
@@ -23,15 +22,8 @@ const Home = () => {
             })
     }, []);
 
-    let axiosJWT = axios.create();
-    const userToken = localStorage.getItem('jwtToken');
-    console.log(userToken);
 
-    axiosJWT.interceptors.request.use(
-        async (config) => {
-            const decodeToken = jwt_decode(userToken);
-        }
-    )
+
 
     const productsPerPage = 4;
     const [currentPage, setCurrentPage] = useState(1);

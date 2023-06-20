@@ -45,7 +45,7 @@ const cartSlice = createSlice({
 
             if (!existingItem) {
                 // ===== note: if you use just redux you should not mute state array instead of clone the state array, but if you use redux toolkit that will not a problem because redux toolkit clone the array behind the scene
-
+                console.log(newItem.shopId)
                 state.cartItems.push({
                     productId: newItem.productId,
                     productName: newItem.productName,
@@ -53,6 +53,7 @@ const cartSlice = createSlice({
                     soldPrice: newItem.soldPrice,
                     quantity: 1,
                     totalPrice: newItem.soldPrice,
+                    shopId: newItem.shopId,
                 });
             } else {
                 existingItem.quantity++;

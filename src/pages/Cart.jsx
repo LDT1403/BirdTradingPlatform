@@ -1,85 +1,57 @@
-import React from "react";
+import React, { useState } from "react";
 import Helmet from "../components/Helmet/Helmet";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import { Container, Row, Col } from "reactstrap";
-import '../style/cart-page.css';
 import { Link } from "react-router-dom";
-import { cartActions } from "./redux/cartSlice";
-
 
 const Cart = () => {
-    const cartItems = useSelector(state => state.cart.cartItems);
-    const totalAmount = useSelector(state => state.cart.totalAmount);
+    const cartItems = useSelector((state) => state.cart.cartItems);
+
     return (
         <Helmet title="Cart">
-            {/* <CommonSection title="Your Cart" /> */}
-            <section>
-                <Container>
-                    <Row>
-                        <Col lg="12">
-                            {cartItems.length === 0 ? (
-                                <h5 className="text-center">Your cart is empty</h5>
-                            ) : (
-                                <table className="table table-bordered">
-                                    <thead>
-                                        <tr className="text-center">
-                                            <th>Image</th>
-                                            <th>Product Title</th>
-                                            <th>Price</th>
-                                            <th>Quantity</th>
-                                            <th>Delete</th>
+            <Container>
+                <Row>
+                    <Col xs={12}>
+                        <h1>Cart</h1>
+                        {cartItems.length === 0 ? (
+                            <p>Your cart is empty.</p>
+                        ) : (
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Product</th>
+                                        <th>Price</th>
+                                        <th>Quantity</th>
+                                        <th>Subtotal</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {cartItems.map((item) => (
+                                        <tr key={item.productId}>
+                                            <td>
+                                                <Link to={`/product/${item.productId}`}>
+                                                    {item.productName}
+                                                </Link>
+                                            </td>
+                                            <td>{item.price}</td>
+                                            <td>{item.quantity}</td>
+                                            <td>{item.subtotal}</td>
                                         </tr>
-                                    </thead>
-                                    <tbody>
-                                        {cartItems.map((item) => (
-                                            <Tr item={item} key={item.productId} />
-                                        ))}
-                                    </tbody>
-                                </table>
-                            )}
-
-                            <div className="mt-4">
-                                <h6>
-                                    Subtotal:
-                                    <span className="cart__subtotal">{totalAmount}$</span>
-                                </h6>
-                                <p>Taxes and shipping will calculate at checkout</p>
-                                <div className="cart__page-btn">
-                                    <button className="addTOCart__btn me-4">
-                                        <Link to="/shop">Continue Shopping</Link>
-                                    </button>
-                                    <button className="addTOCart__btn">
-                                        <Link to="/checkout">Proceed to checkout</Link>
-                                    </button>
-                                </div>
-                            </div>
-                        </Col>
-                    </Row>
-                </Container>
-            </section>
+                                    ))}
+                                </tbody>
+                            </table>
+                        )}
+                    </Col>
+                </Row>
+                <Row>
+                    <Col xs={12}>
+                        <Link to="/checkout" className="btn btn-primary">
+                            Proceed to Checkout
+                        </Link>
+                    </Col>
+                </Row>
+            </Container>
         </Helmet>
-    )
-}
-
-const Tr = (props) => {
-    const { productId, thumbnail, productName, soldPrice, quantity } = props.item;
-    const dispatch = useDispatch();
-
-    const deleteItem = () => {
-        dispatch(cartActions.deleteItem(productId));
-    };
-    return (
-        <tr>
-            <td className="text-center cart__img-box">
-                <img src={thumbnail} alt="" />
-            </td>
-            <td className="text-center">{productName}</td>
-            <td className="text-center">${soldPrice}</td>
-            <td className="text-center">{quantity}px</td>
-            <td className="text-center cart__item-del">
-                <i class="ri-delete-bin-line" onClick={deleteItem}></i>
-            </td>
-        </tr>
     );
 };
 
