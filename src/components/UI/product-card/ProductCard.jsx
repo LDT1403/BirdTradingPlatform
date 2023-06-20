@@ -20,7 +20,7 @@ const ProductCard = (props) => {
                 productName,
                 thumbnail,
                 soldPrice,
-
+                quantity:1,
             })
 
         );
@@ -41,7 +41,13 @@ const ProductCard = (props) => {
 
         return stars;
     };
-
+    function truncateProductName(productName, maxLength) {
+        if (productName.length <= maxLength) {
+            return productName;
+        } else {
+            return productName.substring(0, maxLength) + '...';
+        }
+    }
     return (
         <div className="product-tag card" onClick={handleProductClick}>
             <Link to={`/shop/${productId}`} className="productDetail">
@@ -49,8 +55,12 @@ const ProductCard = (props) => {
             </Link>
 
             <div className="card-body">
-                <div className="card-title"><Link to={`/shop/${productId}`}>{productName}</Link></div>
-                <p className="card-text">
+                <div className="card-title">
+                    <Link to={`/shop/${productId}`}>
+                        {truncateProductName(productName, 24)}
+                    </Link>
+                </div>
+                <div className="card-text">
                     {discountPercent !== 0 && (
                         <span className="original-price">Price: {price}$ </span>
                     )}
@@ -67,7 +77,7 @@ const ProductCard = (props) => {
                             Add to Cart
                         </button>
                     </div>
-                </p>
+                </div>
             </div>
         </div>
     );

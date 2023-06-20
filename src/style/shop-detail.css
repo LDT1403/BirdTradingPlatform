@@ -293,7 +293,7 @@
      margin-right: auto;
      background-color: #fff;
      margin-top: 20px;
-     padding: 2%;
+     padding: 1%;
 }
 
 .shopImg {
@@ -320,16 +320,6 @@
      margin-bottom: 15px;
 }
 
-.shopImg {
-
-     border-radius: 2px 100% #000;
-}
-
-.shopImg img {
-     width: 80%;
-     border-radius: 100%;
-     box-shadow: 0 0 3px 0px gray;
-}
 
 .shopButton {
      margin-top: 15px;

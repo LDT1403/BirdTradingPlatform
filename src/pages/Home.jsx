@@ -72,8 +72,8 @@ const Home = () => {
                                 </div>
 
                                 <div className=" brid__service d-flex align-item-center gap-5 mt-5">
-                                    <p className="d-flex align-item-center gap-2"><span className="money__icon"><i class="ri-money-cny-box-line"></i></span>Many free benefits.</p>
-                                    <p className="d-flex align-item-center gap-2"><span className="money__icon"><i class="ri-shield-check-line"></i></span>100% secure checkout</p>
+                                    <p className="d-flex align-item-center gap-2"><span className="money__icon"><i className="ri-money-cny-box-line"></i></span>Many free benefits.</p>
+                                    <p className="d-flex align-item-center gap-2"><span className="money__icon"><i className="ri-shield-check-line"></i></span>100% secure checkout</p>
                                 </div>
                             </div>
                         </Col>
