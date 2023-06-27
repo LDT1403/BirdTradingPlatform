@@ -13,8 +13,9 @@ const ToPay = () => {
                }
           })
                .then((response) => {
+                    console.log(response.data)
                     const processedData = response.data.map((order) => {
-                         const { orderId,subTotal, items } = order;
+                         const { orderId, subTotal, items } = order;
                          const groupedItems = items.reduce((acc, item) => {
                               const { shopId, shopName } = item;
                               const existingShop = acc.find(
@@ -27,8 +28,9 @@ const ToPay = () => {
                               }
                               return acc;
                          }, []);
-                         return { orderId,subTotal, shops: groupedItems };
+                         return { orderId, subTotal, shops: groupedItems };
                     });
+
                     setOrderList(processedData);
                })
                .catch(error => {
@@ -52,7 +54,7 @@ const ToPay = () => {
      }
      return (
           <div>
- 
+
                {orderList.map((order, index) => (
                     <div className="toPay-list-log" key={index}>
                          <h3>{order.orderId}</h3>

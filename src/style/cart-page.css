@@ -1,82 +1,275 @@
-th {
+.Cart-page {
+     background-color: #eff5f5;
+     padding-top: 30px;
+     width: 100%;
+     padding-bottom: 70px;
+}
+
+.Cart-page-body {
+     width: 1300px;
+     margin: auto;
+
+}
+
+.Cart-page-inFor {
+     width: 100%;
+     height: 100px;
+     background-color: #fff;
+     margin: 20px 0px;
+     display: flex;
+     align-items: center;
+     padding: 20px;
+     box-shadow: 0 2px 1px 0 rgba(0, 0, 0, .05);
+}
+
+
+
+.red-input {
+     accent-color: #176eb0;
+     height: 20px;
+     /* not needed */
+     width: 20px;
+     /* not needed */
+}
+
+.cart-products-quantitytii {
+     margin: 15px;
+     display: flex;
+     align-items: center;
+     width: 16.25%;
+     font-size: 17px;
+     text-align: center;
+     justify-content: center;
+}
+
+.cart-inFor {
+     font-size: 20px;
+
+     color: #8d9292;
+}
+
+.cart-shopId {
+     background-color: #fff;
+     margin-bottom: 20px;
+     padding: 20px;
+     box-shadow: 0 2px 1px 0 rgba(0, 0, 0, .05);
+}
+
+.cart-shop-name {
+     display: flex;
+     width: 100%;
+     font-size: 25px;
+     font-weight: 500;
+     padding: 20px;
+}
+
+.cart-page-products {
+     border: 1px solid #d2d6d6;
+     padding: 0px 20px;
+}
+
+.cart-shop-products {
+     display: flex;
+     width: 90;
+     padding: 20px 0px;
+     align-items: center;
+
+}
+
+.cart-shop-products:nth-child(n+2) {
+     border-top: 1px solid #d2d6d6;
+}
+
+.cart-shop-select {
+     width: 5%;
+}
+
+.cart-products-info {
+     display: flex;
+     width: 30%;
+
+}
+
+.cart-products-info img {
+     width: 80px;
+     height: 80px;
+}
+
+.name-product-cart {
+     width: 80%;
+     padding: 5px;
+}
+
+.cart-products-num {
+
+     text-align: center;
+     width: 16.25%;
+     font-size: 17px;
+}
+
+.totalPrice-cart {
+     color: #d0011b;
+     font-size: 17px;
+}
+
+.cart-products-num button {
+     border: none;
+     font-size: 15px;
+     background-color: #fff;
+
+}
+
+.cart-products-num button:hover {
+     color: #176eb0;
+     font-weight: bold;
+
+}
+
+.cart-products-quantity {
+     margin: 15px;
+     display: flex;
+     align-items: center;
+     width: 16.25%;
+     font-size: 17px;
+     border: 1px solid #d2d6d6;
+
+}
+
+.cart-view-quantity {
+     width: 50%;
+     text-align: center;
+     font-size: 20px;
+     border-left: 1px solid #d2d6d6;
+     border-right: 1px solid #d2d6d6;
+
+}
+
+.cart-clickQuantity {
+     width: 25%;
+     text-align: center;
+     font-size: 20px;
+     border: none;
+     background-color: #fff;
+
+
+}
+
+/* CSS */
+.confirmation-modal {
+     position: fixed;
+     top: 0;
+     left: 0;
+     width: 100%;
+     height: 100%;
+     background-color: rgba(0, 0, 0, 0.5);
+     display: flex;
+     align-items: center;
+     justify-content: center;
+}
+
+.confirmation-modal-content {
+     width: 540px;
+     height: 336.39px;
+     background-color: #ffffff;
+     padding-top: 40px;
+     padding-left: 25px;
+     padding-right: 25px;
      text-align: center;
 }
 
-.cart__img-box {
-     width: 80px;
+.text-confirmation {
+     text-align: left;
+     width: 100%;
+     font-size: 27px;
+     font-weight: 500;
+     color: #176eb0;
+}
 
-     .productName-confirmation {
-          width: 100%;
-          height: 45%;
-          text-align: left;
-          margin: 40px 0px 0px;
-          font-size: 17px;
-     }
+.productName-confirmation {
+     width: 100%;
+     height: 45%;
+     text-align: left;
+     margin: 40px 0px 0px;
+     font-size: 17px;
+}
 
-     .cart__img-box img {
-          width: 100%;
-     }
+.button-confirm {
+     height: 20%;
+     width: 100%;
+     display: flex;
+     align-items: center;
+     justify-content: center;
+     text-align: center;
+}
 
-     .cart__item-del {
-          cursor: pointer;
-     }
+.button-confirm button {
+     border-radius: 3px;
+     width: 45%;
+     height: 65%;
+     border: 1px solid #d2d6d6;
+     margin-left: 2%;
 
-     .button-confirm {
-          height: 20%;
-          width: 100%;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          text-align: center;
-     }
+}
 
-     .button-confirm button {
-          border-radius: 3px;
-          width: 45%;
-          height: 65%;
-          border: 1px solid #d2d6d6;
-          margin-left: 2%;
+.button-yes-confirm {
+     margin-right: 2%;
+     color: #fff;
+     background-color: #176eb0;
+}
 
-     }
+.cart-products-totalCheckOut {
+     width: 34%;
+     margin-left: 15%;
+     padding-left: 11%
+}
 
-     .button-yes-confirm {
-          margin-right: 2%;
-          color: #fff;
-          background-color: #176eb0;
-     }
+.btn-cart-checkOut {
+     width: 100%;
+     font-size: 25px;
+     display: flex;
+     text-align: center;
+     justify-content: center;
+     align-items: center;
+     height: 50px;
+}
 
-     .cart-products-totalCheckOut {
-          width: 34%;
-          margin-left: 15%;
-          padding-left: 11%
-     }
+.btn-cart-checkOut button {
+     border-radius: 4px;
+     color: #fff;
+     align-items: center;
+     font-size: 20px;
+     width: 100%;
+     height: 100%;
+     background-color: #176eb0;
+     font-weight: 500;
+     transition: transform 0.3s ease;
+}
 
-     .btn-cart-checkOut {
-          width: 100%;
-          font-size: 25px;
-          display: flex;
-          text-align: center;
-          justify-content: center;
-          align-items: center;
-          height: 50px;
-     }
+.btn-cart-checkOut button:hover {
+     color: #fff;
+     font-weight: 500;
+     transform: scale(1.02);
+}
 
-     .btn-cart-checkOut button {
-          border-radius: 4px;
-          color: #fff;
-          align-items: center;
-          font-size: 20px;
-          width: 100%;
-          height: 100%;
-          background-color: #176eb0;
-          font-weight: 500;
-          transition: transform 0.3s ease;
-     }
+.confirm-checkout-OK {
+     width: 500px;
+     height: 250px;
+     background-color: #fff;
+     border-radius: 5px;
+     padding: 20px;
+}
 
-     @media only screen and (max-width: 768px) {
+.confirm-checkout-text {
+     height: 80%;
+     font-size: 18px;
+     padding-top: 4%;
+}
 
-          th,
-          td {
-               font-size: 0.8rem;
-          }
-     }
+.confirm-checkout-OK button {
+     border: none;
+     width: 100%;
+     height: 18%;
+     background-color: #176eb0;
+     color: #fff;
+     border-radius: 3px;
+}
