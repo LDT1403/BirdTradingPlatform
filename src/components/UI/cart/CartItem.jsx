@@ -16,11 +16,8 @@ const CartItem = ({ item }) => {
             productName,
             soldPrice,
             thumbnail,
-<<<<<<< HEAD
             quantity: 1,
-=======
-            quantity:1
->>>>>>> 97e3a9c740c9b5403ab61b70ce5d02036c2a0b23
+            quantity: 1
         }))
     }
     const decrementItem = () => {
@@ -43,7 +40,7 @@ const CartItem = ({ item }) => {
                     <img src={thumbnail} alt="product-img" /></Link>
                 <div className="cart__product-info w-100 d-flex align-items-center gap-4 justify-content-between">
                     <div>
-                        <h6 className="cart__product-title">{truncateName(productName,25)}</h6>
+                        <h6 className="cart__product-title">{truncateName(productName, 25)}</h6>
                         <p className="d-flex align-items-center  gap-5 cart__product-price">{quantity}x <span>{soldPrice}$</span></p>
                         {/* <div className="d-flex align-items-center justify-content-between
                          increase__decrease-btn">
