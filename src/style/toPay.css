@@ -1,0 +1,125 @@
+.toPay-list-log {
+     margin: auto;
+     width: 1300px;
+     margin-bottom: 15px;
+     background-color: #fff;
+}
+
+.toPay-body-product {
+     width: 100%;
+     margin-bottom: 20px;
+}
+
+.toPay-body-product {
+     width: 100%;
+     margin-bottom: 20px;
+}
+
+.toPay-log-shop {
+     background-color: #fff;
+}
+
+.toPay-nameShop-log {
+     display: flex;
+     width: 40%;
+     align-items: center;
+     color: #176eb0;
+
+}
+
+.toPay-nameShop {
+     display: flex;
+     padding: 10px 15px;
+     align-items: center;
+     font-size: 20px;
+     font-weight: 500;
+     border-bottom: 1px solid #8d9292;
+}
+
+.iconShop-log-toPay {
+     width: 20px;
+     height: 20px;
+     margin-right: 5px;
+}
+
+.toPay-Product-text {
+     width: 60%;
+     display: flex;
+     justify-content: end;
+}
+
+.toPay-subitem-text {
+     display: flex;
+     color: #8d9292;
+     justify-content: center;
+     align-items: center;
+     width: 30%;
+}
+
+.toPay-product {
+     padding: 10px 15px;
+     width: 100%;
+     display: flex;
+}
+
+.toPay-product img {
+     width: 90px;
+     height: 90px;
+     margin-right: 10px;
+}
+
+.toPay-ProductName {
+     width: 35%;
+     font-size: 18px;
+     font-weight: 500;
+}
+
+.toPay-Product-price {
+     width: 60%;
+     display: flex;
+     justify-content: end;
+     text-align: right;
+}
+
+.toPay-name {
+     width: 100%;
+     padding: 2px;
+}
+
+.toPay-quantity {
+     width: 100%;
+     padding: 2px;
+     display: flex;
+}
+
+.toPay-num {
+     font-size: 15px;
+     width: 15%;
+     color: #828686;
+}
+
+.toPay-numSoldPrice {
+     width: 15%;
+     display: flex;
+     font-size: 16px;
+     font-weight: 500;
+     color: #a30c39;
+}
+
+.toPay-list-button {
+     display: flex;
+     justify-content: end;
+     align-items: center;
+     padding:10px 20px;
+}
+
+.toPay-list-button button {
+     border: none;
+     display: flex;
+    align-items: center;
+     background-color: #176eb0;
+     color: #fff;
+     padding:7px 20px;
+     border-radius: 4px;
+     margin-right: 4%;
+}

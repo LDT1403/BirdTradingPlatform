@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import '../../../style/search-product.css';
 export const SearchProduct = ({ handleSearchQuery, placeholder }) => {
-     console.log(placeholder);
      const [sear, setSearch] = useState("");
      const handleSearch = (e) => {
           setSearch(e.target.value);
@@ -13,7 +12,7 @@ export const SearchProduct = ({ handleSearchQuery, placeholder }) => {
           if (event.key === 'Enter') {
                handleSearchButton();
           }
-        };
+     };
      return (
           <div className="searchBox">
                <div className="search-input">

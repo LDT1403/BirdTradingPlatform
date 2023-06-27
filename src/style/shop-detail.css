@@ -1,6 +1,6 @@
 .shopDetail {
      padding: 30px;
-     background-color: #eff0f5;
+     background-color: #eff5f5;
 }
 
 .detail-product {
@@ -9,6 +9,7 @@
      margin-left: auto;
      margin-right: auto;
      background-color: #fff;
+     box-shadow: 0 2px 1px 0 rgba(0,0,0,.05);
 
 }
 
@@ -151,7 +152,7 @@
 .viewPrice {
      width: 100%;
      display: flex;
-     background-color: #eff0f5;
+     background-color: #eff5f5;
      padding: 15px 20px;
      margin-top: 15px;
 }
@@ -250,7 +251,7 @@
 
 }
 
-.addButton {
+/* .addButton {
 
      padding: 0PX 20PX;
      width: 27%;
@@ -263,10 +264,44 @@
      margin-right: 15px;
 }
 
+.addButton:focus {
+     background-color: rgb(233, 235, 236);
+} */
+.addButton {
+     padding: 0 20px;
+     width: 27%;
+     display: flex;
+     align-items: center;
+     background-color: rgb(210, 229, 239);
+     font-size: 17px;
+     color: #176eb0;
+     border: 1.5px solid #176eb0;
+     margin-right: 15px;
+     transition: background-color 0.3s ease;
+}
+
+.addButton:active {
+     animation: buttonClickEffect 0.5s;
+}
+
+@keyframes buttonClickEffect {
+     0% {
+          background-color:  #92c0e3;
+     }
+
+     50% {
+          background-color: #92c0e3;
+     }
+
+     100% {
+          background-color: rgb(210, 229, 239);
+     }
+}
+
 .orderButton {
 
      padding: 0PX 20PX;
-     width: 15%;
+     
      display: flex;
      align-items: center;
      text-align: center;
@@ -288,7 +323,7 @@
 .Shop-info {
      display: flex;
      width: 1300px;
-     /* height: 133px; */
+     box-shadow: 0 2px 1px 0 rgba(0,0,0,.05);
      margin-left: auto;
      margin-right: auto;
      background-color: #fff;
@@ -298,7 +333,7 @@
 
 .shopImg {
      width: 7%;
-
+     border-radius: 2px 100% #000;
      display: flex;
      align-items: center;
      text-align: center;
@@ -307,7 +342,10 @@
 }
 
 .shopImg img {
-     height: 70px;
+     width: 100%;
+     border-radius: 100%;
+     box-shadow: 0 0 3px 0px gray;
+     height: 90px;
 }
 
 .shop-1 {
@@ -370,7 +408,7 @@
 
 /* Discription Product */
 .description-product {
-
+     box-shadow: 0 2px 1px 0 rgba(0,0,0,.05);
      width: 1300px;
      margin-left: auto;
      margin-right: auto;
@@ -380,11 +418,13 @@
 }
 
 .description-text {
+     
      width: 100%;
      font-size: 18px;
      padding: 5px 14px;
      background-color: #f8f8f8;
      font-weight: 500;
+     box-shadow: 0 2px 1px 0 rgba(0,0,0,.05);
 }
 
 .description-value {
@@ -401,12 +441,13 @@
      background-color: #fff;
      margin-top: 20px;
      padding: 2.5%;
+     box-shadow: 0 2px 1px 0 rgba(0,0,0,.05);
 }
 
 .feedback-top {
      width: 1200px;
      padding: 2.5%;
-     background-color: #eff0f5;
+     background-color:#eff5f5;
 
 }
 

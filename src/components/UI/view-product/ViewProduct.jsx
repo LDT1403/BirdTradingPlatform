@@ -10,7 +10,6 @@ import ProductCard from "../product-card/ProductCard"
 import '../../../style/view-product.css';
 
 const ViewProduct = (api) => {
-  console.log(api);
   const [productsData, setProductsData] = useState([]);
   const [categories, setCategories] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
@@ -122,7 +121,6 @@ const ViewProduct = (api) => {
       setMaxPricee(e.target.value);
     }
   };
-  console.log(minPricee)
   const applyPriceRange = () => {
     setMinPrice(minPricee);
     setMaxPrice(maxPricee);
