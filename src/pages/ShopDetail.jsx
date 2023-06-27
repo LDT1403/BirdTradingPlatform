@@ -1,7 +1,7 @@
 import React from "react";
 import { useEffect, useState } from 'react';
 import axios from "axios";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { cartActions } from "./redux/cartSlice";
 import { useParams } from "react-router-dom";
@@ -12,18 +12,22 @@ import '../style/shop-detail.css';
 
 
 const ShopDetail = () => {
-    const id = useParams();
+    const idpro = useParams();
     const [productsData, setProductsData] = useState([]);
     const [infoShop, setInfoShop] = useState([]);
     const [details, setDetails] = useState([]);
     const [refreshPage, setRefreshPage] = useState(0);
     const scrollToTopRef = useRef(null);
+    const [listImageDetail, setlistImageDetail] = useState([]);
+    const navigate = useNavigate();
     const [ListImg, setListImg] = useState([]);
     const [selectedImage, setSelectedImage] = useState();
+    const [quantity, setQuantity] = useState(1);
     useEffect(() => {
         window.scrollTo({ top: 0, behavior: 'smooth' });
-        axios.get(`https://localhost:7241/api/Products/detail_product?id=${id.id}`)
+        axios.get(`https://localhost:7241/api/Products/detail_product?id=${idpro.id}`)
             .then(resp => {
+                // setListImg(resp.data.images)
                 setDetails(resp.data);
                 axios.get(`https://localhost:7241/api/Products/Shop_Detail_Product?id=${resp.data.shopId}`)
                     .then(responseShop => {
@@ -50,6 +54,7 @@ const ShopDetail = () => {
         setRefreshPage(prevCount => prevCount + 1);
     };
 
+
     const dispatch = useDispatch();
     const addToCart = () => {
         dispatch(
@@ -57,15 +62,22 @@ const ShopDetail = () => {
                 productId: details.productId,
                 productName: details.productName,
                 thumbnail: details.images[0],
-                price: details.soldPrice,
+                soldPrice: details.soldPrice,
+                quantity: quantity,
                 shopId: details.shopId,
+                shopName: infoShop.shopName
             })
-
         );
+        setQuantity(1)
     };
-    const formatDescriptionValue = (text) => {
-        return text.replace(/([A-ZĐÁÀẢẠÃĂẮẰẲẶẴÂẤẦẨẬẪÉÈẺẸẼÊẾỀỂỆỄÍÌỈỊĨÓÒỎỌÕÔỐỒỔỘỖƠỚỜỞỢỠÚÙỦỤŨƯỨỪỬỰỮÝỲỶỴỸ])/g, '-$1');
-    };
+    function formatDescriptionValue(description) {
+        if (!description) {
+            return null;
+        }
+
+        const formattedValue = description.replace(/^(.*)$/gm, ' $1');
+        return formattedValue;
+    }
 
 
     const feedback =
@@ -86,6 +98,7 @@ const ShopDetail = () => {
                 feedbackText: "Hàng ngon vãi ",
                 rate_fb: 4,
                 image_fb: [
+
                     "https://cf.shopee.vn/file/59e2c691601487c692dea145cf3433b2",
                     "https://cf.shopee.vn/file/927bf619bd9b3c4de3ab764e5317f8a8",
 
@@ -150,7 +163,7 @@ const ShopDetail = () => {
             setGalleryIndex(galleryIndex - 1);
         }
     };
-    const [quantity, setQuantity] = useState(1);
+
 
     const decreaseQuantity = () => {
         if (quantity > 1) {
@@ -198,8 +211,24 @@ const ShopDetail = () => {
             });
         }
     };
+    const orderSelect = {
+        [details.productId]: {
+            shopId: infoShop.shopId,
+            shopName: infoShop.shopName,
+            productId: details.productId,
+            productName: details.productName,
+            thumbnail: ListImg[0],
+            quantity: quantity,
+            soldPrice: details.soldPrice,
+            totalPrice: quantity * details.soldPrice
+        }
+    }
+
+    const handleBuyNow = () => {
+        navigate("/checkout", { state: { orderSelect } });
 
 
+    }
     return (
 
         <div className="shopDetail" ref={scrollToTopRef} >
@@ -218,7 +247,6 @@ const ShopDetail = () => {
                         </div>
                         <div className="gallery">
                             {ListImg.slice(galleryIndex, galleryIndex + 4).map((image, index) => (
-                                console.log(image),
                                 <img
                                     key={index}
                                     src={image}
@@ -258,21 +286,21 @@ const ShopDetail = () => {
                     </div>
                     <div className="viewPrice">
                         {details.discountPercent !== 0 && (
-                            <div className="price">{details.price}</div>
+                            <div className="price">{details.price}$</div>
                         )}
-                        <div className="soldPrice">{details.soldPrice}</div>
+                        <div className="soldPrice">{details.soldPrice}$</div>
                         {details.discountPercent !== 0 && (
                             <div className="discount">{details.discountPercent}% Sale</div>
                         )}
                     </div>
 
                     {/* select quantity */}
-                    <div className="quantityDetail">
+                    <div className="quantity">
                         <div className="quantityText">Quantity</div>
-                        <div className="quantity-Select">
-                            <button className="button-Select" onClick={decreaseQuantity}>-</button>
+                        <div className="quantitySelect">
+                            <button className="buttonSelect" onClick={decreaseQuantity}>-</button>
                             <input type="text" value={quantity} readOnly />
-                            <button className="button-Select" onClick={increaseQuantity}>+</button>
+                            <button className="buttonSelect" onClick={increaseQuantity}>+</button>
                         </div>
                         <div className="quantityText">{details.quantity} products available</div>
                     </div>
@@ -286,8 +314,8 @@ const ShopDetail = () => {
                             Add to Cart
                         </button>
 
-                        <button className="orderButton">
-                            Order
+                        <button className="orderButton" onClick={handleBuyNow}>
+                            Buy Now
                         </button>
 
                     </div>

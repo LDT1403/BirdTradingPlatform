@@ -25,31 +25,31 @@ const Footer = () => {
                     </Col>
                     <Col lg="3" md="4" sm="6">
                         <h5 className="footer__title mb-3">Delivery Time</h5>
-                        <ListGroup className="delivery__time_list">
-                            <ListGroupItem className="delivery__time-item border-0 ps-0">
+                        <div className="delivery__time_list">
+                            <div className="delivery__time-item border-0 ">
                                 <span>Friday - Tuesday</span>
                                 <p>10:00am - 11:00pm</p>
-                            </ListGroupItem>
-                            <ListGroupItem className="delivery__time-item border-0 ps-0">
+                            </div>
+                            <div className="delivery__time-item border-0 ">
                                 <span>Wednesday - Thursday</span>
                                 <p>Off day</p>
-                            </ListGroupItem>
-                        </ListGroup>
+                            </div>
+                        </div>
                     </Col>
 
                     <Col lg="3" md="4" sm="6">
                         <h5 className="footer__title">Contact</h5>
                         <ListGroup>
 
-                            <ListGroupItem className="delivery__time-item border-0 ps-0">
+                            <div className="delivery__time-item border-0 ps-0">
                                 <p> hadfaikjj ádfafdshjajkjafsdf
                                     sadfasfafj dsadsa
                                 </p>
                                 <span>Phone: 03977337051</span>
-                            </ListGroupItem>
-                            <ListGroupItem className="delivery__time-item border-0 ps-0">
+                            </div>
+                            <div className="delivery__time-item border-0 ps-0">
                                 <span>Email: example@gmail.com</span>
-                            </ListGroupItem>
+                            </div>
                         </ListGroup>
                     </Col>
 
@@ -76,8 +76,6 @@ const Footer = () => {
                         <div className="social__links d-flex align-items-center gap-4 justify-content-end">
                             <p className="m-0">Follow: </p>
                             <span>
-
-
                                 <Link to="https://www.facebook.com/profile.php?id=100017088730777">
                                     <i className="ri-facebook-line"></i></Link>
 

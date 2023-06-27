@@ -7,7 +7,7 @@ import { Link } from "react-router-dom";
 
 const ProductCard = (props) => {
 
-    const { productId, productName, thumbnail, price, quantitySold, rate, soldPrice, discountPercent, shopId, shopName } = props.item;
+    const { productId, productName, thumbnail, price, quantitySold, rate, soldPrice, discountPercent } = props.item;
     console.log(productId);
     const dispatch = useDispatch();
     const handleProductClick = props.handleProductClick;

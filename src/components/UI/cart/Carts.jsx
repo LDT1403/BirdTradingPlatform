@@ -9,7 +9,7 @@ import { cartUiActions } from "../../../store/shopping-cart/cartUiSlice";
 const Carts = () => {
     const dispatch = useDispatch();
     const cartProducts = useSelector(state => state.cart.cartItems)
-    const totalAmount = useSelector(state => state.cart.totalAmount)
+    const totalAmount = useSelector(state => state.cart.totalQuantity)
     const toggleCart = () => {
         dispatch(cartUiActions.toggle())
     }
@@ -33,8 +33,8 @@ const Carts = () => {
                 </div>
 
                 <div className="cart__bottom d-flex align-items-center justify-content-between">
-                    <h6>Subtotal amount: <span>${totalAmount}</span></h6>
-                    <button className="cart__bottom-btn"><Link to="/checkout">CheckOut</Link></button>
+                   
+                    <button className="cart__bottom-btn"><Link to="/cart">View My Shopping Cart</Link></button>
                 </div>
             </ListGroup>
 

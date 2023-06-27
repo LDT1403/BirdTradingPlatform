@@ -41,25 +41,25 @@ const cartSlice = createSlice({
             const existingItem = state.cartItems.find(
                 (item) => item.productId === newItem.productId
             );
-            state.totalQuantity++;
+
 
             if (!existingItem) {
                 // ===== note: if you use just redux you should not mute state array instead of clone the state array, but if you use redux toolkit that will not a problem because redux toolkit clone the array behind the scene
-                console.log(newItem.shopId)
+                state.totalQuantity++;
                 state.cartItems.push({
                     productId: newItem.productId,
                     productName: newItem.productName,
                     thumbnail: newItem.thumbnail,
                     soldPrice: newItem.soldPrice,
-                    quantity: 1,
-                    totalPrice: newItem.soldPrice,
+                    quantity: newItem.quantity,
+                    totalPrice: newItem.soldPrice * newItem.quantity,
                     shopId: newItem.shopId,
-                    shopName: newItem.shopName,
                 });
+
             } else {
-                existingItem.quantity++;
-                existingItem.totalPrice =
-                    Number(existingItem.totalPrice) + Number(newItem.soldPrice);
+                existingItem.quantity = Number(existingItem.quantity) + Number(newItem.quantity);
+                existingItem.totalPrice = Number(existingItem.totalPrice) + (Number(newItem.quantity) * Number(existingItem.soldPrice));
+
             }
 
             state.totalAmount = state.cartItems.reduce(
@@ -81,10 +81,10 @@ const cartSlice = createSlice({
         removeItem(state, action) {
             const productId = action.payload
             const existingItem = state.cartItems.find(item => item.productId === productId)
-            state.totalQuantity--
+
 
             if (existingItem.quantity === 1) {
-                state.cartItems = state.cartItems.filter(item => item.productId !== productId)
+
             }
             else {
                 existingItem.quantity--
@@ -109,8 +109,9 @@ const cartSlice = createSlice({
             const existingItem = state.cartItems.find(item => item.productId === productId)
 
             if (existingItem) {
+
                 state.cartItems = state.cartItems.filter(item => item.productId !== productId)
-                state.totalQuantity = state.totalQuantity - existingItem.quantity
+                state.totalQuantity--;
             }
             state.totalAmount = state.cartItems.reduce((total, item) => (
                 total + Number(item.soldPrice) * Number(item.quantity)
@@ -123,10 +124,41 @@ const cartSlice = createSlice({
             );
 
 
-        }
+        },
+        // ...
+
+        deleteMultipleItems(state, action) {
+            const productIds = action.payload;
+
+            // Kiểm tra từng productId
+            productIds.forEach(productId => {
+                // Tìm vị trí của sản phẩm trong mảng cartItems
+                const index = state.cartItems.findIndex(item => item.productId === productId);
+
+                // Nếu sản phẩm tồn tại, xóa nó khỏi mảng
+                if (index !== -1) {
+                    state.cartItems.splice(index, 1);
+                    state.totalQuantity--;
+                }
+            });
+
+            // Cập nhật tổng giá trị
+            state.totalAmount = state.cartItems.reduce(
+                (total, item) => total + Number(item.soldPrice) * Number(item.quantity),
+                0
+            );
+
+            setItemFunc(
+                state.cartItems.map(item => item),
+                state.totalAmount,
+                state.totalQuantity
+            );
+        },
+
+        // ...
 
 
-    },
+    }
 });
 
 export const cartActions = cartSlice.actions;

@@ -1,0 +1,31 @@
+.MyPurchase-page {
+     width: 100%;
+     background-color: aliceblue;
+   
+     padding: 20px 0px ;
+}
+
+.MyPurchase-log-cate {
+     margin: auto;
+     width: 1300px;
+     background-color: #fff;
+     display: flex;
+     margin-bottom: 15px;
+}
+
+.MyPurchase-cate {
+     padding: 10px 25px;
+     color: #535c5d;
+     font-size: 18px;
+     font-weight: 500;
+     cursor: pointer;
+
+}
+
+.MyPurchase-cate.active {
+     border-bottom: 1px solid rgb(0, 195, 255);
+}
+
+.MyPurchase-log-Item{
+    margin: auto;
+}
