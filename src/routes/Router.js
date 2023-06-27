@@ -11,6 +11,8 @@ import Register from "../pages/Register";
 import Login from "../pages/Login";
 import { useSelector } from "react-redux";
 import RegisterShop from "../components/UI/authUi/RegisterShop";
+import OrderStatus from "../pages/OrderStatus";
+import MyPurchase from "../pages/MyPurchase";
 
 const Router = () => {
     const user = useSelector((state) => state.auth.login.currentUser);
@@ -27,6 +29,8 @@ const Router = () => {
             <Route path="/register" element={<Register />} />
             <Route path="/contact" element={<Contact />} />
             <Route path="/registerShop" element={<RegisterShop />} />
+            <Route path="/orderStatus" element={<OrderStatus />} />
+            <Route path="/MyPurchase" element={<MyPurchase />} />
 
         </Routes>
     )
