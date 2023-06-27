@@ -6,7 +6,7 @@ import { cartActions } from "../../../pages/redux/cartSlice";
 import { Link } from "react-router-dom";
 
 const CartItem = ({ item }) => {
-    const { productId, productName, thumbnail, soldPrice, quantity, totalPrice } = item
+    const { productId, productName, thumbnail, soldPrice, quantity, totalPrice } = item || {}
 
     const dispatch = useDispatch()
 
@@ -15,7 +15,8 @@ const CartItem = ({ item }) => {
             productId,
             productName,
             soldPrice,
-            thumbnail
+            thumbnail,
+            quantity: 1,
         }))
     }
     const decrementItem = () => {

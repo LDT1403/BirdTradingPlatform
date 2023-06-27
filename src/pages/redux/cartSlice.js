@@ -54,6 +54,7 @@ const cartSlice = createSlice({
                     quantity: 1,
                     totalPrice: newItem.soldPrice,
                     shopId: newItem.shopId,
+                    shopName: newItem.shopName,
                 });
             } else {
                 existingItem.quantity++;

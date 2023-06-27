@@ -6,7 +6,10 @@ import Router from "../../routes/Router";
 import Carts from "../UI/cart/Carts";
 import { useSelector } from "react-redux";
 import { useLocation } from 'react-router-dom';
-import HomeShop from "../../pageShop/HomeShop";
+// import HomeShop from "../../pageShop/HomeShop";
+import RouteShop from "../../routes/RouterShop";
+import { useParams } from 'react-router-dom';
+
 
 
 const Layout = () => {
@@ -15,23 +18,49 @@ const Layout = () => {
     useEffect(() => {
         console.log(location.pathname);
     }, []);
+
+    // const { productId } = useParams();
+    // console.log(productId)
+    const getProductIdFromPath = (pathname) => {
+        const regex = /\/product\/(\d+)\/edit/; // Mẫu tìm kiếm để lấy productId từ đường dẫn
+        const match = pathname.match(regex);
+        if (match && match[1]) {
+            return match[1]; // Trả về giá trị productId từ match
+        }
+        return null; // Nếu không tìm thấy, trả về null hoặc giá trị mặc định khác
+    };
+
+    const productId = getProductIdFromPath(location.pathname); // Gọi hàm với đường dẫn cần trích xuất
+
+    console.log(productId); // Kết quả: "57"
+
+
+
+    const pathName = [
+        '/manageshop',
+        '/products',
+        '/addproduct',
+        '/category',
+        `/product/${productId}/edit`,
+    ]
+
     return (
         <div>
+
+            {pathName.includes(location.pathname) ? <></> : <Header />}
+
             {
-                location.pathname === '/homeShop' ? <HomeShop /> : <>
-                    <Header />
-                    {
-                        showCart &&
-                        <Carts />
-                    }
-
-
-                    <div>
-                        <Router />
-                    </div>
-                    <Footer />
-                </>
+                showCart &&
+                <Carts />
             }
+
+
+            <div>
+                <Router />
+            </div>
+            {pathName.includes(location.pathname) ? <></> : <Footer />}
+
+
 
 
         </div>

@@ -45,8 +45,9 @@ const Header = () => {
     const handleLogOut = () => {
         logOut(dispatch, navigate, accessToken);
     }
-
-    const isShopExist = user?.IsShop;
+    console.log(user)
+    const isShopExist = user?.IsShop === 'True';
+    console.log(isShopExist);
 
 
 
@@ -60,9 +61,9 @@ const Header = () => {
                 document.body.scrollTop > 80 ||
                 document.documentElement.scrollTop > 80
             ) {
-                headerRef.current.classList.add("header__shrink");
+                headerRef.current?.classList.add("header__shrink");
             } else {
-                headerRef.current.classList.remove("header__shrink");
+                headerRef.current?.classList.remove("header__shrink");
             }
         };
 
@@ -78,7 +79,7 @@ const Header = () => {
                 <div className="nav__wrapper d-flex align-items-center justify-content-between">
                     <div className="logo" >
                         <Link to='/home'><img src={logo} alt="logo" /></Link>
-                        <h5>Brid Trading</h5>
+                        <h5>Bird Trading</h5>
                     </div>
                     {/* ======= menu ======= */}
                     <div className="navigation" ref={menuRef} onClick={toggleMenu}>
@@ -127,7 +128,7 @@ const Header = () => {
                             <div className="profile__actions" ref={profileActionRef} onClick={toggleProfileActions}>
                                 {user.UserId ? (
                                     <div className="d-flex align-items-center justify-content-center flex-column">
-                                        <Link to={isShopExist ? "/homeShop" : "/registerShop"}>My Shop</Link>
+                                        <Link to={isShopExist ? "/manageshop" : "/registerShop"}>My Shop</Link>
                                         <Link to="/logout" onClick={handleLogOut}>Logout</Link>
                                     </div>
                                 ) : (
