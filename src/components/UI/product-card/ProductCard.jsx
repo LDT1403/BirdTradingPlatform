@@ -7,10 +7,11 @@ import { Link } from "react-router-dom";
 
 const ProductCard = (props) => {
 
-    const { productId, productName, thumbnail, price, quantitySold, rate, soldPrice, discountPercent } = props.item;
+    const { productId, productName, thumbnail, price, quantitySold, rate, soldPrice, discountPercent, shopId, shopName } = props.item;
+    console.log(productId);
     const dispatch = useDispatch();
     const handleProductClick = props.handleProductClick;
-
+    console.log(shopName)
 
     const addToCart = () => {
         dispatch(
@@ -19,7 +20,10 @@ const ProductCard = (props) => {
                 productName,
                 thumbnail,
                 soldPrice,
-                quantity:1,
+                quantity: 1,
+                shopId,
+                shopName,
+
             })
 
         );

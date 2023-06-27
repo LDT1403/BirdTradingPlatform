@@ -7,23 +7,22 @@ const userSlice = createSlice({
         registerShop: {
             isFetching: false,
             error: false,
-            success: false,
+            currentShop: { roleId: "", error: "", message: "", data: "" }
         },
     },
     reducers: {
         registerShopStart: (state) => {
             state.registerShop.isFetching = true;
         },
-        registerShopSuccess: (state) => {
+        registerShopSuccess: (state, action) => {
             state.registerShop.isFetching = false;
-            state.registerShop.success = true;
+            state.registerShop.currentShop = action.payload;
             state.registerShop.error = false;
 
         },
         registerShopFailed: (state) => {
             state.registerShop.isFetching = false;
             state.registerShop.error = false;
-            state.registerShop.success = false;
         },
     }
 })

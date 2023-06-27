@@ -1,4 +1,4 @@
-import React, {useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
@@ -22,9 +22,9 @@ const CheckOut = () => {
     const [note, setNote] = useState(null);
     const navigate = useNavigate();
     const dispatch = useDispatch()
-    const [addressData,setAddressData] = useState([]);
-    
-   
+    const [addressData, setAddressData] = useState([]);
+
+
 
     useEffect(() => {
         axios.get("https://localhost:7241/api/Order/GetAddressOder", {
@@ -34,7 +34,8 @@ const CheckOut = () => {
         })
             .then((response) => {
                 setAddressData(response.data);
-                const data = response.data;
+                console.log(response.data)
+                const data = response?.data;
                 setFirstAddress(data[0])
             }
             )
@@ -52,7 +53,7 @@ const CheckOut = () => {
     }
     console.log(orderInfo)
     const orderSelectID = Object.values(orderSelect).map((items) => items.productId)
-    
+
     const shops = Object.values(orderSelect).reduce((acc, product) => {
         const { shopId, shopName } = product;
         if (!acc[shopId]) {
@@ -92,7 +93,7 @@ const CheckOut = () => {
     const handlePaymentChange = (event) => {
         setPaymentMethod(event.target.value);
     };
-    
+
     const calculateTotalItem = () => {
         let totalItem = 0;
 
@@ -176,7 +177,7 @@ const CheckOut = () => {
                                 const paymentUrl = response.data.paymentUrl;
                                 const paymentId = response.data.paymentId;
                                 window.location.href = `${paymentUrl}`;
-                               
+
                             })
                         dispatch(cartActions.deleteMultipleItems(orderSelectID));
 

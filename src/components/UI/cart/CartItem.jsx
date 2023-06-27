@@ -6,7 +6,7 @@ import { cartActions } from "../../../pages/redux/cartSlice";
 import { Link } from "react-router-dom";
 
 const CartItem = ({ item }) => {
-    const { productId, productName, thumbnail, soldPrice, quantity, totalPrice } = item
+    const { productId, productName, thumbnail, soldPrice, quantity, totalPrice } = item || {}
 
     const dispatch = useDispatch()
 
@@ -16,7 +16,8 @@ const CartItem = ({ item }) => {
             productName,
             soldPrice,
             thumbnail,
-            quantity:1
+            quantity: 1,
+            quantity: 1
         }))
     }
     const decrementItem = () => {
@@ -39,7 +40,7 @@ const CartItem = ({ item }) => {
                     <img src={thumbnail} alt="product-img" /></Link>
                 <div className="cart__product-info w-100 d-flex align-items-center gap-4 justify-content-between">
                     <div>
-                        <h6 className="cart__product-title">{truncateName(productName,25)}</h6>
+                        <h6 className="cart__product-title">{truncateName(productName, 25)}</h6>
                         <p className="d-flex align-items-center  gap-5 cart__product-price">{quantity}x <span>{soldPrice}$</span></p>
                         {/* <div className="d-flex align-items-center justify-content-between
                          increase__decrease-btn">

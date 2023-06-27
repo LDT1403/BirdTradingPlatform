@@ -14,6 +14,7 @@ import {
     REGISTER,
 } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
+import { productCreateReducer, productDeleteReducer, productEditReducer, productListReducer, productUpdateReducer } from './Reducers/ProductReducres';
 
 
 const persistConfig = {
@@ -27,6 +28,11 @@ const rootReducer = combineReducers({
     auth: authReducer, cart: cartReducer,
     cartUi: cartUiSlice.reducer,
     users: userReducer,
+    productList: productListReducer,
+    productDelete: productDeleteReducer,
+    productCreate: productCreateReducer,
+    productEdit: productEditReducer,
+    productUpdate: productUpdateReducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

@@ -19,6 +19,7 @@ export const loginUser = async (user, dispatch, navigate) => {
         navigate("/");
 
     } catch (err) {
+        console.log(err)
         dispatch(loginFailed());
         toast.error("Sai Email hoac Password");
     }
@@ -87,8 +88,9 @@ export const registerShop = async (shop, dispatch, navigate, accessToken) => {
             }
         })
         if (res.status === 200) {
-            dispatch(registerShopSuccess());
-            navigate("/homeShop");
+
+            dispatch(registerShopSuccess(res.data));
+            navigate("/manageshop");
         }
 
 

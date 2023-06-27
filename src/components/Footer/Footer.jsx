@@ -79,8 +79,7 @@ const Footer = () => {
                                 <Link to="https://www.facebook.com/profile.php?id=100017088730777">
                                     <i className="ri-facebook-line"></i></Link>
 
-                                <Link to="https://www.facebook.com/muhib160">
-                                    <i className="ri-facebook-line"></i></Link>
+
 
 
                             </span>
@@ -89,30 +88,22 @@ const Footer = () => {
                                 <Link to="https://github.com/LDT1403">
                                     <i className="ri-github-line"></i></Link>
 
-                                <Link to="https://github.com/muhib160">
-                                    <i className="ri-github-line"></i>
-                                </Link>
+
                             </span>
 
                             <span>
-                                {" "}
+
 
                                 <Link to=" https://www.youtube.com/">
                                     <i className="ri-youtube-line"></i></Link>
 
-                                <Link to=" https://www.youtube.com/c/MuhibsTechDiary">
-                                    <i className="ri-youtube-line"></i>
 
-                                </Link>
                             </span>
 
                             <span>
                                 <Link to="">
                                     <i className="ri-linkedin-line"></i></Link>
-                                <Link to=" https://www.linkedin.com/in/muhib160/">
-                                    <i className="ri-linkedin-line"></i>
 
-                                </Link>
                             </span>
                         </div>
                     </Col>

@@ -85,7 +85,7 @@ const Cart = () => {
         if (isShopSelected) {
             const updatedOrderSelect = { ...orderSelect };
             const missingProducts = shopProducts.filter((product) => !updatedOrderSelect.hasOwnProperty(product.productId));
-           
+
             missingProducts.forEach((product) => {
                 updatedOrderSelect[product.productId] = product;
             });
