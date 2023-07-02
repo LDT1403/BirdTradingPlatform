@@ -210,10 +210,7 @@ const Cart = () => {
             <div className="Cart-page-body">
                 <div className="Cart-page-inFor">
                     <div className="cart-shop-select">
-                        <input
-                            class="red-input"
-                            type="checkbox"
-                        />
+                     
                     </div>
                     <div className="cart-products-info">
                         <div className="cart-inFor">

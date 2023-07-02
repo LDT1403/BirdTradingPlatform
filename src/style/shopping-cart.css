@@ -4,7 +4,7 @@
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0, 0, 0, 0.639);
+    background: rgba(133, 135, 135, 0.639);
     z-index: 99999;
 }
 
@@ -15,7 +15,7 @@
     width: 400px;
     height: 100%;
     background: #fff;
-    z-index: 999999;
+   
 }
 
 .cart__close {

@@ -1,17 +1,15 @@
-import React from "react";
+import React, { useState } from "react";
 import '../../../style/product-card.css';
 import { useDispatch } from "react-redux";
-import { cartActions } from "../../../pages/redux/cartSlice";
+import cartSlice, { cartActions } from "../../../pages/redux/cartSlice";
 import { Link } from "react-router-dom";
-
+import { Col, Container, Row } from "reactstrap";
+import { calcLength, useSpring } from "framer-motion";
 
 const ProductCard = (props) => {
-
     const { productId, productName, thumbnail, price, quantitySold, rate, soldPrice, discountPercent, shopId, shopName } = props.item;
-    console.log(productId);
     const dispatch = useDispatch();
     const handleProductClick = props.handleProductClick;
-    console.log(shopName)
 
     const addToCart = () => {
         dispatch(
@@ -52,37 +50,41 @@ const ProductCard = (props) => {
         }
     }
     return (
-        <div className="product-tag card" onClick={handleProductClick}>
-            <Link to={`/shop/${productId}`} className="productDetail">
-                <img src={thumbnail} alt="Product Image" className="card-img-top" />
-            </Link>
+        
+                    <div className="product-tag card" onClick={handleProductClick}>
+                        <Link to={`/shop/${productId}`} className="productDetail">
+                            <img src={thumbnail} alt="Product Image" className="card-img-top" />
+                        </Link>
 
-            <div className="card-body">
-                <div className="card-title">
-                    <Link to={`/shop/${productId}`}>
-                        {truncateProductName(productName, 24)}
-                    </Link>
-                </div>
-                <div className="card-text">
-                    {discountPercent !== 0 && (
-                        <span className="original-price">Price: {price}$ </span>
-                    )}
-                    <br />
-                    <span className="discount-price">Sale Price: <span className="discount-price-color">{soldPrice}$</span></span><br />
-                    <span className="rate">{rate} {renderRating()}</span><br />
-                    <span className="quantity-sold">Quantity Sold: {quantitySold}</span>
-                    {discountPercent && (
-                        <span className="discount-badge">{discountPercent}%</span>
-                    )}
+                        <div className="card-body p-2">
+                            <div className="card-title">
+                                <Link to={`/shop/${productId}`}>
+                                    {truncateProductName(productName, 25)}
+                                </Link>
+                            </div>
+                            <div className="card-text">
+                                {discountPercent !== 0 && (
+                                    <span className="original-price">Price: {price}$ </span>
+                                )}
+                                <br />
+                                <span className="discount-price">Sale Price: <span className="discount-price-color">{soldPrice}$</span></span><br />
+                                <span className="rate">{rate} {renderRating()}</span><br />
+                                <span className="quantity-sold">Quantity Sold: {quantitySold}</span>
+                                {discountPercent && (
+                                    <span className="discount-badge">{discountPercent}%</span>
+                                )}
 
-                    <div className="text-center mt-2">
-                        <button className="addTOCART__btn" onClick={addToCart}>
-                            Add to Cart
-                        </button>
+                                <div className="text-center mt-2">
+                                    <button className="addTOCART__btn" onClick={addToCart}>
+                                        Add to Cart
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                </div>
-            </div>
-        </div>
+                
+           
+       
     );
 };
 

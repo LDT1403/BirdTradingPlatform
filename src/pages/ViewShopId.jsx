@@ -29,8 +29,8 @@ export default function ViewShopId() {
      const placeholder = `Search product in ${infoShop.shopName}`;
      return (
 
-          <div>
-               <div className="Shop-view">
+          <div className="pt-5" style={{backgroundColor: '#eff5f5'}}>
+               <div className="Shop-view" >
                     <Link to={`/viewShop/${infoShop.shopId}`} className="shopvImg">
                          <img src={infoShop.avatar} alt="" />
                     </Link>

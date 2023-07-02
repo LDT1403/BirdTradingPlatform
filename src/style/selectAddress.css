@@ -1,0 +1,29 @@
+.select-address-log1 {
+     width: 32%;
+     position: relative;
+}
+
+.select-address {
+     padding: 13px 10px;
+     width: 100%;
+     border-radius: 4px;
+     align-items: center;
+     appearance: none;
+}
+.select-address option {
+     background-color: #fff;
+     color: #000;
+     position:absolute;
+}
+.select-address option:hover {
+     background-color: #ca3232;
+}
+
+.select-address::-ms-expand {
+     display: none;
+}
+
+.select-address option {
+     overflow-y: scroll;
+     max-height: 50px;
+}

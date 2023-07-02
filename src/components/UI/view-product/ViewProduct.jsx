@@ -17,10 +17,10 @@ const ViewProduct = (api) => {
   const [filteredProducts, setFilteredProducts] = useState([]);
   const [minPrice, setMinPrice] = useState("");
   const [maxPrice, setMaxPrice] = useState("");
-  const [maxPricee, setMaxPricee] = useState(null);
-  const [minPricee, setMinPricee] = useState(null);
+  const [maxPricee, setMaxPricee] = useState("");
+  const [minPricee, setMinPricee] = useState("");
   const [selectedRating, setSelectedRating] = useState(0);
-  
+
 
   useEffect(() => {
     axios.get(api.api)
@@ -75,7 +75,7 @@ const ViewProduct = (api) => {
   }, [productsData, selectedCategory, minPrice, maxPrice, selectedRating, api.search]);
 
 
-  
+
 
   // const handleSearchQueryChange = (search) => {
   //   setSearchQuery(search);
@@ -87,8 +87,8 @@ const ViewProduct = (api) => {
   };
 
   const handlePriceRangeChange = (min, max) => {
-    setMinPrice(min);
     setMaxPrice(max);
+    setMinPrice(min);
     setCurrentPage(1);
   };
 
@@ -116,15 +116,21 @@ const ViewProduct = (api) => {
 
   const handleInputChange = (e) => {
     if (e.target.name === "minPrice") {
-      setMinPricee(e.target.value);
+      if (e.target.value !== null) {
+        setMinPricee(e.target.value);
+      }
+
     } else if (e.target.name === "maxPrice") {
       setMaxPricee(e.target.value);
     }
   };
   const applyPriceRange = () => {
+
     setMinPrice(minPricee);
     setMaxPrice(maxPricee);
     setCurrentPage(1);
+
+
   };
 
   const productsPerPage = 8;
@@ -139,136 +145,140 @@ const ViewProduct = (api) => {
   }
 
   return (
-    <div>
-      <Container className="mt-3 pt-3 shopping-view">
-        <Col lg='12' md='10'>
-          <Row>
-            <Col lg='2' md=''>
-              <div className="shopContainer">
-                <div className="shopCate">
-                  <div className="cate">
-                    <svg xmlns="http://www.w3.org/800/svg" fill="none" viewBox="0 0 24 24" strokeWidth="2" stroke="currentColor" className="cateicon">
-                      <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 6.75h12M8.25 12h12m-12 5.25h12M3.75 6.75h.007v.008H3.75V6.75zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zM3.75 12h.007v.008H3.75V12zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm-.375 5.25h.007v.008H3.75v-.008zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z" />
-                    </svg>
-                    Category
-                  </div>
-                  <div
-                    className={`allProduct ${selectedCategory === 'All Product' ? 'active' : ''}`}
-                    onClick={() => handleCategoryClick('All Product')}
-                  >
-                    All Product
-                  </div>
-                  {categories.map((category) => (
-                    <div
-                      key={category}
-                      className={`allProduct ${selectedCategory === category ? 'active' : ''}`}
-                      onClick={() => handleCategoryClick(category)}
-                    >
-                      {category.charAt(0).toUpperCase() + category.slice(1)}
-                    </div>
-                  ))}
-                  <div className="priceRange">
-                    <div className="price-name">Price Range</div>
-                    <div className="input-price-minmax">
-                      <input type="text" name="minPrice" placeholder="$ Min " value={minPricee} onChange={handleInputChange} />
-                      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="icon-pri-range">
-                        <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 12h-15" />
+    <div className="">
+      <Container className="m-auto pt-4 shopping-view">
+      <Row className="m-0">
+      
+          
+            <Col lg='2' md='3' className="p-0">
+              <div className="shopContainer ">
+                <div className="shopCate p-0" style={{ backgroundColor: '#fff' }} >
+                  <div className="p-2">
+                    <div className="cate">
+                      <svg xmlns="http://www.w3.org/800/svg" fill="none" viewBox="0 0 24 24" strokeWidth="2" stroke="currentColor" className="cateicon">
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 6.75h12M8.25 12h12m-12 5.25h12M3.75 6.75h.007v.008H3.75V6.75zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zM3.75 12h.007v.008H3.75V12zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm-.375 5.25h.007v.008H3.75v-.008zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z" />
                       </svg>
-                      <input type="text" name="maxPrice" placeholder="$ Max " value={maxPricee} onChange={handleInputChange} />
+                      Category
                     </div>
+                    <div
+                      className={`allProduct ${selectedCategory === 'All Product' ? 'active' : ''}`}
+                      onClick={() => handleCategoryClick('All Product')}
+                    >
+                      All Product
+                    </div>
+                    {categories.map((category) => (
+                      <div
+                        key={category}
+                        className={`allProduct ${selectedCategory === category ? 'active' : ''}`}
+                        onClick={() => handleCategoryClick(category)}
+                      >
+                        {category.charAt(0).toUpperCase() + category.slice(1)}
+                      </div>
+                    ))}
+                    <div className="priceRange">
+                      <div className="price-name">Price Range</div>
+                      <div className="input-price-minmax">
+                        <input type="text" name="minPrice" placeholder="$ Min " value={minPricee} onChange={handleInputChange} />
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="icon-pri-range">
+                          <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 12h-15" />
+                        </svg>
+                        <input type="text" name="maxPrice" placeholder="$ Max " value={maxPricee} onChange={handleInputChange} />
+                      </div>
 
-                    <button onClick={applyPriceRange}>Apply</button>
+                      <button onClick={applyPriceRange}>Apply</button>
+                    </div>
+                    <div className="ratingFilterBox">
+                      <div className="price-name">Evaluate</div>
+                      <div className={`ratingFilter ${selectedRating === 5 ? 'active' : ''}`} onClick={() => handleRatingFilterChange(5)}>
+                        <div className="ratingstart">
+                          <div className="ratingText">
+                            <FontAwesomeIcon icon={faStar} />
+                            <FontAwesomeIcon icon={faStar} />
+                            <FontAwesomeIcon icon={faStar} />
+                            <FontAwesomeIcon icon={faStar} />
+                            <FontAwesomeIcon icon={faStar} />
+                          </div>
+                          <div className="rateNull"> </div>
+
+                        </div>
+                      </div>
+                      <div className={`ratingFilter ${selectedRating === 4 ? 'active' : ''}`} onClick={() => handleRatingFilterChange(4)}>
+                        <div className="ratingstart">
+                          <div className="ratingText">
+                            <FontAwesomeIcon icon={faStar} />
+                            <FontAwesomeIcon icon={faStar} />
+                            <FontAwesomeIcon icon={faStar} />
+                            <FontAwesomeIcon icon={faStar} />
+                          </div>
+                          <div className="rateNull"> <FontAwesomeIcon icon={faStar} />
+                          </div>
+                          above
+                        </div>
+
+
+
+                      </div>
+                      <div className={`ratingFilter ${selectedRating === 3 ? 'active' : ''}`} onClick={() => handleRatingFilterChange(3)}>
+                        <div className="ratingstart">
+                          <div className="ratingText">
+                            <FontAwesomeIcon icon={faStar} />
+                            <FontAwesomeIcon icon={faStar} />
+                            <FontAwesomeIcon icon={faStar} />
+
+                          </div>
+                          <div className="rateNull">
+                            <FontAwesomeIcon icon={faStar} />
+                            <FontAwesomeIcon icon={faStar} />
+
+                          </div>
+                          above
+                        </div>
+                      </div>
+                      <div className={`ratingFilter ${selectedRating === 2 ? 'active' : ''}`} onClick={() => handleRatingFilterChange(2)}>
+
+                        <div className="ratingstart">
+                          <div className="ratingText">
+                            <FontAwesomeIcon icon={faStar} />
+                            <FontAwesomeIcon icon={faStar} />
+                          </div>
+                          <div className="rateNull">
+                            <FontAwesomeIcon icon={faStar} />
+                            <FontAwesomeIcon icon={faStar} />
+                            <FontAwesomeIcon icon={faStar} />
+                          </div>
+                          above
+                        </div>
+                      </div>
+                      <div className={`ratingFilter ${selectedRating === 1 ? 'active' : ''}`} onClick={() => handleRatingFilterChange(1)}>
+                        <div className="ratingstart">
+                          <div className="ratingText">
+                            <FontAwesomeIcon icon={faStar} />
+                          </div>
+                          <div className="rateNull">
+                            <FontAwesomeIcon icon={faStar} />
+                            <FontAwesomeIcon icon={faStar} />
+                            <FontAwesomeIcon icon={faStar} />
+                            <FontAwesomeIcon icon={faStar} />
+
+                          </div>
+                          above
+                        </div>
+                      </div>
+                    </div>
                   </div>
-                  <div className="ratingFilterBox">
-                    <div className="price-name">Evaluate</div>
-                    <div className={`ratingFilter ${selectedRating === 5 ? 'active' : ''}`} onClick={() => handleRatingFilterChange(5)}>
-                      <div className="ratingstart">
-                        <div className="ratingText">
-                          <FontAwesomeIcon icon={faStar} />
-                          <FontAwesomeIcon icon={faStar} />
-                          <FontAwesomeIcon icon={faStar} />
-                          <FontAwesomeIcon icon={faStar} />
-                          <FontAwesomeIcon icon={faStar} />
-                        </div>
-                        <div className="rateNull"> </div>
 
-                      </div>
-                    </div>
-                    <div className={`ratingFilter ${selectedRating === 4 ? 'active' : ''}`} onClick={() => handleRatingFilterChange(4)}>
-                      <div className="ratingstart">
-                        <div className="ratingText">
-                          <FontAwesomeIcon icon={faStar} />
-                          <FontAwesomeIcon icon={faStar} />
-                          <FontAwesomeIcon icon={faStar} />
-                          <FontAwesomeIcon icon={faStar} />
-                        </div>
-                        <div className="rateNull"> <FontAwesomeIcon icon={faStar} />
-                        </div>
-                        above
-                      </div>
-
-
-
-                    </div>
-                    <div className={`ratingFilter ${selectedRating === 3 ? 'active' : ''}`} onClick={() => handleRatingFilterChange(3)}>
-                      <div className="ratingstart">
-                        <div className="ratingText">
-                          <FontAwesomeIcon icon={faStar} />
-                          <FontAwesomeIcon icon={faStar} />
-                          <FontAwesomeIcon icon={faStar} />
-
-                        </div>
-                        <div className="rateNull">
-                          <FontAwesomeIcon icon={faStar} />
-                          <FontAwesomeIcon icon={faStar} />
-
-                        </div>
-                        above
-                      </div>
-                    </div>
-                    <div className={`ratingFilter ${selectedRating === 2 ? 'active' : ''}`} onClick={() => handleRatingFilterChange(2)}>
-
-                      <div className="ratingstart">
-                        <div className="ratingText">
-                          <FontAwesomeIcon icon={faStar} />
-                          <FontAwesomeIcon icon={faStar} />
-                        </div>
-                        <div className="rateNull">
-                          <FontAwesomeIcon icon={faStar} />
-                          <FontAwesomeIcon icon={faStar} />
-                          <FontAwesomeIcon icon={faStar} />
-                        </div>
-                        above
-                      </div>
-                    </div>
-                    <div className={`ratingFilter ${selectedRating === 1 ? 'active' : ''}`} onClick={() => handleRatingFilterChange(1)}>
-                      <div className="ratingstart">
-                        <div className="ratingText">
-                          <FontAwesomeIcon icon={faStar} />
-                        </div>
-                        <div className="rateNull">
-                          <FontAwesomeIcon icon={faStar} />
-                          <FontAwesomeIcon icon={faStar} />
-                          <FontAwesomeIcon icon={faStar} />
-                          <FontAwesomeIcon icon={faStar} />
-
-                        </div>
-                        above
-                      </div>
-                    </div>
-                  </div>
                 </div>
               </div>
             </Col>
 
-            <Col lg='10' md='12'>
+            <Col lg='10' md='9' className="p-0" >
               <div className="Shopping">
                 <div className="product">
                   <div className="productList">
-                    <Container>
-                      <Row>
+                    <Container >
+                      <Row >
                         {currentPageProducts?.map(item => (
-                          <Col lg='3' md='1' key={item.productId}>
+                          <Col lg='3' md='6' key={item.productId}>
                             <ProductCard item={item} />
                           </Col>
                         ))}
@@ -288,8 +298,9 @@ const ViewProduct = (api) => {
               </div>
             </Col>
 
-          </Row>
-        </Col>
+         
+        
+        </Row>
       </Container >
     </div>
 

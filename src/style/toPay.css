@@ -114,12 +114,17 @@
 }
 
 .toPay-list-button button {
+     display: flex-end;
      border: none;
-     display: flex;
     align-items: center;
      background-color: #176eb0;
      color: #fff;
      padding:7px 20px;
      border-radius: 4px;
      margin-right: 4%;
+}
+.toPay-totalPay-log{
+     font-size: 18px;
+    right: 0;
+     
 }

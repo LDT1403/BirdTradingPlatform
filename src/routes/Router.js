@@ -13,6 +13,8 @@ import { useSelector } from "react-redux";
 import RegisterShop from "../components/UI/authUi/RegisterShop";
 import OrderStatus from "../pages/OrderStatus";
 import MyPurchase from "../pages/MyPurchase";
+import OrderDetail from "../components/UI/myPurchase/OrderDetail";
+
 
 const Router = () => {
     const user = useSelector((state) => state.auth.login.currentUser);
@@ -30,8 +32,9 @@ const Router = () => {
             <Route path="/contact" element={<Contact />} />
             <Route path="/registerShop" element={<RegisterShop />} />
             <Route path="/orderStatus" element={<OrderStatus />} />
-            <Route path="/MyPurchase" element={<MyPurchase />} />
-
+            <Route path="/MyPurchase/*" element={<MyPurchase />} />
+            <Route path="/OrderDetail/:id" element={<OrderDetail />} />
+         
         </Routes>
     )
 }
