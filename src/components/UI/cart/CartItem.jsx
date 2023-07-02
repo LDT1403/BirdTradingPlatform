@@ -37,7 +37,8 @@ const CartItem = ({ item }) => {
         <ListGroupItem className="border-0 cart__item">
             <div className="cart__item-info d-flex gap-2">
                 <Link to={`/shop/${productId}`}>
-                    <img src={thumbnail} alt="product-img" /></Link>
+                    <img src={thumbnail} alt="product-img" />
+                    </Link>
                 <div className="cart__product-info w-100 d-flex align-items-center gap-4 justify-content-between">
                     <div>
                         <h6 className="cart__product-title">{truncateName(productName, 25)}</h6>

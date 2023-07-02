@@ -1,20 +1,24 @@
 .MyPurchase-page {
      width: 100%;
-     background-color: aliceblue;
-   
-     padding: 20px 0px ;
+     background-color: rgb(226, 232, 238);
+     min-height: 100vh;
+     padding: 10px 0px;
 }
 
 .MyPurchase-log-cate {
+     position: sticky;
+     top: 99.8px;
+     z-index: 1;
      margin: auto;
      width: 1300px;
-     background-color: #fff;
+     background-color: #fffcfc;
      display: flex;
      margin-bottom: 15px;
 }
 
 .MyPurchase-cate {
-     padding: 10px 25px;
+     text-decoration: none;
+     padding: 15px 25px;
      color: #535c5d;
      font-size: 18px;
      font-weight: 500;
@@ -26,6 +30,7 @@
      border-bottom: 1px solid rgb(0, 195, 255);
 }
 
-.MyPurchase-log-Item{
-    margin: auto;
+.MyPurchase-log-Item {
+     margin: auto;
+     padding-top: 0px;
 }

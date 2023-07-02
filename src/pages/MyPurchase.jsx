@@ -1,54 +1,47 @@
 import React from "react";
-import { useSelector } from "react-redux";
-import { useEffect, useState } from 'react';
-import axios from "axios";
-import ToPay from "../components/UI/toPay/ToPay";
-import '../style/myPurchase.css'
+import { NavLink, Routes, Route } from 'react-router-dom';
+import ToPay from "../components/UI/myPurchase/ToPay";
+import ToConfirmation from "../components/UI/myPurchase/ToConfirmation";
+import Confirmed from "../components/UI/myPurchase/Confirmed";
+import '../style/myPurchase.css';
+
 const MyPurchase = () => {
-    const [activeTab, setActiveTab] = useState("ToPay");
-    const accessToken = localStorage.getItem('jwtToken')
-    const handleTabClick = (tabName) => {
-        setActiveTab(tabName);
-    };
-
-    const renderTabContent = () => {
-        if (activeTab === "ToPay") {
-            return <ToPay/>;
-        } else if (activeTab === "ToConfirmation") {
-            return 2;
-        } else if (activeTab === "Confirmed") {
-            return 1;
-        }
-
-        return null;
-    };
-
+    console.log("Tôi vẫn đây")
     return (
-        <div className="MyPurchase-page">
-            <div className="MyPurchase-log-cate">
-                <div
-                    className={`MyPurchase-cate ${activeTab === "ToPay" ? "active" : ""}`}
-                    onClick={() => handleTabClick("ToPay")}
+        <header className="MyPurchase-page" style={{ minHeight: '700px' }}>
+            <div className="MyPurchase-log-cate" style={{ boxShadow: '0 2px 1px 0 rgba(0, 0, 0, .05)' }}>
+                <NavLink
+                    to="/MyPurchase/to-pay"
+                    className="MyPurchase-cate"
+                    activeClassName="active"
                 >
-                    ToPay
-                </div>
-                <div
-                    className={`MyPurchase-cate ${activeTab === "ToConfirmation" ? "active" : ""
-                        }`}
-                    onClick={() => handleTabClick("ToConfirmation")}
+                    <span className="NavLink-text">To Pay</span>
+                </NavLink>
+                <NavLink
+                    to="/MyPurchase/to-confirmation"
+                    className="MyPurchase-cate"
+                    activeClassName="active"
                 >
-                    ToConfirmation
-                </div>
-                <div
-                    className={`MyPurchase-cate ${activeTab === "Confirmed" ? "active" : ""}`}
-                    onClick={() => handleTabClick("Confirmed")}
+                    <span className="NavLink-text">To Confirmation</span>
+                </NavLink>
+                <NavLink
+                    to="/MyPurchase/confirmed"
+                    className="MyPurchase-cate"
+                    activeClassName="active"
                 >
-                    Confirmed
-                </div>
+                    <span className="NavLink-text">Confirmed</span>
+                </NavLink>
             </div>
-            <div className="MyPurchase-log-Item">{renderTabContent()}</div>
-        </div>
+            <div className="MyPurchase-log-Item">
+                <Routes>
+                    <Route path="/to-pay" element={<ToPay />}/>
+                    <Route path="/to-confirmation" element={<ToConfirmation />} />
+                    <Route path="/confirmed" element={<Confirmed />} />
+                </Routes>
 
-    )
-}
+            </div>
+        </header>
+    );
+};
+
 export default MyPurchase;

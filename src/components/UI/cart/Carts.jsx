@@ -15,7 +15,7 @@ const Carts = () => {
     }
 
     return (
-        <div className="cart__container">
+        <div className="cart__container" >
             <ListGroup className="cart">
                 <div className="cart__close">
                     <span onClick={toggleCart}><i className="ri-close-fill"></i></span>
@@ -34,7 +34,7 @@ const Carts = () => {
 
                 <div className="cart__bottom d-flex align-items-center justify-content-between">
                    
-                    <button className="cart__bottom-btn"><Link to="/cart">View My Shopping Cart</Link></button>
+                    <button className="cart__bottom-btn" onClick={toggleCart}><Link to="/cart">View My Shopping Cart</Link></button>
                 </div>
             </ListGroup>
 

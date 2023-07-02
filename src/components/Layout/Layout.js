@@ -5,10 +5,11 @@ import Router from "../../routes/Router";
 // import Cart from "../UI/cart/CartItem";
 import Carts from "../UI/cart/Carts";
 import { useSelector } from "react-redux";
-import { useLocation } from 'react-router-dom';
+import { useLocation, Routes } from 'react-router-dom';
 // import HomeShop from "../../pageShop/HomeShop";
 import RouteShop from "../../routes/RouterShop";
 import { useParams } from 'react-router-dom';
+import MyPurchase from "../../pages/MyPurchase";
 
 
 
@@ -16,7 +17,7 @@ const Layout = () => {
     const showCart = useSelector(state => state.cartUi.cartIsVisible);
     let location = useLocation();
     useEffect(() => {
-        console.log(location.pathname);
+
     }, []);
 
     // const { productId } = useParams();
@@ -56,6 +57,7 @@ const Layout = () => {
 
 
             <div>
+                <Routes path="/MyPurchase" element={<MyPurchase />} />
                 <Router />
             </div>
             {pathName.includes(location.pathname) ? <></> : <Footer />}

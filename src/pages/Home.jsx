@@ -59,8 +59,8 @@ const Home = () => {
         <Helmet title="Home">
             <div className="home-page-log ">
                 <div className="mb-4 " >
-                    <Container className="pt-3">
-                        <Row style={{backgroundColor: '#fff'}}>
+                    <Container className="pt-5">
+                        <Row style={{backgroundColor: '#fff', boxShadow: '0 2px 1px 0 rgba(0, 0, 0, .05)'}}>
                             <Col lg='6' md='6'>
                                 <div className="brid__content">
                                     <h5 className="mb-3">Esay way to make an order</h5>
@@ -106,7 +106,7 @@ const Home = () => {
                     </Container>
                 </div>
 
-                <div className="mb-5" >
+                <div className="pb-5" >
                     <Container>
                         <Row>
                             <Col lg='12' className="text-center mb-5" >
