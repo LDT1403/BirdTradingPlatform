@@ -16,7 +16,7 @@ const CheckOut = () => {
     const [showConFirmAddress, setShowConFirmAddress] = useState(false);
     const [showNtPayMethod, setShowNtPayMethod] = useState(false);
     const [showNotification, setShowNotification] = useState(false);
-    const [showAddNewAddress, setShowAddNewAddress] = useState(true);
+    const [showAddNewAddress, setShowAddNewAddress] = useState(false);
     const [addressSelectList, setAddressSelectList] = useState();
     const [checkedAddressId, setCheckedAddressId] = useState(null);
     const [paymentMethod, setPaymentMethod] = useState(null);
@@ -359,7 +359,7 @@ const CheckOut = () => {
             </div>
             {
                 showAddNewAddress && 
-                    <NewAddress  setShowNotification={setShowNotification} setShowAddNewAddress={setShowAddNewAddress}/>
+                    <NewAddress  setShowNotification={setShowNotification} setShowAddNewAddress={setShowAddNewAddress} accessToken = {accessToken}/>
                 
             }
             {showNotification && (
