@@ -15,6 +15,7 @@ import {
 } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 import { productCreateReducer, productDeleteReducer, productEditReducer, productListReducer, productUpdateReducer } from './Reducers/ProductReducres';
+import { orderConfirmReducer, orderDetailsReducer, orderListReducer } from './Reducers/OrderReducres';
 
 
 const persistConfig = {
@@ -33,6 +34,9 @@ const rootReducer = combineReducers({
     productCreate: productCreateReducer,
     productEdit: productEditReducer,
     productUpdate: productUpdateReducer,
+    orderList: orderListReducer,
+    orderDetails: orderDetailsReducer,
+    comfirmOrder: orderConfirmReducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

@@ -13,6 +13,7 @@ import { useSelector } from "react-redux";
 import RegisterShop from "../components/UI/authUi/RegisterShop";
 import OrderStatus from "../pages/OrderStatus";
 import MyPurchase from "../pages/MyPurchase";
+import ForgotPassword from "../pages/ForgotPassword";
 
 const Router = () => {
     const user = useSelector((state) => state.auth.login.currentUser);
@@ -27,6 +28,7 @@ const Router = () => {
             <Route path="/cart" element={<Cart />} />
             <Route path="/checkout" element={user.UserId ? <CheckOut /> : <Navigate to="/login" />} />
             <Route path="/register" element={<Register />} />
+            {/* <Route path="/forgotPassword" element={<ForgotPassword />} /> */}
             <Route path="/contact" element={<Contact />} />
             <Route path="/registerShop" element={<RegisterShop />} />
             <Route path="/orderStatus" element={<OrderStatus />} />

@@ -132,9 +132,12 @@ const Header = () => {
                                         <Link to="/logout" onClick={handleLogOut}>Logout</Link>
                                     </div>
                                 ) : (
-                                    <Link to='/login'>Login
-                                        {/* <i className="ri-user-line"></i> */}
-                                    </Link>
+                                    <div className="d-flex align-items-center justify-content-center flex-column ">
+                                        <Link to='/login'>Login
+                                            {/* <i className="ri-user-line"></i> */}
+                                        </Link>
+                                    </div>
+
                                 )
 
                                 }

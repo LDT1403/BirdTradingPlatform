@@ -91,6 +91,8 @@
     font-size: 20px;
 }
 
+
+
 .nav__right .profile i {
     cursor: pointer;
     position: relative;
@@ -98,12 +100,13 @@
 }
 
 .nav__right .profile .profile__actions {
-    margin-top: 30px;
+    margin-top: 25px;
     position: absolute;
-    right: 0;
-    width: 150px;
+    left: 0;
+    /* right: 0; */
+    width: 170px;
     z-index: 1;
-    padding: 10px;
+    /* padding: 10px; */
     display: flex;
     text-align: center;
     align-items: center;
@@ -113,16 +116,9 @@
     display: none;
     cursor: pointer;
     border-radius: 5px;
-    margin-right: 50px;
+    /* margin-right: 50px; */
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-    /* width: 300px;
-    height: 0px;
-    opacity: 0;
-    position: absolute;
-    top: 63px;
-    right: 35px;
-    transition: 1s opacity, 250ms height;
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); */
+
 }
 
 .profile__actions a {
@@ -242,36 +238,52 @@
     }
 }
 
-.close__button {
-    width: fit-content;
-    height: 60px;
-    padding: 10px 20px;
-    position: absolute;
-    top: 0.5rem;
-    right: 0rem;
-}
-
-.close__button span i {
-    font-size: 1.1rem;
-    background: #212245;
-    padding: 5px;
-    border-radius: 50%;
-    color: #fff;
-    cursor: pointer;
-}
-
-.profile__image {
-    height: 30px;
-    border-radius: 50%;
-    overflow: hidden;
-    cursor: pointer;
-}
-
-.profile__title {
-    margin: auto;
-    margin-left: 5px;
+.profile {
+    position: relative;
+    display: inline-block;
 }
 
 .profile__wrapper {
     cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.profile__image {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-right: 8px;
+}
+
+.profile__title {
+    margin: 0;
+}
+
+.profile__actions {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 200px;
+    background-color: #fff;
+    box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.15);
+    padding: 8px;
+    display: flex;
+    flex-direction: column;
+}
+
+.profile__actions a {
+    color: #333;
+    text-decoration: none;
+    padding: 4px;
+    transition: background-color 0.3s;
+}
+
+.profile__actions a:hover {
+    background-color: #f5f5f5;
+}
+
+.profile__actions .dropdown-item:last-child {
+    margin-top: 8px;
 }

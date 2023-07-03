@@ -34,6 +34,17 @@ const Layout = () => {
 
     console.log(productId); // Kết quả: "57"
 
+    const getOrderIdFromPath = (pathname) => {
+        const regex = /\/order\/(\d+)/; // Regex pattern to match "/order/" followed by one or more digits
+        const match = pathname.match(regex);
+        if (match && match[1]) {
+            return match[1]; // Return the orderId value from the match
+        }
+        return null; // If not found, return null or any other default value
+    };
+
+    const orderId = getOrderIdFromPath(location.pathname);
+
 
 
     const pathName = [
@@ -42,6 +53,8 @@ const Layout = () => {
         '/addproduct',
         '/category',
         `/product/${productId}/edit`,
+        '/orders',
+        `/order/${orderId}`,
     ]
 
     return (
