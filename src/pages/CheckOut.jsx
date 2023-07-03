@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { cartActions } from "./redux/cartSlice"
-
+import NewAddress from "../components/UI/addNewAddress/NewAddress";
 import '../style/checkout.css';
 import axios from "axios";
 import { useLocation } from "react-router-dom";
@@ -16,6 +16,7 @@ const CheckOut = () => {
     const [showConFirmAddress, setShowConFirmAddress] = useState(false);
     const [showNtPayMethod, setShowNtPayMethod] = useState(false);
     const [showNotification, setShowNotification] = useState(false);
+    const [showAddNewAddress, setShowAddNewAddress] = useState(false);
     const [addressSelectList, setAddressSelectList] = useState();
     const [checkedAddressId, setCheckedAddressId] = useState(null);
     const [paymentMethod, setPaymentMethod] = useState(null);
@@ -27,30 +28,32 @@ const CheckOut = () => {
 
 
     useEffect(() => {
-        axios.get("https://localhost:7241/api/Order/GetAddressOder", {
-            headers: {
-                Authorization: `Bearer ${accessToken}`
-            }
-        })
-            .then((response) => {
-                setAddressData(response.data);
-                console.log(response.data)
-                const data = response.data;
-                setFirstAddress(data)
-            }
-            )
-    }, []);
-
-
-    const [firstAddress, setFirstAddress] = useState([]);
-    if (firstAddress.length > 0) {
-        firstAddress.map((item, index) => {
-            if (index === 0) {
-                setFirstAddress(item);
-            }
-            return null;
-        });
-    }
+        const fetchData = () => {
+            axios
+                .get("https://localhost:7241/api/Order/GetAddressOder", {
+                    headers: {
+                        Authorization: `Bearer ${accessToken}`,
+                    },
+                })
+                .then((response) => {
+                    setAddressData(response.data);
+                    const data = response?.data;
+                    if (data.length > 0) {
+                        data.map((item, index) => {
+                            if (index === 0) {
+                                setFirstAddress(item);
+                            }
+                            return null;
+                        });
+                    }
+                });
+        };
+        if (!showAddNewAddress) {
+            fetchData();
+            console.log("Tôi đang ở đây")
+        }
+    }, [showAddNewAddress]);
+    const [firstAddress, setFirstAddress] = useState([])
     const orderInfo = {
         items:
             Object.values(orderSelect).map((items) => ({
@@ -140,104 +143,126 @@ const CheckOut = () => {
         setShowNtPayMethod(false);
         setShowConFirmAddress(false);
     }
-    const paymentMethodSelect = {
-        method: paymentMethod
-    }
+
     const handlePlaceOrder = () => {
+        if (!addressData.length) {
+            setShowConFirmAddress(true)
+        } else {
+            switch (paymentMethod) {
+                case "Cash":
 
-        switch (paymentMethod) {
-            case "Cash":
-                console.log(orderInfo)
+                    axios.post("https://localhost:7241/api/Order/Create", orderInfo, {
+                        headers: {
+                            Authorization: `Bearer ${accessToken}`
+                        }
+                    })
+                        .then(res => {
+                            const listOrder = res.data
+                            const listOrderId = listOrder.map(id => id.orderId)
+                            const paymentSelect = {
 
-                axios.post("https://localhost:7241/api/Order/Create", orderInfo, {
-                    headers: {
-                        Authorization: `Bearer ${accessToken}`
-                    }
-                })
-                    .then(res => {
-
-                        axios.post(`https://localhost:7241/api/Order/${res.data.orderId}/Pay`, paymentMethodSelect, {
-                            headers: {
-                                Authorization: `Bearer ${accessToken}`
+                                "orderIds": listOrderId
+                                ,
+                                "method": paymentMethod
                             }
-                        })
-                            .then(response => {
-                                if (response.data.paymentUrl === null) {
-                                    navigate("/MyPurchase");
+                            axios.post(`https://localhost:7241/api/Order/Pay`, paymentSelect, {
+                                headers: {
+                                    Authorization: `Bearer ${accessToken}`
                                 }
                             })
-                    })
-                dispatch(cartActions.deleteMultipleItems(orderSelectID));
-
-
-                break;
-            case "VnPay":
-                axios.post("https://localhost:7241/api/Order/Create", orderInfo, {
-                    headers: {
-                        Authorization: `Bearer ${accessToken}`
-                    }
-                })
-                    .then(res => {
-
-                        axios.post(`https://localhost:7241/api/Order/${res.data.orderId}/Pay`, paymentMethodSelect, {
-                            headers: {
-                                Authorization: `Bearer ${accessToken}`
-                            }
+                                .then(response => {
+                                    if (response.data.paymentUrl === null) {
+                                        navigate("/MyPurchase/to-confirmation");
+                                    }
+                                })
                         })
-                            .then(response => {
-                                const paymentUrl = response.data.paymentUrl;
-                                const paymentId = response.data.paymentId;
-                                window.location.href = `${paymentUrl}`;
-
-                            })
-                        dispatch(cartActions.deleteMultipleItems(orderSelectID));
-
+                    dispatch(cartActions.deleteMultipleItems(orderSelectID));
+                    break;
+                case "VnPay":
+                    axios.post("https://localhost:7241/api/Order/Create", orderInfo, {
+                        headers: {
+                            Authorization: `Bearer ${accessToken}`
+                        }
                     })
-                break;
-            default:
-                setShowNtPayMethod(true);
-                break;
+                        .then(res => {
+                            const listOrder = res.data
+                            const listOrderId = listOrder.map(id => id.orderId)
+                            const paymentSelect = {
+
+                                "orderIds": listOrderId
+                                ,
+                                "method": paymentMethod
+                            }
+                            axios.post(`https://localhost:7241/api/Order/Pay`, paymentSelect, {
+                                headers: {
+                                    Authorization: `Bearer ${accessToken}`
+                                }
+                            })
+                                .then(response => {
+                                    const paymentUrl = response.data.paymentUrl;
+
+
+                                    window.location.href = `${paymentUrl}`;
+
+                                })
+                            dispatch(cartActions.deleteMultipleItems(orderSelectID));
+
+                        })
+                    break;
+                default:
+                    setShowNtPayMethod(true);
+                    break;
+            }
         }
     }
-
-
-
+    const handleAddNewAddress = () => {
+        setShowNotification(false)
+        setShowAddNewAddress(true)
+    }
     return (
         <div className="Cart-page">
             <div className="Cart-page-body">
                 <div className="checkOut-body-address">
-
                     <div className="checkOut-text">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="icon-text-address">
                             <path fillRule="evenodd" d="M11.54 22.351l.07.04.028.016a.76.76 0 00.723 0l.028-.015.071-.041a16.975 16.975 0 001.144-.742 19.58 19.58 0 002.683-2.282c1.944-1.99 3.963-4.98 3.963-8.827a8.25 8.25 0 00-16.5 0c0 3.846 2.02 6.837 3.963 8.827a19.58 19.58 0 002.682 2.282 16.975 16.975 0 001.145.742zM12 13.5a3 3 0 100-6 3 3 0 000 6z" clipRule="evenodd" />
                         </svg>
-                        {!addressData.length && (
-                            <button>add</button>
-                        )}
-
                         Delivery Address
                     </div>
-                    <div className="checkOut-info">
-                        <div className="checkOut-name-phone">
-                            <div className="checkOut-name">
-                                {firstAddress.nameRg}
-                            </div>
-                            <div className="checkOut-phone">
-                                {firstAddress.phone}
-                            </div>
+
+                    <>
+                        <div>
+                            {!addressData.length ? (
+                                <button className="cf-ad-button-add" onClick={handleAddNewAddress} >+ Add new Address</button>
+                            ) : (
+                                <div className="checkOut-info">
+                                    <div className="checkOut-name-phone">
+                                        <div className="checkOut-name">
+                                            {firstAddress.nameRg}
+                                        </div>
+                                        <div className="checkOut-phone">
+                                            {firstAddress.phone}
+                                        </div>
+                                    </div>
+                                    <div className="checkOut-address">
+                                        {firstAddress.addressDetail}, {firstAddress.address}
+                                    </div>
+                                    <div className="checkOut-change-address">
+                                        <button onClick={handleChangeAddress}>Change</button>
+                                    </div>
+                                </div>
+
+                            )}
+
+
                         </div>
-                        <div className="checkOut-address">
-                            {firstAddress.addressDetail},{firstAddress.address}
-                        </div>
-                        <div className="checkOut-change-address">
-                            <button onClick={handleChangeAddress} >Change</button>
-                        </div>
-                    </div>
+
+                    </>
 
                 </div>
                 <div className="checkOut-body-product">
                     {Object.entries(shops).map(([shopId, { shopName, products }]) => (
-                        <div className="checkOut-log-shop" key={shopId}>
+                        <div className="checkOut-log-shop" key={shopId} style={{ boxShadow: '0 2px 1px 0 rgba(0, 0, 0, .05)' }}>
                             <div className="checkOut-nameShop">
                                 <div className="checkOut-nameShop-log">
                                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="iconShop-log-checkout">
@@ -332,6 +357,11 @@ const CheckOut = () => {
                 </div>
 
             </div>
+            {
+                showAddNewAddress &&
+                <NewAddress setShowNotification={setShowNotification} setShowAddNewAddress={setShowAddNewAddress} accessToken={accessToken} />
+
+            }
             {showNotification && (
                 <div className="confirmation-modal">
                     <div className="confirm-address-change">
@@ -353,13 +383,12 @@ const CheckOut = () => {
                                         <div className="cf-ad-address">
                                             <div>{address.addressDetail}</div>
                                             <div>{address.address}</div>
-
                                         </div>
                                     </div>
                                     <button className="cf-ad-button"> Edit </button>
                                 </div>
                             ))}
-                            <button className="cf-ad-button-add">+ Add new Address</button>
+                            <button className="cf-ad-button-add" onClick={handleAddNewAddress}>+ Add new Address</button>
                         </div>
                         <div className="cf-ad-bt-bottom">
                             <button onClick={handleCancelChange}>Cancel</button>

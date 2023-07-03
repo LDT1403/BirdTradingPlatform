@@ -4,8 +4,8 @@ import axios from "axios";
 import '../../../style/toPay.css';
 const ToPay = () => {
      const accessToken = localStorage.getItem('jwtToken');
-     // const [orderData, setOrderData] = useState([]);
      const [orderList, setOrderList] = useState([]);
+     const [ShowLogItemsNull, setShowLogItemsNull] = useState(true);
      useEffect(() => {
           axios.get("https://localhost:7241/api/Order/OrderFailed", {
                headers: {
@@ -14,24 +14,30 @@ const ToPay = () => {
           })
                .then((response) => {
                     console.log(response.data)
-                    const processedData = response.data.map((order) => {
-                         const { orderId, subTotal, items } = order;
-                         const groupedItems = items.reduce((acc, item) => {
-                              const { shopId, shopName } = item;
-                              const existingShop = acc.find(
-                                   (shop) => shop.shopId === shopId && shop.shopName === shopName
-                              );
-                              if (existingShop) {
-                                   existingShop.products.push(item);
-                              } else {
-                                   acc.push({ shopId, shopName, products: [item] });
-                              }
-                              return acc;
-                         }, []);
-                         return { orderId, subTotal, shops: groupedItems };
-                    });
+                    if (response.data.length) {
+                         setShowLogItemsNull(false)
+                         // setShowLogItems(false)
+                         const processedData = response.data.map((order) => {
+                              const { orderId, subTotal, items } = order;
+                              const groupedItems = items.reduce((acc, item) => {
+                                   const { shopId, shopName } = item;
+                                   const existingShop = acc.find(
+                                        (shop) => shop.shopId === shopId && shop.shopName === shopName
+                                   );
+                                   if (existingShop) {
+                                        existingShop.products.push(item);
+                                   } else {
+                                        acc.push({ shopId, shopName, products: [item] });
+                                   }
+                                   return acc;
+                              }, []);
+                              return { orderId, subTotal, shops: groupedItems };
+                         });
 
-                    setOrderList(processedData);
+                         setOrderList(processedData);
+
+                    }
+
                })
                .catch(error => {
                     console.log(error);
@@ -54,11 +60,12 @@ const ToPay = () => {
                })
      }
      return (
-          <div>
-
+          <div className="option-page-MyPurChase">
+               {ShowLogItemsNull && (
+                    <div style={{ minHeight: '500px', backgroundColor: '#fff' }}></div>
+               )}
                {orderList.map((order, index) => (
-                    <div className="toPay-list-log" key={index}>
-                         <h3>{order.orderId}</h3>
+                    <div className="toPay-list-log" key={index} style={{ boxShadow: '0 2px 1px 0 rgba(0, 0, 0, .05)' }}>
                          <div className="toPay-body-product" >
                               {order.shops.map((shop) => (
                                    <div className="toPay-log-shop" key={shop.shopId}>
@@ -97,8 +104,8 @@ const ToPay = () => {
                                    </div>
                               ))}
                          </div>
+                         <div className="toPay-totalPay-log">TotalPay: {order.subTotal}</div>
                          <div className="toPay-list-button">
-                              <div>TotalPay: {order.subTotal}</div>
                               <button onClick={() => handlePayNow(order.orderId)}>Pay Now</button>
                          </div>
                     </div>

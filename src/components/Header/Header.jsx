@@ -24,8 +24,8 @@ const nav__links = [
         path: "/cart",
     },
     {
-        display: "Contact",
-        path: "/contact",
+        display: "My Purchase",
+        path: "/MyPurchase/to-pay",
     },
 ];
 
@@ -36,6 +36,7 @@ const Header = () => {
     const user = useSelector((state) => state.auth.login.currentUser);
     const toggleMenu = () => menuRef.current.classList.toggle("show__menu");
     const totalQuantity = useSelector(state => state.cart.totalQuantity);
+    const [isHovered, setIsHovered] = useState(false);
 
     const toggleCart = () => {
         dispatch(cartUiActions.toggle());
@@ -73,6 +74,13 @@ const Header = () => {
             window.removeEventListener("scroll", handleScroll);
         };
     }, []);
+    const handleMouseEnter = () => {
+        setIsHovered(true);
+    };
+
+    const handleMouseLeave = () => {
+        setIsHovered(false);
+    };
     return (
         <header className="header" ref={headerRef}>
             <Container>
@@ -109,7 +117,9 @@ const Header = () => {
 
                     {/* ======== nav right icons ========= */}
                     <div className="nav__right d-flex align-items-center gap-4">
-                        <span className="cart__icon" onClick={toggleCart}>
+                        <span className="cart__icon" onClick={toggleCart}
+
+                        >
                             <i className="ri-shopping-basket-line"></i>
 
                             <span className="cart__badge">{totalQuantity}</span>
@@ -132,12 +142,9 @@ const Header = () => {
                                         <Link to="/logout" onClick={handleLogOut}>Logout</Link>
                                     </div>
                                 ) : (
-                                    <div className="d-flex align-items-center justify-content-center flex-column ">
-                                        <Link to='/login'>Login
-                                            {/* <i className="ri-user-line"></i> */}
-                                        </Link>
-                                    </div>
-
+                                    <Link to='/login'>Login
+                                        {/* <i className="ri-user-line"></i> */}
+                                    </Link>
                                 )
 
                                 }
