@@ -6,9 +6,8 @@ import Router from "../../routes/Router";
 import Carts from "../UI/cart/Carts";
 import { useSelector } from "react-redux";
 import { useLocation, Routes } from 'react-router-dom';
-// import HomeShop from "../../pageShop/HomeShop";
-import RouteShop from "../../routes/RouterShop";
-import { useParams } from 'react-router-dom';
+
+
 import MyPurchase from "../../pages/MyPurchase";
 
 
@@ -20,8 +19,7 @@ const Layout = () => {
 
     }, []);
 
-    // const { productId } = useParams();
-    // console.log(productId)
+
     const getProductIdFromPath = (pathname) => {
         const regex = /\/product\/(\d+)\/edit/; // Mẫu tìm kiếm để lấy productId từ đường dẫn
         const match = pathname.match(regex);
@@ -56,6 +54,7 @@ const Layout = () => {
         `/product/${productId}/edit`,
         '/orders',
         `/order/${orderId}`,
+        '/admin'
     ]
 
     return (

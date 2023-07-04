@@ -27,11 +27,13 @@ const ProductsStatistics = () => {
     }
 
     const weeklyRevenueData = week.dailyRevenue;
+    console.log(weeklyRevenueData);
     const dates = week.weekdays;
 
     const totalRevenue = weeklyRevenueData.reduce((sum, revenue) => sum + revenue, 0);
+    console.log(totalRevenue);
     const revenuePercentages = weeklyRevenueData.map(revenue => (revenue / totalRevenue) * 100);
-
+    console.log(revenuePercentages);
     const formattedDates = dates.map(dateString => {
         const date = new Date(dateString);
         const dayOfWeek = date.toLocaleDateString('en-US', { weekday: 'long' });

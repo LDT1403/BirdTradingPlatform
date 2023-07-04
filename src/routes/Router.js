@@ -13,9 +13,6 @@ import { useSelector } from "react-redux";
 import RegisterShop from "../components/UI/authUi/RegisterShop";
 import OrderStatus from "../pages/OrderStatus";
 import MyPurchase from "../pages/MyPurchase";
-
-import ForgotPassword from "../pages/ForgotPassword";
-
 import OrderDetail from "../components/UI/myPurchase/OrderDetail";
 
 const Router = () => {

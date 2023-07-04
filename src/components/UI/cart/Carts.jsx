@@ -33,7 +33,7 @@ const Carts = () => {
                 </div>
 
                 <div className="cart__bottom d-flex align-items-center justify-content-between">
-                   
+
                     <button className="cart__bottom-btn" onClick={toggleCart}><Link to="/cart">View My Shopping Cart</Link></button>
                 </div>
             </ListGroup>

@@ -10,7 +10,7 @@ import { useDispatch, useSelector } from "react-redux";
 import Loading from "../LoadingError/Loading";
 import Message from "../LoadingError/Error";
 import moment from "moment";
-import { confirmOrder, getOrderDetails } from "../../pages/redux/Actions/OrderActions";
+import { cancelOrder, confirmOrder, getOrderDetails } from "../../pages/redux/Actions/OrderActions";
 
 const OrderDetailmain = (props) => {
 
@@ -23,14 +23,17 @@ const OrderDetailmain = (props) => {
 
     const orderComfirm = useSelector((state) => state.comfirmOrder);
     const { loading: loadingComfirmed, success: successConfirmed } = orderComfirm;
-
     useEffect(() => {
 
         dispatch(getOrderDetails(orderId));
-    }, [dispatch, orderId]);
+    }, [dispatch, orderId, successConfirmed]);
 
     const deliverHandler = () => {
         dispatch(confirmOrder(order));
+    };
+    const cancelHandler = () => {
+        dispatch(cancelOrder(order));
+        window.location.reload();
     };
 
     return (
@@ -61,7 +64,7 @@ const OrderDetailmain = (props) => {
                                     Order ID: {order.orderId}
                                 </small>
                             </div>
-                            <div className="col-lg-6 col-md-6 ms-auto d-flex justify-content-end align-items-center">
+                            {/* <div className="col-lg-6 col-md-6 ms-auto d-flex justify-content-end align-items-center">
                                 <select
                                     className="form-select d-inline-block"
                                     style={{ maxWidth: "200px" }}
@@ -75,7 +78,7 @@ const OrderDetailmain = (props) => {
                                 <Link className="btn btn-success ms-2" to="#">
                                     <i className="fas fa-print"></i>
                                 </Link>
-                            </div>
+                            </div> */}
                         </div>
                     </header>
                     <div className="card-body">
@@ -91,22 +94,30 @@ const OrderDetailmain = (props) => {
                             {/* Payment Info */}
                             <div className="col-lg-3">
                                 <div className="box shadow-sm bg-light">
-                                    {order.isDelivered ? (
-                                        <button className="btn btn-success col-12">
-                                            DELIVERED AT ({" "}
-                                            {moment(order.isDeliveredAt).format("MMM Do YY")})
+                                    {order.toConfirm === 3 ? (
+                                        <button className="btn btn-success col-12 mb-2">
+                                            CONFIRMED ({" "}
+                                            {moment(order.confirmDate).format("MMM Do YY")})
                                         </button>
                                     ) : (
                                         <>
                                             {loadingComfirmed && <Loading />}
                                             <button
                                                 onClick={deliverHandler}
-                                                className="btn btn-dark col-12"
+                                                className="btn btn-dark col-12 mb-2"
                                             >
                                                 Confirm
                                             </button>
                                         </>
-                                    )}
+                                    )
+                                    }
+
+                                    <button
+                                        onClick={cancelHandler}
+                                        className="btn btn-dark col-12"
+                                    >
+                                        Cancel
+                                    </button>
                                 </div>
                             </div>
                         </div>

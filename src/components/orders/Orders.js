@@ -13,14 +13,14 @@ const Orders = (props) => {
                     <th scope="col">Total</th>
                     <th scope="col">Paid</th>
                     <th scope="col">Date</th>
-                    {/* <th>Status</th> */}
+                    <th>Status</th>
                     <th scope="col" className="text-end">
                         Action
                     </th>
                 </tr>
             </thead>
             <tbody>
-                {orders.map((order) => (
+                {orders?.map((order) => (
                     <tr key={order.orderId}>
                         <td>
                             <b>{order.userName}</b>
@@ -39,13 +39,19 @@ const Orders = (props) => {
                             )}
                         </td>
                         <td>{moment(order.orderDate).format("MMM Do YY")}</td>
-                        {/* <td>
-                            {order.isDelivered ? (
-                                <span className="badge btn-success">Delivered</span>
-                            ) : (
-                                <span className="badge btn-dark">Not delivered</span>
-                            )}
-                        </td> */}
+                        <td>
+                            {
+                                order.toConfirm === 2 ? (
+                                    <span className="badge bg-warning">Proceesing</span>
+                                ) : order.toConfirm === 3 ? (
+                                    <span className="badge bg-success">Confirmed</span>
+                                ) : order.toConfirm === 4 ? (
+                                    <span className="badge bg-danger">Cancel</span>
+                                ) : (
+                                    <span className="badge bg-info">Không xác định</span>
+                                )
+                            }
+                        </td>
                         <td className="d-flex justify-content-end align-item-center">
                             <Link to={`/order/${order.orderId}`} className="text-success">
                                 <i className="fas fa-eye"></i>

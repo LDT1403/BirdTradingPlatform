@@ -1,5 +1,8 @@
 import { Navigate } from "react-router-dom";
 import {
+    ORDER_CANCEL_FAIL,
+    ORDER_CANCEL_REQUEST,
+    ORDER_CANCEL_SUCCESS,
     ORDER_CONFIRM_FAIL,
     ORDER_CONFIRM_REQUEST,
     ORDER_CONFIRM_SUCCESS,
@@ -88,13 +91,13 @@ export const confirmOrder = (order) => async (dispatch) => {
             },
         };
 
-        const { data } = await axios.patch(
-            `https://localhost:7241/api/Shop/Confim_Success?orderId=${order.orderId}`,
+        const { data } = await axios.put(
+            `
+            https://localhost:7241/api/Shop/Confim_Order?orderId=${order.orderId}`,
             {},
             config
         );
         dispatch({ type: ORDER_CONFIRM_SUCCESS, payload: data });
-        Navigate("/orders");
     } catch (error) {
         const message =
             error.response && error.response.data.message
@@ -105,6 +108,40 @@ export const confirmOrder = (order) => async (dispatch) => {
         }
         dispatch({
             type: ORDER_CONFIRM_FAIL,
+            payload: message,
+        });
+    }
+};
+
+// ORDER DELIVER
+export const cancelOrder = (order) => async (dispatch) => {
+    try {
+        dispatch({ type: ORDER_CANCEL_REQUEST });
+        console.log(order)
+        const accessToken = localStorage.getItem('jwtToken');
+
+        const config = {
+            headers: {
+                Authorization: `Bearer ${accessToken}`,
+            },
+        };
+
+        const { data } = await axios.put(
+            `https://localhost:7241/api/Shop/Cancle_Order?orderId=${order.orderId}`,
+            {},
+            config
+        );
+        dispatch({ type: ORDER_CANCEL_SUCCESS, payload: data });
+    } catch (error) {
+        const message =
+            error.response && error.response.data.message
+                ? error.response.data.message
+                : error.message;
+        if (message === "Not authorized, token failed") {
+            // dispatch(logout());
+        }
+        dispatch({
+            type: ORDER_CANCEL_FAIL,
             payload: message,
         });
     }
