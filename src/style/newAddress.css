@@ -37,10 +37,9 @@
  .FullName-logAdd label {
      position: absolute;
      top: 11px;
-     /* Vị trí ban đầu của placeholder */
-     left: 10px;
+     left: 13px;
      pointer-events: none;
-     transition: 0.3s;
+     transition: 0.1s;
      color: #09c7e9;
  }
  
@@ -73,4 +72,8 @@
  }
  .height-log{
     height: 150px;
+ }
+ #massage-er-input{
+   color: red;
+    padding-left:10px;
  }
