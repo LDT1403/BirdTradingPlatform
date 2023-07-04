@@ -1,12 +1,16 @@
 import React from "react";
 import '../../../style/selectAddress.css';
-const SelectAddress = ({ label, Province, setCity, setidCity, DistrictData, setDistrictag, setDistrict, setidDistrict, setWardag, WardData, setWard }) => {
+const SelectAddress = ({ label, Province, setCity, setidCity, DistrictData, setDistrictag, setDistrict, setidDistrict, setWardag, WardData, setWard ,setMsAddress }) => {
   const handleCity = (event) => {
     const ProvinceId = event.target.options[event.target.selectedIndex].getAttribute('data-province-id');
     const ProvinceName = event.target.value;
     setCity(ProvinceName);
     setidCity(ProvinceId);
+    setDistrict(null);
     setDistrictag(2);
+    setWardag(2);
+    setidDistrict(1000);
+    setMsAddress(false);
 
   }
   const handleDistrict = (event) => {
@@ -14,12 +18,15 @@ const SelectAddress = ({ label, Province, setCity, setidCity, DistrictData, setD
     const DistrictName = event.target.value;
     setDistrict(DistrictName);
     setidDistrict(DistrictId);
+    setWard(null)
     setWardag(2);
+    setMsAddress(false);
 
   }
   const handleWard = (event) => {
     const WardName = event.target.value;
     setWard(WardName);
+    setMsAddress(false);
 
 
 
