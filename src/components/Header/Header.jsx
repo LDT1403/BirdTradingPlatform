@@ -117,46 +117,46 @@ const Header = () => {
 
                     {/* ======== nav right icons ========= */}
                     <div className="nav__right d-flex align-items-center gap-4">
-                    <span className="cart__icon" onClick={toggleCart}
-                 
-                    >
+                        <span className="cart__icon" onClick={toggleCart}
+
+                        >
                             <i className="ri-shopping-basket-line"></i>
 
                             <span className="cart__badge">{totalQuantity}</span>
                         </span>
-                    <div className="profile ">
-                        {
-                            user.UserId ? (<div className="d-flex align-items-center justify-content-center profile__wrapper " onClick={toggleProfileActions}>
-                                <img className="profile__image" src={user.Avatar} alt="User Profile" />
-                                <h6 className="profile__title">{user.unique_name}</h6>
-                            </div>
-                            ) : (
-                                <i className="ri-user-line" onClick={toggleProfileActions}>{user.unique_name}</i>
-                            )
-                        }
-                        {/* <i className="ri-user-line" onClick={toggleProfileActions}>{user.unique_name}</i> */}
-                        <div className="profile__actions" ref={profileActionRef} onClick={toggleProfileActions}>
-                            {user.UserId ? (
-                                <div className="d-flex align-items-center justify-content-center flex-column">
-                                    <Link to={isShopExist ? "/manageshop" : "/registerShop"}>My Shop</Link>
-                                    <Link to="/logout" onClick={handleLogOut}>Logout</Link>
+                        <div className="profile">
+                            {
+                                user.UserId ? (<div className="d-flex align-items-center justify-content-center profile__wrapper " onClick={toggleProfileActions}>
+                                    <img className="profile__image" src={user.Avatar} alt="User Profile" />
+                                    <h6 className="profile__title">{user.unique_name}</h6>
                                 </div>
-                            ) : (
-                                <Link to='/login'>Login
-                                    {/* <i className="ri-user-line"></i> */}
-                                </Link>
-                            )
-
+                                ) : (
+                                    <i className="ri-user-line" onClick={toggleProfileActions}>{user.unique_name}</i>
+                                )
                             }
+                            {/* <i className="ri-user-line" onClick={toggleProfileActions}>{user.unique_name}</i> */}
+                            <div className="profile__actions" ref={profileActionRef} onClick={toggleProfileActions}>
+                                {user.UserId ? (
+                                    <div className="d-flex align-items-center justify-content-center flex-column">
+                                        <Link to={isShopExist ? "/manageshop" : "/registerShop"}>My Shop</Link>
+                                        <Link to="/logout" onClick={handleLogOut}>Logout</Link>
+                                    </div>
+                                ) : (
+                                    <Link to='/login'>Login
+                                        {/* <i className="ri-user-line"></i> */}
+                                    </Link>
+                                )
+
+                                }
+                            </div>
+                            {/* </Link> */}
                         </div>
-                        {/* </Link> */}
+                        <span className="mobile__menu" onClick={toggleMenu} >
+                            <i className="ri-menu-line"></i>
+                        </span>
                     </div>
-                    <span className="mobile__menu" onClick={toggleMenu} >
-                        <i className="ri-menu-line"></i>
-                    </span>
                 </div>
-            </div>
-        </Container>
+            </Container>
         </header >
     )
 }

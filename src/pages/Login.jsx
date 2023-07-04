@@ -1,13 +1,11 @@
-import React from "react";
-import { useState, useRef } from "react";
+import React, { useState, useRef } from "react";
 import { useDispatch } from "react-redux";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { loginUser } from "./redux/apiRequest";
-import { Link } from "react-router-dom";
 import Helmet from "../components/Helmet/Helmet";
-import '../style/Login.scss';
+import "../style/Login.css";
 import "animate.css";
-
+import ForgotPassword from "./ForgotPassword";
 
 const Login = () => {
     const [password, setPassword] = useState("");
@@ -17,14 +15,20 @@ const Login = () => {
     const inputRef = useRef();
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    // const { state } = useLocation();
+    const [isForgotPasswordVisible, setIsForgotPasswordVisible] = useState(false);
 
     const validateEmail = (email) => {
-        return String(email)
-            .toLowerCase()
-            .match(
-                /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
-            );
+        return String(email).toLowerCase().match(
+            /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+        );
+    };
+
+    const toggleForgotPassword = () => {
+        setIsForgotPasswordVisible(!isForgotPasswordVisible);
+    };
+
+    const handleForgotPasswordSuccess = () => {
+        setIsForgotPasswordVisible(false);
     };
 
     const handleSubmit = (e) => {
@@ -53,7 +57,8 @@ const Login = () => {
             password: password,
         };
         loginUser(newUser, dispatch, navigate);
-    }
+    };
+
     const hanldeOnInput = (e) => {
         if (e.target.value) {
             errorAlert.current.innerText = "";
@@ -64,69 +69,76 @@ const Login = () => {
     };
 
     return (
-        <Helmet title="Login">
-            {/* <CommonSection title="Login" /> */}
-            <div className="Login-Wrapper">
-                <div className="Login animate__animated animate__fadeInDown">
-                    <div className="login-body">
-                        <div className="login__form-body">
-                            <form
-                                className="login__form-content"
-                                onSubmit={handleSubmit}
-                            >
-                                <header className="Login__header">
-                                    <h2>Login</h2>
-                                </header>
-                                <div className="login_form-group">
-                                    <input
-                                        type="email"
-                                        placeholder="Email"
-                                        className="login__input-box mt-4"
-                                        value={email}
-                                        onChange={(e) => setEmail(e.target.value)}
-                                        onInput={(e) => {
-                                            hanldeOnInput(e);
-                                        }}
-                                        ref={inputRef}
-                                    />
-                                    <span ref={errorAlert}>{/* error alert */}</span>
-                                </div>
-                                <div className="login__form-group">
-                                    <input
-                                        type="password"
-                                        placeholder="Password"
-                                        className="login__input-box mt-4"
-                                        value={password}
-                                        onChange={(e) => setPassword(e.target.value)}
-                                        onInput={(e) => {
-                                            hanldeOnInput(e);
-                                        }}
-                                    />
-                                    <span ref={errorPassword}>{/* error alert */}</span>
-                                </div>
-                                <Link to="/forgotPassword" className="forgot-password mb-2 d-block">Quên mật khẩu</Link>
-                                <button className="btn-sign-in">
-                                    Submit
-                                </button>
-                                <div className="separate mt-4 mb-4">
-                                    <div className="line"></div>
-                                    <span>Or</span>
-                                    <div className="line"></div>
-                                </div>
-                                <div className="login__google mt-3" >
-                                    <img className="google-icon" />
-                                </div>
-                                <div className="sign-up mt-3">
-                                    <span>Don't have Account ?</span>
-                                    <Link to="/register">Register</Link>
-                                </div>
-                            </form>
+        <>
+            <Helmet title="Login">
+                <div className="Login-Wrapper">
+                    <div className="Login animate__animated animate__fadeInDown">
+                        <div className="login-body">
+                            <div className="login__form-body">
+                                <form className="login__form-content" onSubmit={handleSubmit}>
+                                    <header className="Login__header">
+                                        <h2>Login</h2>
+                                    </header>
+                                    <div className="login_form-group">
+                                        <input
+                                            type="email"
+                                            placeholder="Email"
+                                            className="login__input-box mt-4"
+                                            value={email}
+                                            onChange={(e) => setEmail(e.target.value)}
+                                            onInput={(e) => {
+                                                hanldeOnInput(e);
+                                            }}
+                                            ref={inputRef}
+                                        />
+                                        <span ref={errorAlert}></span>
+                                    </div>
+                                    <div className="login__form-group">
+                                        <input
+                                            type="password"
+                                            placeholder="Password"
+                                            className="login__input-box mt-4"
+                                            value={password}
+                                            onChange={(e) => setPassword(e.target.value)}
+                                            onInput={(e) => {
+                                                hanldeOnInput(e);
+                                            }}
+                                        />
+                                        <span ref={errorPassword}></span>
+                                    </div>
+                                    <div
+                                        className="forgot-password mb-2 d-block"
+                                        onClick={toggleForgotPassword}
+                                    >
+                                        Quên mật khẩu
+                                    </div>
+                                    <button className="btn-sign-in">Submit</button>
+                                    <div className="separate mt-4 mb-4">
+                                        <div className="line"></div>
+                                        <span>Or</span>
+                                        <div className="line"></div>
+                                    </div>
+                                    <div className="login__google mt-3">
+                                        <i className="ri-google-fill"></i>
+                                    </div>
+                                    <div className="sign-up mt-3">
+                                        <span>Don't have Account ?</span>
+                                        <Link to="/register">Register</Link>
+                                    </div>
+                                </form>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        </Helmet>
-    )
-}
+            </Helmet>
+            {isForgotPasswordVisible && (
+                <ForgotPassword
+                    isVisible={isForgotPasswordVisible}
+                    onSuccess={handleForgotPasswordSuccess}
+                />
+            )}
+        </>
+    );
+};
 
 export default Login;

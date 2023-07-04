@@ -1,18 +1,61 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Doughnut } from "react-chartjs-2";
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
+import axios from "axios";
 ChartJS.register(ArcElement, Tooltip, Legend);
 
 const ProductsStatistics = () => {
+    const [week, setWeeklyRevenueData] = useState({});
+    const accessToken = localStorage.getItem('jwtToken');
 
-    const weeklyRevenueData = [1200, 800, 1500, 1000, 1800, 1300, 1600];
+    useEffect(() => {
+        axios.get('https://localhost:7241/api/Shop/Revenue_week', {
+            headers: {
+                Authorization: `Bearer ${accessToken}`
+            }
+        })
+            .then(res => {
+                setWeeklyRevenueData(res.data);
+            })
+            .catch(err => {
+                console.log(err);
+            });
+    }, [accessToken]);
+
+    if (!week.dailyRevenue || !week.weekdays) {
+        return null; // or render a loading indicator
+    }
+
+    const weeklyRevenueData = week.dailyRevenue;
+    console.log(weeklyRevenueData);
+    const dates = week.weekdays;
 
     const totalRevenue = weeklyRevenueData.reduce((sum, revenue) => sum + revenue, 0);
-
+    console.log(totalRevenue);
     const revenuePercentages = weeklyRevenueData.map(revenue => (revenue / totalRevenue) * 100);
+    console.log(revenuePercentages);
+    const formattedDates = dates.map(dateString => {
+        const date = new Date(dateString);
+        const dayOfWeek = date.toLocaleDateString('en-US', { weekday: 'long' });
+        const day = date.getDate();
+        const month = date.toLocaleDateString('en-US', { month: 'long' });
+        const year = date.getFullYear();
+        const formattedDate = `${dayOfWeek}, ${day} ${month} ${year}`;
+        return formattedDate;
+    });
+
+    const formattedDatesWithDay = dates.map(dateString => {
+        const date = new Date(dateString);
+        const dayOfWeek = date.toLocaleDateString('en-US', { weekday: 'long' });
+        const day = date.getDate();
+        const month = date.toLocaleDateString('en-US', { month: 'long' });
+        const year = date.getFullYear();
+        const formattedDateWithDay = `${dayOfWeek}, ${day} ${month} ${year}`;
+        return formattedDateWithDay;
+    });
 
     const data = {
-        labels: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
+        labels: formattedDatesWithDay,
         datasets: [
             {
                 data: revenuePercentages,
@@ -23,7 +66,6 @@ const ProductsStatistics = () => {
     };
 
     const options = {
-
         responsive: true,
         maintainAspectRatio: true,
         legend: {
@@ -38,7 +80,7 @@ const ProductsStatistics = () => {
                 label: (tooltipItem, data) => {
                     const dataset = data.datasets[tooltipItem.datasetIndex];
                     const percentage = dataset.data[tooltipItem.index];
-                    return `${data.labels[tooltipItem.index]}: ${percentage.toFixed(2)}%`;
+                    return `${formattedDates[tooltipItem.index]}: ${percentage.toFixed(2)}%`;
                 },
             },
         },
@@ -60,20 +102,6 @@ const ProductsStatistics = () => {
                     }}>
                         <Doughnut data={data} options={options} />
                     </div>
-
-                    {/* <iframe
-                        style={{
-                            background: "#FFFFFF",
-                            border: "none",
-                            borderRadius: "2px",
-                            boxShadow: "0 2px 10px 0 rgba(70, 76, 79, .2);",
-                            width: "100%",
-                            height: "350px",
-                        }}
-                        src="https://charts.mongodb.com/charts-project-0-eckjn/dashboards/64941e1d-b94d-4867-8d2d-21c2bd5af5ea?view=64941e1d-b94d-4138-8f20-21c2bd5af5ef"
-                    ></iframe> */}
-
-
                 </article>
             </div>
         </div>

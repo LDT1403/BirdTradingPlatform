@@ -38,7 +38,7 @@ form {
 
 .btn-primary {
     padding: 12px 20px;
-    background-color: rgb(18, 139, 163);
+    background-color: rgb(18, 139, 163) !important;
     color: #fff;
     border: none;
     border-radius: 5px;

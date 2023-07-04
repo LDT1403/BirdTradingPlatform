@@ -18,27 +18,27 @@ const LatestOrder = (props) => {
                 <div className="table-responsive">
                     <table className="table">
                         <tbody>
-                            {orders && orders.slice(0, 5).map((order) => (
-                                <tr key={order._id}>
+                            {orders && orders.slice(0, 5)?.map((order) => (
+                                <tr key={order.orderId}>
                                     <td>
-                                        <b>{order.user.name}</b>
+                                        <p>{order.name}</p>
                                     </td>
-                                    <td>{order.user.email}</td>
+                                    <td>{order.email}</td>
                                     <td>${order.totalPrice}</td>
                                     <td>
-                                        {order.isPaid ? (
-                                            <span className="badge rounded-pill alert-success">
+                                        {order.status ? (
+                                            <span className="badge bg-success">
                                                 Paid At {moment(order.paidAt).format("MMM Do YY")}
                                             </span>
                                         ) : (
-                                            <span className="badge rounded-pill alert-danger">
+                                            <span className="badge bg-danger">
                                                 Not Paid
                                             </span>
                                         )}
                                     </td>
-                                    <td>{moment(order.createdAt).calendar()}</td>
+                                    <td>{moment(order.orderDate).calendar()}</td>
                                     <td className="d-flex justify-content-end align-item-center">
-                                        <Link to={`/order/${order._id}`} className="text-success">
+                                        <Link to={`/order/${order.orderId}`} className="text-success">
                                             <i className="fas fa-eye"></i>
                                         </Link>
                                     </td>

@@ -12,11 +12,17 @@ export const loginUser = async (user, dispatch, navigate) => {
     // console.log(dispatch)
     try {
         const res = await axios.post("https://localhost:7241/api/User/Login", user);
-        console.log(res.data)
+
         const token = jwt_decode(res.data.data.accessToken);
+        console.log(token)
         dispatch(loginSuccess(token));
         saveTokenToLocalStorage(res.data.data.accessToken);
-        navigate("/");
+        if (token.role === 'AD') {
+            navigate("/dashboard");
+        } else {
+            navigate("/");
+        }
+
 
     } catch (err) {
         console.log(err)

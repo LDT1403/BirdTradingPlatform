@@ -37,6 +37,7 @@ const ToPay = () => {
                }
           })
                .then(response => {
+                    console.log(response.data)
                     const paymentUrl = response.data.paymentUrl;
                     window.location.href = `${paymentUrl}`;
 

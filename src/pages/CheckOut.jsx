@@ -48,8 +48,8 @@ const CheckOut = () => {
                     }
                 });
         };
-        if(!showAddNewAddress){
-            fetchData();           
+        if (!showAddNewAddress) {
+            fetchData();
             console.log("Tôi đang ở đây")
         }
     }, [showAddNewAddress]);
@@ -358,9 +358,9 @@ const CheckOut = () => {
 
             </div>
             {
-                showAddNewAddress && 
-                    <NewAddress  setShowNotification={setShowNotification} setShowAddNewAddress={setShowAddNewAddress} accessToken = {accessToken}/>
-                
+                showAddNewAddress &&
+                <NewAddress setShowNotification={setShowNotification} setShowAddNewAddress={setShowAddNewAddress} accessToken={accessToken} />
+
             }
             {showNotification && (
                 <div className="confirmation-modal">

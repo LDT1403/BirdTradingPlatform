@@ -15,7 +15,6 @@ import OrderStatus from "../pages/OrderStatus";
 import MyPurchase from "../pages/MyPurchase";
 import OrderDetail from "../components/UI/myPurchase/OrderDetail";
 
-
 const Router = () => {
     const user = useSelector((state) => state.auth.login.currentUser);
     return (
@@ -29,12 +28,13 @@ const Router = () => {
             <Route path="/cart" element={<Cart />} />
             <Route path="/checkout" element={user.UserId ? <CheckOut /> : <Navigate to="/login" />} />
             <Route path="/register" element={<Register />} />
+            {/* <Route path="/forgotPassword" element={<ForgotPassword />} /> */}
             <Route path="/contact" element={<Contact />} />
             <Route path="/registerShop" element={<RegisterShop />} />
             <Route path="/orderStatus" element={<OrderStatus />} />
             <Route path="/MyPurchase/*" element={<MyPurchase />} />
             <Route path="/OrderDetail/:id" element={<OrderDetail />} />
-         
+
         </Routes>
     )
 }

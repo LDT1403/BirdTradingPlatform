@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Bar } from 'react-chartjs-2';
 import {
     Chart as ChartJS,
@@ -12,6 +12,7 @@ import {
     LineController,
     BarController,
 } from 'chart.js';
+import axios from 'axios';
 
 ChartJS.register(
     LinearScale,
@@ -28,7 +29,25 @@ ChartJS.register(
 
 
 const SaleStatistics = () => {
-    const monthlyRevenueData = [12000, 8000, 15000, 10000, 18000, 13000, 16000, 14000, 17000, 9000, 11000, 19000];
+
+    const [monthlyRevenueData, setMonthlyRevenueData] = useState([]);
+    const accessToken = localStorage.getItem('jwtToken')
+    useEffect(() => {
+        axios.get('https://localhost:7241/api/Shop/Revenue_month', {
+            headers: {
+                Authorization: `Bearer ${accessToken}`
+            }
+        })
+            .then(res => {
+                console.log(res.data);
+                setMonthlyRevenueData(res.data);
+            })
+            .catch(err => {
+                console.log(err)
+            })
+    }, [accessToken]
+    )
+    // const monthlyRevenueData = [12000, 8000, 15000, 10000, 18000, 13000, 16000, 14000, 17000, 9000, 11000, 19000];
 
     const data = {
         labels: [

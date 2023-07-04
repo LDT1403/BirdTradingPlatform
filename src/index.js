@@ -4,7 +4,6 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { Provider } from 'react-redux';
-import { ToastContainer, toast } from 'react-toastify';
 
 // import store from './pages/redux/store';
 // import store from './pages/redux/store';
@@ -15,6 +14,7 @@ import "bootstrap/dist/css/bootstrap.css";
 import "remixicon/fonts/remixicon.css";
 import { PersistGate } from 'redux-persist/integration/react';
 import { persistor, store } from './pages/redux/store';
+import { ToastContainer } from 'react-toastify';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -26,19 +26,16 @@ root.render(
         <ScrollToTop />
       </PersistGate>
     </Provider>
-
     <ToastContainer
       position="top-right"
-      autoClose={5000}
       hideProgressBar={false}
       newestOnTop={false}
       closeOnClick
       rtl={false}
-      pauseOnFocusLoss
-      draggable
-      pauseOnHover
-      theme="light"
     />
+    {/* Same as */}
+    <ToastContainer />
+
   </Router>
 
 
