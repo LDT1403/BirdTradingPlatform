@@ -14,6 +14,8 @@ import RegisterShop from "../components/UI/authUi/RegisterShop";
 import OrderStatus from "../pages/OrderStatus";
 import MyPurchase from "../pages/MyPurchase";
 import OrderDetail from "../components/UI/myPurchase/OrderDetail";
+import AccountUser from "../pages/AccountUser";
+
 
 const Router = () => {
     const user = useSelector((state) => state.auth.login.currentUser);
@@ -34,6 +36,7 @@ const Router = () => {
             <Route path="/orderStatus" element={<OrderStatus />} />
             <Route path="/MyPurchase/*" element={<MyPurchase />} />
             <Route path="/OrderDetail/:id" element={<OrderDetail />} />
+            <Route path="/accountUser" element={<AccountUser/>} />
 
         </Routes>
     )
