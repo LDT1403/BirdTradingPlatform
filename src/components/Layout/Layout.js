@@ -54,7 +54,7 @@ const Layout = () => {
         `/product/${productId}/edit`,
         '/orders',
         `/order/${orderId}`,
-        '/admin'
+        '/dashboard'
     ]
 
     return (

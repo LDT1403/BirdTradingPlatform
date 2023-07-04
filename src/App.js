@@ -24,6 +24,7 @@ import PrivateRouter from "./PrivateRouter";
 import { listOrders } from './pages/redux/Actions/OrderActions';
 import { useEffect } from 'react';
 import { listProducts } from './pages/redux/Actions/ProductActions';
+import RouterAdmin from './routes/RouterAdmin';
 
 function App() {
   const user = useSelector((state) => state.auth.login.currentUser);
@@ -42,7 +43,7 @@ function App() {
 
       <Layout />
 
-
+      <RouterAdmin />
       {(user.role === 'SP' || shop.roleId === "SP") && (
         <Routes>
           <Route path="/manageshop" element={<PrivateRouter component={HomeScreen} />} />

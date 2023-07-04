@@ -18,7 +18,7 @@ export const loginUser = async (user, dispatch, navigate) => {
         dispatch(loginSuccess(token));
         saveTokenToLocalStorage(res.data.data.accessToken);
         if (token.role === 'AD') {
-            navigate("/admin");
+            navigate("/dashboard");
         } else {
             navigate("/");
         }
