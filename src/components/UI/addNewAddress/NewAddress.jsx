@@ -18,6 +18,11 @@ const NewAddress = ({ setShowAddNewAddress, setShowNotification, accessToken }) 
      const [IdDistrict, setidDistrict] = useState();
      const [Districtag, setDistrictag] = useState(1);
      const [Wardag, setWardag] = useState(1);
+     const [MsFullName, setMsFullName] = useState(false);
+     const [MsPhone, setMsPhone] = useState(false);
+     const [MsAddress, setMsAddress] = useState(false);
+     const [MsAddressDetails, setMsAddressDetails] = useState(false);
+     const [MsAllNull, setMsAllNull] = useState(false);
 
      useEffect(() => {
           const apiProvince = () => {
@@ -62,25 +67,42 @@ const NewAddress = ({ setShowAddNewAddress, setShowNotification, accessToken }) 
      }, [Wardag]);
      const handleAddDetail = (value) => {
           setAddressDetails(value);
-
+          setMsAddressDetails(false)
      }
 
      const handleSubmit = () => {
-          axios.post("https://localhost:7241/api/Order/AddressOder", NewAddressAdd, {
-               headers: {
-                    Authorization: `Bearer ${accessToken}`
-               }
-          })
-               .then(response => {
-                    setShowAddNewAddress(false);
-                    setShowNotification(true);
-               })
+          switch (true) {
+
+               case (!fullName || /\d/.test(fullName)):
+                    setMsFullName(true);
+                    break;
+               case (!/^\d+$/.test(phone) || phone.length !== 10):
+                    setMsPhone(true);
+                    break;
+               case (!(City, District, Ward)):
+                    setMsAddress(true);
+                    break;
+               case (!addressDetails):
+                    setMsAddressDetails(true);
+                    break;
+               default:
+                    axios.post("https://localhost:7241/api/Order/AddressOder", NewAddressAdd, {
+                         headers: {
+                              Authorization: `Bearer ${accessToken}`
+                         }
+                    })
+                         .then(response => {
+                              setShowAddNewAddress(false);
+                              setShowNotification(true);
+                         })
+                    break;
+          }
+
 
      }
      const handleCancelAdd = () => {
-          console.log(NewAddressAdd)
-          //setShowAddNewAddress(false);
-          //setShowNotification(true);
+          setShowAddNewAddress(false);
+          setShowNotification(true);
      }
      const NewAddressAdd =
      {
@@ -89,12 +111,14 @@ const NewAddress = ({ setShowAddNewAddress, setShowNotification, accessToken }) 
           phone: phone,
           nameRg: fullName
      };
-
+     console.log(City, District, Ward);
      const handleInfo = (e) => {
           if (e.target.id === "myInputFullName") {
+               setMsFullName(false);
                setFullName(e.target.value);
           } else if (e.target.id === "myInputPhone") {
                setPhone(e.target.value);
+               setMsPhone(false);
           }
      };
      return (
@@ -111,6 +135,11 @@ const NewAddress = ({ setShowAddNewAddress, setShowNotification, accessToken }) 
                                    required
                               />
                               <label htmlFor="myInputFullName">Full Name</label>
+                              {
+                                   MsFullName && (
+                                        <p id="massage-er-input">input FullName</p>
+                                   )
+                              }
 
                          </div>
                          <div className="FullName-logAdd">
@@ -122,13 +151,27 @@ const NewAddress = ({ setShowAddNewAddress, setShowNotification, accessToken }) 
                                    required
                               />
                               <label htmlFor="myInputPhone">Phone Number</label>
+                              {
+                                   MsPhone && (
+                                        <p id="massage-er-input">input PhoneNumber</p>
+                                   )
+                              }
+
                          </div>
                     </div>
-                    <div className="Address-log-add ">
-                         <SelectAddress label='Province' setCity={setCity} setidCity={setidCity} Province={Province} setDistrictag={setDistrictag} setWardag={setWardag} />
-                         <SelectAddress label='District' setDistrict={setDistrict} setidDistrict={setidDistrict} DistrictData={DistrictData} setWardag={setWardag} />
-                         <SelectAddress label='Ward' setWard={setWard} WardData={WardData} />
+                    <div>
+
                     </div>
+                    <div className="Address-log-add ">
+                         <SelectAddress label='Province' setCity={setCity} setidCity={setidCity} Province={Province} setDistrictag={setDistrictag} setWardag={setWardag} setDistrict={setDistrict} setidDistrict={setidDistrict} setMsAddress={setMsAddress} />
+                         <SelectAddress label='District' setDistrict={setDistrict} setidDistrict={setidDistrict} DistrictData={DistrictData} setWardag={setWardag} setWard={setWard} setMsAddress={setMsAddress} />
+                         <SelectAddress label='Ward' setWard={setWard} WardData={WardData} setMsAddress={setMsAddress} />
+                    </div>
+                    {
+                         MsAddress && (
+                              <p id="massage-er-input">Please select your Address</p>
+                         )
+                    }
                     <div className="addDetail-logAdd">
                          <input
                               placeholder="Street Name, Building, House No."
@@ -137,9 +180,19 @@ const NewAddress = ({ setShowAddNewAddress, setShowNotification, accessToken }) 
                               onChange={(e) => handleAddDetail(e.target.value)} />
 
                     </div>
+                    {
+                         MsAddressDetails && (
+                              <p id="massage-er-input">please input your address details</p>
+                         )
+                    }
                     <div className="height-log">
 
                     </div>
+                    {
+                         MsAllNull && (
+                              <h5>Please provide complete information</h5>
+                         )
+                    }
                     <div className="cf-ad-bt-bottom">
                          <button onClick={handleCancelAdd}>Cancel</button>
                          <button className="cf-ad-bt-confirm" onClick={handleSubmit}> Submit </button>

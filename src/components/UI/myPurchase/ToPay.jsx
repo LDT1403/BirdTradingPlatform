@@ -6,6 +6,8 @@ const ToPay = () => {
      const accessToken = localStorage.getItem('jwtToken');
      const [orderList, setOrderList] = useState([]);
      const [ShowLogItemsNull, setShowLogItemsNull] = useState(true);
+     const [listOrderId, setListOrderId] = useState();
+
      useEffect(() => {
           axios.get("https://localhost:7241/api/Order/OrderFailed", {
                headers: {
@@ -13,41 +15,23 @@ const ToPay = () => {
                }
           })
                .then((response) => {
-                    console.log(response.data)
-                    if (response.data.length) {
-                         setShowLogItemsNull(false)
-                         // setShowLogItems(false)
-                         const processedData = response.data.map((order) => {
-                              const { orderId, subTotal, items } = order;
-                              const groupedItems = items.reduce((acc, item) => {
-                                   const { shopId, shopName } = item;
-                                   const existingShop = acc.find(
-                                        (shop) => shop.shopId === shopId && shop.shopName === shopName
-                                   );
-                                   if (existingShop) {
-                                        existingShop.products.push(item);
-                                   } else {
-                                        acc.push({ shopId, shopName, products: [item] });
-                                   }
-                                   return acc;
-                              }, []);
-                              return { orderId, subTotal, shops: groupedItems };
-                         });
-
-                         setOrderList(processedData);
-
-                    }
+                    setShowLogItemsNull(false)
+                    setOrderList(response.data);
 
                })
                .catch(error => {
                     console.log(error);
                });
      }, []);
-     const paymentMethodSelect = {
-          method: "VnPay"
-     }
+
      const handlePayNow = (order) => {
-          axios.post(`https://localhost:7241/api/Order/${order}/Pay`, paymentMethodSelect, {
+          const orderId = order.orders.map(order => order.orderId)
+          console.log(orderId);
+          const paymentMethodSelect = {
+               "orderIds": orderId,
+               method: "VnPay"
+          }
+          axios.post(`https://localhost:7241/api/Order/Pay`, paymentMethodSelect, {
                headers: {
                     Authorization: `Bearer ${accessToken}`
                }
@@ -67,7 +51,7 @@ const ToPay = () => {
                {orderList.map((order, index) => (
                     <div className="toPay-list-log" key={index} style={{ boxShadow: '0 2px 1px 0 rgba(0, 0, 0, .05)' }}>
                          <div className="toPay-body-product" >
-                              {order.shops.map((shop) => (
+                              {order.orders.map((shop) => (
                                    <div className="toPay-log-shop" key={shop.shopId}>
                                         <div className="toPay-nameShop">
                                              <div className="toPay-nameShop-log">
@@ -80,20 +64,21 @@ const ToPay = () => {
 
                                              <div className="toPay-Product-text">
 
-                                                  <div className="toPay-subitem-text">TO PAY</div>
+                                                  {/* <div className="toPay-subitem-text">TO PAY</div> */}
                                              </div>
                                         </div>
 
-                                        {shop.products.map((product) => (
+                                        {shop.items.map((product) => (
                                              <div className="toPay-product" key={product.productId}>
-                                                  <img src={product.imagePath} alt="" />
+
+                                                  <img src={product.firstImagePath} alt="" />
                                                   <div className="toPay-ProductName">
                                                        <div className="toPay-name">{product.productName}</div>
                                                        <div className="toPay-quantity">x{product.quantity}</div>
                                                   </div>
                                                   <div className="toPay-Product-price">
-                                                       <div className="toPay-num" style={{ textDecoration: "line-through" }}>${product.price}</div>
-                                                       <div className="toPay-numSoldPrice">${product.soldPrice}</div>
+                                                       <div className="toPay-num" style={{ textDecoration: "line-through" }}>${product.productPrice}</div>
+                                                       <div className="toPay-numSoldPrice">${product.discountPrice}</div>
                                                   </div>
 
 
@@ -103,12 +88,20 @@ const ToPay = () => {
 
                                    </div>
                               ))}
+
                          </div>
-                         <div className="toPay-totalPay-log">TotalPay: {order.subTotal}</div>
+                         <div className="toPay-totalPay-log">
+                              <h5>TotalPay:</h5>
+                              <div id="toPay-totalPay">{order.amount}</div>
+                         </div>
+
+
                          <div className="toPay-list-button">
-                              <button onClick={() => handlePayNow(order.orderId)}>Pay Now</button>
+                              <button onClick={() => handlePayNow(order)}>Pay Now</button>
                          </div>
+
                     </div>
+
                ))}
           </div>
      );

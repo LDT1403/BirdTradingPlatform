@@ -110,21 +110,32 @@
      display: flex;
      justify-content: end;
      align-items: center;
-     padding:10px 20px;
+     padding: 10px 20px;
 }
 
 .toPay-list-button button {
      display: flex-end;
      border: none;
-    align-items: center;
+     align-items: center;
      background-color: #176eb0;
      color: #fff;
-     padding:7px 20px;
+     padding: 7px 20px;
      border-radius: 4px;
      margin-right: 4%;
 }
-.toPay-totalPay-log{
-     font-size: 18px;
-    right: 0;
-     
+
+.toPay-totalPay-log {   
+     font-size: 23px;
+     font-weight: 500;
+     display: flex;
+     justify-content: end;
+     align-items: end;
+
+}
+#toPay-totalPay{
+     width: 15.5%;
+     color: crimson;
+     font-size: 30px;
+ 
+    
 }
