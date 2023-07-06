@@ -23,11 +23,11 @@ const ShopDetail = () => {
     const [ListImg, setListImg] = useState([]);
     const [selectedImage, setSelectedImage] = useState();
     const [quantity, setQuantity] = useState(1);
+    const [feedback, setFeedback] = useState([])
     useEffect(() => {
         window.scrollTo({ top: 0, behavior: 'smooth' });
         axios.get(`https://localhost:7241/api/Products/detail_product?id=${idpro.id}`)
             .then(resp => {
-                // setListImg(resp.data.images)
                 setDetails(resp.data);
                 axios.get(`https://localhost:7241/api/Products/Shop_Detail_Product?id=${resp.data.shopId}`)
                     .then(responseShop => {
@@ -38,9 +38,13 @@ const ShopDetail = () => {
                         setSelectedImage(res.data[0])
                         setListImg(res.data)
                     })
+                axios.get(`https://localhost:7241/api/FeedBack?productID=${resp.data.productId}`)
+                    .then(resp => {
+                        setFeedback(resp.data);
+                    })
                 axios.get(`https://localhost:7241/api/Products/Product_ShopId?shopId=${resp.data.shopId}`)
                     .then(resp => {
-                        const maxProducts = resp.data.slice(0, 8); // Lấy tối đa 10 sản phẩm
+                        const maxProducts = resp.data.slice(0, 8);
                         setProductsData(maxProducts);
                     })
             })
@@ -80,31 +84,6 @@ const ShopDetail = () => {
     }
 
 
-    const feedback =
-        [
-            {
-                userName: "Dinh Thanh",
-                userImage: "https://scontent.fsgn2-7.fna.fbcdn.net/v/t39.30808-6/330973722_491663389838233_7275732520578483402_n.jpg?_nc_cat=100&ccb=1-7&_nc_sid=09cbfe&_nc_ohc=VqTcG6a48XwAX9xxRtS&_nc_ht=scontent.fsgn2-7.fna&oh=00_AfCBNL1cDmeJVRC1ErLB9sCR8hWa1xZF8nqVYVIQhtseww&oe=648AA0D8",
-                feedbackText: "sản phẩm tạm ổn",
-                rate_fb: 5,
-                image_fb: [
-                    "https://cf.shopee.vn/file/262b61bc7babfe00afb78d10ca72c682_tn",
-                    "https://cf.shopee.vn/file/5a8d5a63ccc3776a3488f9377a716887_tn"
-                ]
-            },
-            {
-                userName: "Long Nhat",
-                userImage: "https://scontent.fsgn2-6.fna.fbcdn.net/v/t39.30808-6/272861636_619618709102384_3040732955244006395_n.jpg?_nc_cat=110&ccb=1-7&_nc_sid=174925&_nc_ohc=76bRZZt8GeMAX-ds1-C&_nc_ht=scontent.fsgn2-6.fna&oh=00_AfADb-efNmUdn6y7YDWSYtcq_JC9Y8xyj9HC0UuCOj2Leg&oe=648B32D5",
-                feedbackText: "Hàng ngon vãi ",
-                rate_fb: 4,
-                image_fb: [
-
-                    "https://cf.shopee.vn/file/59e2c691601487c692dea145cf3433b2",
-                    "https://cf.shopee.vn/file/927bf619bd9b3c4de3ab764e5317f8a8",
-
-                ]
-            }
-        ]
 
     const countFeedback = (feedback) => {
         return feedback.length;
@@ -176,32 +155,19 @@ const ShopDetail = () => {
     };
     let currentImageSrc = null;
     const handleImageClick = (event, index) => {
-        // Lấy src của ảnh đã click
         const clickedImageSrc = event.target.src;
-
-        // Lấy user-imageView tương ứng với index
         const imageViewElement = document.querySelector(`.user-imageView-${index}`);
-
-        // Lấy tất cả các ảnh trong user-listImage tương ứng với index
         const images = document.querySelectorAll(`.user-listImage-${index} img`);
-
-        // Kiểm tra nếu đang hiển thị ảnh và ảnh đã click trùng nhau
         if (currentImageSrc === clickedImageSrc) {
-            // Ẩn user-imageView
             imageViewElement.classList.add("hidden");
             currentImageSrc = null;
-
-            // Đặt lại trạng thái của ảnh về ban đầu
             images.forEach((image) => {
                 image.classList.remove("clicked");
             });
         } else {
-            // Hiển thị ảnh đã click trong user-imageView
-            imageViewElement.innerHTML = `<img src="${clickedImageSrc}" alt="Clicked Image" />`;
+            imageViewElement.innerHTML = `<img src="${clickedImageSrc}" alt="Clicked Image" style="max-width: 300px; max-height: 300px;" />`;
             imageViewElement.classList.remove("hidden");
             currentImageSrc = clickedImageSrc;
-
-            // Đặt lại trạng thái của ảnh
             images.forEach((image) => {
                 if (image.src === clickedImageSrc) {
                     image.classList.add("clicked");
@@ -401,24 +367,29 @@ const ShopDetail = () => {
                         <div className="feedback-info" key={index}>
                             <div className="feedback-user">
                                 <div className="userImage">
-                                    <img src={user.userImage} alt="" />
+                                    <img src={user.imgAvatar} alt="" />
                                 </div>
                                 <div className="user-name-rate">
                                     <div className="user-name">{user.userName}</div>
-                                    <div className="user-rate">{userRating(user.rate_fb)}</div>
-                                    <div className="user-text">{user.feedbackText}</div>
+                                    <div className="user-rate">{userRating(user.rate)}</div>
+                                    <div className="user-date">
+                                       
+                                        {user.createDate}
+                                        </div>
+                                    <div className="user-text">{user.detail}</div>
                                     <div className="user-image">
                                         <div className="user-listImage">
-                                            {user.image_fb.map((item, imgIndex) => (
+                                            {user.imgFeedback.map((item, imgIndex) => (
                                                 <img
                                                     key={imgIndex}
                                                     src={item}
                                                     alt=""
                                                     onClick={(event) => handleImageClick(event, index)}
+
                                                 />
                                             ))}
                                         </div>
-                                        <div className={`user-imageView-${index}`}></div>
+                                        <div className={`user-imageView-${index}`} ></div>
                                     </div>
                                 </div>
                             </div>

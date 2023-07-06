@@ -251,23 +251,9 @@
 
 }
 
-/* .addButton {
 
-     padding: 0PX 20PX;
-     width: 27%;
-     display: flex;
-     align-items: center;
-     background-color: rgb(210, 229, 239);
-     font-size: 17px;
-     color: #176eb0;
-     border: 1.5px solid #176eb0;
-     margin-right: 15px;
-}
-
-.addButton:focus {
-     background-color: rgb(233, 235, 236);
-} */
 .addButton {
+     border-radius: 3px;
      padding: 0 20px;
      width: 27%;
      display: flex;
@@ -301,7 +287,7 @@
 .orderButton {
 
      padding: 0PX 20PX;
-     
+     border-radius: 3px;
      display: flex;
      align-items: center;
      text-align: center;
@@ -360,13 +346,14 @@
 
 
 .shopButton {
+     width: 250px;
      margin-top: 15px;
 }
 
 .viewShop {
      border: 1.5px solid #176eb0;
-     padding: 5px 10px;
-     width: 45%;
+     padding: 5px 5px;
+     width: 100px;
      display: flex;
      align-items: center;
      background-color: rgb(210, 229, 239);
@@ -503,7 +490,9 @@
 .user-name-rate {
      width: 96%;
 }
-
+.user-date{
+     margin-bottom: 10px;
+}
 .user-listImage {
      width: 100%;
      display: inline-flex;
@@ -518,17 +507,6 @@
 
 .user-listImage img:hover {
      border-color: aqua;
-
-}
-
-.user-imageView {
-     width: 200px;
-}
-
-.user-imageView img {
-     width: 20%;
-     height: auto;
-     display: none;
 
 }
 

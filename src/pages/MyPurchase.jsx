@@ -3,6 +3,7 @@ import { NavLink, Routes, Route } from 'react-router-dom';
 import ToPay from "../components/UI/myPurchase/ToPay";
 import ToConfirmation from "../components/UI/myPurchase/ToConfirmation";
 import Confirmed from "../components/UI/myPurchase/Confirmed";
+import Received from "../components/UI/myPurchase/Received ";
 import '../style/myPurchase.css';
 
 const MyPurchase = () => {
@@ -31,12 +32,20 @@ const MyPurchase = () => {
                 >
                     <span className="NavLink-text">Confirmed</span>
                 </NavLink>
+                <NavLink
+                    to="/MyPurchase/received"
+                    className="MyPurchase-cate"
+                    activeClassName="active"
+                >
+                    <span className="NavLink-text">Received</span>
+                </NavLink>
             </div>
             <div className="MyPurchase-log-Item">
                 <Routes>
                     <Route path="/to-pay" element={<ToPay />}/>
                     <Route path="/to-confirmation" element={<ToConfirmation />} />
                     <Route path="/confirmed" element={<Confirmed />} />
+                    <Route path="/received" element={<Received />} />
                 </Routes>
 
             </div>

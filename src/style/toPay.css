@@ -21,9 +21,10 @@
 
 .toPay-nameShop-log {
      display: flex;
-     width: 40%;
+     width: 13%;
      align-items: center;
      color: #176eb0;
+
 
 }
 
@@ -34,6 +35,7 @@
      font-size: 20px;
      font-weight: 500;
      border-bottom: 1px solid #8d9292;
+
 }
 
 .iconShop-log-toPay {
@@ -43,7 +45,7 @@
 }
 
 .toPay-Product-text {
-     width: 60%;
+     width: 90%;
      display: flex;
      justify-content: end;
 }
@@ -51,9 +53,10 @@
 .toPay-subitem-text {
      display: flex;
      color: #8d9292;
-     justify-content: center;
+     justify-content: end;
      align-items: center;
      width: 30%;
+     padding-right: 20px;
 }
 
 .toPay-product {
