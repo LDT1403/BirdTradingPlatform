@@ -2,6 +2,7 @@ import React from "react";
 import { useNavigate } from 'react-router-dom';
 import { useLocation } from "react-router-dom";
 import '../../../style/orderDetail.css'
+import numeral from 'numeral';
 const OrderDetail = () => {
      const location = useLocation();
      const orderSelect = location.state?.order || {};
@@ -30,17 +31,17 @@ const OrderDetail = () => {
                               <div className="Detail-id">|</div>
                               {
                                    orderSelect.toConfirm == 2 && (
-                                        <div className="Detail-text">ORDER TO CONFIRMATION</div>
+                                        <div className="Detail-text" style={{ color: 'red' }}>ORDER TO CONFIRMATION</div>
                                    )
                               }
                               {
                                    orderSelect.toConfirm == 3 && (
-                                        <div className="Detail-text">ORDER CONFIRMED</div>
+                                        <div className="Detail-text" >ORDER CONFIRMED</div>
                                    )
                               }
                               {
                                    orderSelect.toConfirm == 5 && (
-                                        <div className="Detail-text">ORDER RECEIVED</div>
+                                        <div className="Detail-text" style={{ color: 'green' }}>ORDER RECEIVED</div>
                                    )
                               }
                          </div>
@@ -90,14 +91,17 @@ const OrderDetail = () => {
 
                          {orderSelect.items.map((product) => (
                               <div className="toPay-product " key={product.productId}>
-                                   <img src={product.firstImagePath} alt="" />
-                                   <div className="toPay-ProductName">
-                                        <div className="toPay-name">{product.productName}</div>
-                                        <div className="toPay-quantity">x{product.quantity}</div>
+                                   <div style={{ display: "flex" }}>
+                                        <img src={product.firstImagePath} alt="" />
+                                        <div className="toPay-ProductName">
+                                             <div className="toPay-name">{product.productName}</div>
+                                             <div className="toPay-quantity">x{product.quantity}</div>
+                                        </div>
                                    </div>
+
                                    <div className="toPay-Product-price">
-                                        <div className="toPay-num" style={{ textDecoration: "line-through" }}>${product.productPrice}</div>
-                                        <div className="toPay-numSoldPrice">${product.discountPrice}</div>
+                                        <div className="toPay-num" style={{ textDecoration: "line-through" }}>${numeral(product.productPrice).format('0,0')}</div>
+                                        <div className="toPay-numSoldPrice">${numeral(product.discountPrice).format('0,0')}</div>
                                    </div>
 
 
@@ -106,7 +110,7 @@ const OrderDetail = () => {
                     </div>
                     <div className="Detail-order-log-5">
                          <div id="log-do-price-text">Order Total </div>
-                         <div id="log-do-number-text">{orderSelect.totalPrice} </div>
+                         <div id="log-do-number-text">{numeral(orderSelect.totalPrice).format('0,0')} </div>
                     </div>
                     <div className="Detail-order-log-5">
                          <div id="log-do-price-text">Payment Method</div>

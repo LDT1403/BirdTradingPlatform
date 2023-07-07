@@ -63,6 +63,7 @@
      padding: 10px 15px;
      width: 100%;
      display: flex;
+     justify-content: space-between;
 }
 
 .toPay-product img {
@@ -72,13 +73,13 @@
 }
 
 .toPay-ProductName {
-     width: 35%;
+     width: 500px;
      font-size: 18px;
      font-weight: 500;
 }
 
 .toPay-Product-price {
-     width: 60%;
+     width: 10%;
      display: flex;
      justify-content: end;
      text-align: right;
@@ -97,12 +98,10 @@
 
 .toPay-num {
      font-size: 15px;
-     width: 15%;
      color: #828686;
 }
 
 .toPay-numSoldPrice {
-     width: 15%;
      display: flex;
      font-size: 16px;
      font-weight: 500;

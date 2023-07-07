@@ -1,0 +1,87 @@
+#add-feedback-head {
+     font-size: 18px;
+     font-weight: 500;
+     padding: 0px 5px;
+}
+
+.star-rating {
+     display: flex;
+     align-items: center;
+     padding: 10px;
+}
+
+.star {
+     font-size: 26px;
+     color: gray;
+     cursor: pointer;
+     transition: color 0.2s;
+     padding: 3px;
+     display: flex;
+     align-items: center;
+}
+
+.star.active {
+     color: rgb(8, 158, 228);
+
+}
+
+#text-of-star {
+     font-size: 20px;
+     padding-left: 10px;
+     font-weight: 500;
+
+}
+
+#title-feedback {
+     padding: 10px;
+     font-size: 17px;
+     font-weight: 500;
+}
+
+.detail-feedback {
+     padding: 10px;
+}
+
+.detail-feedback textarea {
+     width: 100%;
+     min-height: 150px;
+     padding: 5px 10px;
+}
+
+.addImage-feedback {
+     display: flex;
+     border: 1px solid #000;
+     width: 100%;
+     height: 100px;
+     align-items: center;
+
+}
+
+.custom-file-upload {
+     border: 1px solid #ccc;
+     display: inline-block;
+     padding: 6px 12px;
+     cursor: pointer;
+}
+
+.icon-addImage-feedback {
+     width: 50px;
+     color: #ccc;
+}
+
+.button-add-feedback {
+     display: flex;
+     justify-content: end;
+     padding: 10px;
+
+}
+
+.button-add-feedback button {
+     border: none;
+     background-color: #176eb0;
+     color: #fff;
+     font-size: 18px;
+     font-weight: 500;
+     padding: 5px 15px;
+     border-radius: 3px;
+}

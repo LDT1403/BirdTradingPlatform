@@ -2,6 +2,7 @@ import React from "react";
 import { useEffect, useState } from 'react';
 import axios from "axios";
 import '../../../style/toPay.css';
+import numeral from 'numeral';
 const ToPay = () => {
      const accessToken = localStorage.getItem('jwtToken');
      const [orderList, setOrderList] = useState([]);
@@ -16,11 +17,11 @@ const ToPay = () => {
           })
                .then((response) => {
 
-                    if (response.data.length) {                       
+                    if (response.data.length) {
                          setShowLogItemsNull(false)
                          setOrderList(response.data);
                     }
-                   
+
 
                })
                .catch(error => {
@@ -72,15 +73,17 @@ const ToPay = () => {
 
                                         {shop.items.map((product) => (
                                              <div className="toPay-product" key={product.productId}>
-
-                                                  <img src={product.firstImagePath} alt="" />
-                                                  <div className="toPay-ProductName">
-                                                       <div className="toPay-name">{product.productName}</div>
-                                                       <div className="toPay-quantity">x{product.quantity}</div>
+                                                  <div style={{ display:"flex"}}>
+                                                       <img src={product.firstImagePath} alt="" />
+                                                       <div className="toPay-ProductName">
+                                                            <div className="toPay-name">{product.productName}</div>
+                                                            <div className="toPay-quantity">x{product.quantity}</div>
+                                                       </div>
                                                   </div>
+
                                                   <div className="toPay-Product-price">
-                                                       <div className="toPay-num" style={{ textDecoration: "line-through" }}>${product.productPrice}</div>
-                                                       <div className="toPay-numSoldPrice">${product.discountPrice}</div>
+                                                       <div className="toPay-num" style={{ textDecoration: "line-through" }}>${numeral(product.productPrice).format('0,0')}</div>
+                                                       <div className="toPay-numSoldPrice">${numeral(product.discountPrice).format('0,0')}</div>
                                                   </div>
 
 
@@ -94,7 +97,7 @@ const ToPay = () => {
                          </div>
                          <div className="toPay-totalPay-log">
                               <h5>TotalPay:</h5>
-                              <div id="toPay-totalPay">{order.amount}</div>
+                              <div id="toPay-totalPay">{numeral(order.amount).format('0,0')}</div>
                          </div>
 
 

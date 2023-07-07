@@ -9,7 +9,8 @@ import { Col, Container, Row } from "reactstrap";
 import { useRef } from 'react';
 import ProductCard from "../components/UI/product-card/ProductCard";
 import '../style/shop-detail.css';
-
+import numeral from 'numeral';
+import UserReportShop from "../components/UI/UserRepostShop/UserReportShop";
 
 const ShopDetail = () => {
     const idpro = useParams();
@@ -18,12 +19,12 @@ const ShopDetail = () => {
     const [details, setDetails] = useState([]);
     const [refreshPage, setRefreshPage] = useState(0);
     const scrollToTopRef = useRef(null);
-    const [listImageDetail, setlistImageDetail] = useState([]);
     const navigate = useNavigate();
     const [ListImg, setListImg] = useState([]);
     const [selectedImage, setSelectedImage] = useState();
     const [quantity, setQuantity] = useState(1);
     const [feedback, setFeedback] = useState([])
+    const [showReportShop, setShowReportShop] = useState(false)
     useEffect(() => {
         window.scrollTo({ top: 0, behavior: 'smooth' });
         axios.get(`https://localhost:7241/api/Products/detail_product?id=${idpro.id}`)
@@ -195,103 +196,113 @@ const ShopDetail = () => {
 
 
     }
+    const handleReported = () => {
+        setShowReportShop(true)
+    }
+   
     return (
 
         <div className="shopDetail" ref={scrollToTopRef} >
-            <Container>
-                <Row>
-                    <div className="detail-product">
-                        <div className="view-image">
-                            <div sm="4" className="main-image">
-                                <img src={selectedImage} alt="Selected Image" />
-                            </div>
-                            <div className="gallery-img">
+            {
+                showReportShop && (
+                    <UserReportShop shopId={infoShop.shopId} setShowReportShop={setShowReportShop}  />
+                )
+            }
+            <div className="detail-product">
+                <div className="view-image">
+                    <div sm="4" className="main-image">
+                        <img src={selectedImage} alt="Selected Image" />
+                    </div>
+                    <div className="gallery-img">
 
-                                <div className={`gallery-pre ${galleryIndex <= 0 ? "disabled" : ""}`} onClick={handlePrevClick}>
-                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
-                                        <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
-                                    </svg>
-
-                                </div>
-                                <div className="gallery">
-                                    {ListImg.slice(galleryIndex, galleryIndex + 4).map((image, index) => (
-                                        <img
-                                            key={index}
-                                            src={image}
-                                            alt={`Thumbnail ${index + 1}`}
-                                            onMouseEnter={() => handleThumbnailClick(image)}
-                                            className={`thumbnail ${image === selectedImage ? "active" : ""}`}
-                                        />
-                                    ))}
-                                </div>
-                                <div className={`gallery-next ${galleryIndex >= ListImg.length - 4 ? "disabled" : ""}`} onClick={handleNextClick}>
-                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
-                                        <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
-                                    </svg>
-
-                                </div>
-
-                            </div>
+                        <div className={`gallery-pre ${galleryIndex <= 0 ? "disabled" : ""}`} onClick={handlePrevClick}>
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+                                <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
+                            </svg>
 
                         </div>
-                        <div className="viewInfor">
-                            <div className="infor">
-                                <div className="decription">{details.productName}</div>
-                                <div className="productRate">
-                                    <div className="rate-detail">
-                                        <div className="num-rate">{details.rate}</div>
-                                        <div className="star-rate">{renderRating()}</div>
-                                    </div>
-                                    <div className="feedback-pro">
-                                        <div className="num-sold">{totalFeedback}</div>
-                                        <div className="text-sold"> Feed back</div>
-                                    </div>
-                                    <div className="quantitySold">
-                                        <div className="num-sold">{details.quantitySold}</div>
-                                        <div className="text-sold">Sold</div>
-                                    </div>
-                                </div>
+                        <div className="gallery">
+                            {ListImg.slice(galleryIndex, galleryIndex + 4).map((image, index) => (
+                                <img
+                                    key={index}
+                                    src={image}
+                                    alt={`Thumbnail ${index + 1}`}
+                                    onMouseEnter={() => handleThumbnailClick(image)}
+                                    className={`thumbnail ${image === selectedImage ? "active" : ""}`}
+                                />
+                            ))}
+                        </div>
+                        <div className={`gallery-next ${galleryIndex >= ListImg.length - 4 ? "disabled" : ""}`} onClick={handleNextClick}>
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+                                <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+                            </svg>
+
+                        </div>
+
+                    </div>
+
+                </div>
+                <div className="viewInfor">
+                    <div className="infor">
+                        <div className="decription">{details.productName}</div>
+                        <div className="productRate">
+                            <div className="rate-detail">
+                                <div className="num-rate">{details.rate}</div>
+                                <div className="star-rate">{renderRating()}</div>
                             </div>
-                            <div className="viewPrice">
-                                {details.discountPercent !== 0 && (
-                                    <div className="price">{details.price}$</div>
-                                )}
-                                <div className="soldPrice">{details.soldPrice}$</div>
-                                {details.discountPercent !== 0 && (
-                                    <div className="discount">{details.discountPercent}% Sale</div>
-                                )}
+                            <div className="feedback-pro">
+                                <div className="num-sold">{totalFeedback}</div>
+                                <div className="text-sold"> Feed back</div>
                             </div>
-
-                            {/* select quantity */}
-                            <div className="quantity">
-                                <div className="quantityText">Quantity</div>
-                                <div className="quantitySelect">
-                                    <button className="buttonSelect" onClick={decreaseQuantity}>-</button>
-                                    <input type="text" value={quantity} readOnly />
-                                    <button className="buttonSelect" onClick={increaseQuantity}>+</button>
-                                </div>
-                                <div className="quantityText">{details.quantity} products available</div>
+                            <div className="quantitySold">
+                                <div className="num-sold">{details.quantitySold}</div>
+                                <div className="text-sold">Sold</div>
                             </div>
-
-                            {/* //  onClick={addToCart} */}
-                            <div className="order">
-                                <button className="addButton" onClick={addToCart}>
-                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="iconAdd">
-                                        <path d="M2.25 2.25a.75.75 0 000 1.5h1.386c.17 0 .318.114.362.278l2.558 9.592a3.752 3.752 0 00-2.806 3.63c0 .414.336.75.75.75h15.75a.75.75 0 000-1.5H5.378A2.25 2.25 0 017.5 15h11.218a.75.75 0 00.674-.421 60.358 60.358 0 002.96-7.228.75.75 0 00-.525-.965A60.864 60.864 0 005.68 4.509l-.232-.867A1.875 1.875 0 003.636 2.25H2.25zM3.75 20.25a1.5 1.5 0 113 0 1.5 1.5 0 01-3 0zM16.5 20.25a1.5 1.5 0 113 0 1.5 1.5 0 01-3 0z" />
-                                    </svg>
-                                    Add to Cart
-                                </button>
-
-                                <button className="orderButton" onClick={handleBuyNow}>
-                                    Buy Now
-                                </button>
-
+                            <div style={{width:"55%",display:"flex",justifyContent:"end"}}> 
+                                <button onClick={handleReported} style={{border:'none',backgroundColor:'#fff',height:'40px',display:'flex',alignItems: 'center'}}> <i className="ri-error-warning-line" style={{ color: "red", fontSize: "40px"}}></i></button>
                             </div>
-
                         </div>
                     </div>
-                </Row>
-            </Container>
+                    <div className="viewPrice">
+                        {details.discountPercent !== 0 && (
+                            <div className="price">{numeral(details.price).format('0,0')}$</div>
+                        )}
+                        <div className="soldPrice">{numeral(details.soldPrice).format('0,0')} $</div>
+                        {details.discountPercent !== 0 && (
+                            <div className="discount">{details.discountPercent}% Sale</div>
+                        )}
+                    </div>
+
+                    {/* select quantity */}
+                    <div className="quantity">
+                        <div className="quantityText">Quantity</div>
+                        <div className="quantitySelect">
+                            <button className="buttonSelect" onClick={decreaseQuantity}>-</button>
+                            <input type="text" value={quantity} readOnly />
+                            <button className="buttonSelect" onClick={increaseQuantity}>+</button>
+                        </div>
+                        <div className="quantityText">{details.quantity} products available</div>
+                    </div>
+
+                    {/* //  onClick={addToCart} */}
+                    <div className="order">
+                        <button className="addButton" onClick={addToCart}>
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="iconAdd">
+                                <path d="M2.25 2.25a.75.75 0 000 1.5h1.386c.17 0 .318.114.362.278l2.558 9.592a3.752 3.752 0 00-2.806 3.63c0 .414.336.75.75.75h15.75a.75.75 0 000-1.5H5.378A2.25 2.25 0 017.5 15h11.218a.75.75 0 00.674-.421 60.358 60.358 0 002.96-7.228.75.75 0 00-.525-.965A60.864 60.864 0 005.68 4.509l-.232-.867A1.875 1.875 0 003.636 2.25H2.25zM3.75 20.25a1.5 1.5 0 113 0 1.5 1.5 0 01-3 0zM16.5 20.25a1.5 1.5 0 113 0 1.5 1.5 0 01-3 0z" />
+                            </svg>
+                            Add to Cart
+                        </button>
+
+                        <button className="orderButton" onClick={handleBuyNow}>
+                            Buy Now
+                        </button>
+
+                    </div>
+
+                </div>
+            </div>
+            {/* </Row>
+            </Container> */}
             {/* Shop infomationg */}
             <div className="Shop-info">
                 <Link to={`/viewShop/${infoShop.shopId}`} className="shopImg">
@@ -373,9 +384,9 @@ const ShopDetail = () => {
                                     <div className="user-name">{user.userName}</div>
                                     <div className="user-rate">{userRating(user.rate)}</div>
                                     <div className="user-date">
-                                       
+
                                         {user.createDate}
-                                        </div>
+                                    </div>
                                     <div className="user-text">{user.detail}</div>
                                     <div className="user-image">
                                         <div className="user-listImage">

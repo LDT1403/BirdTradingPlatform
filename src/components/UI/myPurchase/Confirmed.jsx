@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import { useNavigate, NavLink } from "react-router-dom";
 import axios from "axios";
 import '../../../style/toConfirmation.css';
+import numeral from 'numeral';
 const Confirmed = () => {
 
      const accessToken = localStorage.getItem('jwtToken');
@@ -37,7 +38,7 @@ const Confirmed = () => {
                          console.log(error);
                     });
           }
-          if(LoadApi === true) {
+          if (LoadApi === true) {
                ApiMain();
                setLoadApi(false)
           }
@@ -54,7 +55,7 @@ const Confirmed = () => {
                }
           })
                .then((rp) => {
-                   setLoadApi(true)
+                    setLoadApi(true)
                })
      }
      const handleTabClick = (order) => {
@@ -105,14 +106,17 @@ const Confirmed = () => {
 
                                    {shop.items.map((product) => (
                                         <div className="toPay-product" key={product.productId} onClick={() => handleTabClick(shop)}>
-                                             <img src={product.firstImagePath} alt="" />
-                                             <div className="toPay-ProductName">
-                                                  <div className="toPay-name">{product.productName}</div>
-                                                  <div className="toPay-quantity">x{product.quantity}</div>
+                                             <div style={{ display: "flex" }}>
+                                                  <img src={product.firstImagePath} alt="" />
+                                                  <div className="toPay-ProductName">
+                                                       <div className="toPay-name">{product.productName}</div>
+                                                       <div className="toPay-quantity">x{product.quantity}</div>
+                                                  </div>
                                              </div>
+
                                              <div className="toPay-Product-price">
-                                                  <div className="toPay-num" style={{ textDecoration: "line-through" }}>${product.productPrice}</div>
-                                                  <div className="toPay-numSoldPrice">${product.discountPrice}</div>
+                                                  <div className="toPay-num" style={{ textDecoration: "line-through" }}>${numeral(product.productPrice).format('0,0')}</div>
+                                                  <div className="toPay-numSoldPrice">${numeral(product.discountPrice).format('0,0')}</div>
                                              </div>
 
 
@@ -120,7 +124,7 @@ const Confirmed = () => {
                                    ))}
                                    <div className="toPay-totalPay-log">
                                         <h5>TotalPay:</h5>
-                                        <div id="toPay-totalPay">{shop.totalPrice}</div>
+                                        <div id="toPay-totalPay">{numeral(shop.totalPrice).format('0,0')}</div>
                                    </div>
                                    <div className="toPay-list-button">
                                         <button
