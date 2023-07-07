@@ -7,6 +7,7 @@ import { cartActions } from "./redux/cartSlice"
 import { Col, Container, Row } from "reactstrap";
 import ProductCard from "../components/UI/product-card/ProductCard";
 import "../style/cart-page.css";
+import numeral from 'numeral';
 const Cart = () => {
     const cartItems = useSelector((state) => state.cart.cartItems);
     const [orderSelect, setOrderSelect] = useState({});
@@ -275,7 +276,7 @@ const Cart = () => {
                                             <div className="name-product-cart">{product.productName}</div>
                                         </div>
 
-                                        <div className="cart-products-num">${product.soldPrice}</div>
+                                        <div className="cart-products-num">${numeral(product.soldPrice).format('0,0')}</div>
                                         <div className="cart-products-quantity">
                                             <button className="cart-clickQuantity" onClick={() => decrementItem(product.productId)}><i className="ri-subtract-line" /></button>
                                             <span className="cart-view-quantity">{product.quantity}</span>
@@ -283,7 +284,7 @@ const Cart = () => {
                                         </div>
 
                                         <div className="cart-products-num">
-                                            <div className="totalPrice-cart">${product.totalPrice}</div>
+                                            <div className="totalPrice-cart">${numeral(product.totalPrice).format('0,0')}</div>
                                         </div>
                                         <div className="cart-products-num">
                                             <button onClick={() => deleteItem(product.productId)}>Delete</button>
@@ -309,7 +310,7 @@ const Cart = () => {
                         </div>
                     </div>
                     <div className="cart-products-totalCheckOut">
-                        <div className="cart-inFor">Total Price: ${calculateTotalPrice()}</div>
+                        <div className="cart-inFor">Total Price: ${numeral(calculateTotalPrice()).format('0,0')}</div>
                     </div>
                     <div className="cart-products-num">
 

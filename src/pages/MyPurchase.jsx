@@ -4,6 +4,7 @@ import ToPay from "../components/UI/myPurchase/ToPay";
 import ToConfirmation from "../components/UI/myPurchase/ToConfirmation";
 import Confirmed from "../components/UI/myPurchase/Confirmed";
 import Received from "../components/UI/myPurchase/Received ";
+import ToRate from "../components/UI/myPurchase/ToRate";
 import '../style/myPurchase.css';
 
 const MyPurchase = () => {
@@ -39,6 +40,13 @@ const MyPurchase = () => {
                 >
                     <span className="NavLink-text">Received</span>
                 </NavLink>
+                <NavLink
+                    to="/MyPurchase/to-rate"
+                    className="MyPurchase-cate"
+                    activeClassName="active"
+                >
+                    <span className="NavLink-text">To Rate</span>
+                </NavLink>
             </div>
             <div className="MyPurchase-log-Item">
                 <Routes>
@@ -46,6 +54,7 @@ const MyPurchase = () => {
                     <Route path="/to-confirmation" element={<ToConfirmation />} />
                     <Route path="/confirmed" element={<Confirmed />} />
                     <Route path="/received" element={<Received />} />
+                    <Route path="/to-rate" element={<ToRate />} />
                 </Routes>
 
             </div>

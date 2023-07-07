@@ -1,5 +1,5 @@
 import React from "react";
-import { Routes, Route, Navigate, Link } from 'react-router-dom';
+import { Routes, Route, Navigate} from 'react-router-dom';
 import ViewShopId from "../pages/ViewShopId";
 import Home from '../pages/Home';
 import Shopping from '../pages/Shopping'

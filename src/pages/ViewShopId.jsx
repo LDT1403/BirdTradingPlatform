@@ -22,7 +22,7 @@ export default function ViewShopId() {
                .catch(err => {
                     console.log(err)
                })
-     }, []);
+     }, [idshop.id]);
      const handleSearchQuery = (sear) => {
           setSearch(sear);
      }
