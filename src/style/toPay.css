@@ -21,9 +21,10 @@
 
 .toPay-nameShop-log {
      display: flex;
-     width: 40%;
+     width: 13%;
      align-items: center;
      color: #176eb0;
+
 
 }
 
@@ -34,6 +35,7 @@
      font-size: 20px;
      font-weight: 500;
      border-bottom: 1px solid #8d9292;
+
 }
 
 .iconShop-log-toPay {
@@ -43,7 +45,7 @@
 }
 
 .toPay-Product-text {
-     width: 60%;
+     width: 90%;
      display: flex;
      justify-content: end;
 }
@@ -51,15 +53,17 @@
 .toPay-subitem-text {
      display: flex;
      color: #8d9292;
-     justify-content: center;
+     justify-content: end;
      align-items: center;
      width: 30%;
+     padding-right: 20px;
 }
 
 .toPay-product {
      padding: 10px 15px;
      width: 100%;
      display: flex;
+     justify-content: space-between;
 }
 
 .toPay-product img {
@@ -69,13 +73,13 @@
 }
 
 .toPay-ProductName {
-     width: 35%;
+     width: 500px;
      font-size: 18px;
      font-weight: 500;
 }
 
 .toPay-Product-price {
-     width: 60%;
+     width: 10%;
      display: flex;
      justify-content: end;
      text-align: right;
@@ -94,12 +98,10 @@
 
 .toPay-num {
      font-size: 15px;
-     width: 15%;
      color: #828686;
 }
 
 .toPay-numSoldPrice {
-     width: 15%;
      display: flex;
      font-size: 16px;
      font-weight: 500;

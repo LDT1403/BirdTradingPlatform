@@ -106,7 +106,7 @@ const NewAddress = ({ setShowAddNewAddress, setShowNotification, accessToken }) 
      }
      const NewAddressAdd =
      {
-          address: `${City},${District},${Ward}`,
+          address: `${Ward}, ${District}, ${City} `,
           addressDetail: addressDetails,
           phone: phone,
           nameRg: fullName

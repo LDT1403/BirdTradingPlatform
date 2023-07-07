@@ -1,68 +1,56 @@
 import React from "react";
 import { useEffect, useState } from 'react';
-import { useNavigate, NavLink } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import '../../../style/toConfirmation.css';
 import numeral from 'numeral';
-const Confirmed = () => {
+const Received = () => {
 
      const accessToken = localStorage.getItem('jwtToken');
      const [orderList, setOrderList] = useState([]);
      const [ShowLogItems, setShowLogItems] = useState(true);
      const [ShowLogItemsNull, setShowLogItemsNull] = useState(false);
-     const [LoadApi, setLoadApi] = useState(true)
 
      const navigate = useNavigate();
-     console.log(accessToken)
+
      useEffect(() => {
-          const ApiMain = () => {
-               axios.get(`https://localhost:7241/api/Order/ToConFirmOfuserId/3`, {
-                    headers: {
-                         Authorization: `Bearer ${accessToken}`
-                    }
-               })
-                    .then((response) => {
-
-                         if (!response.data.length) {
-                              setShowLogItemsNull(true)
-                              setShowLogItems(false)
-
-                         }
-
-                         setOrderList(response.data)
-
-
-
-                    })
-                    .catch(error => {
-                         console.log(error);
-                    });
-          }
-          if (LoadApi === true) {
-               ApiMain();
-               setLoadApi(false)
-          }
-
-     }, [LoadApi]);
-
-     const handleReceived = (orderID) => {
-          console.log(accessToken)
-          console.log(orderID);
-
-          axios.put(`https://localhost:7241/api/Shop/Confim_To_Feedback/${orderID}`, {}, {
+          axios.get(`https://localhost:7241/api/Order/ToConFirmOfuserId/5`, {
                headers: {
                     Authorization: `Bearer ${accessToken}`
                }
           })
-               .then((rp) => {
-                    setLoadApi(true)
+               .then((response) => {
+
+                    if (!response.data.length) {
+                         setShowLogItemsNull(true)
+                         setShowLogItems(false)
+
+                    }
+
+                    setOrderList(response.data)
+
+
+
                })
-     }
+               .catch(error => {
+                    console.log(error);
+               });
+     }, []);
+
+     // Trong component chính
+     const calculateTotal = (items) => {
+          // Sử dụng reduce() để tính tổng total của các items
+          const total = items.reduce((accumulator, currentItem) => {
+               return accumulator + currentItem.total;
+          }, 0);
+
+          return total;
+     };
+
      const handleTabClick = (order) => {
           const orderID = order.orderID
-          const status = 3;
-          navigate(`/OrderDetail/${orderID}`, { state: { order, status } });
+          navigate(`/OrderDetail/${orderID}`, { state: { order } });
      }
+
      const handleViewShopClick = (shopID) => {
           console.log(shopID);
           navigate(`/viewShop/${shopID}`);
@@ -78,7 +66,8 @@ const Confirmed = () => {
 
                          {orderList.map((shop) =>
 
-                              <div className="toPay-list-log" key={shop.shopID} >
+                              <div className="toPay-list-log" key={shop.orderID} >
+
                                    <div>
                                         <div className="toPay-nameShop">
                                              <div className="toPay-nameShop-log">
@@ -97,9 +86,10 @@ const Confirmed = () => {
                                                        <div>View shop</div>
                                                   </button>
                                              </div>
+
                                              <div className="toPay-Product-text">
 
-                                                  <div className="toPay-subitem-text">ConFirmed</div>
+                                                  <div className="toPay-subitem-text">Received</div>
                                              </div>
                                         </div>
                                    </div>
@@ -128,8 +118,8 @@ const Confirmed = () => {
                                    </div>
                                    <div className="toPay-list-button">
                                         <button
-                                             onClick={() => handleReceived(shop.orderId)}
-                                        >Đã Nhận Hàng</button>
+                                        //  onClick={() => handlePayNow(order.orderId)}
+                                        >Go to Feedback</button>
                                    </div>
 
                               </div>
@@ -141,4 +131,4 @@ const Confirmed = () => {
           </div>
      )
 }
-export default Confirmed;
+export default Received 

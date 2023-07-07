@@ -9,7 +9,8 @@ import { Col, Container, Row } from "reactstrap";
 import { useRef } from 'react';
 import ProductCard from "../components/UI/product-card/ProductCard";
 import '../style/shop-detail.css';
-
+import numeral from 'numeral';
+import UserReportShop from "../components/UI/UserRepostShop/UserReportShop";
 
 const ShopDetail = () => {
     const idpro = useParams();
@@ -18,16 +19,16 @@ const ShopDetail = () => {
     const [details, setDetails] = useState([]);
     const [refreshPage, setRefreshPage] = useState(0);
     const scrollToTopRef = useRef(null);
-    const [listImageDetail, setlistImageDetail] = useState([]);
     const navigate = useNavigate();
     const [ListImg, setListImg] = useState([]);
     const [selectedImage, setSelectedImage] = useState();
     const [quantity, setQuantity] = useState(1);
+    const [feedback, setFeedback] = useState([])
+    const [showReportShop, setShowReportShop] = useState(false)
     useEffect(() => {
         window.scrollTo({ top: 0, behavior: 'smooth' });
         axios.get(`https://localhost:7241/api/Products/detail_product?id=${idpro.id}`)
             .then(resp => {
-                // setListImg(resp.data.images)
                 setDetails(resp.data);
                 axios.get(`https://localhost:7241/api/Products/Shop_Detail_Product?id=${resp.data.shopId}`)
                     .then(responseShop => {
@@ -38,9 +39,13 @@ const ShopDetail = () => {
                         setSelectedImage(res.data[0])
                         setListImg(res.data)
                     })
+                axios.get(`https://localhost:7241/api/FeedBack?productID=${resp.data.productId}`)
+                    .then(resp => {
+                        setFeedback(resp.data);
+                    })
                 axios.get(`https://localhost:7241/api/Products/Product_ShopId?shopId=${resp.data.shopId}`)
                     .then(resp => {
-                        const maxProducts = resp.data.slice(0, 8); // Lấy tối đa 10 sản phẩm
+                        const maxProducts = resp.data.slice(0, 8);
                         setProductsData(maxProducts);
                     })
             })
@@ -80,31 +85,6 @@ const ShopDetail = () => {
     }
 
 
-    const feedback =
-        [
-            {
-                userName: "Dinh Thanh",
-                userImage: "https://scontent.fsgn2-7.fna.fbcdn.net/v/t39.30808-6/330973722_491663389838233_7275732520578483402_n.jpg?_nc_cat=100&ccb=1-7&_nc_sid=09cbfe&_nc_ohc=VqTcG6a48XwAX9xxRtS&_nc_ht=scontent.fsgn2-7.fna&oh=00_AfCBNL1cDmeJVRC1ErLB9sCR8hWa1xZF8nqVYVIQhtseww&oe=648AA0D8",
-                feedbackText: "sản phẩm tạm ổn",
-                rate_fb: 5,
-                image_fb: [
-                    "https://cf.shopee.vn/file/262b61bc7babfe00afb78d10ca72c682_tn",
-                    "https://cf.shopee.vn/file/5a8d5a63ccc3776a3488f9377a716887_tn"
-                ]
-            },
-            {
-                userName: "Long Nhat",
-                userImage: "https://scontent.fsgn2-6.fna.fbcdn.net/v/t39.30808-6/272861636_619618709102384_3040732955244006395_n.jpg?_nc_cat=110&ccb=1-7&_nc_sid=174925&_nc_ohc=76bRZZt8GeMAX-ds1-C&_nc_ht=scontent.fsgn2-6.fna&oh=00_AfADb-efNmUdn6y7YDWSYtcq_JC9Y8xyj9HC0UuCOj2Leg&oe=648B32D5",
-                feedbackText: "Hàng ngon vãi ",
-                rate_fb: 4,
-                image_fb: [
-
-                    "https://cf.shopee.vn/file/59e2c691601487c692dea145cf3433b2",
-                    "https://cf.shopee.vn/file/927bf619bd9b3c4de3ab764e5317f8a8",
-
-                ]
-            }
-        ]
 
     const countFeedback = (feedback) => {
         return feedback.length;
@@ -176,32 +156,19 @@ const ShopDetail = () => {
     };
     let currentImageSrc = null;
     const handleImageClick = (event, index) => {
-        // Lấy src của ảnh đã click
         const clickedImageSrc = event.target.src;
-
-        // Lấy user-imageView tương ứng với index
         const imageViewElement = document.querySelector(`.user-imageView-${index}`);
-
-        // Lấy tất cả các ảnh trong user-listImage tương ứng với index
         const images = document.querySelectorAll(`.user-listImage-${index} img`);
-
-        // Kiểm tra nếu đang hiển thị ảnh và ảnh đã click trùng nhau
         if (currentImageSrc === clickedImageSrc) {
-            // Ẩn user-imageView
             imageViewElement.classList.add("hidden");
             currentImageSrc = null;
-
-            // Đặt lại trạng thái của ảnh về ban đầu
             images.forEach((image) => {
                 image.classList.remove("clicked");
             });
         } else {
-            // Hiển thị ảnh đã click trong user-imageView
-            imageViewElement.innerHTML = `<img src="${clickedImageSrc}" alt="Clicked Image" />`;
+            imageViewElement.innerHTML = `<img src="${clickedImageSrc}" alt="Clicked Image" style="max-width: 300px; max-height: 300px;" />`;
             imageViewElement.classList.remove("hidden");
             currentImageSrc = clickedImageSrc;
-
-            // Đặt lại trạng thái của ảnh
             images.forEach((image) => {
                 if (image.src === clickedImageSrc) {
                     image.classList.add("clicked");
@@ -229,103 +196,113 @@ const ShopDetail = () => {
 
 
     }
+    const handleReported = () => {
+        setShowReportShop(true)
+    }
+   
     return (
 
         <div className="shopDetail" ref={scrollToTopRef} >
-            <Container>
-                <Row>
-                    <div className="detail-product">
-                        <div className="view-image">
-                            <div sm="4" className="main-image">
-                                <img src={selectedImage} alt="Selected Image" />
-                            </div>
-                            <div className="gallery-img">
+            {
+                showReportShop && (
+                    <UserReportShop shopId={infoShop.shopId} setShowReportShop={setShowReportShop}  />
+                )
+            }
+            <div className="detail-product">
+                <div className="view-image">
+                    <div sm="4" className="main-image">
+                        <img src={selectedImage} alt="Selected Image" />
+                    </div>
+                    <div className="gallery-img">
 
-                                <div className={`gallery-pre ${galleryIndex <= 0 ? "disabled" : ""}`} onClick={handlePrevClick}>
-                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
-                                        <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
-                                    </svg>
-
-                                </div>
-                                <div className="gallery">
-                                    {ListImg.slice(galleryIndex, galleryIndex + 4).map((image, index) => (
-                                        <img
-                                            key={index}
-                                            src={image}
-                                            alt={`Thumbnail ${index + 1}`}
-                                            onMouseEnter={() => handleThumbnailClick(image)}
-                                            className={`thumbnail ${image === selectedImage ? "active" : ""}`}
-                                        />
-                                    ))}
-                                </div>
-                                <div className={`gallery-next ${galleryIndex >= ListImg.length - 4 ? "disabled" : ""}`} onClick={handleNextClick}>
-                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
-                                        <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
-                                    </svg>
-
-                                </div>
-
-                            </div>
+                        <div className={`gallery-pre ${galleryIndex <= 0 ? "disabled" : ""}`} onClick={handlePrevClick}>
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+                                <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
+                            </svg>
 
                         </div>
-                        <div className="viewInfor">
-                            <div className="infor">
-                                <div className="decription">{details.productName}</div>
-                                <div className="productRate">
-                                    <div className="rate-detail">
-                                        <div className="num-rate">{details.rate}</div>
-                                        <div className="star-rate">{renderRating()}</div>
-                                    </div>
-                                    <div className="feedback-pro">
-                                        <div className="num-sold">{totalFeedback}</div>
-                                        <div className="text-sold"> Feed back</div>
-                                    </div>
-                                    <div className="quantitySold">
-                                        <div className="num-sold">{details.quantitySold}</div>
-                                        <div className="text-sold">Sold</div>
-                                    </div>
-                                </div>
+                        <div className="gallery">
+                            {ListImg.slice(galleryIndex, galleryIndex + 4).map((image, index) => (
+                                <img
+                                    key={index}
+                                    src={image}
+                                    alt={`Thumbnail ${index + 1}`}
+                                    onMouseEnter={() => handleThumbnailClick(image)}
+                                    className={`thumbnail ${image === selectedImage ? "active" : ""}`}
+                                />
+                            ))}
+                        </div>
+                        <div className={`gallery-next ${galleryIndex >= ListImg.length - 4 ? "disabled" : ""}`} onClick={handleNextClick}>
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+                                <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+                            </svg>
+
+                        </div>
+
+                    </div>
+
+                </div>
+                <div className="viewInfor">
+                    <div className="infor">
+                        <div className="decription">{details.productName}</div>
+                        <div className="productRate">
+                            <div className="rate-detail">
+                                <div className="num-rate">{details.rate}</div>
+                                <div className="star-rate">{renderRating()}</div>
                             </div>
-                            <div className="viewPrice">
-                                {details.discountPercent !== 0 && (
-                                    <div className="price">{details.price}$</div>
-                                )}
-                                <div className="soldPrice">{details.soldPrice}$</div>
-                                {details.discountPercent !== 0 && (
-                                    <div className="discount">{details.discountPercent}% Sale</div>
-                                )}
+                            <div className="feedback-pro">
+                                <div className="num-sold">{totalFeedback}</div>
+                                <div className="text-sold"> Feed back</div>
                             </div>
-
-                            {/* select quantity */}
-                            <div className="quantity">
-                                <div className="quantityText">Quantity</div>
-                                <div className="quantitySelect">
-                                    <button className="buttonSelect" onClick={decreaseQuantity}>-</button>
-                                    <input type="text" value={quantity} readOnly />
-                                    <button className="buttonSelect" onClick={increaseQuantity}>+</button>
-                                </div>
-                                <div className="quantityText">{details.quantity} products available</div>
+                            <div className="quantitySold">
+                                <div className="num-sold">{details.quantitySold}</div>
+                                <div className="text-sold">Sold</div>
                             </div>
-
-                            {/* //  onClick={addToCart} */}
-                            <div className="order">
-                                <button className="addButton" onClick={addToCart}>
-                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="iconAdd">
-                                        <path d="M2.25 2.25a.75.75 0 000 1.5h1.386c.17 0 .318.114.362.278l2.558 9.592a3.752 3.752 0 00-2.806 3.63c0 .414.336.75.75.75h15.75a.75.75 0 000-1.5H5.378A2.25 2.25 0 017.5 15h11.218a.75.75 0 00.674-.421 60.358 60.358 0 002.96-7.228.75.75 0 00-.525-.965A60.864 60.864 0 005.68 4.509l-.232-.867A1.875 1.875 0 003.636 2.25H2.25zM3.75 20.25a1.5 1.5 0 113 0 1.5 1.5 0 01-3 0zM16.5 20.25a1.5 1.5 0 113 0 1.5 1.5 0 01-3 0z" />
-                                    </svg>
-                                    Add to Cart
-                                </button>
-
-                                <button className="orderButton" onClick={handleBuyNow}>
-                                    Buy Now
-                                </button>
-
+                            <div style={{width:"55%",display:"flex",justifyContent:"end"}}> 
+                                <button onClick={handleReported} style={{border:'none',backgroundColor:'#fff',height:'40px',display:'flex',alignItems: 'center'}}> <i className="ri-error-warning-line" style={{ color: "red", fontSize: "40px"}}></i></button>
                             </div>
-
                         </div>
                     </div>
-                </Row>
-            </Container>
+                    <div className="viewPrice">
+                        {details.discountPercent !== 0 && (
+                            <div className="price">{numeral(details.price).format('0,0')}$</div>
+                        )}
+                        <div className="soldPrice">{numeral(details.soldPrice).format('0,0')} $</div>
+                        {details.discountPercent !== 0 && (
+                            <div className="discount">{details.discountPercent}% Sale</div>
+                        )}
+                    </div>
+
+                    {/* select quantity */}
+                    <div className="quantity">
+                        <div className="quantityText">Quantity</div>
+                        <div className="quantitySelect">
+                            <button className="buttonSelect" onClick={decreaseQuantity}>-</button>
+                            <input type="text" value={quantity} readOnly />
+                            <button className="buttonSelect" onClick={increaseQuantity}>+</button>
+                        </div>
+                        <div className="quantityText">{details.quantity} products available</div>
+                    </div>
+
+                    {/* //  onClick={addToCart} */}
+                    <div className="order">
+                        <button className="addButton" onClick={addToCart}>
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="iconAdd">
+                                <path d="M2.25 2.25a.75.75 0 000 1.5h1.386c.17 0 .318.114.362.278l2.558 9.592a3.752 3.752 0 00-2.806 3.63c0 .414.336.75.75.75h15.75a.75.75 0 000-1.5H5.378A2.25 2.25 0 017.5 15h11.218a.75.75 0 00.674-.421 60.358 60.358 0 002.96-7.228.75.75 0 00-.525-.965A60.864 60.864 0 005.68 4.509l-.232-.867A1.875 1.875 0 003.636 2.25H2.25zM3.75 20.25a1.5 1.5 0 113 0 1.5 1.5 0 01-3 0zM16.5 20.25a1.5 1.5 0 113 0 1.5 1.5 0 01-3 0z" />
+                            </svg>
+                            Add to Cart
+                        </button>
+
+                        <button className="orderButton" onClick={handleBuyNow}>
+                            Buy Now
+                        </button>
+
+                    </div>
+
+                </div>
+            </div>
+            {/* </Row>
+            </Container> */}
             {/* Shop infomationg */}
             <div className="Shop-info">
                 <Link to={`/viewShop/${infoShop.shopId}`} className="shopImg">
@@ -401,24 +378,29 @@ const ShopDetail = () => {
                         <div className="feedback-info" key={index}>
                             <div className="feedback-user">
                                 <div className="userImage">
-                                    <img src={user.userImage} alt="" />
+                                    <img src={user.imgAvatar} alt="" />
                                 </div>
                                 <div className="user-name-rate">
                                     <div className="user-name">{user.userName}</div>
-                                    <div className="user-rate">{userRating(user.rate_fb)}</div>
-                                    <div className="user-text">{user.feedbackText}</div>
+                                    <div className="user-rate">{userRating(user.rate)}</div>
+                                    <div className="user-date">
+
+                                        {user.createDate}
+                                    </div>
+                                    <div className="user-text">{user.detail}</div>
                                     <div className="user-image">
                                         <div className="user-listImage">
-                                            {user.image_fb.map((item, imgIndex) => (
+                                            {user.imgFeedback.map((item, imgIndex) => (
                                                 <img
                                                     key={imgIndex}
                                                     src={item}
                                                     alt=""
                                                     onClick={(event) => handleImageClick(event, index)}
+
                                                 />
                                             ))}
                                         </div>
-                                        <div className={`user-imageView-${index}`}></div>
+                                        <div className={`user-imageView-${index}`} ></div>
                                     </div>
                                 </div>
                             </div>

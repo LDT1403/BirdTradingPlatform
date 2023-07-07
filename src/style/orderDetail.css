@@ -1,0 +1,140 @@
+.MyPurchase-page-body {
+     width: 1300px;
+     margin: auto;
+}
+
+.Detail-order-log {
+     display: flex;
+     justify-content: space-between;
+     background-color: #fff;
+     padding: 5px;
+     margin-bottom: 1px;
+     border-radius: 4px;
+}
+
+.Detail-order-log button {
+     width: 100px;
+     border: none;
+     background-color: #fff;
+     display: flex;
+     align-items: center;
+     color: #9ea5a7;
+}
+
+.Detail-id {
+     padding-right: 10px;
+     display: flex;
+     justify-self: end;
+}
+
+.Detail-text {
+     color: #0480f579;
+     padding-right: 15px;
+     font-weight: 500;
+}
+
+.icon-back-orderDetail {
+     width: 20%;
+     color: #9ea5a7;
+}
+
+.Detail-order-log-2 {
+     background-color: #fff;
+     padding: 30px;
+     font-size: 20px;
+     font-weight: 500;
+     border-radius: 4px 4px 0 0;
+     border-bottom: 2px solid #bbc0c2;
+}
+
+.Detail-order-log-3 {
+     display: flex;
+     align-items: center;
+     justify-content: center;
+
+}
+
+#mona_title {
+     border-radius: 1px;
+     width: 1292px;
+     height: 4px;
+     background: linear-gradient(to right,
+               #0471ec 0%,
+               #0bd9e0 20%,
+               #fcfc0e 40%,
+               #eb1809 60%,
+               #00ffff 80%,
+               #0000ff 100%);
+}
+
+#log-do1 {
+     display: flex;
+     justify-content: space-between;
+     padding: 20px 0px;
+
+}
+
+.Detail-order-log-4 {
+     border-bottom: 2px solid #bbc0c2;
+     background-color: #fff;
+     padding: 0px 10px;
+     font-size: 20px;
+     font-weight: 500;
+}
+
+.Detail-order-log-5 {
+     border-bottom: 2px solid #bbc0c2;
+     background-color: #fff;
+
+     font-size: 15px;
+     display: flex;
+     justify-content: end;
+
+}
+
+#log-do-address-name {
+     padding-bottom: 10px;
+}
+
+#log-do-address-1 {
+     font-size: 16px;
+     font-weight: 500;
+}
+
+#log-do-address-full {
+     font-size: 15px;
+     font-weight: 400;
+     color: #959b9a;
+}
+
+#log-do-price-text {
+     padding: 5px 10px;
+     font-size: 15px;
+     color: #6b6e6e;
+     border-right: 1px solid #524e4e;
+}
+
+#log-do-number-text {
+     width: 250px;
+     display: flex;
+     justify-content: end;
+     padding: 2px 20px;
+     font-size: 20px;
+     font-weight: 500;
+     color: #0e76d8;
+}
+
+#log-do-payment-text {
+     width: 250px;
+     display: flex;
+     justify-content: end;
+     padding: 5px 20px;
+}
+.orderButtonAgain{
+     border:none;
+     background-color: #0e76d8;
+     color: #fff;
+     padding: 5px 10px;
+     align-items: center;
+     border-radius:3px;
+}
