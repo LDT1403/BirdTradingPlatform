@@ -1,5 +1,5 @@
 import axios from "axios";
-import { loginFailed, loginStart, loginSuccess, registerFailed, registerStart, registerSuccess, logoutFailed, logoutStart, logoutSuccess} from "./authSilce";
+import { loginFailed, loginStart, loginSuccess, registerFailed, registerStart, registerSuccess, logoutFailed, logoutStart, logoutSuccess } from "./authSilce";
 import { toast } from 'react-toastify';
 import jwt_decode from "jwt-decode";
 import { changePasswordFailed, changePasswordStart, changePasswordSuccess, registerShopFailed, registerShopStart, registerShopSuccess, updateUserFailed, updateUserStart, updateUserSuccess } from "./userSlice";
@@ -107,20 +107,20 @@ export const registerShop = async (shop, dispatch, navigate, accessToken) => {
     }
 }
 
-export const changePassword = async ( userPassword,dispatch,accessToken) => {
+export const changePassword = async (userPassword, dispatch, accessToken) => {
     console.log(userPassword);
     console.log(accessToken);
     console.log(dispatch)
     dispatch(changePasswordStart());
     try {
-      
-        await axios.post("https://localhost:7241/api/User/ChangePassword", userPassword ,{
+
+        await axios.post("https://localhost:7241/api/User/ChangePassword", userPassword, {
             headers: {
-              Authorization: `Bearer ${accessToken}`,
+                Authorization: `Bearer ${accessToken}`,
             },
-          })
+        })
         dispatch(changePasswordSuccess());
-       
+
         // navigate("/home");
     } catch (err) {
         console.log("err")
@@ -129,26 +129,26 @@ export const changePassword = async ( userPassword,dispatch,accessToken) => {
     }
 
 }
-export const updateUser = async ( newUser,accessToken,dispatch) => {
-     console.log(newUser);
+export const updateUser = async (newUser, accessToken, dispatch) => {
+    console.log(newUser);
     console.log(dispatch);
     dispatch(updateUserStart());
     try {
-        const formData =new FormData();
-        formData.append('Dob',newUser.Dob);
-        formData.append('Address',newUser.Address);
-        formData.append('Phone',newUser.Phone);
-        formData.append('Gender',newUser.Gender);
-        formData.append('Name',newUser.Name);
-        formData.append('avatar',newUser.avatar);
+        const formData = new FormData();
+        formData.append('Dob', newUser.Dob);
+        formData.append('Address', newUser.Address);
+        formData.append('Phone', newUser.Phone);
+        formData.append('Gender', newUser.Gender);
+        formData.append('Name', newUser.Name);
+        formData.append('avatar', newUser.avatar);
 
-        await axios.put("https://localhost:7241/api/User/UpdateMee", formData ,{
+        await axios.put("https://localhost:7241/api/User/UpdateMee", formData, {
             headers: {
-              Authorization: `Bearer ${accessToken}`,
+                Authorization: `Bearer ${accessToken}`,
             },
-          })
+        })
         dispatch(updateUserSuccess());
-       
+
         // navigate("/home");
     } catch (err) {
         console.log("err")
