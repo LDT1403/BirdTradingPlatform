@@ -54,29 +54,23 @@ const Layout = () => {
         `/product/${productId}/edit`,
         '/orders',
         `/order/${orderId}`,
-        '/dashboard'
+        '/dashboard',
+        '/users',
+        '/shops'
     ]
 
     return (
         <div>
-
             {pathName.includes(location.pathname) ? <></> : <Header />}
-
             {
                 showCart &&
                 <Carts />
             }
-
-
             <div>
                 <Routes path="/MyPurchase" element={<MyPurchase />} />
                 <Router />
             </div>
             {pathName.includes(location.pathname) ? <></> : <Footer />}
-
-
-
-
         </div>
     )
 }

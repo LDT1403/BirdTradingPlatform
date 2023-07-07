@@ -24,7 +24,10 @@ import PrivateRouter from "./PrivateRouter";
 import { listOrders } from './pages/redux/Actions/OrderActions';
 import { useEffect } from 'react';
 import { listProducts } from './pages/redux/Actions/ProductActions';
-import RouterAdmin from './routes/RouterAdmin';
+import UserScreen from './screenAdmin/UserScreen';
+// import DashBoard from './screenAdmin/DashBoardScreen';
+import ShopScreen from './screenAdmin/ShopScreen';
+import DashBoardScreen from './screenAdmin/DashBoardScreen';
 
 function App() {
   const user = useSelector((state) => state.auth.login.currentUser);
@@ -43,27 +46,26 @@ function App() {
 
       <Layout />
 
-      <RouterAdmin />
-      {(user.role === 'SP' || shop.roleId === "SP") && (
-        <Routes>
-          <Route path="/manageshop" element={<PrivateRouter component={HomeScreen} />} />
-          <Route path="/products" element={<PrivateRouter component={ProductScreen} />} />
-          <Route path="/category" element={<PrivateRouter component={CategoriesScreen} />} />
-          <Route path="/orders" element={<PrivateRouter component={OrderScreen} />} />
-          <Route path="/order/:id" element={<PrivateRouter component={OrderDetailScreen} />} />
-          <Route path="/addproduct" element={<PrivateRouter component={AddProduct} />} />
-          <Route path="/product/:id/edit" element={<PrivateRouter component={ProductEditScreen} />} />
-          {/* <Route path="*" element={<PrivateRouter component={NotFound} />} /> */}
-        </Routes>
+      <Routes>
+        {(user.role === 'SP' || shop.roleId === "SP") && (
+          <>
+            <Route path="/manageshop" element={<PrivateRouter component={HomeScreen} />} />
+            <Route path="/products" element={<PrivateRouter component={ProductScreen} />} />
+            <Route path="/category" element={<PrivateRouter component={CategoriesScreen} />} />
+            <Route path="/orders" element={<PrivateRouter component={OrderScreen} />} />
+            <Route path="/order/:id" element={<PrivateRouter component={OrderDetailScreen} />} />
+            <Route path="/addproduct" element={<PrivateRouter component={AddProduct} />} />
+            <Route path="/product/:id/edit" element={<PrivateRouter component={ProductEditScreen} />} />
+          </>
+        )}
+        <Route path="/users" element={<UserScreen />} />
+        <Route path="/dashboard" element={<DashBoardScreen />} />
+        <Route path="/shops" element={<ShopScreen />} />
 
-      )}
 
-
-
+        {/* <Route path="*" element={<PrivateRouter component={NotFound} />} /> */}
+      </Routes>
     </>
-
-
-
   );
 }
 
