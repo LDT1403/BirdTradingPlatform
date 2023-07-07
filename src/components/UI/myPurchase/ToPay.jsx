@@ -15,8 +15,12 @@ const ToPay = () => {
                }
           })
                .then((response) => {
-                    setShowLogItemsNull(false)
-                    setOrderList(response.data);
+
+                    if (response.data.length) {                       
+                         setShowLogItemsNull(false)
+                         setOrderList(response.data);
+                    }
+                   
 
                })
                .catch(error => {
@@ -63,8 +67,6 @@ const ToPay = () => {
                                              </div>
 
                                              <div className="toPay-Product-text">
-
-                                                  {/* <div className="toPay-subitem-text">TO PAY</div> */}
                                              </div>
                                         </div>
 

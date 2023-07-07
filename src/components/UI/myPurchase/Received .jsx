@@ -2,30 +2,30 @@ import React from "react";
 import { useEffect, useState } from 'react';
 import { useNavigate, NavLink } from "react-router-dom";
 import axios from "axios";
-import '../../../style/toConfirmation.css';
-const ToConfirmation = () => {
+const Received = () => {
 
      const accessToken = localStorage.getItem('jwtToken');
      const [orderList, setOrderList] = useState([]);
-     const [ShowLogItems, setShowLogItems] = useState();
-     const [ShowLogItemsNull, setShowLogItemsNull] = useState(true);
+     const [ShowLogItems, setShowLogItems] = useState(true);
+     const [ShowLogItemsNull, setShowLogItemsNull] = useState(false);
 
      const navigate = useNavigate();
 
      useEffect(() => {
-          axios.get(`https://localhost:7241/api/Order/ToConFirmOfuserId/2`, {
+          axios.get(`https://localhost:7241/api/Order/ToConFirmOfuserId/5`, {
                headers: {
                     Authorization: `Bearer ${accessToken}`
                }
           })
                .then((response) => {
 
-                    if (response.data.length) {
-                         setShowLogItemsNull(false)
-                         setShowLogItems(true)
-                         setOrderList(response.data)
+                    if (!response.data.length) {
+                         setShowLogItemsNull(true)
+                         setShowLogItems(false)
+
                     }
 
+                    setOrderList(response.data)
 
 
 
@@ -35,28 +35,38 @@ const ToConfirmation = () => {
                });
      }, []);
 
+     // Trong component chính
+     const calculateTotal = (items) => {
+          // Sử dụng reduce() để tính tổng total của các items
+          const total = items.reduce((accumulator, currentItem) => {
+               return accumulator + currentItem.total;
+          }, 0);
+
+          return total;
+     };
 
      const handleTabClick = (order) => {
           const orderID = order.orderID
           navigate(`/OrderDetail/${orderID}`, { state: { order } });
      }
+     
      const handleViewShopClick = (shopID) => {
           console.log(shopID);
           navigate(`/viewShop/${shopID}`);
      }
 
-
      return (
           <div className="option-page-MyPurChase"   >
                {ShowLogItemsNull && (
-                    <div style={{ minHeight: '550px', backgroundColor: '#fff' }}></div>
+                    <div style={{ minHeight: '500px', backgroundColor: '#fff' }}></div>
                )}
                {ShowLogItems && (
                     <div>
 
                          {orderList.map((shop) =>
 
-                              <div className="toPay-list-log" key={shop.shopID} >
+                              <div className="toPay-list-log" key={shop.orderID} >
+
                                    <div>
                                         <div className="toPay-nameShop">
                                              <div className="toPay-nameShop-log">
@@ -76,10 +86,9 @@ const ToConfirmation = () => {
                                                        </button>                          
                                              </div>
 
-
                                              <div className="toPay-Product-text">
 
-                                                  <div className="toPay-subitem-text">To ConFirmation</div>
+                                                  <div className="toPay-subitem-text">Received</div>
                                              </div>
                                         </div>
                                    </div>
@@ -103,10 +112,11 @@ const ToConfirmation = () => {
                                         <h5>TotalPay:</h5>
                                         <div id="toPay-totalPay">{shop.totalPrice}</div>
                                    </div>
-                                   {/* <div className="toPay-list-button">
+                                   <div className="toPay-list-button">
                                         <button
-                                        >Cancel Order</button>
-                                   </div> */}
+                                        //  onClick={() => handlePayNow(order.orderId)}
+                                        >Go to Feedback</button>
+                                   </div>
 
                               </div>
                          )}
@@ -117,4 +127,4 @@ const ToConfirmation = () => {
           </div>
      )
 }
-export default ToConfirmation;
+export default Received 
