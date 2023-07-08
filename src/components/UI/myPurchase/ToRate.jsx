@@ -3,36 +3,40 @@ import { useEffect, useState } from 'react';
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import AddFeedback from "../AddFeedback/AddFeedback";
+import '../../../style/toRate.css'
 const ToRate = () => {
      const accessToken = localStorage.getItem('jwtToken');
      const [orderList, setOrderList] = useState([]);
      const [ShowLogItemsNull, setShowLogItemsNull] = useState(true);
      const [ShowFeedTable, setShowFeedTable] = useState(false);
-
+     const [LoadApi, setLoadApi] = useState(false);
      useEffect(() => {
-          const LoadApi = () => {
+
+          const ApiMain = () => {
+               console.log("tao load lại rồi mày ơi")
                axios.get("https://localhost:7241/api/Shop/Product_To_Feedback", {
                     headers: {
                          Authorization: `Bearer ${accessToken}`
                     }
                })
                     .then((response) => {
-
-                         if (response.data.length) {
+                         console.log(response);
+                         if (response.data.length > 0) {
                               setShowLogItemsNull(false)
                               setOrderList(response.data);
                          }
-
-
                     })
                     .catch(error => {
                          console.log(error);
                     });
           }
-          if(ShowFeedTable === false  ){
-               LoadApi()
+          if (LoadApi === false) {
+               setOrderList([])
+               ApiMain();
+               setLoadApi(true);
           }
-     }, [ShowFeedTable]);
+
+     }, [LoadApi]);
 
      const handleFeedback = () => {
           setShowFeedTable(true)
@@ -40,13 +44,19 @@ const ToRate = () => {
      return (
           <div className="option-page-MyPurChase" >
                {ShowLogItemsNull && (
-                    <div style={{ minHeight: '500px', backgroundColor: '#fff' }}></div>
+                    <div style={{ minHeight: '500px', backgroundColor: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                         <div>
+                              <img style={{ height: '100px' }} src="https://th.bing.com/th/id/R.243d0e0ebe06da1c163b355961f024a7?rik=%2f6oK8VKD8oY%2fmg&riu=http%3a%2f%2fwww.bulongviet.com%2fUploads%2fimages%2ficon_03.png&ehk=1%2fn9ChdNLIGH5HrtYoChSZvw5ST66JFRc7bI7B9OfhA%3d&risl=&pid=ImgRaw&r=0" alt="" />
+                              <div style={{ display: 'flex', justifyContent: 'center', fontSize: '20px' }}>No orders yet</div>
+                         </div>
+
+                    </div>
                )}
 
                {
-                    orderList.map((orderListItem) =>
+                    orderList.slice().reverse().map((orderListItem) =>
 
-                         <div className="toRate-log-item  mb-3" key={orderListItem.orderDetailId} style={{ backgroundColor: '#fff', padding: "0px 10px" }}>
+                         <div className="toRate-log-item" key={orderListItem.orderDetailId} >
 
                               <div className="toPay-nameShop">
                                    <div className="toPay-nameShop-log" style={{ fontSize: "18px" }}>
@@ -86,7 +96,7 @@ const ToRate = () => {
                               </div>
                               {
                                    ShowFeedTable && (
-                                        <AddFeedback productId={orderListItem.productId} orderDetailId={orderListItem.orderDetailId} productName={orderListItem.nameProduct} setShowFeedTable={setShowFeedTable} />
+                                        <AddFeedback productId={orderListItem.productId} orderDetailId={orderListItem.orderDetailId} productName={orderListItem.nameProduct} setShowFeedTable={setShowFeedTable} setLoadApi={setLoadApi} />
                                    )
                               }
                          </div>

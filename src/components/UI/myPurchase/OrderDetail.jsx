@@ -35,12 +35,12 @@ const OrderDetail = () => {
                                    )
                               }
                               {
-                                   orderSelect.toConfirm == 3 && (
+                                   orderSelect.toConfirm == 3 && !orderSelect.receivedDate && (
                                         <div className="Detail-text" >ORDER CONFIRMED</div>
                                    )
                               }
                               {
-                                   orderSelect.toConfirm == 5 && (
+                                   orderSelect.receivedDate && (
                                         <div className="Detail-text" style={{ color: 'green' }}>ORDER RECEIVED</div>
                                    )
                               }

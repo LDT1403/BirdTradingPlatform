@@ -427,7 +427,7 @@
      margin-right: auto;
      background-color: #fff;
      margin-top: 20px;
-     padding: 2.5%;
+     padding: 20px;
      box-shadow: 0 2px 1px 0 rgba(0,0,0,.05);
 }
 
@@ -499,7 +499,8 @@
 }
 
 .user-listImage img {
-     width: 6%;
+     width:70px;
+     height: 70px;
      margin: 5px;
      border: 1px solid #000;
      transition: border-color 0.3s, transform 0.3s;
@@ -542,4 +543,9 @@
 .product-item {
      width: 100%;
      padding-right: 15px;
+}
+.optiom-star-fb{
+     width: 75%;
+     display: flex;
+     justify-content: space-between;
 }

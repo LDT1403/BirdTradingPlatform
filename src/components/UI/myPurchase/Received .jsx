@@ -13,14 +13,14 @@ const Received = () => {
      const navigate = useNavigate();
 
      useEffect(() => {
-          axios.get(`https://localhost:7241/api/Order/ToConFirmOfuserId/5`, {
+          axios.get(`https://localhost:7241/api/Order/ToReceived/3`, {
                headers: {
                     Authorization: `Bearer ${accessToken}`
                }
           })
                .then((response) => {
-
-                    if (!response.data.length) {
+                    console.log(response.data);
+                    if (response.data.length === 0) {
                          setShowLogItemsNull(true)
                          setShowLogItems(false)
 
@@ -64,8 +64,7 @@ const Received = () => {
                {ShowLogItems && (
                     <div>
 
-                         {orderList.map((shop) =>
-
+                         {orderList.slice().reverse().map((shop) => (
                               <div className="toPay-list-log" key={shop.orderID} >
 
                                    <div>
@@ -95,19 +94,35 @@ const Received = () => {
                                    </div>
 
                                    {shop.items.map((product) => (
-                                        <div className="toPay-product" key={product.productId} onClick={() => handleTabClick(shop)}>
+                                        <div className="toPay-product" key={product.productId}>
                                              <div style={{ display: "flex" }}>
-                                                  <img src={product.firstImagePath} alt="" />
-                                                  <div className="toPay-ProductName">
+                                                  <img src={product.firstImagePath} alt="" onClick={() => handleTabClick(shop)} />
+                                                  <div className="toPay-ProductName" onClick={() => handleTabClick(shop)}>
                                                        <div className="toPay-name">{product.productName}</div>
                                                        <div className="toPay-quantity">x{product.quantity}</div>
                                                   </div>
                                              </div>
 
-                                             <div className="toPay-Product-price">
+                                             <div className="toPay-Product-price" onClick={() => handleTabClick(shop)}>
                                                   <div className="toPay-num" style={{ textDecoration: "line-through" }}>${numeral(product.productPrice).format('0,0')}</div>
                                                   <div className="toPay-numSoldPrice">${numeral(product.discountPrice).format('0,0')}</div>
                                              </div>
+                                             {
+                                                  product.toFeedback !== true && (
+                                                       <div>
+                                                            <button style={{ border: "none", backgroundColor: "#176eb0", color: "#fff", padding: "5px 10px", borderRadius: "3px" }}
+                                                            >Feedback</button>
+                                                       </div>
+                                                  )
+                                             }
+                                             {
+                                                  product.toFeedback === true && (
+                                                       <div>
+                                                            <button style={{ border: "1.5px solid #176eb0", backgroundColor: "rgb(210, 229, 239)", color: "#176eb0", padding: "5px 10px", borderRadius: "3px" }}
+                                                            >View My Feedback </button>
+                                                       </div>
+                                                  )
+                                             }
 
 
                                         </div>
@@ -116,14 +131,9 @@ const Received = () => {
                                         <h5>TotalPay:</h5>
                                         <div id="toPay-totalPay">{numeral(shop.totalPrice).format('0,0')}</div>
                                    </div>
-                                   <div className="toPay-list-button">
-                                        <button
-                                        //  onClick={() => handlePayNow(order.orderId)}
-                                        >Go to Feedback</button>
-                                   </div>
 
                               </div>
-                         )}
+                        ))}
 
                     </div>
                )}

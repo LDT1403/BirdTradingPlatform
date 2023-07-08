@@ -23,9 +23,13 @@ const ShopDetail = () => {
     const [ListImg, setListImg] = useState([]);
     const [selectedImage, setSelectedImage] = useState();
     const [quantity, setQuantity] = useState(1);
-    const [feedback, setFeedback] = useState([])
-    const [showReportShop, setShowReportShop] = useState(false)
+    const [feedback, setFeedback] = useState([]);
+    const [showReportShop, setShowReportShop] = useState(false);
+    const [filteredFeedback, setFilteredFeedback] = useState([]);
+    const [selectedRate, setSelectedRate] = useState(0);
+    const [feedbackCounts, setFeedbackCounts] = useState({});
     useEffect(() => {
+
         window.scrollTo({ top: 0, behavior: 'smooth' });
         axios.get(`https://localhost:7241/api/Products/detail_product?id=${idpro.id}`)
             .then(resp => {
@@ -42,18 +46,43 @@ const ShopDetail = () => {
                 axios.get(`https://localhost:7241/api/FeedBack?productID=${resp.data.productId}`)
                     .then(resp => {
                         setFeedback(resp.data);
+                        setFilteredFeedback(resp.data);
+
+
                     })
                 axios.get(`https://localhost:7241/api/Products/Product_ShopId?shopId=${resp.data.shopId}`)
                     .then(resp => {
                         const maxProducts = resp.data.slice(0, 8);
                         setProductsData(maxProducts);
                     })
+
             })
             .catch(err => {
                 console.log(err)
             })
     }, [refreshPage]);
+    useEffect(() => {
+        calculateFeedbackCounts();
+    }, [feedback]);
+    const handleFilter = (rate) => {
+        if (rate === selectedRate) {
+            setSelectedRate(0);
+            setFilteredFeedback(feedback);
+        } else {
+            setSelectedRate(rate);
+            const filtered = feedback.filter((item) => item.rate === rate);
+            setFilteredFeedback(filtered);
+        }
+    };
 
+    const calculateFeedbackCounts = () => {
+        const counts = feedback.reduce((acc, item) => {
+            const rate = item.rate;
+            acc[rate] = (acc[rate] || 0) + 1;
+            return acc;
+        }, {});
+        setFeedbackCounts(counts);
+    };
 
     const handleProductClick = () => {
         setRefreshPage(prevCount => prevCount + 1);
@@ -199,13 +228,13 @@ const ShopDetail = () => {
     const handleReported = () => {
         setShowReportShop(true)
     }
-   
+
     return (
 
         <div className="shopDetail" ref={scrollToTopRef} >
             {
                 showReportShop && (
-                    <UserReportShop shopId={infoShop.shopId} setShowReportShop={setShowReportShop}  />
+                    <UserReportShop shopId={infoShop.shopId} setShowReportShop={setShowReportShop} />
                 )
             }
             <div className="detail-product">
@@ -258,8 +287,8 @@ const ShopDetail = () => {
                                 <div className="num-sold">{details.quantitySold}</div>
                                 <div className="text-sold">Sold</div>
                             </div>
-                            <div style={{width:"55%",display:"flex",justifyContent:"end"}}> 
-                                <button onClick={handleReported} style={{border:'none',backgroundColor:'#fff',height:'40px',display:'flex',alignItems: 'center'}}> <i className="ri-error-warning-line" style={{ color: "red", fontSize: "40px"}}></i></button>
+                            <div style={{ width: "55%", display: "flex", justifyContent: "end" }}>
+                                <button onClick={handleReported} style={{ border: 'none', backgroundColor: '#fff', height: '40px', display: 'flex', alignItems: 'center' }}> <i className="ri-error-warning-line" style={{ color: "red", fontSize: "40px" }}></i></button>
                             </div>
                         </div>
                     </div>
@@ -366,15 +395,38 @@ const ShopDetail = () => {
             </div>
             {/* Feeback Product */}
             <div class="feedback-product">
-                <div class="feedback-top">
-                    <div className="feed-rate">
-                        <div className="num-fb">{details.rate}</div>
-                        <div className="text-fb">over 5</div>
+                <div style={{ fontSize: '20px', fontWeight: '500', marginBottom: '20px' }}>Product Ratings</div>
+                <div class="feedback-top" style={{ display: 'flex' }}>
+                    <div style={{ margin: ' 0 6% 0 3%' }}>
+                        <div className="feed-rate">
+                            <div className="num-fb">{details.rate}</div>
+                            <div className="text-fb">out of 5</div>
+                        </div>
+                        <div className="star-fb">{renderRating()}</div>
                     </div>
-                    <div className="star-fb">{renderRating()}</div>
+
+                    <div className="optiom-star-fb">
+                        <button style={{ border: '1px solid  #b5babd', borderRadius: '4px', fontSize: '18px', backgroundColor: '#fff', marginRight: '10px', padding: '5px 50px', height: '50%', fontWeight: '500' }} onClick={() => handleFilter()}>All</button>
+                        <button style={{ border: '1px solid  #b5babd', borderRadius: '4px', fontSize: '18px', backgroundColor: '#fff', marginRight: '10px', padding: '5px 20px', height: '50%', fontWeight: '500' }} onClick={() => handleFilter(5)}>
+                            5 Star ({feedbackCounts[5] || 0})
+                        </button>
+                        <button style={{ border: '1px solid  #b5babd', borderRadius: '4px', fontSize: '18px', backgroundColor: '#fff', marginRight: '10px', padding: '5px 20px', height: '50%', fontWeight: '500' }} onClick={() => handleFilter(4)}>
+                            4 Star ({feedbackCounts[4] || 0})
+                        </button>
+                        <button style={{ border: '1px solid  #b5babd', borderRadius: '4px', fontSize: '18px', backgroundColor: '#fff', marginRight: '10px', padding: '5px 20px', height: '50%', fontWeight: '500' }} onClick={() => handleFilter(3)}>
+                            3 Star ({feedbackCounts[3] || 0})
+                        </button>
+                        <button style={{ border: '1px solid  #b5babd', borderRadius: '4px', fontSize: '18px', backgroundColor: '#fff', marginRight: '10px', padding: '5px 20px', height: '50%', fontWeight: '500' }} onClick={() => handleFilter(2)}>
+                            2 Star ({feedbackCounts[2] || 0})
+                        </button>
+                        <button style={{ border: '1px solid  #b5babd', borderRadius: '4px', fontSize: '18px', backgroundColor: '#fff', marginRight: '10px', padding: '5px 20px', height: '50%', fontWeight: '500' }} onClick={() => handleFilter(1)}>
+                            1 Star ({feedbackCounts[1] || 0})
+                        </button>
+                    </div>
+
                 </div>
                 <div className="feedback-body">
-                    {feedback.map((user, index) => (
+                    {filteredFeedback.map((user, index) => (
                         <div className="feedback-info" key={index}>
                             <div className="feedback-user">
                                 <div className="userImage">

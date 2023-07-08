@@ -3,11 +3,13 @@ import { useEffect, useState } from 'react';
 import axios from "axios";
 import '../../../style/toPay.css';
 import numeral from 'numeral';
+import LoadingFive from "../../Loadingfive/LoadingWrap";
 const ToPay = () => {
      const accessToken = localStorage.getItem('jwtToken');
      const [orderList, setOrderList] = useState([]);
      const [ShowLogItemsNull, setShowLogItemsNull] = useState(true);
      const [listOrderId, setListOrderId] = useState();
+     const [showLoadDing, setShowLoadDing] = useState(false);
 
      useEffect(() => {
           axios.get("https://localhost:7241/api/Order/OrderFailed", {
@@ -30,6 +32,7 @@ const ToPay = () => {
      }, []);
 
      const handlePayNow = (order) => {
+          setShowLoadDing(true)
           const orderId = order.orders.map(order => order.orderId)
           console.log(orderId);
           const paymentMethodSelect = {
@@ -44,6 +47,7 @@ const ToPay = () => {
                .then(response => {
                     console.log(response.data)
                     const paymentUrl = response.data.paymentUrl;
+                    setShowLoadDing(false);
                     window.location.href = `${paymentUrl}`;
 
                })
@@ -51,9 +55,15 @@ const ToPay = () => {
      return (
           <div className="option-page-MyPurChase">
                {ShowLogItemsNull && (
-                    <div style={{ minHeight: '500px', backgroundColor: '#fff' }}></div>
+                    <div style={{ minHeight: '500px', backgroundColor: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                         <div>
+                              <img style={{ height: '100px' }} src="https://cdn.haitrieu.com/wp-content/uploads/2022/10/Icon-VNPAY-QR-350x274.png" alt="" />
+                              <div style={{display: 'flex', justifyContent:'center', fontSize: '20px'}}>No Pays Yet</div>
+                         </div>
+
+                    </div>
                )}
-               {orderList.map((order, index) => (
+               {orderList.slice().reverse().map((order, index) => (
                     <div className="toPay-list-log" key={index} style={{ boxShadow: '0 2px 1px 0 rgba(0, 0, 0, .05)' }}>
                          <div className="toPay-body-product" >
                               {order.orders.map((shop) => (
@@ -73,7 +83,7 @@ const ToPay = () => {
 
                                         {shop.items.map((product) => (
                                              <div className="toPay-product" key={product.productId}>
-                                                  <div style={{ display:"flex"}}>
+                                                  <div style={{ display: "flex" }}>
                                                        <img src={product.firstImagePath} alt="" />
                                                        <div className="toPay-ProductName">
                                                             <div className="toPay-name">{product.productName}</div>
@@ -108,6 +118,14 @@ const ToPay = () => {
                     </div>
 
                ))}
+                {
+                showLoadDing && (
+                    <div className="confirmation-modal" style={{ background: "none"}}>
+                        <LoadingFive />
+                    </div>
+
+                )
+                }
           </div>
      );
 
