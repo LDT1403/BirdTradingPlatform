@@ -1,5 +1,5 @@
 .shopDetail {
-     padding: 30px;
+     padding:10px 30px;
      background-color: #eff5f5;
 }
 
@@ -462,7 +462,8 @@
 }
 
 .feedback-body {
-
+     overflow-y: scroll;
+     max-height: 780px;
      width: 100%;
 }
 

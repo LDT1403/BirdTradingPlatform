@@ -53,7 +53,6 @@ const CheckOut = () => {
         };
         if (!showAddNewAddress) {
             fetchData();
-            console.log("Tôi đang ở đây")
         }
     }, [showAddNewAddress]);
     const [firstAddress, setFirstAddress] = useState([])
@@ -389,7 +388,7 @@ const CheckOut = () => {
                                             <div>{address.address}</div>
                                         </div>
                                     </div>
-                                    <button className="cf-ad-button"> Edit </button>
+                                    {/* <button className="cf-ad-button"> Edit </button> */}
                                 </div>
                             ))}
                             <button className="cf-ad-button-add" onClick={handleAddNewAddress}>+ Add new Address</button>

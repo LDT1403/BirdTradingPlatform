@@ -2,6 +2,7 @@ import React from "react";
 import { useEffect, useState } from 'react';
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
+import moment from "moment";
 import { useDispatch } from "react-redux";
 import { cartActions } from "./redux/cartSlice";
 import { useParams } from "react-router-dom";
@@ -28,39 +29,48 @@ const ShopDetail = () => {
     const [filteredFeedback, setFilteredFeedback] = useState([]);
     const [selectedRate, setSelectedRate] = useState(0);
     const [feedbackCounts, setFeedbackCounts] = useState({});
+    const [LoadApiID, setLoadApiID] = useState(false);
+
     useEffect(() => {
+        const loadApi = () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
 
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-        axios.get(`https://localhost:7241/api/Products/detail_product?id=${idpro.id}`)
-            .then(resp => {
-                setDetails(resp.data);
-                axios.get(`https://localhost:7241/api/Products/Shop_Detail_Product?id=${resp.data.shopId}`)
-                    .then(responseShop => {
-                        setInfoShop(responseShop.data)
-                    })
-                axios.get(`https://localhost:7241/api/Products/List_Image_ProductID?productId=${resp.data.productId}`)
-                    .then(res => {
-                        setSelectedImage(res.data[0])
-                        setListImg(res.data)
-                    })
-                axios.get(`https://localhost:7241/api/FeedBack?productID=${resp.data.productId}`)
-                    .then(resp => {
-                        setFeedback(resp.data);
-                        setFilteredFeedback(resp.data);
+            axios.get(`https://localhost:7241/api/Products/detail_product?id=${idpro.id}`)
+                .then(resp => {
+                    setDetails(resp.data);
+
+                    axios.get(`https://localhost:7241/api/Products/Shop_Detail_Product?id=${resp.data.shopId}`)
+                        .then(responseShop => {
+                            setInfoShop(responseShop.data)
+                        })
+                    axios.get(`https://localhost:7241/api/Products/List_Image_ProductID?productId=${resp.data.productId}`)
+                        .then(res => {
+                            setSelectedImage(res.data[0])
+                            setListImg(res.data)
+                        })
+                    axios.get(`https://localhost:7241/api/FeedBack?productID=${resp.data.productId}`)
+                        .then(resp => {
+                            setFeedback(resp.data);
+                            setFilteredFeedback(resp.data);
 
 
-                    })
-                axios.get(`https://localhost:7241/api/Products/Product_ShopId?shopId=${resp.data.shopId}`)
-                    .then(resp => {
-                        const maxProducts = resp.data.slice(0, 8);
-                        setProductsData(maxProducts);
-                    })
+                        })
+                    axios.get(`https://localhost:7241/api/Products/Product_ShopId?shopId=${resp.data.shopId}`)
+                        .then(resp => {
+                            const maxProducts = resp.data.slice(0, 12);
+                            setProductsData(maxProducts);
+                        })
 
-            })
-            .catch(err => {
-                console.log(err)
-            })
-    }, [refreshPage]);
+                })
+                .catch(err => {
+                    console.log(err)
+                })
+        }
+        if (LoadApiID === false) {
+            loadApi();
+            setLoadApiID(true);
+        }
+    }, [refreshPage, LoadApiID]);
     useEffect(() => {
         calculateFeedbackCounts();
     }, [feedback]);
@@ -99,7 +109,8 @@ const ShopDetail = () => {
                 soldPrice: details.soldPrice,
                 quantity: quantity,
                 shopId: details.shopId,
-                shopName: infoShop.shopName
+                shopName: infoShop.shopName,
+                quantityProduct:details.quantity
             })
         );
         setQuantity(1)
@@ -180,8 +191,11 @@ const ShopDetail = () => {
         }
     };
 
-    const increaseQuantity = () => {
-        setQuantity(quantity + 1);
+    const increaseQuantity = (detail) => {
+        if (quantity < detail.quantity) {
+            setQuantity(quantity + 1);
+        }
+
     };
     let currentImageSrc = null;
     const handleImageClick = (event, index) => {
@@ -294,9 +308,9 @@ const ShopDetail = () => {
                     </div>
                     <div className="viewPrice">
                         {details.discountPercent !== 0 && (
-                            <div className="price">{numeral(details.price).format('0,0')}$</div>
+                            <div className="price">{numeral(details.price).format('0,0')}</div>
                         )}
-                        <div className="soldPrice">{numeral(details.soldPrice).format('0,0')} $</div>
+                        <div className="soldPrice">{numeral(details.soldPrice).format('0,0')} </div>
                         {details.discountPercent !== 0 && (
                             <div className="discount">{details.discountPercent}% Sale</div>
                         )}
@@ -308,7 +322,7 @@ const ShopDetail = () => {
                         <div className="quantitySelect">
                             <button className="buttonSelect" onClick={decreaseQuantity}>-</button>
                             <input type="text" value={quantity} readOnly />
-                            <button className="buttonSelect" onClick={increaseQuantity}>+</button>
+                            <button className="buttonSelect" onClick={() => increaseQuantity(details)}>+</button>
                         </div>
                         <div className="quantityText">{details.quantity} products available</div>
                     </div>
@@ -360,7 +374,7 @@ const ShopDetail = () => {
                 <div className="shopInfo-details">
                     <div className="shopInfo-detail-info">
                         <div className="detail-name">Evaluate </div>
-                        <div className="detail-value">{infoShop.rate} </div>
+                        <div className="detail-value">{infoShop.rate || 0} </div>
                     </div>
                     <div className="shopInfo-detail-info">
                         <div className="detail-name">Total Products </div>
@@ -370,7 +384,7 @@ const ShopDetail = () => {
                 <div className="shopInfo-details">
                     <div className="shopInfo-detail-info">
                         <div className="detail-name">Participation date</div>
-                        <div className="detail-value">"" </div>
+                        <div className="detail-value">{moment(infoShop.createDate).format('DD-MM-YYYY')} </div>
                     </div>
                     <div className="shopInfo-detail-info">
                         <div className="detail-name">Address</div>
@@ -380,12 +394,12 @@ const ShopDetail = () => {
             </div>
             {/* Product Description */}
             <div className="description-product">
-                <div className="description-text">
+                {/* <div className="description-text">
                     Product Detail:
                 </div>
                 <div className="description-value">
                     {details && details.detail && formatDescriptionValue(details.detail)}
-                </div>
+                </div> */}
                 <div className="description-text">
                     Product Description:
                 </div>
@@ -399,7 +413,7 @@ const ShopDetail = () => {
                 <div class="feedback-top" style={{ display: 'flex' }}>
                     <div style={{ margin: ' 0 6% 0 3%' }}>
                         <div className="feed-rate">
-                            <div className="num-fb">{details.rate}</div>
+                            <div className="num-fb">{details.rate || 0}</div>
                             <div className="text-fb">out of 5</div>
                         </div>
                         <div className="star-fb">{renderRating()}</div>
@@ -426,7 +440,7 @@ const ShopDetail = () => {
 
                 </div>
                 <div className="feedback-body">
-                    {filteredFeedback.map((user, index) => (
+                    {filteredFeedback.slice().reverse().map((user, index) => (
                         <div className="feedback-info" key={index}>
                             <div className="feedback-user">
                                 <div className="userImage">
@@ -468,10 +482,10 @@ const ShopDetail = () => {
                 <div className="product-item">
                     <Col lg='12' md=''>
                         <Container className="p-0">
-                            <Row>
+                            <Row style={{ padding: '0px 0px' }}>
                                 {productsData?.map(item => (
-                                    <Col lg='3' md='6' key={item.productId}>
-                                        <ProductCard item={item} handleProductClick={handleProductClick} />
+                                    <Col lg='3' md='7' sm='7' style={{ padding: '0', marginLeft: '11px', maxWidth: '209px' }} key={item.productId}>
+                                        <ProductCard item={item} />
                                     </Col>
                                 ))}
                             </Row>

@@ -55,6 +55,7 @@ const cartSlice = createSlice({
                     totalPrice: newItem.soldPrice * newItem.quantity,
                     shopId: newItem.shopId,
                     shopName: newItem.shopName,
+                    quantityProduct:newItem.quantityProduct
                 });
 
             } else {

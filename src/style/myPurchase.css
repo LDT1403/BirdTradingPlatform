@@ -15,6 +15,14 @@
      display: flex;
      margin-bottom: 15px;
 }
+.MyPurchase-log-cate  button {
+     width: 100px;
+     border: none;
+     background-color: #fff;
+     display: flex;
+     align-items: center;
+     color: #9ea5a7;
+}
 
 .MyPurchase-cate {
      text-decoration: none;

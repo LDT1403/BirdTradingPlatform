@@ -28,7 +28,7 @@ const Cart = () => {
                     (product) =>
                         !cartItems.some((item) => item.productId === product.productId)
                 );
-                const limitedProducts = filteredProducts.slice(0, 8);
+                const limitedProducts = filteredProducts.slice(0, 12);
                 setProductsData(limitedProducts);
             })
             .catch((err) => {
@@ -45,9 +45,6 @@ const Cart = () => {
             const updatedOrderSelect = { ...orderSelect };
             delete updatedOrderSelect[productId];
             setOrderSelect(updatedOrderSelect);
-
-
-            // Check if all products from the same shop are unselected
             const productShopId = getProductShopId(productId);
             const shopProducts = productsByShop[productShopId].products;
             const isShopSelected = Object.values(updatedOrderSelect).some((product) =>
@@ -144,19 +141,19 @@ const Cart = () => {
         productsByShop[shopId].products.push(item);
     });
 
-    const incrementItem = (productId) => {
-        dispatch(cartActions.addItem({
-            productId: productId,
-            quantity: 1
-        }));
-    };
-    console.log(orderSelect)
+    const incrementItem = (product) => {
+        if (product.quantity < product.quantityProduct) {
+            dispatch(cartActions.addItem({
+                productId: product.productId,
+                quantity: 1
+            }));
+        }
 
+    };
     const decrementItem = (productId) => {
         const item = cartItems.find((item) => item.productId === productId);
         if (item.quantity === 1) {
             setSelectedProductName(item.productName);
-            // Hiển thị thông báo xác nhận
             setSelectedProductId(productId);
             setShowConfirmation(true);
         } else {
@@ -171,8 +168,6 @@ const Cart = () => {
     };
     const deleteItem = (productId) => {
         dispatch(cartActions.deleteItem(productId));
-
-        // Xóa sản phẩm khỏi orderSelect (nếu có)
         setOrderSelect((prevOrderSelect) => {
             const updatedOrderSelect = { ...prevOrderSelect };
             delete updatedOrderSelect[productId];
@@ -190,19 +185,16 @@ const Cart = () => {
         return totalPrice;
     };
     const handleCheckout = () => {
-        // Check if any products are selected
+
         if (Object.keys(orderSelect).length === 0) {
-            setShowNotification(true); // Show the notification if no products are selected
+            setShowNotification(true);
         } else {
-            // Redirect to the checkout page
             navigate("/checkout", { state: { orderSelect } });
         }
     };
-    console.log(orderSelect);
-    const handleCheckoutOk = () => {
-        // Check if any products are selected
 
-        setShowNotification(false); // Show the notification if no products are selected
+    const handleCheckoutOk = () => {
+        setShowNotification(false);
 
     };
 
@@ -211,7 +203,7 @@ const Cart = () => {
             <div className="Cart-page-body">
                 <div className="Cart-page-inFor">
                     <div className="cart-shop-select">
-                     
+
                     </div>
                     <div className="cart-products-info">
                         <div className="cart-inFor">
@@ -276,15 +268,16 @@ const Cart = () => {
                                             <div className="name-product-cart">{product.productName}</div>
                                         </div>
 
-                                        <div className="cart-products-num">${numeral(product.soldPrice).format('0,0')}</div>
+                                        <div className="cart-products-num">{numeral(product.soldPrice).format('0,0')}</div>
                                         <div className="cart-products-quantity">
                                             <button className="cart-clickQuantity" onClick={() => decrementItem(product.productId)}><i className="ri-subtract-line" /></button>
+
                                             <span className="cart-view-quantity">{product.quantity}</span>
-                                            <button className="cart-clickQuantity" onClick={() => incrementItem(product.productId)}><i className="ri-add-line" /></button>
+                                            <button className="cart-clickQuantity" onClick={() => incrementItem(product)}><i className="ri-add-line" /></button>
                                         </div>
 
                                         <div className="cart-products-num">
-                                            <div className="totalPrice-cart">${numeral(product.totalPrice).format('0,0')}</div>
+                                            <div className="totalPrice-cart">{numeral(product.totalPrice).format('0,0')}</div>
                                         </div>
                                         <div className="cart-products-num">
                                             <button onClick={() => deleteItem(product.productId)}>Delete</button>
@@ -310,7 +303,7 @@ const Cart = () => {
                         </div>
                     </div>
                     <div className="cart-products-totalCheckOut">
-                        <div className="cart-inFor">Total Price: ${numeral(calculateTotalPrice()).format('0,0')}</div>
+                        <div className="cart-inFor">Total Price: {numeral(calculateTotalPrice()).format('0,0')}</div>
                     </div>
                     <div className="cart-products-num">
 
@@ -330,14 +323,14 @@ const Cart = () => {
                     <div className="product-item">
                         <Col lg='12' md=''>
                             <Container>
-                                <Row>
-                                    {productsData.map(item => (
-
-                                        <Col lg='3' md='4' key={item.productId}>
+                                <Row style={{ padding: '0px 0px' }}>
+                                    {productsData?.map(item => (
+                                        <Col lg='3' md='7' sm='7' style={{ padding: '0', marginLeft: '11px', maxWidth: '209px' }} key={item.productId}>
                                             <ProductCard item={item} />
                                         </Col>
                                     ))}
                                 </Row>
+
                             </Container>
                         </Col>
                     </div>

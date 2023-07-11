@@ -11,9 +11,8 @@ const OrderDetail = () => {
      const handleGoBack = () => {
           navigate(-1); // Điều hướng quay lại trang trước đó
      };
-     console.log(orderSelect)
      const handleViewShopClick = (shopID) => {
-          console.log(shopID);
+         
           navigate(`/viewShop/${shopID}`);
      }
      return (
@@ -40,8 +39,13 @@ const OrderDetail = () => {
                                    )
                               }
                               {
-                                   orderSelect.receivedDate && (
-                                        <div className="Detail-text" style={{ color: 'green' }}>ORDER RECEIVED</div>
+                                   orderSelect.receivedDate &&  orderSelect.toConfirm == 3 &&(
+                                        <div className="Detail-text" style={{ color: 'green' }}>ORDER COMPLETED</div>
+                                   )
+                              }
+                               {
+                                   orderSelect.cancelDate &&  (
+                                        <div className="Detail-text" style={{ color: 'gray' }} >ORDER FAILED</div>
                                    )
                               }
                          </div>
@@ -58,11 +62,11 @@ const OrderDetail = () => {
                                    <div id="log-do-address-full">{orderSelect.addressDetail}, {orderSelect.address}</div>
                                    <div id="log-do-address-full"></div>
                               </div>
-                              <div id="log-do-address-2">
+                              {/* <div id="log-do-address-2">
                                    <button className="orderButtonAgain" >
                                         Buy Again
                                    </button>
-                              </div>
+                              </div> */}
                          </div>
 
                     </div>

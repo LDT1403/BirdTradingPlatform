@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import { useEffect, useState } from 'react';
 import axios from "axios";
 import { Link } from "react-router-dom";
+import moment from "moment";
 import '../style/view-shop.css';
 import { SearchProduct } from "../components/UI/search-product/Search";
 export default function ViewShopId() {
@@ -29,7 +30,7 @@ export default function ViewShopId() {
      const placeholder = `Search product in ${infoShop.shopName}`;
      return (
 
-          <div className="pt-5" style={{backgroundColor: '#eff5f5'}}>
+          <div style={{backgroundColor: '#eff5f5' , paddingTop:'10px'}}>
                <div className="Shop-view" >
                     <Link to={`/viewShop/${infoShop.shopId}`} className="shopvImg">
                          <img src={infoShop.avatar} alt="" />
@@ -55,7 +56,7 @@ export default function ViewShopId() {
                          <div className="shopInfo-details">
                               <div className="shopInfo-detail-info">
                                    <div className="detail-nameShop">Participation date</div>
-                                   <div className="detail-value">"" </div>
+                                   <div className="detail-value">{moment(infoShop.createDate).format('DD-MM-YYYY')} </div>
                               </div>
                               <div className="shopInfo-detail-info">
                                    <div className="detail-nameShop">Address</div>
