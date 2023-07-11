@@ -151,7 +151,7 @@ const ViewProduct = (api) => {
       
           
             <Col lg='2' md='3' className="p-0">
-              <div className="shopContainer ">
+              <div className="shopContainer mb-4 ">
                 <div className="shopCate p-0" style={{ backgroundColor: '#fff' }} >
                   <div className="p-2">
                     <div className="cate">
@@ -275,10 +275,10 @@ const ViewProduct = (api) => {
               <div className="Shopping">
                 <div className="product">
                   <div className="productList">
-                    <Container >
-                      <Row >
+                    <Container style={{paddingRight:'7px'}}>
+                      <Row style={{padding:'0px 0px'}}>
                         {currentPageProducts?.map(item => (
-                          <Col lg='3' md='6' key={item.productId}>
+                          <Col lg='3' md='7' sm='7' style={{padding:'0', marginLeft:'11px', maxWidth:'205px'}}  key={item.productId}>
                             <ProductCard item={item} />
                           </Col>
                         ))}

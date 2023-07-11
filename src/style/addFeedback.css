@@ -106,3 +106,6 @@
   justify-content: center;
   cursor: pointer;
 }
+.confirmation-modal{
+     background-color: rgba(204, 206, 206, 0.5);
+}

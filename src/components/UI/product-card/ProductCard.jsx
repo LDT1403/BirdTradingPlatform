@@ -10,21 +10,30 @@ const ProductCard = (props) => {
     const { productId, productName, thumbnail, price, quantitySold, rate, soldPrice, discountPercent, shopId, shopName, address } = props.item;
     const dispatch = useDispatch();
     const handleProductClick = props.handleProductClick;
+    let countadd = 1;
 
     const addToCart = () => {
-        dispatch(
-            cartActions.addItem({
-                productId,
-                productName,
-                thumbnail,
-                soldPrice,
-                quantity: 1,
-                shopId,
-                shopName,
 
-            })
+        if (countadd > 1) {
 
-        );
+        }
+        if (countadd === 1) {
+            dispatch(
+                cartActions.addItem({
+                    productId,
+                    productName,
+                    thumbnail,
+                    soldPrice,
+                    quantity: 1,
+                    shopId,
+                    shopName,
+
+                })
+
+            );
+            countadd++;
+        }
+
     };
     const renderRating = () => {
         const filledStars = Math.floor(rate);
@@ -74,18 +83,14 @@ const ProductCard = (props) => {
                     <span className="discount-price">Sale Price: <span className="discount-price-color">{soldPrice}$</span></span><br />
                     <span className="rate">{rate} {renderRating()}</span><br />
                     <span className="quantity-sold">Quantity Sold: {quantitySold}</span>
-                    {discountPercent && (
-                        <div className="discount-badge">{discountPercent}%</div>
-                    )}
-                    {discountPercent && (
+
+                    {discountPercent !== 0 && (
                         <div>
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="discount-badge-icon">
                                 <path fillRule="evenodd" d="M6.32 2.577a49.255 49.255 0 0111.36 0c1.497.174 2.57 1.46 2.57 2.93V21a.75.75 0 01-1.085.67L12 18.089l-7.165 3.583A.75.75 0 013.75 21V5.507c0-1.47 1.073-2.756 2.57-2.93z" clipRule="evenodd" />
                             </svg>
                             <div className="discount-badge">   {discountPercent}%</div>
                         </div>
-
-
                     )}
                     <div className="address-product">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="icon-address-product">
@@ -94,10 +99,6 @@ const ProductCard = (props) => {
                         {address}
                     </div>
 
-                    {/* <button className="addTOCART__btn" onClick={addToCart}>
-                            Add to Cart
-                        </button>
-                     */}
                 </div>
             </div>
         </div>

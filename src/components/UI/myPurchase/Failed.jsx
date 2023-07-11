@@ -1,74 +1,89 @@
 import React from "react";
 import { useEffect, useState } from 'react';
-import { useNavigate } from "react-router-dom";
+import { useNavigate, NavLink } from "react-router-dom";
 import axios from "axios";
+import '../../../style/toConfirmation.css';
 import numeral from 'numeral';
-import AddFeedback from "../AddFeedback/AddFeedback";
-const Received = () => {
+const Failed = () => {
 
      const accessToken = localStorage.getItem('jwtToken');
      const [orderList, setOrderList] = useState([]);
      const [ShowLogItems, setShowLogItems] = useState(true);
      const [ShowLogItemsNull, setShowLogItemsNull] = useState(false);
-     const [ShowFeedTable, setShowFeedTable] = useState(false);
+     const [LoadApi, setLoadApi] = useState(true)
+
      const navigate = useNavigate();
-     const [LoadApi, setLoadApi] = useState(false);
+     console.log(accessToken)
      useEffect(() => {
-          axios.get(`https://localhost:7241/api/Order/ToReceived/3`, {
+          const ApiMain = () => {
+               axios.get(`https://localhost:7241/api/Order/ToReceived/4`, {
+                    headers: {
+                         Authorization: `Bearer ${accessToken}`
+                    }
+               })
+                    .then((response) => {
+
+                         if (!response.data.length) {
+                              setShowLogItemsNull(true)
+                              setShowLogItems(false)
+
+                         }
+
+                         setOrderList(response.data)
+
+
+
+                    })
+                    .catch(error => {
+                         console.log(error);
+                    });
+          }
+          if (LoadApi === true) {
+               ApiMain();
+               setLoadApi(false)
+          }
+
+     }, [LoadApi]);
+
+     const handleReceived = (orderID) => {
+          console.log(accessToken)
+          console.log(orderID);
+
+          axios.put(`https://localhost:7241/api/Shop/Confim_To_Feedback/${orderID}`, {}, {
                headers: {
                     Authorization: `Bearer ${accessToken}`
                }
           })
-               .then((response) => {
-
-                    if (response.data.length === 0) {
-                         setShowLogItemsNull(true)
-                         setShowLogItems(false)
-
-                    }
-
-                    setOrderList(response.data)
-
-
-
+               .then((rp) => {
+                    setLoadApi(true)
                })
-               .catch(error => {
-                    console.log(error);
-               });
-     }, []);
-
-     // Trong component chính
-     const calculateTotal = (items) => {
-          // Sử dụng reduce() để tính tổng total của các items
-          const total = items.reduce((accumulator, currentItem) => {
-               return accumulator + currentItem.total;
-          }, 0);
-
-          return total;
-     };
-
+     }
      const handleTabClick = (order) => {
           const orderID = order.orderID
-          navigate(`/OrderDetail/${orderID}`, { state: { order } });
+          const status = 5;
+          navigate(`/OrderDetail/${orderID}`, { state: { order, status } });
      }
-
      const handleViewShopClick = (shopID) => {
+          console.log(shopID);
           navigate(`/viewShop/${shopID}`);
      }
-     const handleFeedback = () => {
-          setShowFeedTable(true)
-     }
+
      return (
           <div className="option-page-MyPurChase"   >
                {ShowLogItemsNull && (
-                    <div style={{ minHeight: '500px', backgroundColor: '#fff' }}></div>
+                    <div style={{ minHeight: '500px', backgroundColor: '#fff', display: 'flex' ,alignItems: 'center', justifyContent: 'center' }}>
+                         <div>
+                              <img style={{ height: '100px' }} src="https://th.bing.com/th/id/R.243d0e0ebe06da1c163b355961f024a7?rik=%2f6oK8VKD8oY%2fmg&riu=http%3a%2f%2fwww.bulongviet.com%2fUploads%2fimages%2ficon_03.png&ehk=1%2fn9ChdNLIGH5HrtYoChSZvw5ST66JFRc7bI7B9OfhA%3d&risl=&pid=ImgRaw&r=0" alt="" />
+                              <div style={{display: 'flex', justifyContent:'center', fontSize: '20px'}}>No orders yet</div>
+                         </div>
+
+                    </div>
                )}
                {ShowLogItems && (
                     <div>
+                         {orderList.slice().reverse().map((shop) =>
 
-                         {orderList.slice().reverse().map((shop) => (
-                              <div className="toPay-list-log" key={shop.orderID} >
-
+                              <div className="toPay-list-log" key={shop.shopID} >
                                    <div>
                                         <div className="toPay-nameShop">
                                              <div className="toPay-nameShop-log">
@@ -87,60 +102,42 @@ const Received = () => {
                                                        <div>View shop</div>
                                                   </button>
                                              </div>
-
                                              <div className="toPay-Product-text">
-
-                                                  <div className="toPay-subitem-text">Completed</div>
+                                                  <div className="toPay-subitem-text">Failed !</div>
                                              </div>
                                         </div>
                                    </div>
 
                                    {shop.items.map((product) => (
-                                        <div className="toPay-product" key={product.productId}>
+                                        <div className="toPay-product" key={product.productId} onClick={() => handleTabClick(shop)}>
                                              <div style={{ display: "flex" }}>
-                                                  <img src={product.firstImagePath} alt="" onClick={() => handleTabClick(shop)} />
-                                                  <div className="toPay-ProductName" onClick={() => handleTabClick(shop)}>
+                                                  <img src={product.firstImagePath} alt="" />
+                                                  <div className="toPay-ProductName">
                                                        <div className="toPay-name">{product.productName}</div>
                                                        <div className="toPay-quantity">x{product.quantity}</div>
                                                   </div>
                                              </div>
 
-                                             <div className="toPay-Product-price" onClick={() => handleTabClick(shop)}>
+                                             <div className="toPay-Product-price">
                                                   <div className="toPay-num" style={{ textDecoration: "line-through" }}>${numeral(product.productPrice).format('0,0')}</div>
                                                   <div className="toPay-numSoldPrice">${numeral(product.discountPrice).format('0,0')}</div>
                                              </div>
-                                             {
-                                                  product.toFeedback !== true && (
-                                                       <div  onClick={handleFeedback}>
-                                                            <button style={{ border: "none", backgroundColor: "#176eb0", color: "#fff", padding: "5px 10px", borderRadius: "3px" }}
-                                                           
-                                                            >Feedback</button>
-                                                       </div>
-                                                  )
-                                             }
-                                             {/* {
-                                                  product.toFeedback === true && (
-                                                       <div>
-                                                            <button style={{ border: "1.5px solid #176eb0", backgroundColor: "rgb(210, 229, 239)", color: "#176eb0", padding: "5px 10px", borderRadius: "3px" }}
-                                                            >View My Feedback </button>
-                                                       </div>
-                                                  )
-                                             } */}
-                                             {
-                                                  ShowFeedTable && (
-                                                       <AddFeedback productId={product.productId} orderDetailId={product.orderDetailID} productName={product.productName} setShowFeedTable={setShowFeedTable} setLoadApi={setLoadApi} />
-                                                  )
-                                             }
+
 
                                         </div>
                                    ))}
                                    <div className="toPay-totalPay-log">
                                         <h5>TotalPay:</h5>
-                                        <div id="toPay-totalPay">{numeral(shop.totalPrice).format('0,0')}</div>
+                                        <div id="toPay-totalPay"  style={{color:'#828686'}} >{numeral(shop.totalPrice).format('0,0')}</div>
                                    </div>
+                                   {/* <div className="toPay-list-button">
+                                        <button
+                                             onClick={() => handleReceived(shop.orderId)}
+                                        >Đã Nhận Hàng</button>
+                                   </div> */}
 
                               </div>
-                         ))}
+                         )}
 
                     </div>
                )}
@@ -148,4 +145,4 @@ const Received = () => {
           </div>
      )
 }
-export default Received 
+export default Failed;

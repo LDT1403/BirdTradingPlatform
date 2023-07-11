@@ -13,14 +13,12 @@ const ToRate = () => {
      useEffect(() => {
 
           const ApiMain = () => {
-               console.log("tao load lại rồi mày ơi")
                axios.get("https://localhost:7241/api/Shop/Product_To_Feedback", {
                     headers: {
                          Authorization: `Bearer ${accessToken}`
                     }
                })
                     .then((response) => {
-                         console.log(response);
                          if (response.data.length > 0) {
                               setShowLogItemsNull(false)
                               setOrderList(response.data);
@@ -68,7 +66,7 @@ const ToRate = () => {
                                    </div>
                                    <div className="toPay-Product-text">
 
-                                        <div className="toPay-subitem-text" style={{ color: "green" }}>COMPLETED</div>
+                                        <div className="toPay-subitem-text" style={{ color: "green" }}>FeedBack Now</div>
                                    </div>
                               </div>
 
