@@ -56,7 +56,8 @@ const Layout = () => {
         `/order/${orderId}`,
         '/dashboard',
         '/users',
-        '/shops'
+        '/shops',
+
     ]
 
     return (

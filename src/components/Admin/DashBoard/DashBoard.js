@@ -25,7 +25,7 @@ const DashBoard = () => {
                 <div className="row">
                     {/* STATICS */}
                     <ShopStatics />
-                    {/* <UserStatics /> */}
+                    <UserStatics />
                 </div>
 
                 {/* LATEST ORDER */}

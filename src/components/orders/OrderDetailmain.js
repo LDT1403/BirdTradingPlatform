@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import OrderDetailProducts from "./OrderDetailProducts";
 import OrderDetailInfo from "./OrderDetailInfo";
 import { Link } from "react-router-dom";
@@ -14,6 +14,7 @@ import { cancelOrder, confirmOrder, getOrderDetails } from "../../pages/redux/Ac
 
 const OrderDetailmain = (props) => {
 
+    const [confirmed, setConfirmed] = useState(false);
     const { orderId } = props;
     console.log(props)
     const dispatch = useDispatch();
@@ -29,10 +30,13 @@ const OrderDetailmain = (props) => {
     }, [dispatch, orderId, successConfirmed]);
 
     const deliverHandler = () => {
+        setConfirmed(true);
         dispatch(confirmOrder(order));
     };
     const cancelHandler = () => {
+        setConfirmed(false);
         dispatch(cancelOrder(order));
+
         window.location.reload();
     };
 
@@ -96,28 +100,42 @@ const OrderDetailmain = (props) => {
                                 <div className="box shadow-sm bg-light">
                                     {order.toConfirm === 3 ? (
                                         <button className="btn btn-success col-12 mb-2">
-                                            CONFIRMED ({" "}
-                                            {moment(order.confirmDate).format("MMM Do YY")})
+                                            CONFIRMED ({moment(order.confirmDate).format("MMM Do YY")})
+                                        </button>
+                                    ) : order.toConfirm === 4 ? (
+                                        <button className="btn btn-danger col-12 mb-2">
+                                            CANCELED ({moment(order.cancelDate).format("MMM Do YY")})
                                         </button>
                                     ) : (
                                         <>
                                             {loadingComfirmed && <Loading />}
-                                            <button
-                                                onClick={deliverHandler}
-                                                className="btn btn-dark col-12 mb-2"
-                                            >
-                                                Confirm
-                                            </button>
-                                        </>
-                                    )
-                                    }
 
-                                    <button
-                                        onClick={cancelHandler}
-                                        className="btn btn-dark col-12"
-                                    >
-                                        Cancel
-                                    </button>
+                                            {confirmed ? (
+                                                <button className="btn btn-dark col-12 mb-2" disabled>
+                                                    Confirm
+                                                </button>
+                                            ) : (
+                                                <button
+                                                    onClick={deliverHandler}
+                                                    className="btn btn-dark col-12 mb-2"
+                                                >
+                                                    Confirm
+                                                </button>
+                                            )}
+                                            {confirmed ? (
+                                                <button className="btn btn-dark col-12" disabled>
+                                                    Cancel
+                                                </button>
+                                            ) : (
+                                                <button onClick={cancelHandler} className="btn btn-dark col-12">
+                                                    Cancel
+                                                </button>
+                                            )}
+                                        </>
+                                    )}
+
+
+
                                 </div>
                             </div>
                         </div>

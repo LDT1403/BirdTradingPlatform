@@ -158,7 +158,7 @@ export const unbanUser = (userId) => async (dispatch) => {
     }
 };
 
-export const banShop = (userId) => async (dispatch) => {
+export const banShop = (shopId) => async (dispatch) => {
     try {
         dispatch({ type: SHOP_BAN_REQUEST });
 
@@ -170,8 +170,8 @@ export const banShop = (userId) => async (dispatch) => {
             },
         };
 
-        const { data } = await axios.put(
-            `https://localhost:7241/api/Admin/Bandaccount?userid=${userId}`,
+        const { data } = await axios.post(
+            `https://localhost:7241/api/Admin/Sendwarning?shopid=${shopId}`,
             {},
             config
         );

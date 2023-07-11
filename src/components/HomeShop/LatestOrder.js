@@ -18,7 +18,7 @@ const LatestOrder = (props) => {
                 <div className="table-responsive">
                     <table className="table">
                         <tbody>
-                            {orders && orders.slice(0, 5)?.map((order) => (
+                            {orders && orders.slice(0, 5)?.reverse().map((order) => (
                                 <tr key={order.orderId}>
                                     <td>
                                         <p>{order.name}</p>
