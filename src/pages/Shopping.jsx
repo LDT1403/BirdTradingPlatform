@@ -11,7 +11,7 @@ export default function Shopping() {
   }
   const placeholder = "Search product";
   return (
-    <div  className="pt-5 pb-4" style={{backgroundColor: '#eff5f5'}}>
+    <div  className=" pb-4" style={{backgroundColor: '#eff5f5',paddingTop: '10px'}}>
       <Container className="m-auto search-shopping">
         <Col lg='12' md='10' >
           <Row>
