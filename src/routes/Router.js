@@ -15,6 +15,7 @@ import OrderStatus from "../pages/OrderStatus";
 import MyPurchase from "../pages/MyPurchase";
 import OrderDetail from "../components/UI/myPurchase/OrderDetail";
 import AccountUser from "../pages/AccountUser";
+// import AccountShop from "../components/Categories/AccountShop";
 
 
 const Router = () => {
@@ -37,6 +38,7 @@ const Router = () => {
             <Route path="/MyPurchase/*" element={<MyPurchase />} />
             <Route path="/OrderDetail/:id" element={<OrderDetail />} />
             <Route path="/accountUser" element={<AccountUser/>} />
+            {/* <Route path="/accountShop" element={<AccountShop/>}/> */}
 
         </Routes>
     )
