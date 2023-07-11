@@ -58,9 +58,17 @@ function App() {
             <Route path="/product/:id/edit" element={<PrivateRouter component={ProductEditScreen} />} />
           </>
         )}
-        <Route path="/users" element={<UserScreen />} />
-        <Route path="/dashboard" element={<DashBoardScreen />} />
-        <Route path="/shops" element={<ShopScreen />} />
+
+        {
+          user.role === 'AD' && (
+            <>
+              <Route path="/users" element={<UserScreen />} />
+              <Route path="/dashboard" element={<DashBoardScreen />} />
+              <Route path="/shops" element={<ShopScreen />} />
+            </>
+          )
+        }
+
 
 
         {/* <Route path="*" element={<PrivateRouter component={NotFound} />} /> */}

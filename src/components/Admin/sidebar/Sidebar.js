@@ -1,7 +1,15 @@
 import React from "react";
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
+import { logOut } from "../../../pages/redux/apiRequest";
+import { useDispatch } from "react-redux";
 
 const Sidebar = () => {
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+
+    const handleLogOut = () => {
+        logOut(dispatch, navigate);
+    };
     return (
         <div>
             <aside className="navbar-aside" id="offcanvas_aside">
@@ -84,18 +92,31 @@ const Sidebar = () => {
                                 <span className="text">Users</span>
                             </NavLink>
                         </li>
+                        <li className="menu-item">
+                            <NavLink
+                                activeClassName="active"
+                                className="menu-link"
+                                to="/logout"
+                                onClick={handleLogOut}
+                            >
+
+                                <i className="icon fa-solid fa-right-from-bracket"></i>
+                                <span className="text">Logout</span>
+                            </NavLink>
+                        </li>
                         {/* <li className="menu-item">
                             <NavLink
                                 activeClassName="active"
                                 className="menu-link disabled"
-                                to="/sellers"
+                                to="/logout"
+                                onClick={handleLogOut}
                             >
                                 <i className="icon fas fa-store-alt"></i>
-                                <span className="text">Sellers</span>
+                                <span className="text">Logout</span>
                             </NavLink>
-                        </li>
+                        </li> */}
 
-                        <li className="menu-item">
+                        {/* <li className="menu-item">
                             <NavLink
                                 activeClassName="active"
                                 className="menu-link disabled"

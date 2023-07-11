@@ -30,8 +30,9 @@ const ReportShop = ({ shopId, userId, isVisible, onSuccess }) => {
         onSuccess();
     };
     const dispatch = useDispatch();
-    const deleteHandler = (userId) => {
-        dispatch(banShop(userId));
+    const shopId2 = data.shopId;
+    const deleteHandler = (shopId2) => {
+        dispatch(banShop(shopId2));
         onSuccess();
 
     };
@@ -69,7 +70,7 @@ const ReportShop = ({ shopId, userId, isVisible, onSuccess }) => {
                 </table>
                 <div style={{ display: "flex", justifyContent: "end" }}>
                     <button
-                        onClick={() => deleteHandler(userId)}
+                        onClick={() => deleteHandler(shopId2)}
                         className="btn btn-sm btn-outline-danger pb-2 mt-2"
 
                     >

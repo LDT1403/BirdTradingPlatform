@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import $ from "jquery";
 import { useDispatch, useSelector } from "react-redux";
+import admin from '../../../assets/images/admin.png';
 
 // import { logout } from "../Redux/Actions/userActions";
 
@@ -86,12 +87,13 @@ const Header = () => {
                         <Link className="dropdown-toggle" data-bs-toggle="dropdown" to="#">
                             <img
                                 className="img-xs rounded-circle"
-                                src={user.Avatar}
-                                alt="User"
+                                src={admin}
+                                alt="Admin"
 
                             />
+
                         </Link>
-                        {isOpen && (
+                        {/* {isOpen && (
                             <div className="dropdown-menu dropdown-menu-end" style={{ display: "block", position: 'fixed' }}>
                                 <Link className="dropdown-item" to="/">
                                     My profile
@@ -107,7 +109,7 @@ const Header = () => {
                                     Exit
                                 </Link>
                             </div>
-                        )}
+                        )} */}
                     </li>
                 </ul>
             </div>

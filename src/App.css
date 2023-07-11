@@ -32,12 +32,12 @@ a.disabled {
 }
 
 .btn-primary {
-  background-color: #4fa607 !important;
-  border: 1px solid #4fa607 !important;
+  background-color: #15857b !important;
+  border: 1px solid #15857b !important;
 }
 
 .Header-green {
-  background-color: #4fa607;
+  background-color: #15857b;
 }
 
 /* .screen-overlay {
@@ -229,7 +229,7 @@ body.offcanvas-active {
 
 .main-header .nav-link:hover {
   background-color: #e9ecef;
-  color: #4fa607;
+  color: #15857b;
 }
 
 .main-header .col-search {
@@ -246,7 +246,7 @@ body.offcanvas-active {
 }
 
 .nav-item img.rounded-circle:hover {
-  border-color: #4fa607;
+  border-color: #15857b;
 }
 
 .content-header {
@@ -349,7 +349,7 @@ body.aside-mini .menu-aside .menu-item.has-submenu .menu-link:after {
 }
 
 .menu-aside .active .icon {
-  color: #4fa607;
+  color: #15857b;
 }
 
 .menu-aside .active {
@@ -458,7 +458,7 @@ a[class*="card"] {
 }
 
 a[class*="card"]:hover .title {
-  color: #4fa607;
+  color: #15857b;
 }
 
 /* ITEM LIST */
@@ -502,7 +502,7 @@ a[class*="card"]:hover .title {
 }
 
 .itemside a.title:hover {
-  color: #4fa607;
+  color: #15857b;
 }
 
 a.itemside {
@@ -560,7 +560,7 @@ a.itemside:hover .title {
 }
 
 .card-product-grid a.title:hover {
-  color: #4fa607;
+  color: #15857b;
 }
 
 .card-product-grid:hover {
@@ -698,7 +698,7 @@ ul.row-sm {
   width: 7px;
   border-radius: 100%;
   height: 7px;
-  background: #4fa607;
+  background: #15857b;
 }
 
 .list-check {
@@ -735,7 +735,7 @@ ul.row-sm {
 
 .list-normal li:before {
   content: "•";
-  color: #4fa607;
+  color: #15857b;
   display: inline-block;
   width: 1em;
   margin-left: -1em;
@@ -756,7 +756,7 @@ ul.row-sm {
 }
 
 .list-menu a:hover {
-  color: #4fa607;
+  color: #15857b;
 }
 
 .cols-two {
@@ -917,7 +917,7 @@ ul.row-sm {
 
 .form-control:hover,
 .form-select:hover {
-  border-color: #4fa607;
+  border-color: #15857b;
 }
 
 .btn-facebook {

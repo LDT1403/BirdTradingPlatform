@@ -12,22 +12,28 @@ export const loginUser = async (user, dispatch, navigate) => {
     // console.log(dispatch)
     try {
         const res = await axios.post("https://localhost:7241/api/User/Login", user);
+        if (res.status = 200) {
+            if (res.data.message === "Email Or Password Incorrect :(") {
+                toast.error(res.data.message);
+            } else if (res.data.message === "Login Success") {
+                const token = jwt_decode(res.data.data.accessToken);
+                dispatch(loginSuccess(token));
+                saveTokenToLocalStorage(res.data.data.accessToken);
+                if (token.role === 'AD') {
+                    navigate("/dashboard");
+                } else {
+                    navigate("/");
+                }
+            } else {
+                toast.error(res.data.message);
+            }
 
-        const token = jwt_decode(res.data.data.accessToken);
-        console.log(token)
-        dispatch(loginSuccess(token));
-        saveTokenToLocalStorage(res.data.data.accessToken);
-        if (token.role === 'AD') {
-            navigate("/dashboard");
-        } else {
-            navigate("/");
         }
-
 
     } catch (err) {
         console.log(err)
         dispatch(loginFailed());
-        toast.error("Sai Email hoac Password");
+        toast.error("Not information");
     }
 };
 function saveTokenToLocalStorage(token) {
@@ -62,15 +68,18 @@ export const registerUser = async (user, dispatch, navigate) => {
 }
 
 
-export const logOut = async (dispatch, navigate, accessToken) => {
+export const logOut = async (dispatch, navigate) => {
     dispatch(logoutStart());
     try {
-        console.log("dddf")
-        await axios.post("https://localhost:7241/api/User/logout", {
+        const accessToken = localStorage.getItem('jwtToken');
+
+        const config = {
             headers: {
-                Authorization: `Bearer ${accessToken}`
-            }
-        });
+                Authorization: `Bearer ${accessToken}`,
+            },
+        };
+        await axios.post("https://localhost:7241/api/User/logout", {}, config
+        );
         dispatch(logoutSuccess());
         localStorage.removeItem('jwtToken');
         navigate("/home");

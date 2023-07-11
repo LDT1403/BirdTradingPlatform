@@ -3,12 +3,23 @@ import React, { useEffect, useState } from "react";
 
 const TopShop = (props) => {
     const { users, shops } = props;
-    // let totalSale = 0;
-    // if (orders) {
-    //     orders.map((order) =>
-    //         order.isPaid === true ? (totalSale = totalSale + order.totalPrice) : null
-    //     );
-    // }
+    const [totalReport, setTotalReport] = useState(0)
+    const accessToken = localStorage.getItem('jwtToken')
+    useEffect(() => {
+        axios.get('https://localhost:7241/api/Admin/CountReport', {
+            headers: {
+                Authorization: `Bearer ${accessToken}`
+            }
+        })
+            .then(res => {
+                console.log(res.data);
+                setTotalReport(res.data);
+            })
+            .catch(err => {
+                console.log(err)
+            })
+    }, [accessToken]
+    )
 
 
     return (
@@ -21,8 +32,8 @@ const TopShop = (props) => {
 
                         </span>
                         <div className="text">
-                            <h6 className="mb-1">Total Sales</h6>{" "}
-                            {/* <span>${totalSale.toFixed(0)}</span> */}
+                            <h6 className="mb-1">Total Report</h6>{" "}
+                            <span>{totalReport.toFixed(0)}</span>
                         </div>
                     </article>
                 </div>

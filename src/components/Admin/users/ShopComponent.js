@@ -24,9 +24,9 @@ const ShopComponent = () => {
     useEffect(() => {
         dispatch(listShop());
     }, [dispatch, successBaned, successunBaned]);
-    const deleteHandler = (userId) => {
+    const deleteHandler = (shopId) => {
         if (window.confirm("Are you sure?")) {
-            dispatch(banShop(userId));
+            dispatch(banShop(shopId));
         }
     };
     const UnBanHandler = (userId) => {
@@ -36,7 +36,10 @@ const ShopComponent = () => {
     const [shopId, setShopId] = useState();
     const [userId, setUserId] = useState();
     const [isReportVisible, setIsReportVisible] = useState(false);
-
+    const [isBanned, setIsBanned] = useState(false);
+    const handleBanUser = (userId) => {
+        setIsBanned(true);
+    };
 
     const handleReportSuccess = () => {
         setIsReportVisible(false);
@@ -122,7 +125,7 @@ const ShopComponent = () => {
                                                 )}
                                             </td>
                                             <td className="align-middle">
-                                                <b>{user.username}</b>
+                                                <b>{user.username} </b>
                                             </td>
                                             <td className="align-middle">{user.email}</td>
                                             <td className="align-middle">{user.gender}</td>
@@ -135,28 +138,31 @@ const ShopComponent = () => {
 
                                             <td className="d-flex justify-content-end align-item-center">
                                                 {(loadingunBaned || loadingBaned) && <Loading />}
-                                                {
-                                                    user.status === false ? (
-                                                        <div onClick={() => toggleForgotPassword(user.shopId, user.userId)}>
-                                                            <i className="ri-error-warning-line" style={{ color: "red", fontSize: "40px" }}></i>
-                                                        </div>
-                                                    ) : (
-                                                        <>
-                                                            <div className="badge bg-danger mt-2 pt-2" style={{ marginRight: '5px' }}>
-                                                                Baned
+                                                {!isBanned && (
+                                                    <>
+                                                        {user?.isActive === true ? (
+                                                            <div onClick={() => toggleForgotPassword(user.shopId, user.userId)}>
+                                                                <i className="ri-error-warning-line" style={{ color: "red", fontSize: "40px" }}></i>
                                                             </div>
-                                                            <button
-                                                                onClick={() => UnBanHandler(user.userId)}
-                                                                className="btn btn-sm btn-outline-success pb-2 mt-2"
-                                                            >
-                                                                <i class="ri-lock-unlock-line"></i>
-                                                            </button>
-                                                        </>
-                                                    )
-                                                }
+                                                        ) : (
+                                                            user.status === true && (
+                                                                <>
+                                                                    <div className="badge bg-danger mt-2 pt-2" style={{ marginRight: '5px' }}>
+                                                                        Baned
+                                                                    </div>
+                                                                    <button
+                                                                        onClick={() => UnBanHandler(user.userId)}
+                                                                        className="btn btn-sm btn-outline-success pb-2 mt-2"
+                                                                    >
+                                                                        <i className="ri-lock-unlock-line"></i>
+                                                                    </button>
+                                                                </>
 
+                                                            )
 
-
+                                                        )}
+                                                    </>
+                                                )}
                                             </td>
                                         </tr>
                                     ))}

@@ -2,6 +2,7 @@ import React, { useRef, useEffect, useState } from "react";
 import { Container } from "reactstrap";
 import logo from "../../assets/images/logo bird.png";
 import logo1 from "../../assets/images/Food.png";
+import avatar from "../../assets/images/account-circle-line.png";
 import { NavLink, Link, useNavigate } from "react-router-dom";
 import "../../style/header.css";
 import { useDispatch, useSelector } from "react-redux";
@@ -9,30 +10,32 @@ import { cartUiActions } from "../../store/shopping-cart/cartUiSlice";
 import { logOut } from "../../pages/redux/apiRequest";
 import HomeShop from "../../pageShop/HomeShop";
 
-const nav__links = [
-  {
-    display: "Home",
-    path: "/home",
-  },
-  {
-    display: "Shop",
-    path: "/shop",
-  },
-  {
-    display: "Cart",
-    path: "/cart",
-  },
-  {
-    display: "My Purchase",
-    path: "/MyPurchase/to-pay",
-  },
-];
+
 
 const Header = () => {
+  const user = useSelector((state) => state.auth.login.currentUser);
+  const nav__links = [
+    {
+      display: "Home",
+      path: "/home",
+    },
+    {
+      display: "Shop",
+      path: "/shop",
+    },
+    {
+      display: "Cart",
+      path: "/cart",
+    },
+    {
+      display: "My Purchase",
+      path: "/MyPurchase/to-pay",
+    },
+  ];
   const menuRef = useRef(null);
   const headerRef = useRef(null);
   const dispatch = useDispatch();
-  const user = useSelector((state) => state.auth.login.currentUser);
+
   const toggleMenu = () => menuRef.current.classList.toggle("show__menu");
   const totalQuantity = useSelector((state) => state.cart.totalQuantity);
   const [isHovered, setIsHovered] = useState(false);
@@ -43,7 +46,7 @@ const Header = () => {
   const navigate = useNavigate();
   const accessToken = localStorage.getItem("jwtToken");
   const handleLogOut = () => {
-    logOut(dispatch, navigate, accessToken);
+    logOut(dispatch, navigate);
   };
   console.log(user);
   const isShopExist = user?.IsShop === "True";
@@ -93,7 +96,7 @@ const Header = () => {
           <div className="navigation" ref={menuRef} onClick={toggleMenu}>
             <div
               className="menu d-flex align-items-center gap-5"
-              // onClick={(event) => event.stopPropagation()}
+            // onClick={(event) => event.stopPropagation()}
             >
               <div className="header__closeButton">
                 <span>
@@ -107,7 +110,7 @@ const Header = () => {
                   className={(navClass) =>
                     navClass.isActive ? "active__menu" : ""
                   }
-                  // onClick={toggleMenu}
+                // onClick={toggleMenu}
                 >
                   {item.display}
                 </NavLink>
@@ -128,11 +131,13 @@ const Header = () => {
                   className="d-flex align-items-center justify-content-center profile__wrapper "
                   onClick={toggleProfileActions}
                 >
+
                   <img
                     className="profile__image"
-                    src={user.Avatar}
+                    src={user.Avatar === "null" ? avatar : user.Avatar}
                     alt="User Profile"
                   />
+
                   <h6 className="profile__title">{user.unique_name}</h6>
                 </div>
               ) : (
