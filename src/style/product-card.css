@@ -67,46 +67,103 @@
 } */
 
 .product-tag {
-    padding: 0;
+    background-color: #ffffff;
+    border-radius: 4px;
     position: relative;
-    width: 105%;
+    width: 100%;
     margin-bottom: 10px;
+    transition: transform 0.3s ease;
+    box-shadow: 0 0 5px 0.1px rgb(199, 196, 196);
+    perspective: 1000px;
+}
+
+.product-tag:hover {
+
+    transform: translateY(-1.5px);
+    box-shadow: 0 0 8px 0.9px rgb(166, 172, 172);
+}
+
+.product-tag img {
+    border-radius: 4px 4px 0px 0px;
+    width: 100%;
+    height: 200px;
 }
 
 .product-tag .discount-badge {
     position: absolute;
-    top: 0;
-    right: 0;
-    background-color: #ff0000;
+    top: 1px;
+    right: 9px;
     color: #fff;
     padding: 4px 8px;
-    font-size: 12px;
+    font-size: 14px;
     font-weight: bold;
 }
 
+.discount-badge-icon {
+    position: absolute;
+    top: -8px;
+    right: 2px;
+    width: 60px;
+    color: #e93838;
+
+}
+
+.product-tag:hover .cart-icon-product {
+    opacity: 1;
+}
+
+.cart-icon-product {
+    position: absolute;
+    display: inline-block;
+    bottom: 150px;
+    right: 9px;
+    cursor: pointer;
+    transition: opacity 0.6s ease;
+    opacity: 0;
+}
+
+.cart-icon-product:hover .fas.fa-cart-plus {
+
+    color: rgb(13, 173, 120);
+
+}
+
+.cart-icon-product:hover .label-text {
+    opacity: 1;
+}
+
+.fas.fa-cart-plus {
+    font-size: 34px;
+    color: #b5babd;
+    border: none;
+    background: none;
+
+}
+
+.cart-icon-product .label-text {
+    position: absolute;
+    display: flex;
+    width: 100px;
+    justify-content: center;
+    align-items: center;
+    top: -35px;
+    border-radius: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: black;
+    color: white;
+    padding: 5px 10px;
+    font-size: 14px;
+    opacity: 0;
+    transition: opacity 0.6s ease;
+}
+
 .card-img-top {
-    width: 100%;
-    height: 200px;
-    object-fit: cover;
-    border-radius-bottom: 5px;
+    border-radius: 3px 3px 3px 0px;
     transition: 0.4s;
 }
 
 
-/* .card-img-top:hover {
-    transform: scale(1.03);
-} */
-
-
-.product-tag.card {
-
-    transition: transform 0.322s;
-
-    &:hover {
-        transform: scale(1.01);
-        box-shadow: 0 0 8px 0.9px gray;
-    }
-}
 
 /* .card-body {
     padding: 20px;
@@ -176,4 +233,17 @@
     color: #fff;
     border-radius: 5px;
     font-size: 0.9rem;
+}
+
+.address-product {
+    font-weight: 500;
+    color: #109edf;
+    display: flex;
+    align-items: center;
+}
+
+.icon-address-product {
+    width: 20px;
+    margin-right: 5px;
+
 }

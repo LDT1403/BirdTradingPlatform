@@ -39,7 +39,12 @@
      padding-left: 0;
 }
 
+.allProduct {
+     cursor: pointer;
+}
+
 .allProduct.active {
+     cursor: pointer;
      font-size: 1.1rem;
      color: rgb(27, 146, 167);
      font-weight: 550;
@@ -116,7 +121,7 @@
      margin-top: 50px;
      border-top: 1px solid #1b8cce;
      padding-top: 10px;
-    
+
 }
 
 .price-name {
@@ -151,8 +156,8 @@
 
 }
 
-.ratingFilterBox{
-     margin-top:30px;
+.ratingFilterBox {
+     margin-top: 30px;
      border-top: 1px solid #1b8cce;
 
 

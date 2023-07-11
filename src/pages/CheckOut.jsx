@@ -9,6 +9,7 @@ import axios from "axios";
 import { useLocation } from "react-router-dom";
 import numeral from 'numeral';
 import Loading from "../components/LoadingError/Loading"
+import LoadingFive from "../components/Loadingfive/LoadingWrap";
 const CheckOut = () => {
     // const users = useSelector(state => state.auth.login.currentUser)
     const accessToken = localStorage.getItem('jwtToken');
@@ -182,6 +183,7 @@ const CheckOut = () => {
                     dispatch(cartActions.deleteMultipleItems(orderSelectID));
                     break;
                 case "VnPay":
+                    setLoadDing(true)
                     axios.post("https://localhost:7241/api/Order/Create", orderInfo, {
                         headers: {
                             Authorization: `Bearer ${accessToken}`
@@ -202,9 +204,8 @@ const CheckOut = () => {
                                 }
                             })
                                 .then(response => {
+                                    setLoadDing(false)
                                     const paymentUrl = response.data.paymentUrl;
-
-
                                     window.location.href = `${paymentUrl}`;
 
                                 })
@@ -425,8 +426,8 @@ const CheckOut = () => {
             }
             {
                 showLoadDing && (
-                    <div className="confirmation-modal" style={{ backgroundColor: "rgba(133, 135, 135, 0.639)"}}>
-                        <Loading />
+                    <div className="confirmation-modal" style={{ background: "none"}}>
+                        <LoadingFive />
                     </div>
 
                 )

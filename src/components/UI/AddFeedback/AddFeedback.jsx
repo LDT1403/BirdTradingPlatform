@@ -3,11 +3,11 @@ import '../../../style/addFeedback.css'
 import { BsStar, BsStarFill } from "react-icons/bs";
 import axios from "axios";
 
-const AddFeedback = ({ productId, orderDetailId, productName, setShowFeedTable }) => {
+const AddFeedback = ({ productId, orderDetailId, productName, setShowFeedTable, setLoadApi }) => {
      const accessToken = localStorage.getItem('jwtToken');
-     const [starRating, setStarRating] = useState(3)
+     const [starRating, setStarRating] = useState(5)
      const [ImageFile, setImageFile] = useState([]);
-     const [DetailFB, setDetailFB] = useState("");
+     const [DetailFB, setDetailFB] = useState();
      console.log(starRating)
 
      const handleFeedback = () => {
@@ -27,7 +27,16 @@ const AddFeedback = ({ productId, orderDetailId, productName, setShowFeedTable }
                     Authorization: `Bearer ${accessToken}`
                }
           })
-          setShowFeedTable(false);
+               .then((response) => {
+
+
+                    if (response.data === 'success') {
+                         setLoadApi(false);
+                         setShowFeedTable(false)
+                    }
+               })
+
+
 
 
      }
@@ -44,7 +53,11 @@ const AddFeedback = ({ productId, orderDetailId, productName, setShowFeedTable }
           setStarRating(rating);
      };
 
-
+     const handleDeleteImage = (index) => {
+          const updatedImages = [...ImageFile];
+          updatedImages.splice(index, 1);
+          setImageFile(updatedImages);
+     };
 
      return (
           <div className="confirmation-modal">
@@ -95,7 +108,7 @@ const AddFeedback = ({ productId, orderDetailId, productName, setShowFeedTable }
                          Detailed review
                     </div>
                     <div className="detail-feedback">
-                         <textarea name="text" 
+                         <textarea name="text"
                               onChange={(e) => setDetailFB(e.target.value)}
                          ></textarea>
                     </div>
@@ -107,7 +120,10 @@ const AddFeedback = ({ productId, orderDetailId, productName, setShowFeedTable }
                          <div className="addImage-feedback">
 
                               {ImageFile.map((img, index) =>
-                                   <img key={index} src={URL.createObjectURL(img)} alt="" style={{ width: "80px", height: "80px", margin: "5px" }} />
+                                   <div key={index} className="image-container-feedback">
+                                        <img src={URL.createObjectURL(img)} alt="" style={{ width: "80px", height: "80px", margin: "5px" }} />
+                                        <button className="delete-button-imgFeedback" onClick={() => handleDeleteImage(index)}>X</button>
+                                   </div>
                               )}
                               {
                                    ImageFile.length < 6 && (
@@ -123,9 +139,9 @@ const AddFeedback = ({ productId, orderDetailId, productName, setShowFeedTable }
 
                          </div>
                     </div>
-                    <div className="button-add-feedback" onClick={handleFeedback}>
-                         <button onClick={setShowFeedTable(false)} style={{backgroundColor:"#fff",border:'1px solid #c2c7c7',color:'#8d9292' }}> Cancel</button>
-                         <button> Feedback</button>
+                    <div className="button-add-feedback">
+                         <button onClick={() => setShowFeedTable(false)} style={{ backgroundColor: "#fff", border: '1px solid #c2c7c7', color: '#8d9292', marginRight: '10px' }}> Cancel</button>
+                         <button onClick={handleFeedback}> Feedback</button>
                     </div>
 
                </div>
