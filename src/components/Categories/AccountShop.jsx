@@ -44,6 +44,7 @@ const AccountShop = () => {
       })
       .then((res) => {
         const profileData = res.data;
+        setNewAddress(res.data.address);
         setRate(profileData.rate);
         setShopName(profileData.shopName);
         setAddress(profileData.address);
@@ -66,35 +67,12 @@ const AccountShop = () => {
     }
   }, [City]);
 
-  useEffect(() => {
-    const apiDistrict = () => {
-      axios
-        .get(`https://vapi.vnappmob.com/api/province/district/${IdCity}`)
-        .then((response) => {
-          const result = response.data.results;
-          setDistrictData(result);
-        });
-    };
-    if (Districtag === 2) {
-      apiDistrict();
-      setDistrictag(1);
-    }
-  }, [Districtag]);
-  useEffect(() => {
-    const apiWard = () => {
-      axios
-        .get(`https://vapi.vnappmob.com/api/province/ward/${IdDistrict}`)
-        .then((response) => {
-          const result = response.data.results;
-          setWardData(result);
-        });
-    };
-    if (Wardag === 2) {
-      apiWard();
-      setWardag(1);
-    }
-  }, [Wardag]);
-
+  const UpdateShop = {
+    addressDetails: `${City}, ${District}, ${Ward}`,
+    address: Province,
+    phone: phone,
+    shopName: shopName,
+  };
   return (
     <Container>
       <Col lg="8">
@@ -133,29 +111,28 @@ const AccountShop = () => {
                     setidDistrict={setidDistrict}
                     setMsAddress={setMsAddress}
                   />
-                  <SelectAddress
-                    label="District"
-                    setDistrict={setDistrict}
-                    setidDistrict={setidDistrict}
-                    DistrictData={DistrictData}
-                    setWardag={setWardag}
-                    setWard={setWard}
-                    setMsAddress={setMsAddress}
-                  />
-                  <SelectAddress
-                    label="Ward"
-                    setWard={setWard}
-                    WardData={WardData}
-                    setMsAddress={setMsAddress}
-                  />
-                </div>
-                <div>
-                  <Button variant="contained" onClick={handleShowAddressForm}>
-                    Add new address
-                  </Button>
-                  {showAddressForm && <AddressShop />}
                 </div>
               </div>
+            </div>
+            <div className="p-3">
+              <label style={{ marginBottom: "10px" }}>Address Details</label>
+              <br />
+              <TextField
+                type="text"
+                value={newAddress}
+                style={{ marginBottom: "10px", width: "500px" }}
+              />
+              <br />
+              <Button variant="contained" onClick={handleShowAddressForm}>
+                UpDate Address
+              </Button>
+              {showAddressForm && (
+                <AddressShop
+                  accessToken={accessToken}
+                  setShowAddressForm={setShowAddressForm}
+                  setNewAddress={setNewAddress}
+                />
+              )}
             </div>
           </div>
         </div>

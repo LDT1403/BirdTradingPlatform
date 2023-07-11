@@ -4,11 +4,7 @@ import "../../../src/style/newAddress.css";
 import SelectAddress from "../UI/addNewAddress/SelectAddress";
 import { Button } from "reactstrap";
 
-const NewAddress = ({
-  setShowAddNewAddress,
-  setShowNotification,
-  accessToken,
-}) => {
+const AddressShop = ({ setShowAddressForm, accessToken, setNewAddress }) => {
   const [City, setCity] = useState(null);
   const [District, setDistrict] = useState(null);
   const [Ward, setWard] = useState(null);
@@ -50,6 +46,7 @@ const NewAddress = ({
       setDistrictag(1);
     }
   }, [Districtag]);
+
   useEffect(() => {
     const apiWard = () => {
       axios
@@ -74,37 +71,30 @@ const NewAddress = ({
       case !(City, District, Ward):
         setMsAddress(true);
         break;
-      case !addressDetails:
-        setMsAddressDetails(true);
-        break;
       default:
-        axios
-          .post("https://localhost:7241/api/Shop", NewAddressAdd, {
-            headers: {
-              Authorization: `Bearer ${accessToken}`,
-            },
-          })
-          .then((response) => {
-            setShowAddNewAddress(false);
-            setShowNotification(true);
-          });
-        break;
+        setNewAddress(`${City},${District},${Ward}`);
+        setShowAddressForm(false);
+      // axios
+      //   .post("https://localhost:7241/api/Shop", NewAddressAdd, {
+      //     headers: {
+      //       Authorization: `Bearer ${accessToken}`,
+      //     },
+      //   })
+      //   .then((response) => {});
+      // break;
     }
   };
+
   const handleCancelAdd = () => {
-    setShowAddNewAddress(false);
-    setShowNotification(true);
+    setShowAddressForm(false);
   };
-  const NewAddressAdd = {
-    address: `${City},${District},${Ward}`,
-    addressDetail: addressDetails,
-  };
+
   console.log(City, District, Ward);
 
   return (
     <div className="confirmation-modal">
       <div className="log-add-newAddress">
-        <div className="log-add-newAddress-tiltel"> New Address</div>
+        <div className="log-add-newAddress-tiltel">Address detail</div>
         <div className="Address-log-add ">
           <SelectAddress
             label="Province"
@@ -133,7 +123,7 @@ const NewAddress = ({
             setMsAddress={setMsAddress}
           />
         </div>
-        {MsAddress && <p id="massage-er-input">Please select your Address</p>}
+        {/* {MsAddress && <p id="massage-er-input">Please select your Address</p>}
         <div className="addDetail-logAdd">
           <input
             placeholder="Street Name, Building, House No."
@@ -141,7 +131,7 @@ const NewAddress = ({
             value={addressDetails}
             onChange={(e) => handleAddDetail(e.target.value)}
           />
-        </div>
+        </div>*/}
         {MsAddressDetails && (
           <p id="massage-er-input">please input your address details</p>
         )}
@@ -157,4 +147,4 @@ const NewAddress = ({
     </div>
   );
 };
-export default NewAddress;
+export default AddressShop;
