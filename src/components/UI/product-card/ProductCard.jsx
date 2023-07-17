@@ -1,38 +1,53 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import '../../../style/product-card.css';
+import { Link, useNavigate } from "react-router-dom";
+import axios from "axios";
+import numeral from 'numeral';
 import { useDispatch } from "react-redux";
-import cartSlice, { cartActions } from "../../../pages/redux/cartSlice";
-import { Link } from "react-router-dom";
-import { Col, Container, Row } from "reactstrap";
-import { calcLength, useSpring } from "framer-motion";
+import { listCarts } from "../../../pages/redux/Actions/CartActions";
 
-const ProductCard = (props) => {
-    const { productId, productName, thumbnail, price, quantitySold, rate, soldPrice, discountPercent, shopId, shopName, address } = props.item;
+const ProductCard = (props ) => {
     const dispatch = useDispatch();
+    const accessToken = localStorage.getItem('jwtToken');
+    const [ShowRepAdd, setShowRepAdd] = useState(false);
+    const [repAdd, setRepAdd] = useState("");
+    const navigate = useNavigate();
+    const { productId, productName, thumbnail, price, quantitySold, rate, soldPrice, discountPercent, quantity, address } = props.item;
     const handleProductClick = props.handleProductClick;
-    let countadd = 1;
-
-    const addToCart = () => {
-
-        if (countadd > 1) {
-
+    useEffect(() => {
+        if (ShowRepAdd) {
+            setTimeout(() => {
+                setShowRepAdd(false);
+            }, 1000);
         }
-        if (countadd === 1) {
-            dispatch(
-                cartActions.addItem({
-                    productId,
-                    productName,
-                    thumbnail,
-                    soldPrice,
-                    quantity: 1,
-                    shopId,
-                    shopName,
+    }, [ShowRepAdd]);
+    const addToCart = () => {
+        const addProductNow =
+        {
+            quantity: 1,
+            productID: productId
+        }
+        if (accessToken) {
+            axios.post("https://localhost:7241/api/Order/Addtocart", addProductNow, {
+                headers: {
+                    Authorization: `Bearer ${accessToken}`
+                }
+            })
+                .then((rep) => {
+                    setRepAdd(rep.data)
+                    if (rep.data === "Sản phẩm đã được thêm vào Giỏ hàng!") {
+                        dispatch(listCarts())
+                        props.onReloadData();
+                    }
 
                 })
 
-            );
-            countadd++;
         }
+        if (!accessToken) {
+            navigate("/login");
+        }
+
+        setShowRepAdd(true)
 
     };
     const renderRating = () => {
@@ -61,6 +76,36 @@ const ProductCard = (props) => {
     return (
 
         <div className="product-tag" onClick={handleProductClick}>
+            {
+                ShowRepAdd && (
+                    <div className="confirmation-modal" style={{ background: 'none' }}>
+
+                        {
+                            repAdd !== "Sản phẩm đã được thêm vào Giỏ hàng!" && (
+                                <div className="confirm-checkout-OK" style={{ backgroundColor: 'rgb(0 0 0 / 73%)', width: 'auto', height: '200px' }}>
+                                    <div style={{ display: 'flex', justifyContent: 'center' }}>
+                                        <i className="ri-error-warning-line" style={{ color: "red", fontSize: "70px" }} />
+                                    </div>
+                                    <div className="addToCart" style={{ display: 'flex', justifyContent: 'center', fontSize: '15px', fontWeight: '500', color: '#fff' }}>Số lượng thêm đã vượt quá giới hạn</div>
+                                </div>
+                            )
+                        }
+                        {
+                            repAdd === "Sản phẩm đã được thêm vào Giỏ hàng!" && (
+                                <div className="confirm-checkout-OK" style={{ backgroundColor: 'rgb(0 0 0 / 73%)', width: 'auto', height: '200px' }}>
+                                    <div style={{ display: 'flex', justifyContent: 'center' }}>
+                                        <svg style={{ borderRadius: '100%', backgroundColor: '#fff', width: '70px', color: '#1cbf12', marginBottom: '30px' }} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6">
+                                            <path fillRule="evenodd" d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12zm13.36-1.814a.75.75 0 10-1.22-.872l-3.236 4.53L9.53 12.22a.75.75 0 00-1.06 1.06l2.25 2.25a.75.75 0 001.14-.094l3.75-5.25z" clipRule="evenodd" />
+                                        </svg>
+                                    </div>
+                                    <div className="addToCart" style={{ display: 'flex', justifyContent: 'center', fontSize: '15px', fontWeight: '500', color: '#fff' }}>{repAdd}</div>
+                                </div>
+                            )
+                        }
+
+                    </div>
+                )
+            }
             <Link to={`/shop/${productId}`} className="productDetail">
                 <img src={thumbnail} alt="Product Image" className="card-img-top" />
             </Link>
@@ -72,17 +117,19 @@ const ProductCard = (props) => {
             <div className=" p-2">
                 <div className="card-title">
                     <Link to={`/shop/${productId}`}>
-                        {truncateProductName(productName, 25)}
+                        {truncateProductName(productName, 19)}
                     </Link>
                 </div>
-                <div className="card-text">
+                <div className="card-text">   
+                   <span className="discount-price"> 
                     {discountPercent !== 0 && (
-                        <span className="original-price">Price: {price}$ </span>
+                        <span className="original-price"><div className="don-vi">₫</div>{numeral(price).format('0,0')}</span>
                     )}
-                    <br />
-                    <span className="discount-price">Sale Price: <span className="discount-price-color">{soldPrice}$</span></span><br />
+                   
+                    <span className="discount-price-color"><div className="don-vi">₫</div>{numeral(soldPrice).format('0,0')}</span>
+                    </span>
                     <span className="rate">{rate} {renderRating()}</span><br />
-                    <span className="quantity-sold">Quantity Sold: {quantitySold}</span>
+                    <span className="quantity-sold">Đã Bán: {quantitySold}</span>
 
                     {discountPercent !== 0 && (
                         <div>

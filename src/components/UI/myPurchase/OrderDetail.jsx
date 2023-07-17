@@ -23,29 +23,29 @@ const OrderDetail = () => {
                               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="icon-back-orderDetail">
                                    <path fillRule="evenodd" d="M7.72 12.53a.75.75 0 010-1.06l7.5-7.5a.75.75 0 111.06 1.06L9.31 12l6.97 6.97a.75.75 0 11-1.06 1.06l-7.5-7.5z" clipRule="evenodd" />
                               </svg>
-                              Go Back
+                            TRỞ LẠI
                          </button>
                          <div className="Detail-order-log" >
-                              <div className="Detail-id">ORDER ID. {orderSelect.orderId}</div>
+                              <div className="Detail-id">MÃ ĐƠN HÀNG. {orderSelect.orderId}</div>
                               <div className="Detail-id">|</div>
                               {
                                    orderSelect.toConfirm == 2 && (
-                                        <div className="Detail-text" style={{ color: 'red' }}>ORDER TO CONFIRMATION</div>
+                                        <div className="Detail-text" style={{ color: 'red' }}>ĐƠN HÀNG ĐANG CHỜ XÁC NHẬN</div>
                                    )
                               }
                               {
                                    orderSelect.toConfirm == 3 && !orderSelect.receivedDate && (
-                                        <div className="Detail-text" >ORDER CONFIRMED</div>
+                                        <div className="Detail-text" >ĐƠN HÀNG ĐANG GIAO</div>
                                    )
                               }
                               {
                                    orderSelect.receivedDate &&  orderSelect.toConfirm == 3 &&(
-                                        <div className="Detail-text" style={{ color: 'green' }}>ORDER COMPLETED</div>
+                                        <div className="Detail-text" style={{ color: 'green' }}>ĐƠN HÀNG ĐÃ HOÀN THÀNH</div>
                                    )
                               }
                                {
                                    orderSelect.cancelDate &&  (
-                                        <div className="Detail-text" style={{ color: 'gray' }} >ORDER FAILED</div>
+                                        <div className="Detail-text" style={{ color: 'gray' }} >ĐƠN HÀNG KHÔNG THÀNH CÔNG</div>
                                    )
                               }
                          </div>
@@ -54,7 +54,7 @@ const OrderDetail = () => {
                          <div id="mona_title"></div>
                     </div>
                     <div className="Detail-order-log-2">
-                         <div>Delivery Address</div>
+                         <div>Địa Chỉ Nhận Hàng</div>
                          <div id="log-do1">
                               <div id="log-do-address-1">
                                    <div id="log-do-address-name" >{orderSelect.nameRg}</div>
@@ -87,7 +87,7 @@ const OrderDetail = () => {
                                                   <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 21v-7.5a.75.75 0 01.75-.75h3a.75.75 0 01.75.75V21m-4.5 0H2.36m11.14 0H18m0 0h3.64m-1.39 0V9.349m-16.5 11.65V9.35m0 0a3.001 3.001 0 003.75-.615A2.993 2.993 0 009.75 9.75c.896 0 1.7-.393 2.25-1.016a2.993 2.993 0 002.25 1.016c.896 0 1.7-.393 2.25-1.016a3.001 3.001 0 003.75.614m-16.5 0a3.004 3.004 0 01-.621-4.72L4.318 3.44A1.5 1.5 0 015.378 3h13.243a1.5 1.5 0 011.06.44l1.19 1.189a3 3 0 01-.621 4.72m-13.5 8.65h3.75a.75.75 0 00.75-.75V13.5a.75.75 0 00-.75-.75H6.75a.75.75 0 00-.75.75v3.75c0 .415.336.75.75.75z" />
                                              </svg>
 
-                                             <div>View shop</div>
+                                             <div>Xem Shop</div>
                                         </button>
                                    </div>
                               </div>
@@ -113,11 +113,11 @@ const OrderDetail = () => {
                          ))}
                     </div>
                     <div className="Detail-order-log-5">
-                         <div id="log-do-price-text">Order Total </div>
+                         <div id="log-do-price-text">Thành Tiền </div>
                          <div id="log-do-number-text">{numeral(orderSelect.totalPrice).format('0,0')} </div>
                     </div>
                     <div className="Detail-order-log-5">
-                         <div id="log-do-price-text">Payment Method</div>
+                         <div id="log-do-price-text">Phương Thức Thanh Toán</div>
                          <div id="log-do-payment-text">{
 
                               orderSelect.paymentMethod == "Cash" && (

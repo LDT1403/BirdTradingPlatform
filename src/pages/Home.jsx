@@ -8,12 +8,17 @@ import Category from "../components/UI/category/Category";
 import '../style/home.css';
 import axios from "axios";
 import ProductCard from "../components/UI/product-card/ProductCard";
+import { useDispatch } from "react-redux";
+import { listCarts } from "./redux/Actions/CartActions";
 
 const Home = () => {
+    const reloadData = () => {}
+    const dispatch=useDispatch();
     const [data, setData] = useState([]);
     useEffect(() => {
         axios.get('https://localhost:7241/api/Products/Hot_Product')
             .then(res => {
+                dispatch(listCarts());
                 // console.log(res.data);
                 setData(res.data);
             })
@@ -124,7 +129,7 @@ const Home = () => {
                         <Row style={{padding:'0px 0px'}}>
                         {displayedProducts?.map(item => (
                           <Col lg='3' md='7' sm='7' style={{padding:'0', marginLeft:'11px', maxWidth:'209px'}}  key={item.productId}>
-                            <ProductCard item={item} />
+                            <ProductCard item={item} onReloadData={reloadData}  />
                           </Col>
                         ))}
                       </Row>

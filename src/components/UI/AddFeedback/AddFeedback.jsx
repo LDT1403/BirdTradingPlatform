@@ -35,6 +35,9 @@ const AddFeedback = ({ productId, orderDetailId, productName, setShowFeedTable, 
                          setShowFeedTable(false)
                     }
                })
+               .catch((error) => {
+                    console.log(error)
+               })
 
 
 

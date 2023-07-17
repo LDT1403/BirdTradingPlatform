@@ -9,6 +9,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { cartUiActions } from "../../store/shopping-cart/cartUiSlice";
 import { logOut } from "../../pages/redux/apiRequest";
 import HomeShop from "../../pageShop/HomeShop";
+import { listCarts } from "../../pages/redux/Actions/CartActions";
 
 
 
@@ -29,16 +30,37 @@ const Header = () => {
     },
     {
       display: "My Purchase",
-      path: "/MyPurchase/to-pay",
+      path: "/MyPurchase/confirmed",
     },
   ];
   const menuRef = useRef(null);
   const headerRef = useRef(null);
   const dispatch = useDispatch();
+  const [sub, setSub] = useState([])
+  const cartList = useSelector((state) => state.cart);
+  const { loading, error, carts } = cartList;
+  useEffect(() => {
+    const loadsub = () => {
+      setSub(cartList.carts.map((cart) => cart))
+    };
+    if (loading === false && error !== "Request failed with status code 401") {
+      loadsub();
+    }
+    if(error === "Request failed with status code 401") {
+      setSub([])
+    }
+  }, [loading]);
+
+  useEffect(() => {
+    dispatch(listCarts());
+  }, []);
 
   const toggleMenu = () => menuRef.current.classList.toggle("show__menu");
   const totalQuantity = useSelector((state) => state.cart.totalQuantity);
   const [isHovered, setIsHovered] = useState(false);
+  console.log(loading);
+
+
 
   const toggleCart = () => {
     dispatch(cartUiActions.toggle());
@@ -48,7 +70,7 @@ const Header = () => {
   const handleLogOut = () => {
     logOut(dispatch, navigate);
   };
-  console.log(user);
+
   const isShopExist = user?.IsShop === "True";
   console.log(isShopExist);
 
@@ -82,6 +104,8 @@ const Header = () => {
   const handleMouseLeave = () => {
     setIsHovered(false);
   };
+
+
   return (
     <header className="header" ref={headerRef}>
       <Container>
@@ -123,7 +147,7 @@ const Header = () => {
             <span className="cart__icon" onClick={toggleCart}>
               <i className="ri-shopping-basket-line"></i>
 
-              <span className="cart__badge">{totalQuantity}</span>
+              <span className="cart__badge">{sub.length}</span>
             </span>
             <div className="profile">
               {user.UserId ? (

@@ -15,21 +15,21 @@ const FeedBack = () => {
                          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="icon-back-orderDetail">
                               <path fillRule="evenodd" d="M7.72 12.53a.75.75 0 010-1.06l7.5-7.5a.75.75 0 111.06 1.06L9.31 12l6.97 6.97a.75.75 0 11-1.06 1.06l-7.5-7.5z" clipRule="evenodd" />
                          </svg>
-                         Go Back
+                        TRỞ LẠI
                     </button>
                     <NavLink
                          to="/feedback/to-rate"
                          className="MyPurchase-cate"
                          activeClassName="active"
                     >
-                         <span className="NavLink-text">To Rate</span>
+                         <span className="NavLink-text" style={{color:'#0da5bf'}}>Chờ Đánh Giá </span>
                     </NavLink>
                     <NavLink
                          to="/feedback/my-reviews"
                          className="MyPurchase-cate"
                          activeClassName="active"
                     >
-                         <span className="NavLink-text">My Reviews</span>
+                         <span className="NavLink-text" style={{color:'#17bf0d'}}>Đánh Giá Của Tôi</span>
                     </NavLink>
 
                </div>
