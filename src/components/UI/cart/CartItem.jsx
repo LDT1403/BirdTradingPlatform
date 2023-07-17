@@ -1,60 +1,40 @@
 import React from "react";
 import { ListGroupItem } from "reactstrap";
 import "../../../style/cart-item.css";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { cartActions } from "../../../pages/redux/cartSlice";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { cartUiActions } from "../../../store/shopping-cart/cartUiSlice";
 
 const CartItem = ({ item }) => {
-    const { productId, productName, thumbnail, soldPrice, quantity, totalPrice } = item || {}
-
+    const navigate = useNavigate()
+    const { productId, productName, cartId, imageProduct, priceProduct } = item || {}
+    const cart = useSelector((state) => state.cart.carts)
     const dispatch = useDispatch()
-
-    const incrementItem = () => {
-        dispatch(cartActions.addItem({
-            productId,
-            productName,
-            soldPrice,
-            thumbnail,
-            quantity: 1,
-            quantity: 1
-        }))
+    console.log(cart);
+    const toggleCart = () => {
+        dispatch(cartUiActions.toggle())
     }
-    const decrementItem = () => {
-        dispatch(cartActions.removeItem(productId))
-    }
-    const deleteItem = () => {
-        dispatch(cartActions.deleteItem(productId))
-    }
-    function truncateName(productName, maxLength) {
+    function truncateProductName(productName, maxLength) {
         if (productName.length <= maxLength) {
             return productName;
         } else {
             return productName.substring(0, maxLength) + '...';
         }
     }
+    const handleclick = () => {
+        toggleCart();
+        navigate(`/shop/${productId}`)
+    }
     return (
         <ListGroupItem className="border-0 cart__item">
-            <div className="cart__item-info d-flex gap-2">
-                <Link to={`/shop/${productId}`}>
-                    <img src={thumbnail} alt="product-img" />
-                    </Link>
+            <div className="cart__item-info d-flex gap-2" onClick={handleclick}>
+                <img src={imageProduct} alt="product-img" />
                 <div className="cart__product-info w-100 d-flex align-items-center gap-4 justify-content-between">
                     <div>
-                        <h6 className="cart__product-title">{truncateName(productName, 25)}</h6>
-                        <p className="d-flex align-items-center  gap-5 cart__product-price">{quantity}x <span>{soldPrice}$</span></p>
-                        {/* <div className="d-flex align-items-center justify-content-between
-                         increase__decrease-btn">
-                            <span className="increase__btn" onClick={incrementItem}><i className="ri-add-line"></i></span>
-                            <span className="quantity justify-content-center">{quantity}</span>
-                            <span className="decrease__btn" onClick={decrementItem}><i className="ri-subtract-line"></i></span>
-
-                        </div> */}
+                        <h6 className="cart__product-title">{truncateProductName(productName, 25)}</h6>
+                        <p className="d-flex align-items-center  gap-5 cart__product-price"> <span>{priceProduct}$</span></p>
                     </div>
-
-                    <span onClick={deleteItem}>
-                        <i className="ri-close-line"></i></span>
-
                 </div>
             </div>
         </ListGroupItem>

@@ -18,42 +18,42 @@ const MyPurchase = () => {
                     className="MyPurchase-cate"
                     activeClassName="active"
                 >
-                    <span className="NavLink-text">To Pay</span>
+                    <span className="NavLink-text">Chờ Thanh Toán</span>
                 </NavLink>
                 <NavLink
                     to="/MyPurchase/to-confirmation"
                     className="MyPurchase-cate"
                     activeClassName="active"
                 >
-                    <span className="NavLink-text">To Confirmation</span>
+                    <span className="NavLink-text">Chờ Xác Nhận</span>
                 </NavLink>
                 <NavLink
                     to="/MyPurchase/confirmed"
                     className="MyPurchase-cate"
                     activeClassName="active"
                 >
-                    <span className="NavLink-text">Confirmed</span>
+                    <span className="NavLink-text">Đang Giao</span>
                 </NavLink>
                 <NavLink
                     to="/MyPurchase/received"
                     className="MyPurchase-cate"
                     activeClassName="active"
                 >
-                    <span className="NavLink-text">Completed</span>
+                    <span className="NavLink-text">Hoàn Thành</span>
                 </NavLink>
                 <NavLink
                     to="/MyPurchase/failed"
                     className="MyPurchase-cate"
                     activeClassName="active"
                 >
-                    <span className="NavLink-text">Failed</span>
+                    <span className="NavLink-text">Thất Bại</span>
                 </NavLink>
                 <NavLink
                     to="/feedback/to-rate"
                     className="MyPurchase-cate"
                     activeClassName="active"
                 >
-                    <span className="NavLink-text">FeedBack</span>
+                    <span className="NavLink-text">Đánh Giá</span>
                 </NavLink>
                 
             </div>

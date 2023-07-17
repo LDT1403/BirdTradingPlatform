@@ -119,16 +119,16 @@ const Failed = () => {
                                              </div>
 
                                              <div className="toPay-Product-price">
-                                                  <div className="toPay-num" style={{ textDecoration: "line-through" }}>${numeral(product.productPrice).format('0,0')}</div>
-                                                  <div className="toPay-numSoldPrice">${numeral(product.discountPrice).format('0,0')}</div>
+                                                  <div className="toPay-num" style={{ textDecoration: "line-through" }}><div className="don-vi-pay" >₫</div>{numeral(product.productPrice).format('0,0')}</div>
+                                                  <div className="toPay-numSoldPrice"><div className="don-vi-pay" >₫</div>{numeral(product.discountPrice).format('0,0')}</div>
                                              </div>
 
 
                                         </div>
                                    ))}
                                    <div className="toPay-totalPay-log">
-                                        <h5>TotalPay:</h5>
-                                        <div id="toPay-totalPay"  style={{color:'#828686'}} >{numeral(shop.totalPrice).format('0,0')}</div>
+                                        <h5>Thành Tiền:</h5>
+                                        <div id="toPay-totalPay"  style={{color:'#828686'}} ><div className="don-vi-pay" >₫</div>{numeral(shop.totalPrice).format('0,0')}</div>
                                    </div>
                                    {/* <div className="toPay-list-button">
                                         <button

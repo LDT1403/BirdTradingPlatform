@@ -22,7 +22,7 @@ export const loginUser = async (user, dispatch, navigate) => {
                 if (token.role === 'AD') {
                     navigate("/dashboard");
                 } else {
-                    navigate("/");
+                    navigate(-1);
                 }
             } else {
                 toast.error(res.data.message);

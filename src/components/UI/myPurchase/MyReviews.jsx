@@ -90,11 +90,11 @@ const MyReviews = () => {
                                 <div className="user-name">{user.username}</div>
                                 <div className="user-rate">{userRating(user.rate)}</div>
                                 <div className="user-date">
-                                    {moment(user.createDate ).format('DD-MM-YYYY HH:mm')}
+                                    {moment(user.createDate).format('DD-MM-YYYY HH:mm')}
                                 </div>
                                 <div className="user-text">{user.detail}</div>
                                 <div className="user-image">
-                                    <div className="user-listImage" style={{ cursor: "pointer",}}>
+                                    <div className="user-listImage" style={{ cursor: "pointer", }}>
                                         {user.imgFeedback.map((item, imgIndex) => (
                                             <img
                                                 key={imgIndex}
@@ -107,18 +107,40 @@ const MyReviews = () => {
                                     </div>
                                     <div className={`user-imageView-${index}`} ></div>
                                 </div>
-                                <div className="info-pro" style={{
-                                    backgroundColor: 'rgb(239, 245, 245)',
-                                    padding: '7px ',
-                                    display: 'flex',
-                                    marginLeft: '10px',
-                                    width: '600px',
-                                    cursor: "pointer",
+                                {
+                                    user.quantity > 0 && (
+                                        <div className="info-pr" style={{
+                                            backgroundColor: 'rgb(239, 245, 245)',
+                                            padding: '7px ',
+                                            display: 'flex',
+                                            marginLeft: '10px',
+                                            minWidth: '600px',
+                                            cursor: "pointer",
 
-                                }} onClick={() => (clickedImage(user.productId))}>
-                                    <img src={user.imgProduct} alt="" style={{ width: '60px', height: '60px', marginRight: '10px' }} />
-                                    <div style={{ fontSize: '18px' , width: '300px',}}>{user.productName}</div>
-                                </div>
+                                        }} onClick={() => (clickedImage(user.productId))}>
+                                            <img src={user.imgProduct} alt="" style={{ width: '60px', height: '60px', marginRight: '10px' }} />
+                                            <div style={{ fontSize: '18px', width: '300px', }}>{user.productName}</div>
+
+                                        </div>
+                                    )
+                                }
+                                   {
+                                    user.quantity < 1 && (
+                                        <div className="info-pro" style={{
+                                            backgroundColor: 'rgb(239, 245, 245)',
+                                            padding: '7px ',
+                                            display: 'flex',
+                                            marginLeft: '10px',
+                                            cursor: "pointer",
+
+                                        }} >
+                                            <img src={user.imgProduct} alt="" style={{ width: '60px', height: '60px', marginRight: '10px' }} />
+                                            
+                                            <div style={{ fontSize: '18px', color:'red', fontWeight: '500',display:'flex' }}><div style={{ fontSize: '18px', color:'#000', margin:'0px 5px'}}>{ user.productName } </div> đã hết hàng!</div>
+                                        </div>
+                                    )
+                                }
+
                             </div>
                         </div>
                     </div>
