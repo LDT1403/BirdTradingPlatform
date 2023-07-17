@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { cartActions } from "./redux/cartSlice"
@@ -8,10 +7,8 @@ import '../style/checkout.css';
 import axios from "axios";
 import { useLocation } from "react-router-dom";
 import numeral from 'numeral';
-import Loading from "../components/LoadingError/Loading"
 import LoadingFive from "../components/Loadingfive/LoadingWrap";
 const CheckOut = () => {
-    // const users = useSelector(state => state.auth.login.currentUser)
     const accessToken = localStorage.getItem('jwtToken');
     const location = useLocation();
     const orderSelect = location.state?.orderSelect || {};
@@ -27,8 +24,6 @@ const CheckOut = () => {
     const dispatch = useDispatch()
     const [addressData, setAddressData] = useState([]);
     const [showLoadDing, setLoadDing] = useState(false);
-
-
 
     useEffect(() => {
         const fetchData = () => {
@@ -49,6 +44,9 @@ const CheckOut = () => {
                             return null;
                         });
                     }
+                })
+                .catch((err) => {
+                    console.log(err);
                 });
         };
         if (!showAddNewAddress) {
@@ -176,10 +174,17 @@ const CheckOut = () => {
                                     if (response.data.paymentUrl === null) {
                                         setLoadDing(false)
                                         navigate("/MyPurchase/to-confirmation");
+                                        dispatch(cartActions.deleteMultipleItems(orderSelectID));
                                     }
                                 })
+                                .catch((err) => {
+                                    console.log(err);
+                                });
                         })
-                    dispatch(cartActions.deleteMultipleItems(orderSelectID));
+                        .catch((err) => {
+                            console.log(err);
+                        });
+
                     break;
                 case "VnPay":
                     setLoadDing(true)
@@ -206,11 +211,18 @@ const CheckOut = () => {
                                     setLoadDing(false)
                                     const paymentUrl = response.data.paymentUrl;
                                     window.location.href = `${paymentUrl}`;
+                                    dispatch(cartActions.deleteMultipleItems(orderSelectID));
 
                                 })
-                            dispatch(cartActions.deleteMultipleItems(orderSelectID));
+                                .catch((err) => {
+                                    console.log(err);
+                                });
+
 
                         })
+                        .catch((err) => {
+                            console.log(err);
+                        });
                     break;
                 default:
                     setShowNtPayMethod(true);
@@ -425,7 +437,7 @@ const CheckOut = () => {
             }
             {
                 showLoadDing && (
-                    <div className="confirmation-modal" style={{ background: "none"}}>
+                    <div className="confirmation-modal" style={{ background: "none" }}>
                         <LoadingFive />
                     </div>
 

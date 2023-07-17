@@ -175,7 +175,7 @@
 
 .card-title {
     font-size: 15px;
-    font-weight: bold;
+    font-weight: 500;
     margin-bottom: 10px;
 
 }
@@ -191,8 +191,12 @@
 }
 
 .original-price {
+    display:flex;
     text-decoration: line-through;
     color: #999;
+    font-size: 15px;
+    font-weight: 500;
+    margin-right: 3px;   
 }
 
 .percent {
@@ -200,11 +204,14 @@
 }
 
 .discount-price {
-    font-weight: bold;
+    display:flex;
+    font-weight: 500;
+    font-size: 19px;
     color: #333;
 }
 
 .discount-price-color {
+    display:flex;
     color: #df2020 !important;
 }
 

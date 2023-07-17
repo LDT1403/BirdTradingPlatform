@@ -27,7 +27,7 @@ export default function ViewShopId() {
      const handleSearchQuery = (sear) => {
           setSearch(sear);
      }
-     const placeholder = `Search product in ${infoShop.shopName}`;
+     const placeholder = `Tìm sản phẩm trong ${infoShop.shopName}`;
      return (
 
           <div style={{backgroundColor: '#eff5f5' , paddingTop:'10px'}}>
@@ -45,21 +45,21 @@ export default function ViewShopId() {
                     <div className="shop-2-1">
                          <div className="shopInfo-details-1">
                               <div className="shopInfo-detail-info-1">
-                                   <div className="detail-name-1">Evaluate </div>
-                                   <div className="detail-value-1">{infoShop.rate} </div>
+                                   <div className="detail-name-1">Đánh Giá </div>
+                                   <div className="detail-value-1">{infoShop.rate||0} </div>
                               </div>
                               <div className="shopInfo-detail-info-1">
-                                   <div className="detail-name-1">Total Products </div>
-                                   <div className="detail-value-1">{infoShop.totalProduct} </div>
+                                   <div className="detail-name-1">Sản Phẩm </div>
+                                   <div className="detail-value-1">{infoShop.totalProduct||0} </div>
                               </div>
                          </div>
                          <div className="shopInfo-details">
                               <div className="shopInfo-detail-info">
-                                   <div className="detail-nameShop">Participation date</div>
+                                   <div className="detail-nameShop">Tham Gia</div>
                                    <div className="detail-value">{moment(infoShop.createDate).format('DD-MM-YYYY')} </div>
                               </div>
                               <div className="shopInfo-detail-info">
-                                   <div className="detail-nameShop">Address</div>
+                                   <div className="detail-nameShop">Địa Chỉ</div>
                                    <div className="detail-value">{infoShop.address} </div>
                               </div>
                          </div>
@@ -69,7 +69,6 @@ export default function ViewShopId() {
                                    placeholder={placeholder}
                               />
                          </div>
-
                     </div>
 
                </div>

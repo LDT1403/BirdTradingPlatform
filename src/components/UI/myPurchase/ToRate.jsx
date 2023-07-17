@@ -81,11 +81,11 @@ const ToRate = () => {
                                    </div>
 
                                    <div className="toPay-Product-price">
-                                        <div className="toPay-num" style={{ textDecoration: "line-through" }}>${orderListItem.soldPrice}</div>
-                                        <div className="toPay-numSoldPrice">${orderListItem.discountPrice}</div>
+                                        <div className="toPay-num" style={{ textDecoration: "line-through" }}><div className="don-vi-pay" >₫</div>{orderListItem.soldPrice}</div>
+                                        <div className="toPay-numSoldPrice"><div className="don-vi-pay" >₫</div>{orderListItem.discountPrice}</div>
 
                                    </div>
-                                   <div style={{ width: "20%", display: "flex", justifyContent: "center", alignItems: "center" }}>Into Money: <div style={{ width: "20%", display: "inline", fontSize: "20px", fontWeight: "500", paddingLeft: "10px", color: "#dc3545" }}> {orderListItem.totalDetail}</div></div>
+                                   <div style={{ width: "20%", display: "flex", justifyContent: "center", alignItems: "center" }}>Into Money: <div style={{ width: "20%", display: "flex", fontSize: "20px", fontWeight: "500", paddingLeft: "10px", color: "#dc3545" }}><div className="don-vi-pay" >₫</div> {orderListItem.totalDetail}</div></div>
                                    <div className="button-feedback" style={{ width: "15%", display: "flex", alignItems: "center", justifyContent: "center", }}>
                                         <button style={{ border: "none", backgroundColor: "#176eb0", color: "#fff", padding: "5px 10px", borderRadius: "3px" }} onClick={() => handleFeedback(orderListItem)}>
                                              Feedback

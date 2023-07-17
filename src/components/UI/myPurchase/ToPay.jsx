@@ -92,8 +92,8 @@ const ToPay = () => {
                                                   </div>
 
                                                   <div className="toPay-Product-price">
-                                                       <div className="toPay-num" style={{ textDecoration: "line-through" }}>${numeral(product.productPrice).format('0,0')}</div>
-                                                       <div className="toPay-numSoldPrice">${numeral(product.discountPrice).format('0,0')}</div>
+                                                       <div className="toPay-num" style={{ textDecoration: "line-through" }}><div className="don-vi-pay" >₫</div>{numeral(product.productPrice).format('0,0')}</div>
+                                                       <div className="toPay-numSoldPrice"><div className="don-vi-pay" >₫</div>{numeral(product.discountPrice).format('0,0')}</div>
                                                   </div>
 
 
@@ -106,8 +106,8 @@ const ToPay = () => {
 
                          </div>
                          <div className="toPay-totalPay-log">
-                              <h5>TotalPay:</h5>
-                              <div id="toPay-totalPay">{numeral(order.amount).format('0,0')}</div>
+                              <div>TotalPay:</div>
+                              <div id="toPay-totalPay"><div className="don-vi-pay" >₫</div>{numeral(order.amount).format('0,0')}</div>
                          </div>
 
 

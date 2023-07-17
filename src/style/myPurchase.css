@@ -4,7 +4,12 @@
      min-height: 100vh;
      padding: 10px 0px;
 }
-
+a.MyPurchase-cate{
+     color: none;
+}
+.MyPurchase-cate:hover{
+     color: rgb(14, 138, 210);
+}
 .MyPurchase-log-cate {
      
      top: 99.8px;
@@ -27,15 +32,18 @@
 .MyPurchase-cate {
      text-decoration: none;
      padding: 15px 25px;
-     color: #535c5d;
+     color: #171919;
      font-size: 18px;
      font-weight: 500;
      cursor: pointer;
 
 }
-
+.NavLink-text:hover{
+    
+}
 .MyPurchase-cate.active {
-     border-bottom: 1px solid rgb(0, 195, 255);
+     border-bottom: 1px solid rgb(14, 138, 210);
+     color: rgb(14, 138, 210);
 }
 
 .MyPurchase-log-Item {
