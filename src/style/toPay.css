@@ -3,37 +3,38 @@
      width: 1300px;
      margin-bottom: 15px;
      background-color: #fff;
+     box-shadow:1px 3px 3px 2px rgba(0, 0, 0, .05);
 }
 
 .toPay-body-product {
      width: 100%;
      margin-bottom: 20px;
+     
+    
 }
-
-.toPay-body-product {
-     width: 100%;
-     margin-bottom: 20px;
-}
-
 .toPay-log-shop {
      background-color: #fff;
 }
 
 .toPay-nameShop-log {
      display: flex;
-     width: 40%;
      align-items: center;
      color: #176eb0;
 
-}
 
+}
+.toPay-nameShop-log .viewShop{
+     margin-left: 10px;
+}
 .toPay-nameShop {
      display: flex;
+     justify-content: space-between;
      padding: 10px 15px;
      align-items: center;
      font-size: 20px;
      font-weight: 500;
      border-bottom: 1px solid #8d9292;
+
 }
 
 .iconShop-log-toPay {
@@ -43,23 +44,28 @@
 }
 
 .toPay-Product-text {
-     width: 60%;
+    
      display: flex;
      justify-content: end;
+    
 }
 
 .toPay-subitem-text {
      display: flex;
      color: #8d9292;
-     justify-content: center;
+     justify-content: end;
      align-items: center;
-     width: 30%;
+     padding-right: 20px;
 }
 
 .toPay-product {
      padding: 10px 15px;
-     width: 100%;
+     width: 98%;
+     margin: 12px;
      display: flex;
+     justify-content: space-between;
+     box-shadow:1px 3px 3px 2px rgba(0, 0, 0, .05);
+     padding: 10px 20px;
 }
 
 .toPay-product img {
@@ -69,13 +75,13 @@
 }
 
 .toPay-ProductName {
-     width: 35%;
+     width: 500px;
      font-size: 18px;
      font-weight: 500;
 }
 
 .toPay-Product-price {
-     width: 60%;
+     width: 10%;
      display: flex;
      justify-content: end;
      text-align: right;
@@ -93,13 +99,13 @@
 }
 
 .toPay-num {
+     display: flex;
+     margin-right: 5px;
      font-size: 15px;
-     width: 15%;
      color: #828686;
 }
 
 .toPay-numSoldPrice {
-     width: 15%;
      display: flex;
      font-size: 16px;
      font-weight: 500;
@@ -124,18 +130,27 @@
      margin-right: 4%;
 }
 
-.toPay-totalPay-log {   
+.toPay-totalPay-log {  
+     width: 100%;
      font-size: 23px;
      font-weight: 500;
      display: flex;
      justify-content: end;
      align-items: end;
+     padding-right: 20px ;
 
 }
 #toPay-totalPay{
-     width: 15.5%;
-     color: crimson;
+     display: flex;
+     color: #088b0dc4;
      font-size: 30px;
+     margin-left: 5px;
  
     
+}
+.don-vi-pay{
+          font-size:70%;
+          padding-bottom: 3%;
+          margin-right: 1px;
+     
 }

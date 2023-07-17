@@ -1,12 +1,17 @@
 .MyPurchase-page {
      width: 100%;
-     background-color: rgb(226, 232, 238);
+     background-color:rgb(239, 245, 245);
      min-height: 100vh;
      padding: 10px 0px;
 }
-
+a.MyPurchase-cate{
+     color: none;
+}
+.MyPurchase-cate:hover{
+     color: rgb(14, 138, 210);
+}
 .MyPurchase-log-cate {
-     position: sticky;
+     
      top: 99.8px;
      z-index: 1;
      margin: auto;
@@ -15,19 +20,30 @@
      display: flex;
      margin-bottom: 15px;
 }
+.MyPurchase-log-cate  button {
+     width: 100px;
+     border: none;
+     background-color: #fff;
+     display: flex;
+     align-items: center;
+     color: #9ea5a7;
+}
 
 .MyPurchase-cate {
      text-decoration: none;
      padding: 15px 25px;
-     color: #535c5d;
+     color: #171919;
      font-size: 18px;
      font-weight: 500;
      cursor: pointer;
 
 }
-
+.NavLink-text:hover{
+    
+}
 .MyPurchase-cate.active {
-     border-bottom: 1px solid rgb(0, 195, 255);
+     border-bottom: 1px solid rgb(14, 138, 210);
+     color: rgb(14, 138, 210);
 }
 
 .MyPurchase-log-Item {

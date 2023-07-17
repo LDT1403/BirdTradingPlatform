@@ -7,28 +7,53 @@ import { cartActions } from "./redux/cartSlice"
 import { Col, Container, Row } from "reactstrap";
 import ProductCard from "../components/UI/product-card/ProductCard";
 import "../style/cart-page.css";
+import numeral from 'numeral';
+import { data } from "jquery";
+import { listCarts } from "./redux/Actions/CartActions";
 const Cart = () => {
-    const cartItems = useSelector((state) => state.cart.cartItems);
+    const accessToken = localStorage.getItem('jwtToken');
     const [orderSelect, setOrderSelect] = useState({});
     const [showConfirmation, setShowConfirmation] = useState(false);
-    const [selectedProductId, setSelectedProductId] = useState(null);
-    const [selectedProductName, setSelectedProductName] = useState("");
+    const [ProductName, setProductName] = useState("");
     const [productsData, setProductsData] = useState([]);
     const productsByShop = {};
     const [showNotification, setShowNotification] = useState(false);
+    const [dataCart, setDataCart] = useState([]);
+    const [ShowNull, setShowNull] = useState(true);
     const navigate = useNavigate();
-    const dispatch = useDispatch()
+    const dispatch = useDispatch();
+    const [cartID, setcartID] = useState(0);
+    const [quantity, setquantity] = useState(0);
+    const reloadData = () => {
+        axios.get(`https://localhost:7241/api/Order/ViewCart`, {
+            headers: {
+                Authorization: `Bearer ${accessToken}`
+            }
+        }).then((rep) => {
+            if (rep.data.length !== 0) {
+                setShowNull(false);
+                setDataCart(rep.data);
+            }
+            if (rep.data.length === 0) {
+                setShowNull(true)
+            }
+
+        })
+            .catch((err) => {
+                console.log(err);
+            });
+    };
+
+
+    useEffect(() => {
+        reloadData();
+    }, []);
+
     useEffect(() => {
         axios
             .get("https://localhost:7241/api/Products/All_Product")
             .then((res) => {
-                const allProducts = res.data;
-                const filteredProducts = allProducts.filter(
-                    (product) =>
-                        !cartItems.some((item) => item.productId === product.productId)
-                );
-                const limitedProducts = filteredProducts.slice(0, 8);
-                setProductsData(limitedProducts);
+                setProductsData(res.data);
             })
             .catch((err) => {
                 console.log(err);
@@ -36,68 +61,12 @@ const Cart = () => {
     }, []);
 
 
+    const toggleSelectProduct = () => {
 
-    const toggleSelectProduct = (productId) => {
-        const isProductSelected = !!orderSelect[productId];
-
-        if (isProductSelected) {
-            const updatedOrderSelect = { ...orderSelect };
-            delete updatedOrderSelect[productId];
-            setOrderSelect(updatedOrderSelect);
-
-
-            // Check if all products from the same shop are unselected
-            const productShopId = getProductShopId(productId);
-            const shopProducts = productsByShop[productShopId].products;
-            const isShopSelected = Object.values(updatedOrderSelect).some((product) =>
-                shopProducts.includes(product)
-
-            );
-
-            if (!isShopSelected) {
-                setShopSelected(productShopId, false);
-            }
-        } else {
-            const updatedOrderSelect = { ...orderSelect };
-            const product = getProductById(productId);
-            updatedOrderSelect[productId] = product;
-            setOrderSelect(updatedOrderSelect);
-
-            // Check if all products from the same shop are selected
-            const productShopId = getProductShopId(productId);
-            const shopProducts = productsByShop[productShopId].products;
-            const areAllShopProductsSelected = shopProducts.every((product) =>
-                updatedOrderSelect.hasOwnProperty(product.productId)
-            );
-
-            if (areAllShopProductsSelected) {
-                setShopSelected(productShopId, true);
-            }
-        }
     };
 
     const toggleSelectShop = (shopId) => {
-        const shopProducts = productsByShop[shopId].products;
-        const isShopSelected = Object.values(orderSelect).some((product) =>
-            shopProducts.includes(product)
-        );
 
-        if (isShopSelected) {
-            const updatedOrderSelect = { ...orderSelect };
-            const missingProducts = shopProducts.filter((product) => !updatedOrderSelect.hasOwnProperty(product.productId));
-
-            missingProducts.forEach((product) => {
-                updatedOrderSelect[product.productId] = product;
-            });
-            setOrderSelect(updatedOrderSelect);
-        } else {
-            const updatedOrderSelect = { ...orderSelect };
-            const remainingProducts = shopProducts.filter((product) => !updatedOrderSelect.hasOwnProperty(product.productId));
-            remainingProducts.forEach((product) => {
-                updatedOrderSelect[product.productId] = product;
-            });
-            setOrderSelect(updatedOrderSelect);
-        }
     };
 
     const setShopSelected = (shopId, selected) => {
@@ -118,204 +87,244 @@ const Cart = () => {
     };
 
     const getProductShopId = (productId) => {
-        for (const [shopId, { products }] of Object.entries(productsByShop)) {
-            if (products.some((product) => product.productId === productId)) {
-                return shopId;
-            }
-        }
-        return null;
+
     };
 
     const getProductById = (productId) => {
-        for (const { products } of Object.values(productsByShop)) {
-            const product = products.find((product) => product.productId === productId);
-            if (product) {
-                return product;
-            }
-        }
-        return null;
     };
-    cartItems.forEach((item) => {
-        const { shopId, shopName } = item;
-        if (!productsByShop[shopId]) {
-            productsByShop[shopId] = { shopName: shopName, products: [] };
-        }
-        productsByShop[shopId].products.push(item);
-    });
 
-    const incrementItem = (productId) => {
-        dispatch(cartActions.addItem({
-            productId: productId,
-            quantity: 1
-        }));
+    const incrementItem = (product) => {
+
     };
-    console.log(orderSelect)
 
-    const decrementItem = (productId) => {
-        const item = cartItems.find((item) => item.productId === productId);
-        if (item.quantity === 1) {
-            setSelectedProductName(item.productName);
-            // Hiển thị thông báo xác nhận
-            setSelectedProductId(productId);
+    const UpdateItem = (data) => {
+        setProductName(data.productName);
+        const UpdateCart =
+        {
+            cartID: data.cartId,
+            quantity: data.quantity,
+        }
+        if (data.quantityCart + data.quantity >= 1) {
+            axios.post("https://localhost:7241/api/Order/UpdateQuantity", UpdateCart, {
+                headers: {
+                    Authorization: `Bearer ${accessToken}`
+                }
+            })
+                .then((rep) => {
+                    if (rep.data === 'success') {
+                        reloadData();
+                    }
+                    if (rep.data !== 'success') {
+
+                    }
+                })
+                .catch((err) => {
+                    console.log(err);
+                });
+        }
+        if (data.quantityCart + data.quantity < 1) {
             setShowConfirmation(true);
-        } else {
-            dispatch(cartActions.removeItem(productId));
+            setcartID(data.cartId);
+            setquantity(0)
         }
-    };
-    const handleConfirmation = (confirmed) => {
-        setShowConfirmation(false);
-        if (confirmed) {
-            deleteItem(selectedProductId);
-        }
-    };
-    const deleteItem = (productId) => {
-        dispatch(cartActions.deleteItem(productId));
 
-        // Xóa sản phẩm khỏi orderSelect (nếu có)
-        setOrderSelect((prevOrderSelect) => {
-            const updatedOrderSelect = { ...prevOrderSelect };
-            delete updatedOrderSelect[productId];
-            return updatedOrderSelect;
-        });
+    };
+
+
+    const handleConfirmation = () => {
+
+        const UpdateCart =
+        {
+            cartID: cartID,
+            quantity: quantity,
+        }
+
+        axios.post("https://localhost:7241/api/Order/UpdateQuantity", UpdateCart, {
+            headers: {
+                Authorization: `Bearer ${accessToken}`
+            }
+        })
+            .then((rep) => {
+                if (rep.data === 'delete') {
+                    setDataCart([]);
+                    reloadData();
+                    setShowConfirmation(false);
+                    dispatch(listCarts());
+                }
+            })
+            .catch((err) => {
+                console.log(err);
+            });
+    };
+    const deleteItem = (data) => {
+        setProductName(data.productName);
+        setcartID(data.cartId);
+        setShowConfirmation(true);
+
+
     };
     const calculateTotalPrice = () => {
-        let totalPrice = 0;
 
-        Object.values(orderSelect).forEach((product) => {
-            const productPrice = product.soldPrice * product.quantity;
-            totalPrice += productPrice;
-        });
-
-        return totalPrice;
     };
     const handleCheckout = () => {
-        // Check if any products are selected
         if (Object.keys(orderSelect).length === 0) {
-            setShowNotification(true); // Show the notification if no products are selected
+            setShowNotification(true);
         } else {
-            // Redirect to the checkout page
             navigate("/checkout", { state: { orderSelect } });
         }
     };
-    console.log(orderSelect);
-    const handleCheckoutOk = () => {
-        // Check if any products are selected
 
-        setShowNotification(false); // Show the notification if no products are selected
+    const handleCheckoutOk = () => {
+        setShowNotification(false);
 
     };
 
     return (
         <div className="Cart-page">
+            {
+                showConfirmation && (
+                    <div className="confirmation-modal">
+                        <div className="confirmation-modal-content">
+                            <div className="text-confirmation">Do you want to remove this item?</div>
+                            <div className="productName-confirmation"> {ProductName}</div>
+                            <div className="button-confirm" >
+                                <button className="button-yes-confirm" onClick={() => handleConfirmation()}>Yes</button>
+                                <button onClick={() => setShowConfirmation(false)}>No</button>
+                            </div>
+                        </div>
+                    </div>
+                )
+            }
             <div className="Cart-page-body">
-                <div className="Cart-page-inFor">
-                    <div className="cart-shop-select">
-                     
-                    </div>
-                    <div className="cart-products-info">
-                        <div className="cart-inFor">
-                            Product
+                <div className="Cart-scroll">
+                    <div className="Cart-page-inFor">
+                        <div className="cart-shop-select">
+
+                        </div>
+                        <div className="cart-products-info">
+                            <div className="cart-inFor">
+                                Sản Phẩm
+                            </div>
+                        </div>
+                        <div className="cart-products-num">
+                            <div className="cart-inFor">
+                                Đơn Giá
+                            </div>
+                        </div>
+                        <div className="cart-products-quantitytii">
+                            <div className="cart-inFor">
+                                Số Lượng
+                            </div>
+                        </div>
+                        <div className="cart-products-num">
+                            <div className="cart-inFor">
+                                Số Tiền
+                            </div>
+                        </div>
+                        <div className="cart-products-num">
+                            <div className="cart-inFor">
+                                Thao Tác
+                            </div>
                         </div>
                     </div>
-                    <div className="cart-products-num">
-                        <div className="cart-inFor">
-                            Unit Price
+
+                    {
+                        ShowNull == true && (
+                            <div style={{ height: '400px', backgroundColor: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                                <div>
+                                    <img style={{ height: '100px', margin: '0% 40%' }} src="https://th.bing.com/th/id/R.243d0e0ebe06da1c163b355961f024a7?rik=%2f6oK8VKD8oY%2fmg&riu=http%3a%2f%2fwww.bulongviet.com%2fUploads%2fimages%2ficon_03.png&ehk=1%2fn9ChdNLIGH5HrtYoChSZvw5ST66JFRc7bI7B9OfhA%3d&risl=&pid=ImgRaw&r=0" alt="" />
+                                    <div style={{ display: 'flex', justifyContent: 'center', fontSize: '20px' }}>Bạn chưa có sản phẩm nào trong Giỏ hàng</div>
+                                </div>
+
+                            </div>
+                        )
+
+
+                    }
+
+                    {dataCart.map((shop, indexshop) => (
+                        <div key={shop.shopId}>
+
+                            <div className="cart-shopId">
+                                <div className="cart-shop-name">
+                                    <div className="cart-shop-select">
+                                        <input
+                                            class="red-input"
+                                            type="checkbox"
+                                            onChange={() => toggleSelectShop(shop.shopId)}
+                                        />
+                                    </div>
+                                    {shop.shopName}
+
+                                </div>
+
+                                <div className="cart-page-products">
+                                    {shop.products.map((product, index) => (
+                                        <div className="cart-shop-products" key={product.productId}>
+                                            {
+                                                product.quantityProduct > 0 && (
+                                                    <>
+                                                        <div className="cart-shop-select">
+                                                            <input
+                                                                class="red-input"
+                                                                type="checkbox"
+                                                                onChange={() => toggleSelectProduct(product.productId)}
+                                                            // checked={!!orderSelect[product.productId]}
+                                                            />
+
+                                                        </div>
+                                                        < div className="cart-products-info">
+                                                            <img src={product.imageProduct} alt="" />
+                                                            <div className="name-product-cart">{product.productName}</div>
+                                                        </div>
+
+                                                        <div className="cart-products-num"><div className="don-vi">₫</div>{numeral(product.priceProduct).format('0,0')}</div>
+                                                        <div className="cart-products-quantity">
+                                                            <button className="cart-clickQuantity" onClick={() => UpdateItem({ cartId: product.cartId, quantity: -1, index: index, indexshop: indexshop, quantityCart: product.quantityCart, productName: product.productName })}><i className="ri-subtract-line" /></button>
+                                                            <span type="text" className="cart-view-quantity">{product.quantityCart} </span>
+                                                            <button className="cart-clickQuantity" onClick={() => UpdateItem({ cartId: product.cartId, quantity: 1, index: index, indexshop: indexshop, quantityCart: product.quantityCart, productName: product.productName })}><i className="ri-add-line" /></button>
+                                                        </div>
+
+                                                        <div className="cart-products-num">
+                                                            <div className="totalPrice-cart"><div className="don-vi">₫</div>{numeral(product.priceCart).format('0,0')}</div>
+                                                        </div>
+                                                        <div className="cart-products-num">
+                                                            <button onClick={() => deleteItem({ cartId: product.cartId, productName: product.productName })}>Xóa</button>
+                                                        </div>
+                                                    </>
+                                                )
+                                            }
+
+
+                                        </div>
+
+                                    ))}
+
+                                </div>
+
+                            </div>
+
                         </div>
-                    </div>
-                    <div className="cart-products-quantitytii">
-                        <div className="cart-inFor">
-                            Quantity
-                        </div>
-                    </div>
-                    <div className="cart-products-num">
-                        <div className="cart-inFor">
-                            Total Price
-                        </div>
-                    </div>
-                    <div className="cart-products-num">
-                        <div className="cart-inFor">
-                            Actions
-                        </div>
-                    </div>
+                    ))}
                 </div>
 
-                {Object.entries(productsByShop).map(([shopId, { shopName, products }]) => (
-                    <div key={shopId}>
-
-                        <div className="cart-shopId">
-                            <div className="cart-shop-name">
-                                <div className="cart-shop-select">
-                                    <input
-                                        class="red-input"
-                                        type="checkbox"
-                                        checked={Object.values(orderSelect).length === products.length && Object.values(orderSelect).every((product) =>
-                                            products.includes(product)
-                                        )}
-                                        onChange={() => toggleSelectShop(shopId)}
-                                    />
-                                </div>
-                                {shopName}
-
-                            </div>
-
-                            <div className="cart-page-products">
-                                {products.map((product) => (
-                                    <div className="cart-shop-products" key={product.productId}>
-                                        <div className="cart-shop-select">
-                                            <input
-                                                class="red-input"
-                                                type="checkbox"
-                                                onChange={() => toggleSelectProduct(product.productId)}
-                                                checked={!!orderSelect[product.productId]}
-                                            />
-
-                                        </div>
-                                        < div className="cart-products-info">
-                                            <img src={product.thumbnail} alt="" />
-                                            <div className="name-product-cart">{product.productName}</div>
-                                        </div>
-
-                                        <div className="cart-products-num">${product.soldPrice}</div>
-                                        <div className="cart-products-quantity">
-                                            <button className="cart-clickQuantity" onClick={() => decrementItem(product.productId)}><i className="ri-subtract-line" /></button>
-                                            <span className="cart-view-quantity">{product.quantity}</span>
-                                            <button className="cart-clickQuantity" onClick={() => incrementItem(product.productId)}><i className="ri-add-line" /></button>
-                                        </div>
-
-                                        <div className="cart-products-num">
-                                            <div className="totalPrice-cart">${product.totalPrice}</div>
-                                        </div>
-                                        <div className="cart-products-num">
-                                            <button onClick={() => deleteItem(product.productId)}>Delete</button>
-                                        </div>
-
-                                    </div>
-
-                                ))}
-
-                            </div>
-
-                        </div>
-
-                    </div>
-                ))}
                 <div className="Cart-page-inFor">
                     <div className="cart-shop-select">
                         <input class="red-input" type="checkbox" />
                     </div>
                     <div className="cart-products-info">
                         <div className="cart-inFor">
-                            Select All
+                            Chọn Tất Cả
                         </div>
                     </div>
                     <div className="cart-products-totalCheckOut">
-                        <div className="cart-inFor">Total Price: ${calculateTotalPrice()}</div>
+                        <div className="cart-inFor">Tổng Thanh Toán:  <div className="don-vi" style={{ marginLeft: '5px' }}>₫</div>{numeral(calculateTotalPrice()).format('0,0')}</div>
                     </div>
                     <div className="cart-products-num">
 
                         <div className="btn-cart-checkOut">
                             <button className="bt-checkout-page" onClick={handleCheckout}>
-                                Check out
+                               Mua Hàng
                             </button>
                         </div>
 
@@ -324,19 +333,19 @@ const Cart = () => {
                 </div>
                 <div className="product-reldate">
                     <div className="product-text">
-                        You can refer to other products
+                        CÓ THỂ BẠN CŨNG THÍCH
                     </div>
                     <div className="product-item">
                         <Col lg='12' md=''>
                             <Container>
-                                <Row>
-                                    {productsData.map(item => (
-
-                                        <Col lg='3' md='4' key={item.productId}>
-                                            <ProductCard item={item} />
+                                <Row style={{ padding: '0px 0px' }}>
+                                    {productsData?.map(item => (
+                                        <Col lg='3' md='7' sm='7' style={{ padding: '0', marginLeft: '7px', maxWidth: '209px' }} key={item.productId}>
+                                            <ProductCard item={item} onReloadData={reloadData} />
                                         </Col>
                                     ))}
                                 </Row>
+
                             </Container>
                         </Col>
                     </div>
@@ -347,20 +356,7 @@ const Cart = () => {
 
             </div>
 
-            {
-                showConfirmation && (
-                    <div className="confirmation-modal">
-                        <div className="confirmation-modal-content">
-                            <div className="text-confirmation">Do you want to remove this item?</div>
-                            <div className="productName-confirmation"> {selectedProductName}</div>
-                            <div className="button-confirm" >
-                                <button className="button-yes-confirm" onClick={() => handleConfirmation(true)}>Yes</button>
-                                <button onClick={() => handleConfirmation(false)}>No</button>
-                            </div>
-                        </div>
-                    </div>
-                )
-            }
+
             {showNotification && (
                 <div className="confirmation-modal">
                     <div className="confirm-checkout-OK">

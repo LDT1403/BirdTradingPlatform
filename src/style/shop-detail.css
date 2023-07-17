@@ -1,15 +1,17 @@
 .shopDetail {
-     padding: 30px;
+     padding: 10px 30px;
      background-color: #eff5f5;
 }
-
+.productList{
+     min-height:600px;
+}
 .detail-product {
      display: flex;
-     width: 1300px;
+     width: 1320px;
      margin-left: auto;
      margin-right: auto;
      background-color: #fff;
-     box-shadow: 0 2px 1px 0 rgba(0,0,0,.05);
+     box-shadow: 0 2px 1px 0 rgba(0, 0, 0, .05);
 
 }
 
@@ -251,29 +253,15 @@
 
 }
 
-/* .addButton {
 
-     padding: 0PX 20PX;
-     width: 27%;
-     display: flex;
-     align-items: center;
-     background-color: rgb(210, 229, 239);
-     font-size: 17px;
-     color: #176eb0;
-     border: 1.5px solid #176eb0;
-     margin-right: 15px;
-}
-
-.addButton:focus {
-     background-color: rgb(233, 235, 236);
-} */
 .addButton {
+     border-radius: 3px;
      padding: 0 20px;
-     width: 27%;
      display: flex;
      align-items: center;
      background-color: rgb(210, 229, 239);
      font-size: 17px;
+     font-weight: 500;
      color: #176eb0;
      border: 1.5px solid #176eb0;
      margin-right: 15px;
@@ -286,7 +274,7 @@
 
 @keyframes buttonClickEffect {
      0% {
-          background-color:  #92c0e3;
+          background-color: #92c0e3;
      }
 
      50% {
@@ -301,7 +289,7 @@
 .orderButton {
 
      padding: 0PX 20PX;
-     
+     border-radius: 3px;
      display: flex;
      align-items: center;
      text-align: center;
@@ -314,7 +302,7 @@
 }
 
 .iconAdd {
-     height: 80%;
+     height: 60%;
      color: #176eb0;
      margin-right: 10px;
 }
@@ -323,7 +311,7 @@
 .Shop-info {
      display: flex;
      width: 1300px;
-     box-shadow: 0 2px 1px 0 rgba(0,0,0,.05);
+     box-shadow: 0 2px 1px 0 rgba(0, 0, 0, .05);
      margin-left: auto;
      margin-right: auto;
      background-color: #fff;
@@ -360,13 +348,14 @@
 
 
 .shopButton {
+     width: 250px;
      margin-top: 15px;
 }
 
 .viewShop {
      border: 1.5px solid #176eb0;
-     padding: 5px 10px;
-     width: 45%;
+     padding: 5px 5px;
+     width: 100px;
      display: flex;
      align-items: center;
      background-color: rgb(210, 229, 239);
@@ -408,7 +397,7 @@
 
 /* Discription Product */
 .description-product {
-     box-shadow: 0 2px 1px 0 rgba(0,0,0,.05);
+     box-shadow: 0 2px 1px 0 rgba(0, 0, 0, .05);
      width: 1300px;
      margin-left: auto;
      margin-right: auto;
@@ -418,13 +407,13 @@
 }
 
 .description-text {
-     
+
      width: 100%;
      font-size: 18px;
      padding: 5px 14px;
      background-color: #f8f8f8;
      font-weight: 500;
-     box-shadow: 0 2px 1px 0 rgba(0,0,0,.05);
+     box-shadow: 0 2px 1px 0 rgba(0, 0, 0, .05);
 }
 
 .description-value {
@@ -440,14 +429,14 @@
      margin-right: auto;
      background-color: #fff;
      margin-top: 20px;
-     padding: 2.5%;
-     box-shadow: 0 2px 1px 0 rgba(0,0,0,.05);
+     padding: 20px;
+     box-shadow: 0 2px 1px 0 rgba(0, 0, 0, .05);
 }
 
 .feedback-top {
      width: 1200px;
      padding: 2.5%;
-     background-color:#eff5f5;
+     background-color: #eff5f5;
 
 }
 
@@ -475,7 +464,8 @@
 }
 
 .feedback-body {
-
+     overflow-y: scroll;
+     max-height: 780px;
      width: 100%;
 }
 
@@ -504,13 +494,18 @@
      width: 96%;
 }
 
+.user-date {
+     margin-bottom: 10px;
+}
+
 .user-listImage {
      width: 100%;
      display: inline-flex;
 }
 
 .user-listImage img {
-     width: 6%;
+     width: 70px;
+     height: 70px;
      margin: 5px;
      border: 1px solid #000;
      transition: border-color 0.3s, transform 0.3s;
@@ -518,17 +513,6 @@
 
 .user-listImage img:hover {
      border-color: aqua;
-
-}
-
-.user-imageView {
-     width: 200px;
-}
-
-.user-imageView img {
-     width: 20%;
-     height: auto;
-     display: none;
 
 }
 
@@ -555,13 +539,26 @@
      background-color: #fdfdfd;
      color: #0f0f10;
      padding: 15px;
-     font-size: 30px;
+     font-size: 20px;
      font-weight: 500;
-
+     display: flex;
+     justify-content: space-between;
      margin-bottom: 20px;
 }
 
 .product-item {
      width: 100%;
-     padding-right: 15px;
+    
+}
+
+
+.optiom-star-fb {
+     width: 75%;
+     display: flex;
+     justify-content: space-between;
+}
+.don-vi{
+     font-size:70%;
+     padding-bottom: 3%;
+     margin-right: 3px;
 }

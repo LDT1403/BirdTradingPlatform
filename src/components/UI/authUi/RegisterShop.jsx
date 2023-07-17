@@ -8,6 +8,8 @@ import { registerShop } from '../../../pages/redux/apiRequest';
 const RegisterShop = () => {
     const [shopName, setShopName] = useState('');
     const [address, setAddress] = useState('');
+    const [addressDetail, setaddressDetail] = useState('');
+    const [description, setdescription] = useState('');
     const [phone, setPhone] = useState('');
     const dispatch = useDispatch();
     const navigate = useNavigate();
@@ -20,9 +22,11 @@ const RegisterShop = () => {
         // console.log('Phone Number:', phoneNumber);
 
         const newShoper = {
+            addressDetail:addressDetail,
             shopName: shopName,
             address: address,
             phone: phone,
+            description:'dan choi chim'
         }
 
         registerShop(newShoper, dispatch, navigate, accessToken);
@@ -39,6 +43,10 @@ const RegisterShop = () => {
                 <div className="mb-3 content">
                     <label htmlFor="address" className="form-label">Address:</label>
                     <input type="text" className="form-control" id="address" value={address} onChange={(e) => setAddress(e.target.value)} />
+                </div>
+                <div className="mb-3 content">
+                    <label htmlFor="address" className="form-label">Address Details:</label>
+                    <input type="text" className="form-control" id="address" value={addressDetail} onChange={(e) => setaddressDetail(e.target.value)} />
                 </div>
                 <div className="mb-3 content">
                     <label htmlFor="phoneNumber" className="form-label">Phone:</label>

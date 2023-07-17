@@ -2,40 +2,65 @@ import React, { useRef, useEffect, useState } from "react";
 import { Container } from "reactstrap";
 import logo from "../../assets/images/logo bird.png";
 import logo1 from "../../assets/images/Food.png";
+import avatar from "../../assets/images/account-circle-line.png";
 import { NavLink, Link, useNavigate } from "react-router-dom";
 import "../../style/header.css";
 import { useDispatch, useSelector } from "react-redux";
 import { cartUiActions } from "../../store/shopping-cart/cartUiSlice";
 import { logOut } from "../../pages/redux/apiRequest";
 import HomeShop from "../../pageShop/HomeShop";
+import { listCarts } from "../../pages/redux/Actions/CartActions";
 
-const nav__links = [
-  {
-    display: "Home",
-    path: "/home",
-  },
-  {
-    display: "Shop",
-    path: "/shop",
-  },
-  {
-    display: "Cart",
-    path: "/cart",
-  },
-  {
-    display: "My Purchase",
-    path: "/MyPurchase/to-pay",
-  },
-];
+
 
 const Header = () => {
+  const user = useSelector((state) => state.auth.login.currentUser);
+  const nav__links = [
+    {
+      display: "Home",
+      path: "/home",
+    },
+    {
+      display: "Shop",
+      path: "/shop",
+    },
+    {
+      display: "Cart",
+      path: "/cart",
+    },
+    {
+      display: "My Purchase",
+      path: "/MyPurchase/confirmed",
+    },
+  ];
   const menuRef = useRef(null);
   const headerRef = useRef(null);
   const dispatch = useDispatch();
-  const user = useSelector((state) => state.auth.login.currentUser);
+  const [sub, setSub] = useState([])
+  const cartList = useSelector((state) => state.cart);
+  const { loading, error, carts } = cartList;
+  useEffect(() => {
+    const loadsub = () => {
+      setSub(cartList.carts.map((cart) => cart))
+    };
+    if (loading === false && error !== "Request failed with status code 401") {
+      loadsub();
+    }
+    if(error === "Request failed with status code 401") {
+      setSub([])
+    }
+  }, [loading]);
+
+  useEffect(() => {
+    dispatch(listCarts());
+  }, []);
+
   const toggleMenu = () => menuRef.current.classList.toggle("show__menu");
   const totalQuantity = useSelector((state) => state.cart.totalQuantity);
   const [isHovered, setIsHovered] = useState(false);
+  console.log(loading);
+
+
 
   const toggleCart = () => {
     dispatch(cartUiActions.toggle());
@@ -43,9 +68,9 @@ const Header = () => {
   const navigate = useNavigate();
   const accessToken = localStorage.getItem("jwtToken");
   const handleLogOut = () => {
-    logOut(dispatch, navigate, accessToken);
+    logOut(dispatch, navigate);
   };
-  console.log(user);
+
   const isShopExist = user?.IsShop === "True";
   console.log(isShopExist);
 
@@ -79,6 +104,8 @@ const Header = () => {
   const handleMouseLeave = () => {
     setIsHovered(false);
   };
+
+
   return (
     <header className="header" ref={headerRef}>
       <Container>
@@ -93,7 +120,7 @@ const Header = () => {
           <div className="navigation" ref={menuRef} onClick={toggleMenu}>
             <div
               className="menu d-flex align-items-center gap-5"
-              // onClick={(event) => event.stopPropagation()}
+            // onClick={(event) => event.stopPropagation()}
             >
               <div className="header__closeButton">
                 <span>
@@ -107,7 +134,7 @@ const Header = () => {
                   className={(navClass) =>
                     navClass.isActive ? "active__menu" : ""
                   }
-                  // onClick={toggleMenu}
+                // onClick={toggleMenu}
                 >
                   {item.display}
                 </NavLink>
@@ -120,7 +147,7 @@ const Header = () => {
             <span className="cart__icon" onClick={toggleCart}>
               <i className="ri-shopping-basket-line"></i>
 
-              <span className="cart__badge">{totalQuantity}</span>
+              <span className="cart__badge">{sub.length}</span>
             </span>
             <div className="profile">
               {user.UserId ? (
@@ -128,11 +155,13 @@ const Header = () => {
                   className="d-flex align-items-center justify-content-center profile__wrapper "
                   onClick={toggleProfileActions}
                 >
+
                   <img
                     className="profile__image"
-                    src={user.Avatar}
+                    src={user.Avatar === "null" ? avatar : user.Avatar}
                     alt="User Profile"
                   />
+
                   <h6 className="profile__title">{user.unique_name}</h6>
                 </div>
               ) : (

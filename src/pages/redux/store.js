@@ -16,6 +16,8 @@ import {
 import storage from 'redux-persist/lib/storage';
 import { productCreateReducer, productDeleteReducer, productEditReducer, productListReducer, productUpdateReducer } from './Reducers/ProductReducres';
 import { orderCancelReducer, orderConfirmReducer, orderDetailsReducer, orderListReducer } from './Reducers/OrderReducres';
+import { shopBanReducer, shopListReducer, shopUnBanReducer, userBanReducer, userDeleteReducer, userListReducer, userUnBanReducer } from './Reducers/userReducers';
+import { cartListReducer } from './Reducers/CartReducres';
 
 
 const persistConfig = {
@@ -38,6 +40,14 @@ const rootReducer = combineReducers({
     orderDetails: orderDetailsReducer,
     comfirmOrder: orderConfirmReducer,
     cancelOrder: orderCancelReducer,
+    userList: userListReducer,
+    shopList: shopListReducer,
+    userDelete: userDeleteReducer,
+    banUser: userBanReducer,
+    unbanUser: userUnBanReducer,
+    banShop: shopBanReducer,
+    unbanShop: shopUnBanReducer,
+    cart:cartListReducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

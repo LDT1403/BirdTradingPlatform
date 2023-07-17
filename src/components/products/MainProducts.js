@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Product from "./Product";
 import { useDispatch, useSelector } from "react-redux";
@@ -9,6 +9,13 @@ import Message from "../LoadingError/Error";
 
 const MainProducts = () => {
     const dispatch = useDispatch();
+    const [currentPage, setCurrentPage] = useState(1);
+    const recordsPerPage = 8;
+    const Data = useSelector((state) => state.productList.products);
+    const totalPages = Math.ceil(Data.length / recordsPerPage);
+    const firstIndex = (currentPage - 1) * recordsPerPage;
+    const lastIndex = currentPage * recordsPerPage;
+    const slicedProducts = Data.slice(firstIndex, lastIndex);
 
     const productList = useSelector((state) => state.productList);
     const { loading, error, products } = productList;
@@ -19,6 +26,9 @@ const MainProducts = () => {
     useEffect(() => {
         dispatch(listProducts());
     }, [dispatch, successDelete]);
+    const handlePageChange = (pageNumber) => {
+        setCurrentPage(pageNumber);
+    };
 
     return (
         <section className="content-main">
@@ -70,13 +80,14 @@ const MainProducts = () => {
                     ) : (
                         <div className="row">
                             {/* Products */}
-                            {products.map((product) => (
+                            {slicedProducts.map((product) => (
                                 <Product product={product} key={product.productId} />
                             ))}
                         </div>
                     )}
+                    <Pagination currentPage={currentPage} totalPages={totalPages} onPageChange={handlePageChange} />
 
-                    <nav className="float-end mt-4" aria-label="Page navigation">
+                    {/* <nav className="float-end mt-4" aria-label="Page navigation">
                         <ul className="pagination">
                             <li className="page-item disabled">
                                 <Link className="page-link" to="#">
@@ -104,11 +115,37 @@ const MainProducts = () => {
                                 </Link>
                             </li>
                         </ul>
-                    </nav>
+                    </nav> */}
                 </div>
             </div>
         </section>
     );
 };
+const Pagination = ({ currentPage, totalPages, onPageChange }) => {
+    const pageNumbers = Array.from({ length: totalPages }, (_, index) => index + 1);
 
+    return (
+        <nav className="float-end mt-4" aria-label="Page navigation">
+            <ul className="pagination">
+                <li className={`page-item ${currentPage === 1 ? 'disabled' : ''}`}>
+                    <Link className="page-link" to="#" onClick={() => onPageChange(currentPage - 1)}>
+                        Previous
+                    </Link>
+                </li>
+                {pageNumbers.map(pageNumber => (
+                    <li className={`page-item ${pageNumber === currentPage ? 'active' : ''}`} key={pageNumber}>
+                        <Link className="page-link" to="#" onClick={() => onPageChange(pageNumber)}>
+                            {pageNumber}
+                        </Link>
+                    </li>
+                ))}
+                <li className={`page-item ${currentPage === totalPages ? 'disabled' : ''}`}>
+                    <Link className="page-link" to="#" onClick={() => onPageChange(currentPage + 1)}>
+                        Next
+                    </Link>
+                </li>
+            </ul>
+        </nav>
+    );
+};
 export default MainProducts;

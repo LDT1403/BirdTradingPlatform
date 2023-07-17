@@ -16,23 +16,26 @@ const Footer = () => {
                                 <h5>Brid Trading</h5>
                             </div>
 
-                            <p>
-                                Lorem uhuhasduhfauhsfduuahfdancsjkncsajnc
-                                ccasdca
-                                a
+                            <p className="text-center">
+
+                                Bird Trading - fun, reliable, safe and free online shopping app!
+                                Bird Trading is the leading online trading platform in Southeast Asia.
                             </p>
                         </div>
                     </Col>
                     <Col lg="3" md="4" sm="6">
-                        <h5 className="footer__title mb-3">Delivery Time</h5>
+                        <h5 className="footer__title mb-2" style={{ paddingLeft: "30px" }}>Category</h5>
                         <div className="delivery__time_list">
-                            <div className="delivery__time-item border-0 ">
-                                <span>Friday - Tuesday</span>
-                                <p>10:00am - 11:00pm</p>
+                            <div className="delivery__time-item border-0 " style={{ paddingLeft: "30px" }}>
+                                <p>Brids</p>
+                                <p>Foods</p>
+                                <p>Bird Cages</p>
+                                <p>Accessory</p>
+
                             </div>
-                            <div className="delivery__time-item border-0 ">
-                                <span>Wednesday - Thursday</span>
-                                <p>Off day</p>
+                            <div className="delivery__time-item border-0 " style={{ paddingLeft: "30px" }}>
+                                <span>SIMPLE, FAST AND SAFE ONLINE SHOPPING AND SELLING</span>
+
                             </div>
                         </div>
                     </Col>
@@ -42,8 +45,7 @@ const Footer = () => {
                         <ListGroup>
 
                             <div className="delivery__time-item border-0 ps-0">
-                                <p> hadfaikjj ádfafdshjajkjafsdf
-                                    sadfasfafj dsadsa
+                                <p> Bird Trading is to allow you to buy and sell goods anytime, anywhere.
                                 </p>
                                 <span>Phone: 03977337051</span>
                             </div>
@@ -68,7 +70,7 @@ const Footer = () => {
                 <Row className="mt-3">
                     <Col lg="6" md="6">
                         <p className="copyright__text">
-                            Copyright - 2022, website made by Muhibur Rahman. All Rights
+                            Copyright - 2023, website made by SWP391. All Rights
                             Reserved.
                         </p>
                     </Col>

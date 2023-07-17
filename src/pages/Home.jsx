@@ -8,12 +8,17 @@ import Category from "../components/UI/category/Category";
 import '../style/home.css';
 import axios from "axios";
 import ProductCard from "../components/UI/product-card/ProductCard";
+import { useDispatch } from "react-redux";
+import { listCarts } from "./redux/Actions/CartActions";
 
 const Home = () => {
+    const reloadData = () => {}
+    const dispatch=useDispatch();
     const [data, setData] = useState([]);
     useEffect(() => {
         axios.get('https://localhost:7241/api/Products/Hot_Product')
             .then(res => {
+                dispatch(listCarts());
                 // console.log(res.data);
                 setData(res.data);
             })
@@ -25,7 +30,7 @@ const Home = () => {
 
 
 
-    const productsPerPage = 4;
+    const productsPerPage = 6;
     const [currentPage, setCurrentPage] = useState(1);
     const [loadingMore, setLoadingMore] = useState(false);
     const [showLoadMore, setShowLoadMore] = useState(true);
@@ -59,7 +64,7 @@ const Home = () => {
         <Helmet title="Home">
             <div className="home-page-log ">
                 <div className="mb-4 " >
-                    <Container className="pt-5">
+                    <Container className="" style={{paddingTop:'10px'}}>
                         <Row style={{backgroundColor: '#fff', boxShadow: '0 2px 1px 0 rgba(0, 0, 0, .05)'}}>
                             <Col lg='6' md='6'>
                                 <div className="brid__content">
@@ -108,7 +113,7 @@ const Home = () => {
 
                 <div className="pb-5" >
                     <Container>
-                        <Row>
+                        {/* <Row>
                             <Col lg='12' className="text-center mb-5" >
                                 <h2>Best Seller</h2>
                             </Col>
@@ -120,7 +125,14 @@ const Home = () => {
                                 ))
                             }
 
-                        </Row>
+                        </Row> */}
+                        <Row style={{padding:'0px 0px'}}>
+                        {displayedProducts?.map(item => (
+                          <Col lg='3' md='7' sm='7' style={{padding:'0', marginLeft:'11px', maxWidth:'209px'}}  key={item.productId}>
+                            <ProductCard item={item} onReloadData={reloadData}  />
+                          </Col>
+                        ))}
+                      </Row>
                         {showLoadMore && !loadingMore && (
                             <button className="load-more-button mt-2" onClick={loadMoreProducts}>
                                 Load More

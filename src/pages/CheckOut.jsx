@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { cartActions } from "./redux/cartSlice"
@@ -7,9 +6,9 @@ import NewAddress from "../components/UI/addNewAddress/NewAddress";
 import '../style/checkout.css';
 import axios from "axios";
 import { useLocation } from "react-router-dom";
-
+import numeral from 'numeral';
+import LoadingFive from "../components/Loadingfive/LoadingWrap";
 const CheckOut = () => {
-    // const users = useSelector(state => state.auth.login.currentUser)
     const accessToken = localStorage.getItem('jwtToken');
     const location = useLocation();
     const orderSelect = location.state?.orderSelect || {};
@@ -24,8 +23,7 @@ const CheckOut = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch()
     const [addressData, setAddressData] = useState([]);
-
-
+    const [showLoadDing, setLoadDing] = useState(false);
 
     useEffect(() => {
         const fetchData = () => {
@@ -46,11 +44,13 @@ const CheckOut = () => {
                             return null;
                         });
                     }
+                })
+                .catch((err) => {
+                    console.log(err);
                 });
         };
         if (!showAddNewAddress) {
             fetchData();
-            console.log("Tôi đang ở đây")
         }
     }, [showAddNewAddress]);
     const [firstAddress, setFirstAddress] = useState([])
@@ -150,7 +150,7 @@ const CheckOut = () => {
         } else {
             switch (paymentMethod) {
                 case "Cash":
-
+                    setLoadDing(true)
                     axios.post("https://localhost:7241/api/Order/Create", orderInfo, {
                         headers: {
                             Authorization: `Bearer ${accessToken}`
@@ -172,13 +172,22 @@ const CheckOut = () => {
                             })
                                 .then(response => {
                                     if (response.data.paymentUrl === null) {
+                                        setLoadDing(false)
                                         navigate("/MyPurchase/to-confirmation");
+                                        dispatch(cartActions.deleteMultipleItems(orderSelectID));
                                     }
                                 })
+                                .catch((err) => {
+                                    console.log(err);
+                                });
                         })
-                    dispatch(cartActions.deleteMultipleItems(orderSelectID));
+                        .catch((err) => {
+                            console.log(err);
+                        });
+
                     break;
                 case "VnPay":
+                    setLoadDing(true)
                     axios.post("https://localhost:7241/api/Order/Create", orderInfo, {
                         headers: {
                             Authorization: `Bearer ${accessToken}`
@@ -199,15 +208,21 @@ const CheckOut = () => {
                                 }
                             })
                                 .then(response => {
+                                    setLoadDing(false)
                                     const paymentUrl = response.data.paymentUrl;
-
-
                                     window.location.href = `${paymentUrl}`;
+                                    dispatch(cartActions.deleteMultipleItems(orderSelectID));
 
                                 })
-                            dispatch(cartActions.deleteMultipleItems(orderSelectID));
+                                .catch((err) => {
+                                    console.log(err);
+                                });
+
 
                         })
+                        .catch((err) => {
+                            console.log(err);
+                        });
                     break;
                 default:
                     setShowNtPayMethod(true);
@@ -284,9 +299,9 @@ const CheckOut = () => {
                                     <img src={product.thumbnail} alt="" />
                                     <div className="checkOut-ProductName">{product.productName}</div>
                                     <div className="checkOut-Product-price">
-                                        <div className="checkOut-num">${product.soldPrice}</div>
+                                        <div className="checkOut-num">${numeral(product.soldPrice).format('0,0')}</div>
                                         <div className="checkOut-num">{product.quantity}</div>
-                                        <div className="checkOut-subitem">${product.totalPrice}</div>
+                                        <div className="checkOut-subitem">${numeral(product.totalPrice).format('0,0')}</div>
                                     </div>
 
 
@@ -332,7 +347,7 @@ const CheckOut = () => {
                                 <div className="num-payTotal-item">{calculateTotalQuantity()}</div>
                             </div>
                             <div className="checkOut-Total">Total Payment:
-                                <div className="num-payTotal">{calculateTotalPrice()}$</div>
+                                <div className="num-payTotal">{numeral(calculateTotalPrice()).format('0,0')}$</div>
                             </div>
                         </div>
 
@@ -385,7 +400,7 @@ const CheckOut = () => {
                                             <div>{address.address}</div>
                                         </div>
                                     </div>
-                                    <button className="cf-ad-button"> Edit </button>
+                                    {/* <button className="cf-ad-button"> Edit </button> */}
                                 </div>
                             ))}
                             <button className="cf-ad-button-add" onClick={handleAddNewAddress}>+ Add new Address</button>
@@ -416,6 +431,14 @@ const CheckOut = () => {
                             <div className="ms-pay-text">Please select your desired delivery address</div>
                             <button className="ms-pay-button" onClick={handleShowNtPayMethod}>Ok</button>
                         </div>
+                    </div>
+
+                )
+            }
+            {
+                showLoadDing && (
+                    <div className="confirmation-modal" style={{ background: "none" }}>
+                        <LoadingFive />
                     </div>
 
                 )

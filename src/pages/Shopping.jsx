@@ -9,9 +9,10 @@ export default function Shopping() {
   const handleSearchQuery = (sear) => {
     setSearch(sear);
   }
-  const placeholder = "Search product";
+ 
+  const placeholder = "Tìm sản phẩm trong Bird Trading";
   return (
-    <div  className="pt-5 pb-4" style={{backgroundColor: '#eff5f5'}}>
+    <div  className=" pb-4" style={{backgroundColor: '#eff5f5',paddingTop: '10px'}}>
       <Container className="m-auto search-shopping">
         <Col lg='12' md='10' >
           <Row>

@@ -4,7 +4,11 @@ import "../../../src/style/newAddress.css";
 import SelectAddress from "../UI/addNewAddress/SelectAddress";
 import { Button } from "reactstrap";
 
+
 const AddressShop = ({ setShowAddressForm, accessToken, setNewAddress }) => {
+
+const AddressShop = ({ setShowAddressForm, accessToken, setNewAddress,setAddress }) => {
+
   const [City, setCity] = useState(null);
   const [District, setDistrict] = useState(null);
   const [Ward, setWard] = useState(null);
@@ -72,8 +76,15 @@ const AddressShop = ({ setShowAddressForm, accessToken, setNewAddress }) => {
         setMsAddress(true);
         break;
       default:
+
         setNewAddress(`${City},${District},${Ward}`);
         setShowAddressForm(false);
+
+        setAddress(City);
+        setNewAddress(`${City},${District},${Ward}`);
+        setShowAddressForm(false);
+
+
       // axios
       //   .post("https://localhost:7241/api/Shop", NewAddressAdd, {
       //     headers: {
@@ -89,7 +100,11 @@ const AddressShop = ({ setShowAddressForm, accessToken, setNewAddress }) => {
     setShowAddressForm(false);
   };
 
+
   console.log(City, District, Ward);
+
+
+
 
   return (
     <div className="confirmation-modal">

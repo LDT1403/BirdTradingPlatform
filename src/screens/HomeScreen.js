@@ -1,9 +1,8 @@
 import React from "react";
 import Header from "../components/Header";
-// import Main from "../components/Home/Main";
 import Sidebar from "../components/sidebar";
 import Main from "../components/HomeShop/Main";
-// import Sidebar from "./../components/sidebar";
+
 
 const HomeScreen = () => {
     return (

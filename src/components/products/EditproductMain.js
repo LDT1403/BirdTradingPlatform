@@ -190,15 +190,19 @@ const EditProductMain = (props) => {
                                                 <label htmlFor="product_title" className="form-label">
                                                     Category
                                                 </label>
-                                                <input
-                                                    type="text"
-                                                    placeholder="Type here"
+                                                <select
                                                     className="form-control"
                                                     id="product_title"
                                                     required
                                                     value={CateId}
                                                     onChange={(e) => setCateId(e.target.value)}
-                                                />
+                                                >
+                                                    <option value="">Select a category</option>
+                                                    <option value="chim">Bird</option>
+                                                    <option value="do-an">Food</option>
+                                                    <option value="long-chim">Bird Cage</option>
+                                                    <option value="phu-kien">Bird Accessories</option>
+                                                </select>
                                             </div>
                                             <div className="mb-4">
                                                 <label className="form-label">Description</label>

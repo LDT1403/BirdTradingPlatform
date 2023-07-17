@@ -1,5 +1,5 @@
 import React from "react";
-import { Routes, Route, Navigate, Link } from 'react-router-dom';
+import { Routes, Route, Navigate } from 'react-router-dom';
 import ViewShopId from "../pages/ViewShopId";
 import Home from '../pages/Home';
 import Shopping from '../pages/Shopping'
@@ -15,13 +15,24 @@ import OrderStatus from "../pages/OrderStatus";
 import MyPurchase from "../pages/MyPurchase";
 import OrderDetail from "../components/UI/myPurchase/OrderDetail";
 import AccountUser from "../pages/AccountUser";
+
 // import AccountShop from "../components/Categories/AccountShop";
+
+
+import FeedBack from "../components/UI/myPurchase/FeedBack";
 
 
 const Router = () => {
     const user = useSelector((state) => state.auth.login.currentUser);
     return (
         <Routes>
+            {(user.role === "CUS" || user.role === "SP" || user.role === "AD") && (
+                <>
+                    <Route path="/MyPurchase/*" element={<MyPurchase />} />
+                    <Route path="/OrderDetail/:id" element={<OrderDetail />} />
+                    <Route path="/accountUser" element={<AccountUser />} />
+                </>
+            )}
             <Route path="/login" element={<Login />} />
             <Route path="/" element={<Navigate to='/home' />} />
             <Route path="/home" element={<Home />} />
@@ -31,14 +42,17 @@ const Router = () => {
             <Route path="/cart" element={<Cart />} />
             <Route path="/checkout" element={user.UserId ? <CheckOut /> : <Navigate to="/login" />} />
             <Route path="/register" element={<Register />} />
-            {/* <Route path="/forgotPassword" element={<ForgotPassword />} /> */}
             <Route path="/contact" element={<Contact />} />
             <Route path="/registerShop" element={<RegisterShop />} />
             <Route path="/orderStatus" element={<OrderStatus />} />
+
             <Route path="/MyPurchase/*" element={<MyPurchase />} />
             <Route path="/OrderDetail/:id" element={<OrderDetail />} />
             <Route path="/accountUser" element={<AccountUser/>} />
             {/* <Route path="/accountShop" element={<AccountShop/>}/> */}
+
+
+            <Route path="/feedback/*" element={<FeedBack />} />
 
         </Routes>
     )

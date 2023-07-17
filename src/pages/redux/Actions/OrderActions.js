@@ -1,4 +1,4 @@
-import { Navigate } from "react-router-dom";
+//import { Navigate } from "react-router-dom";
 import {
     ORDER_CANCEL_FAIL,
     ORDER_CANCEL_REQUEST,
@@ -69,7 +69,7 @@ export const getOrderDetails = (id) => async (dispatch) => {
                 ? error.response.data.message
                 : error.message;
         if (message === "Not authorized, token failed") {
-            // dispatch(logout());
+          
         }
         dispatch({
             type: ORDER_DETAILS_FAIL,

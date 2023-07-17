@@ -1,5 +1,5 @@
 import axios from "axios";
-import { loginFailed, loginStart, loginSuccess, registerFailed, registerStart, registerSuccess, logoutFailed, logoutStart, logoutSuccess} from "./authSilce";
+import { loginFailed, loginStart, loginSuccess, registerFailed, registerStart, registerSuccess, logoutFailed, logoutStart, logoutSuccess } from "./authSilce";
 import { toast } from 'react-toastify';
 import jwt_decode from "jwt-decode";
 import { changePasswordFailed, changePasswordStart, changePasswordSuccess, registerShopFailed, registerShopStart, registerShopSuccess, updateUserFailed, updateUserStart, updateUserSuccess } from "./userSlice";
@@ -12,22 +12,28 @@ export const loginUser = async (user, dispatch, navigate) => {
     // console.log(dispatch)
     try {
         const res = await axios.post("https://localhost:7241/api/User/Login", user);
+        if (res.status = 200) {
+            if (res.data.message === "Email Or Password Incorrect :(") {
+                toast.error(res.data.message);
+            } else if (res.data.message === "Login Success") {
+                const token = jwt_decode(res.data.data.accessToken);
+                dispatch(loginSuccess(token));
+                saveTokenToLocalStorage(res.data.data.accessToken);
+                if (token.role === 'AD') {
+                    navigate("/dashboard");
+                } else {
+                    navigate(-1);
+                }
+            } else {
+                toast.error(res.data.message);
+            }
 
-        const token = jwt_decode(res.data.data.accessToken);
-        console.log(token)
-        dispatch(loginSuccess(token));
-        saveTokenToLocalStorage(res.data.data.accessToken);
-        if (token.role === 'AD') {
-            navigate("/dashboard");
-        } else {
-            navigate("/");
         }
-
 
     } catch (err) {
         console.log(err)
         dispatch(loginFailed());
-        toast.error("Sai Email hoac Password");
+        toast.error("Not information");
     }
 };
 function saveTokenToLocalStorage(token) {
@@ -62,15 +68,18 @@ export const registerUser = async (user, dispatch, navigate) => {
 }
 
 
-export const logOut = async (dispatch, navigate, accessToken) => {
+export const logOut = async (dispatch, navigate) => {
     dispatch(logoutStart());
     try {
-        console.log("dddf")
-        await axios.post("https://localhost:7241/api/User/logout", {
+        const accessToken = localStorage.getItem('jwtToken');
+
+        const config = {
             headers: {
-                Authorization: `Bearer ${accessToken}`
-            }
-        });
+                Authorization: `Bearer ${accessToken}`,
+            },
+        };
+        await axios.post("https://localhost:7241/api/User/logout", {}, config
+        );
         dispatch(logoutSuccess());
         localStorage.removeItem('jwtToken');
         navigate("/home");
@@ -107,20 +116,20 @@ export const registerShop = async (shop, dispatch, navigate, accessToken) => {
     }
 }
 
-export const changePassword = async ( userPassword,dispatch,accessToken) => {
+export const changePassword = async (userPassword, dispatch, accessToken) => {
     console.log(userPassword);
     console.log(accessToken);
     console.log(dispatch)
     dispatch(changePasswordStart());
     try {
-      
-        await axios.post("https://localhost:7241/api/User/ChangePassword", userPassword ,{
+
+        await axios.post("https://localhost:7241/api/User/ChangePassword", userPassword, {
             headers: {
-              Authorization: `Bearer ${accessToken}`,
+                Authorization: `Bearer ${accessToken}`,
             },
-          })
+        })
         dispatch(changePasswordSuccess());
-       
+
         // navigate("/home");
     } catch (err) {
         console.log("err")
@@ -129,26 +138,26 @@ export const changePassword = async ( userPassword,dispatch,accessToken) => {
     }
 
 }
-export const updateUser = async ( newUser,accessToken,dispatch) => {
-     console.log(newUser);
+export const updateUser = async (newUser, accessToken, dispatch) => {
+    console.log(newUser);
     console.log(dispatch);
     dispatch(updateUserStart());
     try {
-        const formData =new FormData();
-        formData.append('Dob',newUser.Dob);
-        formData.append('Address',newUser.Address);
-        formData.append('Phone',newUser.Phone);
-        formData.append('Gender',newUser.Gender);
-        formData.append('Name',newUser.Name);
-        formData.append('avatar',newUser.avatar);
+        const formData = new FormData();
+        formData.append('Dob', newUser.Dob);
+        formData.append('Address', newUser.Address);
+        formData.append('Phone', newUser.Phone);
+        formData.append('Gender', newUser.Gender);
+        formData.append('Name', newUser.Name);
+        formData.append('avatar', newUser.avatar);
 
-        await axios.put("https://localhost:7241/api/User/UpdateMee", formData ,{
+        await axios.put("https://localhost:7241/api/User/UpdateMee", formData, {
             headers: {
-              Authorization: `Bearer ${accessToken}`,
+                Authorization: `Bearer ${accessToken}`,
             },
-          })
+        })
         dispatch(updateUserSuccess());
-       
+
         // navigate("/home");
     } catch (err) {
         console.log("err")
