@@ -1,7 +1,9 @@
 import { useEffect, useState } from "react";
+import {  useNavigate } from "react-router-dom";
 import axios from "axios";
 import { toast } from 'react-toastify';
 const UserReportShop = ({ shopId, setShowReportShop }) => {
+     const navigate = useNavigate();
      const accessToken = localStorage.getItem('jwtToken');
      const [CateReport, setCateReport] = useState([]);
      const [DetailFB, setDetailFB] = useState("");
@@ -23,24 +25,30 @@ const UserReportShop = ({ shopId, setShowReportShop }) => {
 
      }
      const handleReport = () => {
-          if (categoriaI == 0 || DetailFB.length < 1) {
-               setDReport(true);
-          }
-          if (categoriaI !=0  && DetailFB.length > 1) {
-               axios.post(`https://localhost:7241/api/Customer/reportShop`, ReportData, {
-                    headers: {
-                         Authorization: `Bearer ${accessToken}`
+          if (accessToken) {
+               if (categoriaI == 0 || DetailFB.length < 1) {
+                    setDReport(true);
+               }
+               if (categoriaI != 0 && DetailFB.length > 1) {
+                    axios.post(`https://localhost:7241/api/Customer/reportShop`, ReportData, {
+                         headers: {
+                              Authorization: `Bearer ${accessToken}`
+                         }
+
+                    }).then(response => {
+                         setShowReportShop(false)
+                         toast.success("Report Success")
+
                     }
 
-               }).then(response => {
-                    setShowReportShop(false)
-                    toast.success("Report Success")
+                    )
 
                }
-
-               )
-
           }
+          if (!accessToken) {
+               navigate("/login");
+          }
+
 
      }
 

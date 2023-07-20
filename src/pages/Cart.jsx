@@ -1,22 +1,18 @@
 import React, { useEffect, useState } from "react";
 import axios from 'axios';
-import { Link, useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { cartActions } from "./redux/cartSlice"
 import { Col, Container, Row } from "reactstrap";
 import ProductCard from "../components/UI/product-card/ProductCard";
 import "../style/cart-page.css";
 import numeral from 'numeral';
-import { data } from "jquery";
 import { listCarts } from "./redux/Actions/CartActions";
 const Cart = () => {
     const accessToken = localStorage.getItem('jwtToken');
-    const [orderSelect, setOrderSelect] = useState({});
+    const [orderSelect, setOrderSelect] = useState([]);
     const [showConfirmation, setShowConfirmation] = useState(false);
     const [ProductName, setProductName] = useState("");
     const [productsData, setProductsData] = useState([]);
-    const productsByShop = {};
     const [showNotification, setShowNotification] = useState(false);
     const [dataCart, setDataCart] = useState([]);
     const [ShowNull, setShowNull] = useState(true);
@@ -24,6 +20,7 @@ const Cart = () => {
     const dispatch = useDispatch();
     const [cartID, setcartID] = useState(0);
     const [quantity, setquantity] = useState(0);
+    const [total, setTotal] = useState(0);
     const reloadData = () => {
         axios.get(`https://localhost:7241/api/Order/ViewCart`, {
             headers: {
@@ -59,43 +56,87 @@ const Cart = () => {
                 console.log(err);
             });
     }, []);
+    console.log(orderSelect)
 
-
-    const toggleSelectProduct = () => {
-
-    };
-
-    const toggleSelectShop = (shopId) => {
-
-    };
-
-    const setShopSelected = (shopId, selected) => {
-        const updatedOrderSelect = { ...orderSelect };
-        const shopProducts = productsByShop[shopId].products;
-
-        if (selected) {
-            shopProducts.forEach((product) => {
-                updatedOrderSelect[product.productId] = product;
-            });
+    const toggleSelectProduct = (data) => {
+        let updatedOrderSelect = [...orderSelect];
+        const finded = updatedOrderSelect.find(u => u.productId === data.productId)
+        if (finded) {
+            updatedOrderSelect = updatedOrderSelect.filter(u => u.productId !== data.productId)
         } else {
-            shopProducts.forEach((product) => {
-                delete updatedOrderSelect[product.productId];
-            });
+            const shop = dataCart.find(item => item.shopId === data.shopId);
+            const product = shop.products.find(item => item.productId === data.productId);
+            if (product) {
+                const p = {
+                    shopId: shop.shopId,
+                    shopName: shop.shopName,
+                    productId: product.productId,
+                    productName: product.productName,
+                    thumbnail: product.imageProduct,
+                    quantity: product.quantityCart,
+                    soldPrice: product.priceProduct,
+                    totalPrice: product.priceCart,
+                }
+                updatedOrderSelect.push(p)
+            }
         }
-
         setOrderSelect(updatedOrderSelect);
     };
 
-    const getProductShopId = (productId) => {
 
+    const toggleSelectShop = (shopId) => {
+        const shop = dataCart.find(item => item.shopId === shopId);
+        const products = shop.products
+
+        let isAllExist = true;
+        for (let p of products) {
+            let finded = orderSelect.find(o => o.productId === p.productId)
+            if (!finded) {
+                isAllExist = false;
+            }
+        }
+
+        if (isAllExist) {
+            let afterFilter = orderSelect.filter(o => !products.find(p => p.productId === o.productId))
+            console.log(afterFilter)
+            setOrderSelect(afterFilter)
+        }else
+        {
+            const newArr = [...orderSelect]
+            for (let p of products) {
+                const finded = orderSelect.find(u => u.productId === p.productId)
+                if (!finded) {
+                    const prd = {
+                        shopId: shop.shopId,
+                        shopName: shop.shopName,
+                        productId: p.productId,
+                        productName: p.productName,
+                        thumbnail: p.imageProduct,
+                        quantity: p.quantityCart,
+                        soldPrice: p.priceProduct,
+                        totalPrice: p.priceCart,
+                    }
+                    newArr.push(prd)
+                }
+            }
+            setOrderSelect(newArr)
+        }
     };
 
-    const getProductById = (productId) => {
-    };
+    const handleShopChecked = (shopId) => {
+        const shop = dataCart.find(item => item.shopId === shopId);
+        const products = shop.products
 
-    const incrementItem = (product) => {
+        let isAllExist = true;
+        for (let p of products) {
+            let finded = orderSelect.find(o => o.productId === p.productId)
+            if (!finded) {
+                isAllExist = false;
+            }
+        }
 
-    };
+        return isAllExist
+    }
 
     const UpdateItem = (data) => {
         setProductName(data.productName);
@@ -163,9 +204,21 @@ const Cart = () => {
 
 
     };
-    const calculateTotalPrice = () => {
 
-    };
+    useEffect(() => {
+        if (dataCart) {
+            let totalPrice = 0;
+
+            for (const p of orderSelect) {
+                const shop = dataCart.find(item => item.shopId === p.shopId);
+                const product = shop.products.find(item => item.productId === p.productId);
+                console.log(product);
+                totalPrice += product.priceProduct * product.quantityCart;
+            }
+            setTotal(totalPrice);
+        }
+    }, [dataCart, orderSelect])
+
     const handleCheckout = () => {
         if (Object.keys(orderSelect).length === 0) {
             setShowNotification(true);
@@ -178,6 +231,11 @@ const Cart = () => {
         setShowNotification(false);
 
     };
+
+    const setCheckedProduct = (productId) => {
+        let finded = orderSelect.find(u => u.productId === productId)
+        return !!finded;
+    }
 
     return (
         <div className="Cart-page">
@@ -229,7 +287,7 @@ const Cart = () => {
                     </div>
 
                     {
-                        ShowNull == true && (
+                        ShowNull === true && (
                             <div style={{ height: '400px', backgroundColor: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                                 <div>
                                     <img style={{ height: '100px', margin: '0% 40%' }} src="https://th.bing.com/th/id/R.243d0e0ebe06da1c163b355961f024a7?rik=%2f6oK8VKD8oY%2fmg&riu=http%3a%2f%2fwww.bulongviet.com%2fUploads%2fimages%2ficon_03.png&ehk=1%2fn9ChdNLIGH5HrtYoChSZvw5ST66JFRc7bI7B9OfhA%3d&risl=&pid=ImgRaw&r=0" alt="" />
@@ -252,6 +310,7 @@ const Cart = () => {
                                             class="red-input"
                                             type="checkbox"
                                             onChange={() => toggleSelectShop(shop.shopId)}
+                                            checked={handleShopChecked(shop.shopId)}
                                         />
                                     </div>
                                     {shop.shopName}
@@ -260,7 +319,7 @@ const Cart = () => {
 
                                 <div className="cart-page-products">
                                     {shop.products.map((product, index) => (
-                                        <div className="cart-shop-products" key={product.productId}>
+                                        <div className="cart-shop-products" key={index}>
                                             {
                                                 product.quantityProduct > 0 && (
                                                     <>
@@ -268,8 +327,8 @@ const Cart = () => {
                                                             <input
                                                                 class="red-input"
                                                                 type="checkbox"
-                                                                onChange={() => toggleSelectProduct(product.productId)}
-                                                            // checked={!!orderSelect[product.productId]}
+                                                                onChange={() => toggleSelectProduct({ productId: product.productId, shopId: shop.shopId })}
+                                                                checked={setCheckedProduct(product.productId)}
                                                             />
 
                                                         </div>
@@ -318,13 +377,13 @@ const Cart = () => {
                         </div>
                     </div>
                     <div className="cart-products-totalCheckOut">
-                        <div className="cart-inFor">Tổng Thanh Toán:  <div className="don-vi" style={{ marginLeft: '5px' }}>₫</div>{numeral(calculateTotalPrice()).format('0,0')}</div>
+                        <div className="cart-inFor">Tổng Thanh Toán:  <div className="don-vi" style={{ marginLeft: '5px' }}>₫</div>{numeral(total).format('0,0')}</div>
                     </div>
                     <div className="cart-products-num">
 
                         <div className="btn-cart-checkOut">
                             <button className="bt-checkout-page" onClick={handleCheckout}>
-                               Mua Hàng
+                                Mua Hàng
                             </button>
                         </div>
 
@@ -360,8 +419,8 @@ const Cart = () => {
             {showNotification && (
                 <div className="confirmation-modal">
                     <div className="confirm-checkout-OK">
-                        <div className="confirm-checkout-text">   Please select the products you want to purchase.</div>
-                        <button onClick={handleCheckoutOk}>OK</button>
+                        <div className="confirm-checkout-text">  Vui lòng chọn sản phẩm muốn mua.</div>
+                        <button onClick={handleCheckoutOk}>Đồng Ý</button>
                     </div>
 
                 </div>

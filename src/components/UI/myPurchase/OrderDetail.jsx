@@ -6,45 +6,45 @@ import numeral from 'numeral';
 const OrderDetail = () => {
      const location = useLocation();
      const orderSelect = location.state?.order || {};
-     const status = location.state?.status
+     // const status = location.state?.status
      const navigate = useNavigate();
      const handleGoBack = () => {
           navigate(-1); // Điều hướng quay lại trang trước đó
      };
      const handleViewShopClick = (shopID) => {
-         
+
           navigate(`/viewShop/${shopID}`);
      }
      return (
-          <div className="MyPurchase-page" style={{ minHeight: '700px' }}>
+          <div className="MyPurchase-page" style={{ minHeight: '90vh' }}>
                <div className="MyPurchase-page-body">
                     <div className="Detail-order-log">
                          <button onClick={handleGoBack}>
                               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="icon-back-orderDetail">
                                    <path fillRule="evenodd" d="M7.72 12.53a.75.75 0 010-1.06l7.5-7.5a.75.75 0 111.06 1.06L9.31 12l6.97 6.97a.75.75 0 11-1.06 1.06l-7.5-7.5z" clipRule="evenodd" />
                               </svg>
-                            TRỞ LẠI
+                              TRỞ LẠI
                          </button>
                          <div className="Detail-order-log" >
                               <div className="Detail-id">MÃ ĐƠN HÀNG. {orderSelect.orderId}</div>
                               <div className="Detail-id">|</div>
                               {
-                                   orderSelect.toConfirm == 2 && (
+                                   orderSelect.toConfirm === 2 && (
                                         <div className="Detail-text" style={{ color: 'red' }}>ĐƠN HÀNG ĐANG CHỜ XÁC NHẬN</div>
                                    )
                               }
                               {
-                                   orderSelect.toConfirm == 3 && !orderSelect.receivedDate && (
+                                   orderSelect.toConfirm === 3 && !orderSelect.receivedDate && (
                                         <div className="Detail-text" >ĐƠN HÀNG ĐANG GIAO</div>
                                    )
                               }
                               {
-                                   orderSelect.receivedDate &&  orderSelect.toConfirm == 3 &&(
+                                   orderSelect.receivedDate && orderSelect.toConfirm === 3 && (
                                         <div className="Detail-text" style={{ color: 'green' }}>ĐƠN HÀNG ĐÃ HOÀN THÀNH</div>
                                    )
                               }
-                               {
-                                   orderSelect.cancelDate &&  (
+                              {
+                                   orderSelect.cancelDate && (
                                         <div className="Detail-text" style={{ color: 'gray' }} >ĐƠN HÀNG KHÔNG THÀNH CÔNG</div>
                                    )
                               }
@@ -104,8 +104,8 @@ const OrderDetail = () => {
                                    </div>
 
                                    <div className="toPay-Product-price">
-                                        <div className="toPay-num" style={{ textDecoration: "line-through" }}>${numeral(product.productPrice).format('0,0')}</div>
-                                        <div className="toPay-numSoldPrice">${numeral(product.discountPrice).format('0,0')}</div>
+                                        <div className="toPay-num" style={{ textDecoration: "line-through" }}><div className="don-vi-pay" >₫</div>{numeral(product.productPrice).format('0,0')}</div>
+                                        <div className="toPay-numSoldPrice"><div className="don-vi-pay" >₫</div>{numeral(product.discountPrice).format('0,0')}</div>
                                    </div>
 
 
@@ -114,19 +114,17 @@ const OrderDetail = () => {
                     </div>
                     <div className="Detail-order-log-5">
                          <div id="log-do-price-text">Thành Tiền </div>
-                         <div id="log-do-number-text">{numeral(orderSelect.totalPrice).format('0,0')} </div>
+                         <div id="log-do-number-text"><div className="don-vi-pay" >₫</div>{numeral(orderSelect.totalPrice).format('0,0')} </div>
                     </div>
                     <div className="Detail-order-log-5">
                          <div id="log-do-price-text">Phương Thức Thanh Toán</div>
                          <div id="log-do-payment-text">{
-
-                              orderSelect.paymentMethod == "Cash" && (
+                              orderSelect.paymentMethod === "Cash" && (
                                    "Thanh toan khi nhan hang"
                               )
                          }
                               {
-
-                                   orderSelect.paymentMethod == "VnPay" && (
+                                   orderSelect.paymentMethod === "VnPay" && (
                                         "Thanh toán VnPay"
                                    )
                               }
