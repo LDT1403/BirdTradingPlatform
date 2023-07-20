@@ -12,8 +12,8 @@ import { useDispatch } from "react-redux";
 import { listCarts } from "./redux/Actions/CartActions";
 
 const Home = () => {
-    const reloadData = () => {}
-    const dispatch=useDispatch();
+    const reloadData = () => { }
+    const dispatch = useDispatch();
     const [data, setData] = useState([]);
     useEffect(() => {
         axios.get('https://localhost:7241/api/Products/Hot_Product')
@@ -64,8 +64,8 @@ const Home = () => {
         <Helmet title="Home">
             <div className="home-page-log ">
                 <div className="mb-4 " >
-                    <Container className="" style={{paddingTop:'10px'}}>
-                        <Row style={{backgroundColor: '#fff', boxShadow: '0 2px 1px 0 rgba(0, 0, 0, .05)'}}>
+                    <Container className="" style={{ paddingTop: '10px' }}>
+                        <Row style={{ backgroundColor: '#fff', boxShadow: '0 2px 1px 0 rgba(0, 0, 0, .05)' }}>
                             <Col lg='6' md='6'>
                                 <div className="brid__content">
                                     <h5 className="mb-3">Esay way to make an order</h5>
@@ -126,28 +126,28 @@ const Home = () => {
                             }
 
                         </Row> */}
-                        <Row style={{padding:'0px 0px'}}>
-                        {displayedProducts?.map(item => (
-                          <Col lg='3' md='7' sm='7' style={{padding:'0', marginLeft:'11px', maxWidth:'209px'}}  key={item.productId}>
-                            <ProductCard item={item} onReloadData={reloadData}  />
-                          </Col>
-                        ))}
-                      </Row>
+                        <Row style={{ padding: '0px 0px' }}>
+                            {displayedProducts?.map(item => (
+                                <Col lg='3' md='7' sm='7' style={{ padding: '0', marginLeft: '11px', maxWidth: '209px' }} key={item.productId}>
+                                    <ProductCard item={item} onReloadData={reloadData} />
+                                </Col>
+                            ))}
+                        </Row>
                         {showLoadMore && !loadingMore && (
                             <button className="load-more-button mt-2" onClick={loadMoreProducts}>
-                                Load More
+                                Thêm
                             </button>
                         )}
                         {loadingMore && (
                             <div className="loading-message">
-                                Loading more products...
+                                Đang Tải Thêm Sản Phẩm...
                             </div>
                         )}
                         {!showLoadMore && showRetry && (
                             <div className="no-more-products-message">
-                                No more products available
+                                Không còn sản phẩm để thêm
                                 <button className="retry-button" onClick={retryLoadMore}>
-                                    Retry
+                                    Thử Lại
                                 </button>
                             </div>
                         )}

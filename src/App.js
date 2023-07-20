@@ -21,31 +21,19 @@ import NotFound from "./screens/NotFound";
 import { useDispatch, useSelector } from "react-redux";
 import HomeScreen from "./screens/HomeScreen";
 import PrivateRouter from "./PrivateRouter";
-import { listOrders } from './pages/redux/Actions/OrderActions';
-import { useEffect } from 'react';
-import { listProducts } from './pages/redux/Actions/ProductActions';
+
 import UserScreen from './screenAdmin/UserScreen';
 // import DashBoard from './screenAdmin/DashBoardScreen';
 import ShopScreen from './screenAdmin/ShopScreen';
 import DashBoardScreen from './screenAdmin/DashBoardScreen';
-import { listShop, listUser } from './pages/redux/Actions/userActions';
+
 
 function App() {
   const user = useSelector((state) => state.auth.login.currentUser);
   const shop = useSelector((state) => state.users.registerShop.currentShop);
   console.log(shop);
 
-  const dispatch = useDispatch();
-  useEffect(() => {
-    if (user.role === 'SP' || shop.roleId === "SP") {
-      dispatch(listOrders());
-      dispatch(listProducts());
-    }
-    if (user.role === 'AD') {
-      dispatch(listShop());
-      dispatch(listUser());
-    }
-  }, [dispatch]);
+
   return (
     <>
 

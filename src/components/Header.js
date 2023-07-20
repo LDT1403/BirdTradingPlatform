@@ -45,7 +45,7 @@ const Header = () => {
                             list="search_terms"
                             type="text"
                             className="form-control"
-                            placeholder="Search term"
+                            placeholder="Tìm Kiếm ..."
                         />
                         <button className="btn btn-light bg" type="button">
                             <i class="ri-search-line"></i>
@@ -93,18 +93,18 @@ const Header = () => {
                         </Link>
                         {isOpen && (
                             <div className="dropdown-menu dropdown-menu-end" style={{ display: "block", position: 'fixed' }}>
-                                <Link className="dropdown-item" to="/">
-                                    My profile
+                                <Link className="dropdown-item" to="/category">
+                                    Tài Khoản
                                 </Link>
-                                <Link className="dropdown-item" to="#">
+                                {/* <Link className="dropdown-item" to="#">
                                     Settings
-                                </Link>
+                                </Link> */}
                                 <Link
                                     // onClick={logoutHandler}
                                     className="dropdown-item text-danger"
                                     to="/"
                                 >
-                                    Exit
+                                    Thoát
                                 </Link>
                             </div>
                         )}

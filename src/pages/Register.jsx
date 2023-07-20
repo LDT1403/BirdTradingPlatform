@@ -169,13 +169,13 @@ const Register = () => {
                 <div className="Register-body animate__animated animate__fadeInDown">
                     <div className="form-body">
                         <div className="form-content">
-                            <h2 className="text-center">Register</h2>
+                            <h2 className="text-center">Đăng Ký</h2>
 
                             <div className="form-group mt-3">
                                 <span>Email (*)</span>
                                 <input
                                     name="email"
-                                    placeholder="Enter email"
+                                    placeholder="Nhập email"
                                     className="input-box"
                                     value={email}
                                     ref={(element) => {
@@ -189,10 +189,10 @@ const Register = () => {
                             </div>
 
                             <div className="form-group">
-                                <span>Full Name (*)</span>
+                                <span>Họ Và Tên (*)</span>
                                 <input
                                     name="fullname"
-                                    placeholder="Enter FullName"
+                                    placeholder="Nhập Họ và Tên"
                                     type="text"
                                     className="input-box"
                                     value={fullName}
@@ -240,11 +240,11 @@ const Register = () => {
 
                             </div> */}
                             <div className="form-group mt-3">
-                                <span>Password (*)</span>
+                                <span>Mật Khẩu (*)</span>
                                 <input
                                     name="password"
                                     type="password"
-                                    placeholder="Enter password"
+                                    placeholder="Nhập Mật Khẩu"
                                     className="input-box"
                                     value={password}
                                     // required
@@ -267,11 +267,11 @@ const Register = () => {
                                 ></span>
                             </div>
                             <div className="form-group mt-3">
-                                <span>Enter Confirm Password (*)</span>
+                                <span>Nhập Lại Mật Khẩu (*)</span>
                                 <input
                                     name="confirmPassword"
                                     type="password"
-                                    placeholder="Confirm Password"
+                                    placeholder="Nhập Mật Khẩu"
                                     className="input-box"
                                     // required
                                     ref={(element) => {
@@ -295,7 +295,7 @@ const Register = () => {
                             </div>
 
                             <div className="form-group mt-3">
-                                <span>Gender (*)</span>
+                                <span>Giới Tính (*)</span>
                                 <div className="sex">
                                     <div className="checkbox-group">
                                         <input
@@ -318,7 +318,7 @@ const Register = () => {
                                             className="form-check-label"
                                             htmlFor="flexRadioDefault1"
                                         >
-                                            Male
+                                            Nam
                                         </label>
                                     </div>
                                     <div className="checkbox-group">
@@ -340,7 +340,7 @@ const Register = () => {
                                             className="form-check-label"
                                             htmlFor="flexRadioDefault1"
                                         >
-                                            Female
+                                            Nữ
                                         </label>
                                     </div>
                                 </div>
@@ -353,12 +353,12 @@ const Register = () => {
                                     ></span>
                                 </center>
                             </div>
-                            <button className="btn-register mt-3" onClick={handleRegister}>
-                                Register
+                            <button className="btn-register mt-3" style={{ color: "#fff" }} onClick={handleRegister}>
+                                Đăng Ký
                             </button>
                             <div className="sign-up mt-3">
-                                <span>You have an Account ?</span>
-                                <Link to="/login">Login</Link>
+                                <span>Bạn Đã Tài Khoản ?</span>
+                                <Link to="/login">Đăng Nhập</Link>
                             </div>
                         </div>
                     </div>

@@ -48,7 +48,7 @@ const Sidebar = () => {
                                 to="/products"
                             >
                                 <i className="icon fas fa-shopping-bag"></i>
-                                <span className="text">Products</span>
+                                <span className="text">Sản Phẩm</span>
                             </NavLink>
                         </li>
                         <li className="menu-item">
@@ -58,7 +58,7 @@ const Sidebar = () => {
                                 to="/addproduct"
                             >
                                 <i className="icon fas fa-cart-plus"></i>
-                                <span className="text">Add product</span>
+                                <span className="text">Thêm Sản Phẩm</span>
                             </NavLink>
                         </li>
                         <li className="menu-item">
@@ -68,7 +68,7 @@ const Sidebar = () => {
                                 to="/category"
                             >
                                 <i className="icon fas fa-list"></i>
-                                <span className="text">Account</span>
+                                <span className="text">Tài Khoản</span>
                             </NavLink>
                         </li>
                         <li className="menu-item">
@@ -78,7 +78,7 @@ const Sidebar = () => {
                                 to="/orders"
                             >
                                 <i className="icon ri-handbag-fill"></i>
-                                <span className="text">Orders</span>
+                                <span className="text">Đơn Hàng</span>
                             </NavLink>
                         </li>
                         {/* <li className="menu-item">
@@ -91,7 +91,7 @@ const Sidebar = () => {
                                 <span className="text">Users</span>
                             </NavLink>
                         </li> */}
-                        <li className="menu-item">
+                        {/* <li className="menu-item">
                             <NavLink
                                 activeClassName="active"
                                 className="menu-link disabled"
@@ -100,7 +100,7 @@ const Sidebar = () => {
                                 <i className="icon fas fa-store-alt"></i>
                                 <span className="text">Sellers</span>
                             </NavLink>
-                        </li>
+                        </li> */}
 
                         {/* <li className="menu-item">
                             <NavLink

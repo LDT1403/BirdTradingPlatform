@@ -106,12 +106,12 @@ const EditProductMain = (props) => {
                 <form onSubmit={submitHandler}>
                     <div className="content-header">
                         <Link to="/products" className="btn btn-danger text-white">
-                            Go to products
+                            Quay Về
                         </Link>
-                        <h2 className="content-title">Update Product</h2>
+                        <h2 className="content-title">Chỉnh Sửa Sản Phẩm</h2>
                         <div>
                             <button type="submit" className="btn btn-primary">
-                                Publish now
+                                Thêm Sản Phẩm
                             </button>
                         </div>
                     </div>
@@ -132,7 +132,7 @@ const EditProductMain = (props) => {
                                         <>
                                             <div className="mb-4">
                                                 <label htmlFor="product_title" className="form-label">
-                                                    Product title
+                                                    Tên Sản Phẩm
                                                 </label>
                                                 <input
                                                     type="text"
@@ -146,7 +146,7 @@ const EditProductMain = (props) => {
                                             </div>
                                             <div className="mb-4">
                                                 <label htmlFor="product_price" className="form-label">
-                                                    Price
+                                                    Giá Tiền
                                                 </label>
                                                 <input
                                                     type="text"
@@ -160,7 +160,7 @@ const EditProductMain = (props) => {
                                             </div>
                                             <div className="mb-4">
                                                 <label htmlFor="product_price" className="form-label">
-                                                    Discount
+                                                    Giảm Giá
                                                 </label>
                                                 <input
                                                     type="text"
@@ -174,7 +174,7 @@ const EditProductMain = (props) => {
                                             </div>
                                             <div className="mb-4">
                                                 <label htmlFor="product_price" className="form-label">
-                                                    Quantity
+                                                    Số Lượng
                                                 </label>
                                                 <input
                                                     type="text"
@@ -188,7 +188,7 @@ const EditProductMain = (props) => {
                                             </div>
                                             <div className="mb-4">
                                                 <label htmlFor="product_title" className="form-label">
-                                                    Category
+                                                    Phân Loại
                                                 </label>
                                                 <select
                                                     className="form-control"
@@ -197,15 +197,15 @@ const EditProductMain = (props) => {
                                                     value={CateId}
                                                     onChange={(e) => setCateId(e.target.value)}
                                                 >
-                                                    <option value="">Select a category</option>
-                                                    <option value="chim">Bird</option>
-                                                    <option value="do-an">Food</option>
-                                                    <option value="long-chim">Bird Cage</option>
-                                                    <option value="phu-kien">Bird Accessories</option>
+                                                    <option value="">Chọn Loại</option>
+                                                    <option value="chim">Chim</option>
+                                                    <option value="do-an">Đồ Ăn</option>
+                                                    <option value="long-chim">Lồng Chim</option>
+                                                    <option value="phu-kien">Phụ Kiện</option>
                                                 </select>
                                             </div>
                                             <div className="mb-4">
-                                                <label className="form-label">Description</label>
+                                                <label className="form-label">Chi Tiết</label>
                                                 <textarea
                                                     placeholder="Type here"
                                                     className="form-control"

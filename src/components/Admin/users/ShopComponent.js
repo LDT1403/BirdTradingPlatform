@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import Loading from "../../LoadingError/Loading";
 import Message from "../../LoadingError/Error";
 import { banShop, listShop, unbanShop } from "../../../pages/redux/Actions/userActions";
-import logo from '../../../assets/images/Chim.png'
+import logo from '../../../assets/images/account-circle-line.png'
 import moment from "moment";
 import { useState } from "react";
 import ReportShop from "./ReportShop";
@@ -54,7 +54,7 @@ const ShopComponent = () => {
         <section className="content-main">
 
             <div className="content-header">
-                <h2 className="content-title">Shop</h2>
+                <h2 className="content-title">Cửa Hàng</h2>
             </div>
 
             <div className="card mb-4 shadow-sm">
@@ -95,18 +95,18 @@ const ShopComponent = () => {
                             <table className="table">
                                 <thead>
                                     <tr>
-                                        <th scope="col">No</th>
-                                        <th scope="col">Image</th>
-                                        <th scope="col">Name</th>
+                                        <th scope="col">STT</th>
+                                        <th scope="col">Hình ảnh</th>
+                                        <th scope="col">Tên </th>
 
                                         <th scope="col">Email</th>
-                                        <th scope="col">Gender</th>
-                                        <th scope="col">BrithDay</th>
+                                        <th scope="col">Giới Tính</th>
+                                        <th scope="col">Ngày Sinh</th>
                                         {/* <th scope="col">Address</th>
                                         <th scope="col">Phone</th> */}
-                                        <th scope="col">ShopName</th>
-                                        <th scope="col">PhoneShop</th>
-                                        <th scope="col">AddressShop</th>
+                                        <th scope="col">Cửa Hàng</th>
+                                        <th scope="col">Số điện thoại</th>
+                                        <th scope="col">Địa chỉ</th>
                                         {/* <th>Status</th> */}
                                         <th scope="col" className="text-end">
                                             Action

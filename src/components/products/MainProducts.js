@@ -33,16 +33,16 @@ const MainProducts = () => {
     return (
         <section className="content-main">
             <div className="content-header">
-                <h2 className="content-title">Products</h2>
+                <h2 className="content-title">Sản Phẩm</h2>
                 <div>
                     <Link to="/addproduct" className="btn btn-primary">
-                        Create new
+                        Tạo Mới
                     </Link>
                 </div>
             </div>
 
             <div className="card mb-4 shadow-sm">
-                <header className="card-header bg-white ">
+                {/* <header className="card-header bg-white ">
                     <div className="row gx-3 py-3">
                         <div className="col-lg-4 col-md-6 me-auto ">
                             <input
@@ -67,7 +67,7 @@ const MainProducts = () => {
                             </select>
                         </div>
                     </div>
-                </header>
+                </header> */}
 
                 <div className="card-body">
                     {errorDelete && (
@@ -129,7 +129,7 @@ const Pagination = ({ currentPage, totalPages, onPageChange }) => {
             <ul className="pagination">
                 <li className={`page-item ${currentPage === 1 ? 'disabled' : ''}`}>
                     <Link className="page-link" to="#" onClick={() => onPageChange(currentPage - 1)}>
-                        Previous
+                        Sau
                     </Link>
                 </li>
                 {pageNumbers.map(pageNumber => (
@@ -141,7 +141,7 @@ const Pagination = ({ currentPage, totalPages, onPageChange }) => {
                 ))}
                 <li className={`page-item ${currentPage === totalPages ? 'disabled' : ''}`}>
                     <Link className="page-link" to="#" onClick={() => onPageChange(currentPage + 1)}>
-                        Next
+                        Trước
                     </Link>
                 </li>
             </ul>
