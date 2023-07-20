@@ -3,13 +3,14 @@ import React from "react";
 import { Link } from "react-router-dom";
 import Message from "../LoadingError/Error";
 import Loading from "../LoadingError/Loading";
+import numeral from "numeral";
 
 const LatestOrder = (props) => {
     const { loading, error, orders } = props;
 
     return (
         <div className="card-body">
-            <h4 className="card-title">New orders</h4>
+            <h4 className="card-title">Đơn Hàng Mới</h4>
             {loading ? (
                 <Loading />
             ) : error ? (
@@ -24,15 +25,15 @@ const LatestOrder = (props) => {
                                         <p>{order.name}</p>
                                     </td>
                                     <td>{order.email}</td>
-                                    <td>${order.totalPrice}</td>
+                                    <td >₫ {numeral(order.totalPrice).format('0,0')}</td>
                                     <td>
                                         {order.status ? (
                                             <span className="badge bg-success">
-                                                Paid At {moment(order.paidAt).format("MMM Do YY")}
+                                                Đã Thanh Toán {moment(order.paidAt).format("MMM Do YY")}
                                             </span>
                                         ) : (
                                             <span className="badge bg-danger">
-                                                Not Paid
+                                                Chưa Thanh Toán
                                             </span>
                                         )}
                                     </td>

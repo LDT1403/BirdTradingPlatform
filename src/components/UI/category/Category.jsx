@@ -8,19 +8,19 @@ import '../../../style/category.css';
 
 const categoryData = [
     {
-        display: 'Bird',
+        display: 'Chim',
         imgUrl: categoryImg2
     },
     {
-        display: 'Food',
+        display: 'Đồ Ăn',
         imgUrl: categoryImg1
     },
     {
-        display: 'Bird Cage',
+        display: 'Lồng Chim',
         imgUrl: categoryImg3
     },
     {
-        display: 'accessory',
+        display: 'Phụ Kiện Chim',
         imgUrl: categoryImg4
     },
 
@@ -37,7 +37,7 @@ const Category = () => {
                             <div className="category__item">
                                 <div className="category__img d-flex align-item-center justify-content-center gap-1">
                                     <img src={item.imgUrl} alt="category__item" />
-                                    <h6>{item.display}</h6>
+                                    <div className="tit">{item.display}</div>
 
                                 </div>
                             </div>

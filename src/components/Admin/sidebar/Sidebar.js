@@ -79,7 +79,7 @@ const Sidebar = () => {
                                 to="/shops"
                             >
                                 <i class="icon ri-shopping-cart-fill"></i>
-                                <span className="text">Shop</span>
+                                <span className="text">Cửa Hàng</span>
                             </NavLink>
                         </li>
                         <li className="menu-item">
@@ -89,7 +89,7 @@ const Sidebar = () => {
                                 to="/users"
                             >
                                 <i className="icon fas fa-user"></i>
-                                <span className="text">Users</span>
+                                <span className="text">Khách Hàng</span>
                             </NavLink>
                         </li>
                         <li className="menu-item">
@@ -101,7 +101,7 @@ const Sidebar = () => {
                             >
 
                                 <i className="icon fa-solid fa-right-from-bracket"></i>
-                                <span className="text">Logout</span>
+                                <span className="text">Đăng Xuất</span>
                             </NavLink>
                         </li>
                         {/* <li className="menu-item">

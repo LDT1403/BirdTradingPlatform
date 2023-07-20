@@ -48,7 +48,7 @@ const UserStatics = () => {
         <div className="col-xl-6 col-lg-12">
             <div className="card mb-4 shadow-sm">
                 <article className="card-body">
-                    <h5 className="card-title">Top 5 Most Purchased Users</h5>
+                    <div className="card-title">Top 5 Khách Hàng Mua Nhiều Nhất</div>
                     <div>
                         <Bar data={chartData} options={chartOptions} />
                     </div>

@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import moment from "moment";
+import numeral from "numeral";
 
 const Orders = (props) => {
     const { orders } = props;
@@ -8,14 +9,14 @@ const Orders = (props) => {
         <table className="table">
             <thead>
                 <tr>
-                    <th scope="col">Name</th>
+                    <th scope="col">Tên</th>
                     <th scope="col">Email</th>
-                    <th scope="col">Total</th>
-                    <th scope="col">Paid</th>
-                    <th scope="col">Date</th>
-                    <th>Status</th>
+                    <th scope="col">Tổng Tiền</th>
+                    <th scope="col">Thanh Toán</th>
+                    <th scope="col">Ngày Thanh Toán</th>
+                    <th>Trạng Thái</th>
                     <th scope="col" className="text-end">
-                        Action
+                        Xem
                     </th>
                 </tr>
             </thead>
@@ -26,15 +27,15 @@ const Orders = (props) => {
                             <b>{order.userName}</b>
                         </td>
                         <td>{order.email}</td>
-                        <td>${order.totalPrice}</td>
+                        <td>₫ {numeral(order.totalPrice).format('0,0')}</td>
                         <td>
                             {order.status ? (
                                 <span className="badge bg-success">
-                                    Paid At {moment(order.paidAt).format("MMM Do YY")}
+                                    Đã Thanh Toán {moment(order.paidAt).format("MMM Do YY")}
                                 </span>
                             ) : (
                                 <span className="badge bg-danger">
-                                    Not Paid
+                                    Chưa Thanh Toán
                                 </span>
                             )}
                         </td>
@@ -42,11 +43,11 @@ const Orders = (props) => {
                         <td>
                             {
                                 order.toConfirm === 2 ? (
-                                    <span className="badge bg-warning">Proceesing</span>
+                                    <span className="badge bg-warning">Đang xử lý</span>
                                 ) : order.toConfirm === 3 ? (
-                                    <span className="badge bg-success">Confirmed</span>
+                                    <span className="badge bg-success">Đã xác nhận</span>
                                 ) : order.toConfirm === 4 ? (
-                                    <span className="badge bg-danger">Cancel</span>
+                                    <span className="badge bg-danger">Đã Hủy</span>
                                 ) : (
                                     <span className="badge bg-info">Không xác định</span>
                                 )

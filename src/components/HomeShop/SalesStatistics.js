@@ -51,12 +51,12 @@ const SaleStatistics = () => {
 
     const data = {
         labels: [
-            'January', 'February', 'March', 'April', 'May', 'June',
-            'July', 'August', 'September', 'October', 'November', 'December'
+            'Tháng 1', 'Tháng 2', 'Tháng 3', 'Tháng 4', 'Tháng 5', 'Tháng 6',
+            'Tháng 7', 'Tháng 8', 'Tháng 9', 'Tháng 10', 'Tháng 11', 'Tháng 12'
         ],
         datasets: [
             {
-                label: 'Revenue',
+                label: 'Doanh Thu',
                 data: monthlyRevenueData,
                 backgroundColor: '#FF6384',
                 hoverBackgroundColor: '#FF6384',
@@ -86,7 +86,7 @@ const SaleStatistics = () => {
             },
             tooltip: {
                 callbacks: {
-                    label: (context) => `Revenue: $${context.formattedValue}`,
+                    label: (context) => `Doanh Thu: đ ${context.formattedValue}`,
                 },
             },
         },
@@ -95,7 +95,7 @@ const SaleStatistics = () => {
         <div className="col-xl-6 col-lg-12">
             <div className="card mb-4 shadow-sm">
                 <article className="card-body">
-                    <h5 className="card-title">Sale statistics</h5>
+                    <div className="card-title" style={{ fontSize: "18px" }}>Thống kê Doanh Thu Theo Tháng</div>
                     {/* <iframe
                         style={{
                             background: "#FFFFFF",

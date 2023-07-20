@@ -16,9 +16,12 @@
     border-radius: 50%;
 }
 
-.category__img h6 {
-    padding: 10px;
+.tit {
+
+    padding: 5px;
     color: #fff;
+    font-size: 20px;
+    font-weight: bold;
 }
 
 @media only screen and (max-width: 576px) {

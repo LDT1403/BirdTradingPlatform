@@ -17,19 +17,19 @@ const Header = () => {
   const user = useSelector((state) => state.auth.login.currentUser);
   const nav__links = [
     {
-      display: "Home",
+      display: "Trang Chủ",
       path: "/home",
     },
     {
-      display: "Shop",
+      display: "Cửa Hàng",
       path: "/shop",
     },
     {
-      display: "Cart",
+      display: "Giỏ Hàng",
       path: "/cart",
     },
     {
-      display: "My Purchase",
+      display: "Đơn Hàng Của Tôi",
       path: "/MyPurchase/confirmed",
     },
   ];
@@ -46,7 +46,7 @@ const Header = () => {
     if (loading === false && error !== "Request failed with status code 401") {
       loadsub();
     }
-    if(error === "Request failed with status code 401") {
+    if (error === "Request failed with status code 401") {
       setSub([])
     }
   }, [loading]);
@@ -178,16 +178,16 @@ const Header = () => {
                 {user.UserId ? (
                   <div className="d-flex align-items-center justify-content-center flex-column">
                     <Link to={isShopExist ? "/manageshop" : "/registerShop"}>
-                      My Shop
+                      Cửa Hàng của Tôi
                     </Link>
-                    <Link to="/AccountUser">Account</Link>
+                    <Link to="/AccountUser">Tài Khoản</Link>
                     <Link to="/logout" onClick={handleLogOut}>
-                      Logout
+                      Đăng Xuất
                     </Link>
                   </div>
                 ) : (
                   <Link to="/login">
-                    Login
+                    Đăng Nhập
                     {/* <i className="ri-user-line"></i> */}
                   </Link>
                 )}

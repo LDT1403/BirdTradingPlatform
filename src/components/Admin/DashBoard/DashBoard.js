@@ -2,15 +2,26 @@ import React from "react";
 import TopShop from "./TopShop";
 import ShopStatics from "./ShopStatics";
 import UserStatics from "./UserStatics";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
+import { getTotalOrder, listShop, listUser } from "../../../pages/redux/Actions/userActions";
+import TopFeedBack from "./TopFeedBack";
 
 
 const DashBoard = () => {
     const userList = useSelector((state) => state.userList);
-    const { users } = userList || {}; // Provide default value of empty object
+    const { users } = userList || {};
     const shopList = useSelector((state) => state.shopList);
-    const { shops } = shopList || {}; // Provide default value of empty object
+    const { shops } = shopList || {};
+    const totalOrder = useSelector((state) => state.totalOrder);
+    const { totalorder } = totalOrder || {};
 
+    const dispatch = useDispatch();
+    useEffect(() => {
+        dispatch(listShop());
+        dispatch(listUser());
+        dispatch(getTotalOrder());
+    }, [])
     return (
         <>
             <section className="content-main">
@@ -20,7 +31,7 @@ const DashBoard = () => {
                 </div>
                 {/* Top Total */}
 
-                <TopShop users={users} shops={shops} />
+                <TopShop users={users} shops={shops} totalorder={totalOrder} />
 
                 <div className="row">
                     {/* STATICS */}
@@ -31,6 +42,7 @@ const DashBoard = () => {
                 {/* LATEST ORDER */}
                 <div className="card mb-4 shadow-sm">
                     {/* <LatestOrder orders={orders} loading={loading} error={error} /> */}
+                    <TopFeedBack />
                 </div>
             </section>
         </>
