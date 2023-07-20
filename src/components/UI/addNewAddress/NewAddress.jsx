@@ -65,10 +65,7 @@ const NewAddress = ({ setShowAddNewAddress, setShowNotification, accessToken }) 
                setWardag(1)
           }
      }, [Wardag]);
-     const handleAddDetail = (value) => {
-          setAddressDetails(value);
-          setMsAddressDetails(false)
-     }
+ 
 
      const handleSubmit = () => {
           switch (true) {
@@ -119,12 +116,16 @@ const NewAddress = ({ setShowAddNewAddress, setShowNotification, accessToken }) 
           } else if (e.target.id === "myInputPhone") {
                setPhone(e.target.value);
                setMsPhone(false);
+          }else if (e.target.id === "myInputAddressDetails") {
+               setAddressDetails(e.target.value);
+               setMsAddressDetails(false);
           }
      };
+
      return (
           <div className="confirmation-modal">
                <div className="log-add-newAddress">
-                    <div className="log-add-newAddress-tiltel"> New Address</div>
+                    <div className="log-add-newAddress-tiltel"> Địa Chỉ Mới</div>
                     <div className="add-FullName-PhoneNumber">
                          <div className="FullName-logAdd">
                               <input
@@ -134,10 +135,10 @@ const NewAddress = ({ setShowAddNewAddress, setShowNotification, accessToken }) 
                                    onChange={handleInfo}
                                    required
                               />
-                              <label htmlFor="myInputFullName">Full Name</label>
+                              <label htmlFor="myInputFullName">Họ và Tên</label>
                               {
                                    MsFullName && (
-                                        <p id="massage-er-input">input FullName</p>
+                                        <p id="massage-er-input">Vui lòng điền Họ và Tên</p>
                                    )
                               }
 
@@ -150,10 +151,10 @@ const NewAddress = ({ setShowAddNewAddress, setShowNotification, accessToken }) 
                                    onChange={handleInfo}
                                    required
                               />
-                              <label htmlFor="myInputPhone">Phone Number</label>
+                              <label htmlFor="myInputPhone">Số điện thoại</label>
                               {
                                    MsPhone && (
-                                        <p id="massage-er-input">input PhoneNumber</p>
+                                        <p id="massage-er-input">Vui lòng điền Số điện thoại</p>
                                    )
                               }
 
@@ -163,39 +164,41 @@ const NewAddress = ({ setShowAddNewAddress, setShowNotification, accessToken }) 
 
                     </div>
                     <div className="Address-log-add ">
-                         <SelectAddress label='Province' setCity={setCity} setidCity={setidCity} Province={Province} setDistrictag={setDistrictag} setWardag={setWardag} setDistrict={setDistrict} setidDistrict={setidDistrict} setMsAddress={setMsAddress} />
-                         <SelectAddress label='District' setDistrict={setDistrict} setidDistrict={setidDistrict} DistrictData={DistrictData} setWardag={setWardag} setWard={setWard} setMsAddress={setMsAddress} />
-                         <SelectAddress label='Ward' setWard={setWard} WardData={WardData} setMsAddress={setMsAddress} />
+                         <SelectAddress label='Tỉnh/Thành Ph..' setCity={setCity} setidCity={setidCity} Province={Province} setDistrictag={setDistrictag} setWardag={setWardag} setDistrict={setDistrict} setidDistrict={setidDistrict} setMsAddress={setMsAddress} />
+                         <SelectAddress label='Quận/Huyện' setDistrict={setDistrict} setidDistrict={setidDistrict} DistrictData={DistrictData} setWardag={setWardag} setWard={setWard} setMsAddress={setMsAddress} />
+                         <SelectAddress label='Phường/Xã' setWard={setWard} WardData={WardData} setMsAddress={setMsAddress} />
                     </div>
                     {
                          MsAddress && (
-                              <p id="massage-er-input">Please select your Address</p>
+                              <p id="massage-er-input">Vui lòng chọn Tỉnh/Thành Phố, Quận/Huyện, Phường/Xã</p>
                          )
                     }
                     <div className="addDetail-logAdd">
                          <input
-                              placeholder="Street Name, Building, House No."
+                              id="myInputAddressDetails"
                               type="text"
                               value={addressDetails}
-                              onChange={(e) => handleAddDetail(e.target.value)} />
-
+                              onChange={handleInfo}
+                              required />
+                         <label htmlFor="myInputAddressDetails">Địa chỉ cụ thể</label>
+                         {
+                              MsAddressDetails && (
+                                   <p id="massage-er-input">Vui lòng điền địa chỉ cụ thể </p>
+                              )
+                         }
                     </div>
-                    {
-                         MsAddressDetails && (
-                              <p id="massage-er-input">please input your address details</p>
-                         )
-                    }
+
                     <div className="height-log">
 
                     </div>
                     {
                          MsAllNull && (
-                              <h5>Please provide complete information</h5>
+                              <h5>Vui lòng cung cấp thông tin đầy đủ nhận hàng</h5>
                          )
                     }
                     <div className="cf-ad-bt-bottom">
-                         <button onClick={handleCancelAdd}>Cancel</button>
-                         <button className="cf-ad-bt-confirm" onClick={handleSubmit}> Submit </button>
+                         <button onClick={handleCancelAdd}>Hủy</button>
+                         <button className="cf-ad-bt-confirm" onClick={handleSubmit}> Xác Nhận </button>
                     </div>
                </div>
           </div>

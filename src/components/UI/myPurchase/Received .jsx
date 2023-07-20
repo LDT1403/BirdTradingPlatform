@@ -61,7 +61,7 @@ const Received = () => {
      return (
           <div className="option-page-MyPurChase"   >
                {ShowLogItemsNull && (
-                    <div style={{ minHeight: '500px', backgroundColor: '#fff' }}></div>
+                    <div style={{ minHeight: '85vh', backgroundColor: '#fff' }}></div>
                )}
                {ShowLogItems && (
                     <div>

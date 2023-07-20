@@ -111,7 +111,7 @@ const ProductCard = (props ) => {
             </Link>
             <div class="cart-icon-product" onClick={addToCart}>
                 <button class="fas fa-cart-plus" ></button>
-                <span class="label-text">Add to Cart</span>
+                <div class="label-text">Thêm Giỏ Hàng</div>
             </div>
 
             <div className=" p-2">
