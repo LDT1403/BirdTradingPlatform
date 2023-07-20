@@ -35,11 +35,11 @@ const SelectAddress = ({ label, Province, setCity, setidCity, DistrictData, setD
   return (
     <div className="select-address-log1">
       {
-        label === 'Province' && (
+        label === 'Tỉnh/Thành Ph..' && (
           <select className="select-address"
             onChange={handleCity}
           >
-            <option value="" className="select-options sources">{`--Select ${label}--`}</option>
+            <option value="" className="select-options sources">{`--Chọn ${label}--`}</option>
             {Province.map((result) => (
               <option key={result.province_id} value={result.province_name} data-province-id={result.province_id}  >
                 {result.province_name}
@@ -48,10 +48,10 @@ const SelectAddress = ({ label, Province, setCity, setidCity, DistrictData, setD
           </select>)
       }
       {
-        label === 'District' && (
+        label === 'Quận/Huyện' && (
           <select className="select-address"
             onChange={handleDistrict}>
-            <option value="" className="select-options sources">{`--Select ${label}--`}</option>
+            <option value="" className="select-options sources">{`--Chọn ${label}--`}</option>
             {DistrictData.map((result) => (
               <option key={result.district_id} value={result.district_name} data-district-id={result.district_id}>
                 {result.district_name}
@@ -61,10 +61,10 @@ const SelectAddress = ({ label, Province, setCity, setidCity, DistrictData, setD
       }
 
       {
-        label === 'Ward' && (
+        label === 'Phường/Xã' && (
           <select className="select-address"
             onChange={handleWard}>
-            <option value="" className="select-options sources">{`--Select ${label}--`}</option>
+            <option value="" className="select-options sources">{`--Chọn ${label}--`}</option>
             {WardData.map((result) => (
               <option key={result.ward_id} value={result.ward_name} data-ward-id={result.ward_id}>
                 {result.ward_name}

@@ -347,6 +347,7 @@
 
 .checkOut-numText {
     width: 15%;
+    justify-content: end;
     display: flex;
     justify-content: end;
     align-items: center;
@@ -395,13 +396,17 @@
 }
 
 .checkOut-subitem {
-    width: 35%;
+    justify-content: end;
+    display: flex;
+    width: 30%;
     font-size: 18px;
 }
 
 .checkOut-num {
     width: 15%;
+    display: flex;
     color: #828686;
+    justify-content: end;
 }
 
 .checkOut-message {
