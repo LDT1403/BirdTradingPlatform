@@ -274,7 +274,8 @@ const ShopDetail = () => {
             thumbnail: ListImg[0],
             quantity: quantity,
             soldPrice: details.soldPrice,
-            totalPrice: quantity * details.soldPrice
+            totalPrice: quantity * details.soldPrice,
+            cartId :0,
         }
     }
 

@@ -76,6 +76,7 @@ const Cart = () => {
                     quantity: product.quantityCart,
                     soldPrice: product.priceProduct,
                     totalPrice: product.priceCart,
+                    cartId : product.cartId
                 }
                 updatedOrderSelect.push(p)
             }
@@ -115,6 +116,7 @@ const Cart = () => {
                         quantity: p.quantityCart,
                         soldPrice: p.priceProduct,
                         totalPrice: p.priceCart,
+                        cartId : p.cartId
                     }
                     newArr.push(prd)
                 }
@@ -243,7 +245,7 @@ const Cart = () => {
                 showConfirmation && (
                     <div className="confirmation-modal">
                         <div className="confirmation-modal-content">
-                            <div className="text-confirmation">Do you want to remove this item?</div>
+                            <div className="text-confirmation">Bạn có muốn xóa mục này không?</div>
                             <div className="productName-confirmation"> {ProductName}</div>
                             <div className="button-confirm" >
                                 <button className="button-yes-confirm" onClick={() => handleConfirmation()}>Yes</button>

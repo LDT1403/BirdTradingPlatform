@@ -33,6 +33,7 @@ const Header = () => {
       path: "/MyPurchase/confirmed",
     },
   ];
+
   const menuRef = useRef(null);
   const headerRef = useRef(null);
   const dispatch = useDispatch();
@@ -41,7 +42,7 @@ const Header = () => {
   const { loading, error, carts } = cartList;
   useEffect(() => {
     const loadsub = () => {
-      setSub(cartList.carts.map((cart) => cart))
+      setSub(cartList.carts?.map((cart) => cart))
     };
     if (loading === false && error !== "Request failed with status code 401") {
       loadsub();
@@ -128,16 +129,46 @@ const Header = () => {
                 </span>
               </div>
               {nav__links.map((item, index) => (
-                <NavLink
-                  to={item.path}
-                  key={index}
-                  className={(navClass) =>
-                    navClass.isActive ? "active__menu" : ""
+                <>
+                  { (!user.UserId &&  item.display !== "Đơn Hàng Của Tôi") && (
+                    (
+                      <NavLink
+                        to={item.path}
+                        key={index}
+                        className={(navClass) =>
+                          navClass.isActive ? "active__menu" : ""
+                        }
+                      >
+                        {item.display}
+                      </NavLink>
+
+                    )
+                  )
+
                   }
-                // onClick={toggleMenu}
-                >
-                  {item.display}
-                </NavLink>
+                  
+                  {user.UserId && (
+                    <NavLink
+                      to={item.path}
+                      key={index}
+                      className={(navClass) =>
+                        navClass.isActive ? "active__menu" : ""
+                      }
+                    >
+                      {item.display}
+                    </NavLink>
+                  )}
+                </>
+                // <NavLink
+                //   to={item.path}
+                //   key={index}
+                //   className={(navClass) =>
+                //     navClass.isActive ? "active__menu" : ""
+                //   }
+                // // onClick={toggleMenu}
+                // >
+                //   {item.display}
+                // </NavLink>
               ))}
             </div>
           </div>
@@ -147,7 +178,7 @@ const Header = () => {
             <span className="cart__icon" onClick={toggleCart}>
               <i className="ri-shopping-basket-line"></i>
 
-              <span className="cart__badge">{sub.length}</span>
+              <span className="cart__badge">{sub?.length|| 0}</span>
             </span>
             <div className="profile">
               {user.UserId ? (
