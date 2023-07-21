@@ -24,7 +24,21 @@ const CheckOut = () => {
     const dispatch = useDispatch()
     const [addressData, setAddressData] = useState([]);
     const [showLoadDing, setLoadDing] = useState(false);
-
+    const [cartIdsToDelete, setCartIdsToDelete] = useState([]);
+    useEffect(()=>{
+        const cartIds = Object.values(orderSelect)
+        .map((item) => item.cartId)
+        .filter((cartId) => cartId !== 0);
+      setCartIdsToDelete(cartIds);
+    },[orderSelect])
+    console.log(cartIdsToDelete);
+    const DeleteCartItem = ( ) =>{
+        axios.post("https://localhost:7241/api/Order/DeleteCarts", cartIdsToDelete, {
+            headers: {
+                Authorization: `Bearer ${accessToken}`
+            }
+        })
+    }
     useEffect(() => {
         const fetchData = () => {
             axios
@@ -175,6 +189,7 @@ const CheckOut = () => {
                             })
                                 .then(response => {
                                     if (response.data.paymentUrl === null) {
+                                        DeleteCartItem();
                                         setLoadDing(false)
                                         navigate("/MyPurchase/to-confirmation");
                                         dispatch(cartActions.deleteMultipleItems(orderSelectID));
@@ -214,7 +229,8 @@ const CheckOut = () => {
                                 }
                             })
                                 .then(response => {
-                                    setLoadDing(false)
+                                    DeleteCartItem();
+                                    setLoadDing(false);
                                     const paymentUrl = response.data.paymentUrl;
                                     window.location.href = `${paymentUrl}`;
                                     dispatch(cartActions.deleteMultipleItems(orderSelectID));
