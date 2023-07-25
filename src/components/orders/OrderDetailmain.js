@@ -44,7 +44,7 @@ const OrderDetailmain = (props) => {
         <section className="content-main">
             <div className="content-header">
                 <Link to="/orders" className="btn btn-dark text-white">
-                    Back To Orders
+                    Quay Về
                 </Link>
             </div>
 
@@ -100,11 +100,11 @@ const OrderDetailmain = (props) => {
                                 <div className="box shadow-sm bg-light">
                                     {order.toConfirm === 3 ? (
                                         <button className="btn btn-success col-12 mb-2">
-                                            CONFIRMED ({moment(order.confirmDate).format("MMM Do YY")})
+                                            Đã Xác Nhận ({moment(order.confirmDate).format("MMM Do YY")})
                                         </button>
                                     ) : order.toConfirm === 4 ? (
                                         <button className="btn btn-danger col-12 mb-2">
-                                            CANCELED ({moment(order.cancelDate).format("MMM Do YY")})
+                                            Đã Hủy ({moment(order.cancelDate).format("MMM Do YY")})
                                         </button>
                                     ) : (
                                         <>
@@ -112,23 +112,23 @@ const OrderDetailmain = (props) => {
 
                                             {confirmed ? (
                                                 <button className="btn btn-dark col-12 mb-2" disabled>
-                                                    Confirm
+                                                    Xác Nhận
                                                 </button>
                                             ) : (
                                                 <button
                                                     onClick={deliverHandler}
                                                     className="btn btn-dark col-12 mb-2"
                                                 >
-                                                    Confirm
+                                                    Xác Nhận
                                                 </button>
                                             )}
                                             {confirmed ? (
                                                 <button className="btn btn-dark col-12" disabled>
-                                                    Cancel
+                                                    Hủy
                                                 </button>
                                             ) : (
                                                 <button onClick={cancelHandler} className="btn btn-dark col-12">
-                                                    Cancel
+                                                    Hủy
                                                 </button>
                                             )}
                                         </>

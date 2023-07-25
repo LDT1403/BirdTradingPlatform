@@ -27,18 +27,22 @@ const ProductsStatistics = () => {
     }
 
     const weeklyRevenueData = week.dailyRevenue;
-    console.log(weeklyRevenueData);
     const dates = week.weekdays;
 
     const totalRevenue = weeklyRevenueData.reduce((sum, revenue) => sum + revenue, 0);
-    console.log(totalRevenue);
     const revenuePercentages = weeklyRevenueData.map(revenue => (revenue / totalRevenue) * 100);
-    console.log(revenuePercentages);
+
+    // Function to get the Vietnamese day of the week
+    const getVietnameseDayOfWeek = (dayOfWeek) => {
+        const vietnameseDays = ['Chủ Nhật', 'Thứ Hai', 'Thứ Ba', 'Thứ Tư', 'Thứ Năm', 'Thứ Sáu', 'Thứ Bảy'];
+        return vietnameseDays[dayOfWeek];
+    };
+
     const formattedDates = dates.map(dateString => {
         const date = new Date(dateString);
-        const dayOfWeek = date.toLocaleDateString('en-US', { weekday: 'long' });
+        const dayOfWeek = getVietnameseDayOfWeek(date.getDay());
         const day = date.getDate();
-        const month = date.toLocaleDateString('en-US', { month: 'long' });
+        const month = date.toLocaleDateString('vi-VN', { month: 'long' });
         const year = date.getFullYear();
         const formattedDate = `${dayOfWeek}, ${day} ${month} ${year}`;
         return formattedDate;
@@ -46,9 +50,9 @@ const ProductsStatistics = () => {
 
     const formattedDatesWithDay = dates.map(dateString => {
         const date = new Date(dateString);
-        const dayOfWeek = date.toLocaleDateString('en-US', { weekday: 'long' });
+        const dayOfWeek = date.toLocaleDateString('vi-VN', { weekday: 'long' });
         const day = date.getDate();
-        const month = date.toLocaleDateString('en-US', { month: 'long' });
+        const month = date.toLocaleDateString('vi-VN', { month: 'long' });
         const year = date.getFullYear();
         const formattedDateWithDay = `${dayOfWeek}, ${day} ${month} ${year}`;
         return formattedDateWithDay;
@@ -90,7 +94,7 @@ const ProductsStatistics = () => {
         <div className="col-xl-6 col-lg-12">
             <div className="card mb-4 shadow-sm">
                 <article className="card-body">
-                    <h5 className="card-title">Products statistics</h5>
+                    <h5 className="card-title">Thống Kê Doanh Thu Tuần</h5>
                     <div style={{
                         background: "#FFFFFF",
                         border: "none",

@@ -1,4 +1,7 @@
 import {
+    GET_TOTAL_ORDER_FAIL,
+    GET_TOTAL_ORDER_REQUEST,
+    GET_TOTAL_ORDER_SUCCESS,
     SHOP_BAN_FAIL,
     SHOP_BAN_REQUEST,
     SHOP_BAN_RESET,
@@ -125,6 +128,19 @@ export const shopUnBanReducer = (state = {}, action) => {
             return { loading: false, error: action.payload };
         case SHOP_UNBAN_RESET:
             return {};
+        default:
+            return state;
+    }
+};
+export const getTotalOrderReducer = (state = {}, action) => {
+    switch (action.type) {
+        case GET_TOTAL_ORDER_REQUEST:
+            return { loading: true };
+        case GET_TOTAL_ORDER_SUCCESS:
+            return { loading: false, totalorder: action.payload };
+        case GET_TOTAL_ORDER_FAIL:
+            return { loading: false, error: action.payload };
+
         default:
             return state;
     }

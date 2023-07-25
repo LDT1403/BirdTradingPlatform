@@ -11,11 +11,11 @@ const OrderDetailInfo = (props) => {
                         <i className="text-success fas fa-user" style={{ backgroundColor: "#b2d8b2", borderRadius: '50%', padding: '8px' }}></i>
                     </span>
                     <div className="text">
-                        <h6 className="mb-1">Customer</h6>
+                        <h6 className="mb-1">Khách Hàng</h6>
                         <p className="mb-1">
-                            <label style={{ fontWeight: 'bold' }}>Name</label> : {order.userName} <br />
+                            <label style={{ fontWeight: 'bold' }}>Tên</label> : {order.userName} <br />
                             <label style={{ fontWeight: 'bold' }}>Email</label>: <a href={`mailto:${order.email}`}>{order.email}</a> <br />
-                            <label style={{ fontWeight: 'bold' }}>Phone</label>: {order.phone}
+                            <label style={{ fontWeight: 'bold' }}>Số Điện Thoại</label>: {order.phone}
                         </p>
 
                     </div>
@@ -27,12 +27,12 @@ const OrderDetailInfo = (props) => {
                         <i className="text-success fas fa-truck-moving" style={{ backgroundColor: "#b2d8b2", borderRadius: '50%', padding: '8px' }}></i>
                     </span>
                     <div className="text">
-                        <h6 className="mb-1">Order info</h6>
+                        <h6 className="mb-1">Thông Tin Đơn Hàng</h6>
                         <p className="mb-1">
-                            <label style={{ fontWeight: 'bold' }}>Shiping </label>
+                            <label style={{ fontWeight: 'bold' }}>Vận Chuyển </label>
                             : {order.address}
                             <br />
-                            <label style={{ fontWeight: 'bold' }}> Pay method{" "} </label>
+                            <label style={{ fontWeight: 'bold' }}> Phương Thức Thanh Toán{" "} </label>
 
                             :{order.paymentMethod}
                         </p>
@@ -45,9 +45,9 @@ const OrderDetailInfo = (props) => {
                         <i className="text-success fas fa-map-marker-alt" style={{ backgroundColor: "#b2d8b2", borderRadius: '50%', padding: '8px' }}></i>
                     </span>
                     <div className="text">
-                        <h6 className="mb-1">Deliver to</h6>
+                        <h6 className="mb-1">Thông Tin Nhận Hàng</h6>
                         <p className="mb-1">
-                            <label style={{ fontWeight: 'bold' }}> Address </label>
+                            <label style={{ fontWeight: 'bold' }}> Địa Chỉ </label>
                             : {order.addressDetail}
                             <br />
                             {order.address}

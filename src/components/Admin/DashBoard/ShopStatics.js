@@ -28,12 +28,14 @@ const ShopStatistics = () => {
                 label: 'Sales',
                 data: data.totalAmounts,
                 backgroundColor: 'rgba(75, 192, 192, 0.6)',
-            },
+                borderColor: 'rgba(75, 192, 192, 1)',
+                borderWidth: 1,
+            }
         ],
     };
 
     const chartOptions = {
-        indexAxis: 'y', // Hiển thị dữ liệu theo trục y (ngang)
+        indexAxis: 'y',
         scales: {
             x: {
                 beginAtZero: true,
@@ -42,13 +44,21 @@ const ShopStatistics = () => {
                 },
             },
         },
+        plugins: {
+            legend: {
+                display: false,
+            },
+            animation: {
+                duration: 1000,
+            },
+        },
     };
 
     return (
         <div className="col-xl-6 col-lg-12">
             <div className="card mb-4 shadow-sm">
                 <article className="card-body">
-                    <h5 className="card-title">Top 5 best-selling stores</h5>
+                    <div className="card-title">Top 5 Cửa Hàng Doanh Thu Cao Nhất</div>
                     <div>
                         <Bar data={chartData} options={chartOptions} />
                     </div>

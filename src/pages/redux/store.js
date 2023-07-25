@@ -16,8 +16,9 @@ import {
 import storage from 'redux-persist/lib/storage';
 import { productCreateReducer, productDeleteReducer, productEditReducer, productListReducer, productUpdateReducer } from './Reducers/ProductReducres';
 import { orderCancelReducer, orderConfirmReducer, orderDetailsReducer, orderListReducer } from './Reducers/OrderReducres';
-import { shopBanReducer, shopListReducer, shopUnBanReducer, userBanReducer, userDeleteReducer, userListReducer, userUnBanReducer } from './Reducers/userReducers';
+import { getTotalOrderReducer, shopBanReducer, shopListReducer, shopUnBanReducer, userBanReducer, userDeleteReducer, userListReducer, userUnBanReducer } from './Reducers/userReducers';
 import { cartListReducer } from './Reducers/CartReducres';
+import { getTotalOrder } from './Actions/userActions';
 
 
 const persistConfig = {
@@ -47,7 +48,8 @@ const rootReducer = combineReducers({
     unbanUser: userUnBanReducer,
     banShop: shopBanReducer,
     unbanShop: shopUnBanReducer,
-    cart:cartListReducer,
+    cart: cartListReducer,
+    totalOrder: getTotalOrderReducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

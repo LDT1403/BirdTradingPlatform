@@ -19,27 +19,21 @@ const ToastObjects = {
 const AddProductMain = () => {
     const [ProductName, setProductName] = useState("");
     const [Price, setPrice] = useState("");
-    // const [image, setImage] = useState("");
     const [DiscountPercent, setDiscountPercent] = useState("");
     const [Decription, setDescription] = useState("");
     const [CateId, setCateId] = useState("");
     const [Quantity, setQuantity] = useState("");
     const [ImageFile, setImageFile] = useState([]);
+    const [formErrors, setFormErrors] = useState({});
 
     const handleFileChange = (event) => {
-        // const file = event.target.files[0];
-        // setImageFile(event.target.files[0]);
-        // const files = event.target.files;
-        // const selectedImagesArray = Array.from(files);
-        // setImageFile(selectedImagesArray);
-        // console.log(ImageFile)
-        const newImages = [...ImageFile]; // Create a copy of the current images array
+        const newImages = [...ImageFile];
         for (let i = 0; i < event.target.files.length; i++) {
             newImages.push(event.target.files[i]);
         }
-
         setImageFile(newImages);
     };
+
     const dispatch = useDispatch();
 
     const productCreate = useSelector((state) => state.productCreate);
@@ -49,20 +43,77 @@ const AddProductMain = () => {
         if (product) {
             toast.success("Product Added", ToastObjects);
             dispatch({ type: PRODUCT_CREATE_RESET });
-            // setproductName("");
-            // setDescription("");
-            // setCountInStock(0);
-            // setImage("");
-            // setPrice(0);
+            resetForm();
         }
     }, [product, dispatch]);
 
+    const validateForm = () => {
+        const errors = {};
+
+        if (!ProductName) {
+            errors.ProductName = "Tên Sản Phẩm không được bỏ trống.";
+        }
+
+        if (!Price) {
+            errors.Price = "Giá Tiền không được bỏ trống.";
+        }
+
+        if (!DiscountPercent) {
+            errors.DiscountPercent = "Giảm Giá không được bỏ trống.";
+        }
+
+        if (!CateId) {
+            errors.CateId = "Phân Loại không được bỏ trống.";
+        }
+
+        if (!Quantity) {
+            errors.Quantity = "Số Lượng không được bỏ trống.";
+        }
+
+        if (isNaN(parseFloat(Price)) || parseFloat(Price) <= 0) {
+            errors.Price = "Giá Tiền phải là một số dương.";
+        }
+
+        if (isNaN(parseFloat(DiscountPercent)) || parseFloat(DiscountPercent) < 0 || parseFloat(DiscountPercent) > 100) {
+            errors.DiscountPercent = "Giảm Giá phải là một số từ 0 đến 100.";
+        }
+
+        if (isNaN(parseInt(Quantity)) || parseInt(Quantity) <= 0) {
+            errors.Quantity = "Số Lượng phải là một số nguyên dương.";
+        }
+
+        const nameRegex = /^[a-zA-Z\s]+$/;
+        if (!nameRegex.test(ProductName)) {
+            errors.ProductName = "Tên Sản Phẩm chỉ được chứa chữ cái và khoảng trắng.";
+        }
+
+        const descriptionRegex = /^[a-zA-Z0-9\s.,!?'"()-]+$/;
+        if (!descriptionRegex.test(Decription)) {
+            errors.Decription = "Chi Tiết chứa ký tự không hợp lệ.";
+        }
+
+        return errors;
+    };
+
+    const resetForm = () => {
+        setProductName("");
+        setPrice("");
+        setDiscountPercent("");
+        setDescription("");
+        setCateId("");
+        setQuantity("");
+        setImageFile([]);
+        setFormErrors({});
+    };
+
     const submitHandler = (e) => {
         e.preventDefault();
-
-
-        dispatch(createProduct(ProductName, Price, DiscountPercent, CateId, Quantity, Decription, ImageFile));
-
+        const errors = validateForm();
+        if (Object.keys(errors).length === 0) {
+            dispatch(createProduct(ProductName, Price, DiscountPercent, CateId, Quantity, Decription, ImageFile));
+        } else {
+            setFormErrors(errors);
+        }
     };
 
     return (
@@ -72,12 +123,12 @@ const AddProductMain = () => {
                 <form onSubmit={submitHandler}>
                     <div className="content-header">
                         <Link to="/products" className="btn btn-danger text-white">
-                            Go to products
+                            Quay Về
                         </Link>
-                        <h2 className="content-title">Add product</h2>
+                        <h2 className="content-title">Thêm Sản Phẩm</h2>
                         <div>
                             <button type="submit" className="btn btn-primary">
-                                Publish now
+                                Thêm Sản Phẩm
                             </button>
                         </div>
                     </div>
@@ -90,63 +141,67 @@ const AddProductMain = () => {
                                     {loading && <Loading />}
                                     <div className="mb-4">
                                         <label htmlFor="product_title" className="form-label">
-                                            Product title
+                                            Tên Sản Phẩm
                                         </label>
                                         <input
                                             type="text"
-                                            placeholder="Type here"
+                                            placeholder="Nhập ở đây ..."
                                             className="form-control"
                                             id="product_title"
                                             required
                                             value={ProductName}
                                             onChange={(e) => setProductName(e.target.value)}
                                         />
+                                        {formErrors.ProductName && <div className="invalid-feedback">{formErrors.ProductName}</div>}
                                     </div>
                                     <div className="mb-4">
                                         <label htmlFor="product_price" className="form-label">
-                                            Price
+                                            Giá Tiền
                                         </label>
                                         <input
                                             type="text"
-                                            placeholder="Type here"
+                                            placeholder="Nhập ở đây ..."
                                             className="form-control"
                                             id="product_price"
                                             required
                                             value={Price}
                                             onChange={(e) => setPrice(e.target.value)}
                                         />
+                                        {formErrors.Price && <div className="invalid-feedback">{formErrors.Price}</div>}
                                     </div>
                                     <div className="mb-4">
                                         <label htmlFor="product_price" className="form-label">
-                                            Discount
+                                            Giảm Giá
                                         </label>
                                         <input
                                             type="text"
-                                            placeholder="Type here"
+                                            placeholder="Nhập ở đây ..."
                                             className="form-control"
                                             id="product_price"
                                             // required
                                             value={DiscountPercent}
                                             onChange={(e) => setDiscountPercent(e.target.value)}
                                         />
+                                        {formErrors.DiscountPercent && <div className="invalid-feedback">{formErrors.DiscountPercent}</div>}
                                     </div>
                                     <div className="mb-4">
                                         <label htmlFor="product_price" className="form-label">
-                                            Quantity
+                                            Số Lượng
                                         </label>
                                         <input
                                             type="text"
-                                            placeholder="Type here"
+                                            placeholder="Nhập ở đây ..."
                                             className="form-control"
                                             id="product_price"
                                             required
                                             value={Quantity}
                                             onChange={(e) => setQuantity(e.target.value)}
                                         />
+                                        {formErrors.Quantity && <div className="invalid-feedback">{formErrors.Quantity}</div>}
                                     </div>
                                     <div className="mb-4">
                                         <label htmlFor="product_title" className="form-label">
-                                            Category
+                                            Phân Loại
                                         </label>
                                         <select
                                             className="form-control"
@@ -155,23 +210,25 @@ const AddProductMain = () => {
                                             value={CateId}
                                             onChange={(e) => setCateId(e.target.value)}
                                         >
-                                            <option value="">Select a category</option>
-                                            <option value="chim">Bird</option>
-                                            <option value="do-an">Food</option>
-                                            <option value="long-chim">Bird Cage</option>
-                                            <option value="phu-kien">Bird Accessories</option>
+                                            <option value="">Chọn Loại</option>
+                                            <option value="chim">Chim</option>
+                                            <option value="do-an">Đồ Ăn</option>
+                                            <option value="long-chim">Lồng Chim</option>
+                                            <option value="phu-kien">Phụ Kiện Chim</option>
                                         </select>
+                                        {formErrors.CateId && <div className="invalid-feedback">{formErrors.CateId}</div>}
                                     </div>
                                     <div className="mb-4">
-                                        <label className="form-label">Description</label>
+                                        <label className="form-label">Chi Tiết</label>
                                         <textarea
-                                            placeholder="Type here"
+                                            placeholder="Nhập ở đây ..."
                                             className="form-control"
                                             rows="7"
                                             required
                                             value={Decription}
                                             onChange={(e) => setDescription(e.target.value)}
                                         ></textarea>
+                                        {formErrors.Decription && <div className="invalid-feedback">{formErrors.Decription}</div>}
                                     </div>
                                     <div className="mb-4">
                                         {/* <label className="form-label">Images</label>
@@ -184,6 +241,7 @@ const AddProductMain = () => {
                                             onChange={(e) => setImage(e.target.value)}
                                         /> */}
                                         <input className="form-control mt-3" type="file" multiple name="file" onChange={handleFileChange} />
+                                        {formErrors.ImageFile && <div className="invalid-feedback">{formErrors.ImageFile}</div>}
                                     </div>
                                 </div>
                             </div>

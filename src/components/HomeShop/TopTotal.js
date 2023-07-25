@@ -1,4 +1,5 @@
 import axios from "axios";
+import numeral from "numeral";
 import React, { useEffect, useState } from "react";
 
 const TopTotal = (props) => {
@@ -36,8 +37,8 @@ const TopTotal = (props) => {
 
                         </span>
                         <div className="text">
-                            <h6 className="mb-1">Total Sales</h6>{" "}
-                            <span>${totalSale.toFixed(0)}</span>
+                            <h6 className="mb-1">Tổng Doanh Thu</h6>{" "}
+                            <span className="d-flex "><div className="don-vi">₫</div>{numeral(totalSale.toFixed(0)).format('0,0')}</span>
                         </div>
                     </article>
                 </div>
@@ -49,7 +50,7 @@ const TopTotal = (props) => {
                             <i className="text-success ri-handbag-fill" style={{ fontSize: "30px" }}></i>
                         </span>
                         <div className="text">
-                            <h6 className="mb-1">Total Orders</h6>
+                            <h6 className="mb-1">Tổng Đơn Hàng</h6>
                             {orders ? <span>{orders.length}</span> : <span>0</span>}
                         </div>
                     </article>
@@ -62,7 +63,7 @@ const TopTotal = (props) => {
                             <i className="text-warning fas fa-shopping-basket"></i>
                         </span>
                         <div className="text">
-                            <h6 className="mb-1">Total Products</h6>
+                            <h6 className="mb-1">Tổng sản phẩm</h6>
                             {products ? <span>{products.length}</span> : <span>0</span>}
                         </div>
                     </article>

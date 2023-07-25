@@ -77,7 +77,7 @@ const Login = () => {
                             <div className="login__form-body">
                                 <form className="login__form-content" onSubmit={handleSubmit}>
                                     <header className="Login__header">
-                                        <h2>Login</h2>
+                                        <h2>Đăng Nhập</h2>
                                     </header>
                                     <div className="login_form-group">
                                         <input
@@ -96,7 +96,7 @@ const Login = () => {
                                     <div className="login__form-group">
                                         <input
                                             type="password"
-                                            placeholder="Password"
+                                            placeholder="Mật Khẩu"
                                             className="login__input-box mt-4"
                                             value={password}
                                             onChange={(e) => setPassword(e.target.value)}
@@ -112,18 +112,18 @@ const Login = () => {
                                     >
                                         Quên mật khẩu
                                     </div>
-                                    <button className="btn-sign-in">Submit</button>
+                                    <button className="btn-sign-in">Đăng Nhập</button>
                                     <div className="separate mt-4 mb-4">
                                         <div className="line"></div>
-                                        <span>Or</span>
+                                        <span>Hoặc</span>
                                         <div className="line"></div>
                                     </div>
                                     <div className="login__google mt-3">
                                         <i className="ri-google-fill"></i>
                                     </div>
                                     <div className="sign-up mt-3">
-                                        <span>Don't have Account ?</span>
-                                        <Link to="/register">Register</Link>
+                                        <span>Bạn Chưa Có Tài Khoản ?</span>
+                                        <Link to="/register">Đăng Ký</Link>
                                     </div>
                                 </form>
                             </div>

@@ -6,6 +6,7 @@
 } */
 .option-page-MyPurChase{
      width: 1300px;
+     min-height: 85vh;
      margin: auto;
 }
 .toPay-totalPay-log{

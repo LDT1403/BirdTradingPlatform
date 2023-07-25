@@ -17,22 +17,23 @@ const Header = () => {
   const user = useSelector((state) => state.auth.login.currentUser);
   const nav__links = [
     {
-      display: "Home",
+      display: "Trang Chủ",
       path: "/home",
     },
     {
-      display: "Shop",
+      display: "Cửa Hàng",
       path: "/shop",
     },
     {
-      display: "Cart",
+      display: "Giỏ Hàng",
       path: "/cart",
     },
     {
-      display: "My Purchase",
+      display: "Đơn Hàng Của Tôi",
       path: "/MyPurchase/confirmed",
     },
   ];
+
   const menuRef = useRef(null);
   const headerRef = useRef(null);
   const dispatch = useDispatch();
@@ -41,12 +42,12 @@ const Header = () => {
   const { loading, error, carts } = cartList;
   useEffect(() => {
     const loadsub = () => {
-      setSub(cartList.carts.map((cart) => cart))
+      setSub(cartList.carts?.map((cart) => cart))
     };
     if (loading === false && error !== "Request failed with status code 401") {
       loadsub();
     }
-    if(error === "Request failed with status code 401") {
+    if (error === "Request failed with status code 401") {
       setSub([])
     }
   }, [loading]);
@@ -128,16 +129,46 @@ const Header = () => {
                 </span>
               </div>
               {nav__links.map((item, index) => (
-                <NavLink
-                  to={item.path}
-                  key={index}
-                  className={(navClass) =>
-                    navClass.isActive ? "active__menu" : ""
+                <>
+                  { (!user.UserId &&  item.display !== "Đơn Hàng Của Tôi") && (
+                    (
+                      <NavLink
+                        to={item.path}
+                        key={index}
+                        className={(navClass) =>
+                          navClass.isActive ? "active__menu" : ""
+                        }
+                      >
+                        {item.display}
+                      </NavLink>
+
+                    )
+                  )
+
                   }
-                // onClick={toggleMenu}
-                >
-                  {item.display}
-                </NavLink>
+                  
+                  {user.UserId && (
+                    <NavLink
+                      to={item.path}
+                      key={index}
+                      className={(navClass) =>
+                        navClass.isActive ? "active__menu" : ""
+                      }
+                    >
+                      {item.display}
+                    </NavLink>
+                  )}
+                </>
+                // <NavLink
+                //   to={item.path}
+                //   key={index}
+                //   className={(navClass) =>
+                //     navClass.isActive ? "active__menu" : ""
+                //   }
+                // // onClick={toggleMenu}
+                // >
+                //   {item.display}
+                // </NavLink>
               ))}
             </div>
           </div>
@@ -147,7 +178,7 @@ const Header = () => {
             <span className="cart__icon" onClick={toggleCart}>
               <i className="ri-shopping-basket-line"></i>
 
-              <span className="cart__badge">{sub.length}</span>
+              <span className="cart__badge">{sub?.length|| 0}</span>
             </span>
             <div className="profile">
               {user.UserId ? (
@@ -178,16 +209,16 @@ const Header = () => {
                 {user.UserId ? (
                   <div className="d-flex align-items-center justify-content-center flex-column">
                     <Link to={isShopExist ? "/manageshop" : "/registerShop"}>
-                      My Shop
+                      Cửa Hàng của Tôi
                     </Link>
-                    <Link to="/AccountUser">Account</Link>
+                    <Link to="/AccountUser">Tài Khoản</Link>
                     <Link to="/logout" onClick={handleLogOut}>
-                      Logout
+                      Đăng Xuất
                     </Link>
                   </div>
                 ) : (
                   <Link to="/login">
-                    Login
+                    Đăng Nhập
                     {/* <i className="ri-user-line"></i> */}
                   </Link>
                 )}

@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 // import { deleteProduct } from "../../Redux/Actions/ProductActions";
 import { deleteProduct } from "../../pages/redux/Actions/ProductActions";
+import numeral from "numeral";
 
 const Product = (props) => {
     const { product } = props;
@@ -25,7 +26,7 @@ const Product = (props) => {
                         <Link to="#" className="title text-truncate">
                             {product.productName}
                         </Link>
-                        <div className="discount-price mb-2">${product.price}</div>
+                        <div className="discount-price mb-2"><div className="don-vi">₫</div>{numeral(product.price).format('0,0')}</div>
                         {/* <nav className="discount-price mb-2">${product.soldPrice}</nav> */}
                         <div className="row">
                             <Link

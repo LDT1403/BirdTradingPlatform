@@ -33,10 +33,10 @@ const ToPay = () => {
 
      const handlePayNow = (order) => {
           setShowLoadDing(true)
-          const orderId = order.orders.map(order => order.orderId)
-          console.log(orderId);
+          const orderId = order.orders.map(order => order.parentOrderId)
+    
           const paymentMethodSelect = {
-               "orderIds": orderId,
+               "parentOrderId": orderId[0],
                method: "VnPay"
           }
           axios.post(`https://localhost:7241/api/Order/Pay`, paymentMethodSelect, {
@@ -55,10 +55,10 @@ const ToPay = () => {
      return (
           <div className="option-page-MyPurChase">
                {ShowLogItemsNull && (
-                    <div style={{ minHeight: '500px', backgroundColor: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                    <div style={{ minHeight: '85vh', backgroundColor: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                          <div>
                               <img style={{ height: '100px' }} src="https://cdn.haitrieu.com/wp-content/uploads/2022/10/Icon-VNPAY-QR-350x274.png" alt="" />
-                              <div style={{display: 'flex', justifyContent:'center', fontSize: '20px'}}>No Pays Yet</div>
+                              <div style={{display: 'flex', justifyContent:'center', fontSize: '20px'}}>Chưa có thanh toán nào !</div>
                          </div>
 
                     </div>
@@ -106,13 +106,13 @@ const ToPay = () => {
 
                          </div>
                          <div className="toPay-totalPay-log">
-                              <div>TotalPay:</div>
+                              <div>Thành Tiền:</div>
                               <div id="toPay-totalPay"><div className="don-vi-pay" >₫</div>{numeral(order.amount).format('0,0')}</div>
                          </div>
 
 
                          <div className="toPay-list-button">
-                              <button onClick={() => handlePayNow(order)}>Pay Now</button>
+                              <button onClick={() => handlePayNow(order)}>Thanh Toán</button>
                          </div>
 
                     </div>

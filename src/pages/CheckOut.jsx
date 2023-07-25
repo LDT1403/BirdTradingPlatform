@@ -24,7 +24,21 @@ const CheckOut = () => {
     const dispatch = useDispatch()
     const [addressData, setAddressData] = useState([]);
     const [showLoadDing, setLoadDing] = useState(false);
-
+    const [cartIdsToDelete, setCartIdsToDelete] = useState([]);
+    useEffect(()=>{
+        const cartIds = Object.values(orderSelect)
+        .map((item) => item.cartId)
+        .filter((cartId) => cartId !== 0);
+      setCartIdsToDelete(cartIds);
+    },[orderSelect])
+    console.log(cartIdsToDelete);
+    const DeleteCartItem = ( ) =>{
+        axios.post("https://localhost:7241/api/Order/DeleteCarts", cartIdsToDelete, {
+            headers: {
+                Authorization: `Bearer ${accessToken}`
+            }
+        })
+    }
     useEffect(() => {
         const fetchData = () => {
             axios
@@ -64,7 +78,7 @@ const CheckOut = () => {
         note: note,
         addressId: firstAddress.addressId
     }
-    console.log(orderInfo)
+    //console.log(orderInfo)
     const orderSelectID = Object.values(orderSelect).map((items) => items.productId)
 
     const shops = Object.values(orderSelect).reduce((acc, product) => {
@@ -158,13 +172,16 @@ const CheckOut = () => {
                     })
                         .then(res => {
                             const listOrder = res.data
-                            const listOrderId = listOrder.map(id => id.orderId)
+                           
+                            const listOrderId = listOrder.map(id => id.parentOrderId)
+                           
                             const paymentSelect = {
 
-                                "orderIds": listOrderId
+                                "parentOrderId": listOrderId[0]
                                 ,
                                 "method": paymentMethod
                             }
+                            console.log(paymentSelect);
                             axios.post(`https://localhost:7241/api/Order/Pay`, paymentSelect, {
                                 headers: {
                                     Authorization: `Bearer ${accessToken}`
@@ -172,6 +189,7 @@ const CheckOut = () => {
                             })
                                 .then(response => {
                                     if (response.data.paymentUrl === null) {
+                                        DeleteCartItem();
                                         setLoadDing(false)
                                         navigate("/MyPurchase/to-confirmation");
                                         dispatch(cartActions.deleteMultipleItems(orderSelectID));
@@ -195,10 +213,13 @@ const CheckOut = () => {
                     })
                         .then(res => {
                             const listOrder = res.data
-                            const listOrderId = listOrder.map(id => id.orderId)
+                          
+                            const listOrderId = listOrder.map(id => id.parentOrderId)
+                         
+                        
                             const paymentSelect = {
 
-                                "orderIds": listOrderId
+                                "parentOrderId": listOrderId[0]
                                 ,
                                 "method": paymentMethod
                             }
@@ -208,7 +229,8 @@ const CheckOut = () => {
                                 }
                             })
                                 .then(response => {
-                                    setLoadDing(false)
+                                    DeleteCartItem();
+                                    setLoadDing(false);
                                     const paymentUrl = response.data.paymentUrl;
                                     window.location.href = `${paymentUrl}`;
                                     dispatch(cartActions.deleteMultipleItems(orderSelectID));
@@ -242,13 +264,13 @@ const CheckOut = () => {
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="icon-text-address">
                             <path fillRule="evenodd" d="M11.54 22.351l.07.04.028.016a.76.76 0 00.723 0l.028-.015.071-.041a16.975 16.975 0 001.144-.742 19.58 19.58 0 002.683-2.282c1.944-1.99 3.963-4.98 3.963-8.827a8.25 8.25 0 00-16.5 0c0 3.846 2.02 6.837 3.963 8.827a19.58 19.58 0 002.682 2.282 16.975 16.975 0 001.145.742zM12 13.5a3 3 0 100-6 3 3 0 000 6z" clipRule="evenodd" />
                         </svg>
-                        Delivery Address
+                        Địa Chỉ Nhận Hàng
                     </div>
 
                     <>
                         <div>
                             {!addressData.length ? (
-                                <button className="cf-ad-button-add" onClick={handleAddNewAddress} >+ Add new Address</button>
+                                <button className="cf-ad-button-add" onClick={handleAddNewAddress} >+ Thêm Địa Chỉ Mới</button>
                             ) : (
                                 <div className="checkOut-info">
                                     <div className="checkOut-name-phone">
@@ -263,7 +285,7 @@ const CheckOut = () => {
                                         {firstAddress.addressDetail}, {firstAddress.address}
                                     </div>
                                     <div className="checkOut-change-address">
-                                        <button onClick={handleChangeAddress}>Change</button>
+                                        <button onClick={handleChangeAddress}>Thay Đổi</button>
                                     </div>
                                 </div>
 
@@ -288,9 +310,9 @@ const CheckOut = () => {
                                 </div>
 
                                 <div className="checkOut-Product-text">
-                                    <div className="checkOut-numText">Unit Price</div>
-                                    <div className="checkOut-numText">Amount</div>
-                                    <div className="checkOut-subitem-text">Item Subtotal</div>
+                                    <div className="checkOut-numText">Đơn giá</div>
+                                    <div className="checkOut-numText">Số Lượng</div>
+                                    <div className="checkOut-subitem-text">Thành Tiền</div>
                                 </div>
                             </div>
 
@@ -299,9 +321,9 @@ const CheckOut = () => {
                                     <img src={product.thumbnail} alt="" />
                                     <div className="checkOut-ProductName">{product.productName}</div>
                                     <div className="checkOut-Product-price">
-                                        <div className="checkOut-num">${numeral(product.soldPrice).format('0,0')}</div>
-                                        <div className="checkOut-num">{product.quantity}</div>
-                                        <div className="checkOut-subitem">${numeral(product.totalPrice).format('0,0')}</div>
+                                        <div className="checkOut-num"><div className="don-vi">₫</div>{numeral(product.soldPrice).format('0,0')}</div>
+                                        <div className="checkOut-num" style={{justifyContent: 'center'}}>{product.quantity}</div>
+                                        <div className="checkOut-subitem"><div className="don-vi">₫</div>{numeral(product.totalPrice).format('0,0')}</div>
                                     </div>
 
 
@@ -312,7 +334,7 @@ const CheckOut = () => {
 
                 </div>
                 <div className="checkOut-body-payMethod">
-                    <div className="pay-text">Payment Method</div>
+                    <div className="pay-text">Phương thức Thanh Toán</div>
                     <div className="pay-method">
                         <div className="log-option-payment">
                             <div className="method-option">
@@ -324,7 +346,7 @@ const CheckOut = () => {
                                     onChange={handlePaymentChange}
                                 />
                                 <img src="https://lzd-img-global.slatic.net/g/tps/tfs/TB1ZP8kM1T2gK0jSZFvXXXnFXXa-96-96.png_2200x2200q75.png_.webp" alt="" />
-                                <div className="method-name">Cash on Delivery</div>
+                                <div className="method-name">Thanh toán khi nhận hàng</div>
                             </div>
                             <div className="method-option">
                                 <input
@@ -335,19 +357,19 @@ const CheckOut = () => {
                                     onChange={handlePaymentChange}
                                 />
                                 <img src="https://cdn.haitrieu.com/wp-content/uploads/2022/10/Icon-VNPAY-QR-350x274.png" alt="" />
-                                <div className="method-name">Payment via VNpay</div>
+                                <div className="method-name">Thanh toán bằng VnPay</div>
                             </div>
 
                         </div>
                         <div className="pay-description-log">
-                            <div className="checkOut-Total">Total Item:
+                            <div className="checkOut-Total">Tổng số mặt hàng:
                                 <div className="num-payTotal-item">{calculateTotalItem()}</div>
                             </div>
-                            <div className="checkOut-Total">Total Quantity:
+                            <div className="checkOut-Total">Tổng số lượng:
                                 <div className="num-payTotal-item">{calculateTotalQuantity()}</div>
                             </div>
-                            <div className="checkOut-Total">Total Payment:
-                                <div className="num-payTotal">{numeral(calculateTotalPrice()).format('0,0')}$</div>
+                            <div className="checkOut-Total">Tổng thanh toán:
+                                <div className="num-payTotal" style={{display:'flex'}}><div className="don-vi">₫</div>{numeral(calculateTotalPrice()).format('0,0')}</div>
                             </div>
                         </div>
 
@@ -355,16 +377,16 @@ const CheckOut = () => {
 
                     <div className="checkOut-log-placeOrder">
                         <div className="checkOut-message">
-                            Message:  <input
+                            Lời nhắn:  <input
                                 type="text"
-                                placeholder="Please leave a message..."
+                                placeholder="Lưu ý chung cho các shop..."
                                 value={note}
                                 onChange={handleNoteChange}
                             />
                         </div>
                         <div className="checkOut-button">
                             <button className="bt-placeOrder-page" onClick={handlePlaceOrder}>
-                                Place Order
+                                Đặt Hàng
                             </button>
                         </div>
 
@@ -380,7 +402,7 @@ const CheckOut = () => {
             {showNotification && (
                 <div className="confirmation-modal">
                     <div className="confirm-address-change">
-                        <div className="confirm-address-text"> My Address</div>
+                        <div className="confirm-address-text"> Địa Chỉ Của Tôi</div>
                         <div className="confirm-address-info">
                             {addressData.map((address) => (
                                 <div className="cf-ad-cod" key={address.addressId}>
@@ -403,11 +425,11 @@ const CheckOut = () => {
                                     {/* <button className="cf-ad-button"> Edit </button> */}
                                 </div>
                             ))}
-                            <button className="cf-ad-button-add" onClick={handleAddNewAddress}>+ Add new Address</button>
+                            <button className="cf-ad-button-add" onClick={handleAddNewAddress}>+ Thêm Địa Chỉ Mới</button>
                         </div>
                         <div className="cf-ad-bt-bottom">
-                            <button onClick={handleCancelChange}>Cancel</button>
-                            <button className="cf-ad-bt-confirm" onClick={handleConfirmSelect} >Confirm</button>
+                            <button onClick={handleCancelChange}>Hủy</button>
+                            <button className="cf-ad-bt-confirm" onClick={handleConfirmSelect} >Xác Nhận</button>
                         </div>
 
                     </div>
@@ -417,8 +439,8 @@ const CheckOut = () => {
                 showNtPayMethod && (
                     <div className="confirmation-modal">
                         <div className="message-payMethod">
-                            <div className="ms-pay-text">Please choose a payment method</div>
-                            <button className="ms-pay-button" onClick={handleShowNtPayMethod}>Ok</button>
+                            <div className="ms-pay-text">Vui lòng chọn phuong thức thanh toán</div>
+                            <button className="ms-pay-button" onClick={handleShowNtPayMethod}>OK</button>
                         </div>
                     </div>
 
@@ -428,7 +450,7 @@ const CheckOut = () => {
                 showConFirmAddress && (
                     <div className="confirmation-modal">
                         <div className="message-payMethod">
-                            <div className="ms-pay-text">Please select your desired delivery address</div>
+                            <div className="ms-pay-text">Vui lòng chọn địa chỉ nhận hàng</div>
                             <button className="ms-pay-button" onClick={handleShowNtPayMethod}>Ok</button>
                         </div>
                     </div>

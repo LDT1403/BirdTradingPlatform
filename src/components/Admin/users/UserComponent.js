@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import Loading from "../../LoadingError/Loading";
 import Message from "../../LoadingError/Error";
 import { banUser, deleteUser, listUser, unbanUser } from "../../../pages/redux/Actions/userActions";
-import logo from '../../../assets/images/Chim.png'
+import logo from '../../../assets/images/account-circle-line.png'
 import moment from "moment";
 
 
@@ -38,7 +38,7 @@ const UserComponent = () => {
     return (
         <section className="content-main">
             <div className="content-header">
-                <h2 className="content-title">Customer</h2>
+                <h2 className="content-title">Khách Hàng</h2>
             </div>
 
             <div className="card mb-4 shadow-sm">
@@ -53,14 +53,14 @@ const UserComponent = () => {
                             <table className="table">
                                 <thead>
                                     <tr>
-                                        <th scope="col">No</th>
-                                        <th scope="col">Image</th>
-                                        <th scope="col">Name</th>
+                                        <th scope="col">STT</th>
+                                        <th scope="col">Hình ảnh</th>
+                                        <th scope="col">Tên</th>
                                         <th scope="col">Email</th>
-                                        <th scope="col">Gender</th>
-                                        <th scope="col">BrithDay</th>
-                                        <th scope="col">Address</th>
-                                        <th scope="col">Phone</th>
+                                        <th scope="col">Giới Tính</th>
+                                        <th scope="col">Ngày Sinh</th>
+                                        <th scope="col">Địa Chỉ</th>
+                                        <th scope="col">Số Điện Thoại</th>
                                         <th scope="col" className="text-end">
                                             Action
                                         </th>

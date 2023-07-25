@@ -1,4 +1,7 @@
 import {
+    GET_TOTAL_ORDER_FAIL,
+    GET_TOTAL_ORDER_REQUEST,
+    GET_TOTAL_ORDER_SUCCESS,
     SHOP_BAN_FAIL,
     SHOP_BAN_REQUEST,
     SHOP_BAN_SUCCESS,
@@ -251,6 +254,37 @@ export const listShop = () => async (dispatch) => {
         }
         dispatch({
             type: SHOP_LIST_FAIL,
+            payload: message,
+        });
+    }
+}
+
+
+export const getTotalOrder = () => async (dispatch) => {
+    try {
+        dispatch({ type: GET_TOTAL_ORDER_REQUEST });
+
+        const accessToken = localStorage.getItem('jwtToken');
+
+        const config = {
+            headers: {
+                Authorization: `Bearer ${accessToken}`,
+            },
+        };
+
+        const { data } = await axios.get(`https://localhost:7241/api/Admin/totalOrder`, config);
+
+        dispatch({ type: GET_TOTAL_ORDER_SUCCESS, payload: data });
+    } catch (error) {
+        const message =
+            error.response && error.response.data.message
+                ? error.response.data.message
+                : error.message;
+        if (message === "Not authorized, token failed") {
+            // dispatch(logout());
+        }
+        dispatch({
+            type: GET_TOTAL_ORDER_FAIL,
             payload: message,
         });
     }
