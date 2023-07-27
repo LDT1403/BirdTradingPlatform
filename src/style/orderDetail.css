@@ -51,7 +51,6 @@
      display: flex;
      align-items: center;
      justify-content: center;
-
 }
 
 #mona_title {
@@ -130,11 +129,114 @@
      justify-content: end;
      padding: 5px 20px;
 }
-.orderButtonAgain{
-     border:none;
+.Detail-order-log-10 {
+     border-bottom: 2px solid #bbc0c2;
+     background-color: #fff;
+     border-radius: 3px;
+     font-size: 15px;
+     padding: 30px 0px;
+
+}
+.orderButtonAgain {
+     border: none;
      background-color: #0e76d8;
      color: #fff;
      padding: 5px 10px;
      align-items: center;
+     
+     border-radius: 3px;
+}
+
+.Detail-order-iconview {
+     display: flex;
+     margin: 0px 90px;
+
+}
+.Detail-order-iconview1 {
+     display: flex;
+     justify-content: space-between;
+     margin: 0px 30px;
+}
+.status_orderdetail {
+     width: 70px;
+     height: 70px;
+     border:5px solid #1cde39;
+     border-radius: 50px;
+     display: flex;
+     justify-content: center;
+     align-items: center;
+     color: #1cde39;
+
+
+}
+.status_orderdetail1 {
+     width: 70px;
+     height: 70px;
+     border:5px solid #1cde39;
+     border-radius: 50px;
+     display: flex;
+     justify-content: center;
+     align-items: center;
+     color: #fff;
+     background-color:#1cde39 ;
+
+
+}
+.status_orderdetail2 {
+     width: 70px;
+     height: 70px;
+     border:5px solid #a3a1a1;
+     border-radius: 50px;
+     display: flex;
+     justify-content: center;
+     align-items: center;
+     color: #a3a1a1;
+    
+
+
+}
+.icon_order_detail {
+     width: 50px;
+     height: 50px;
+}
+
+.line_status_{
+     width: 190px;
+     height: 70px;
+     display: flex;
+     justify-content: center;
+     align-items: center;
+   
+}
+.line_icon_status{
+     width: 100%;
+     border:2.5px solid #1cde39; 
+}
+.line_icon_status1{
+     width: 100%;
+     border:2.5px solid #a3a1a1; 
+}
+.txt_status_orde{
+     width: 200px;
+}
+.txt_status_w{
+     display: flex;
+     justify-content: center;
+     font-weight:500;
+}
+.date_status{
+     display: flex;
+     justify-content: center;
+   
+}
+.status_fail{
+     background-color: #ebf4c5;
+     padding: 20px 20px;
      border-radius:3px;
+
+}
+.txt_status_fail{
+     font-size:20px;
+     font-weight: 500;
+     color:#eb1809;
 }

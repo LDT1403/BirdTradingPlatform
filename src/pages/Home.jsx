@@ -10,12 +10,18 @@ import axios from "axios";
 import ProductCard from "../components/UI/product-card/ProductCard";
 import { useDispatch } from "react-redux";
 import { listCarts } from "./redux/Actions/CartActions";
-
+import { Swiper, SwiperSlide } from "swiper/react";
+import SwiperCore, { Navigation, Pagination, Autoplay } from "swiper";
+import 'swiper/swiper-bundle.css';
+import { useRef } from "react";
+SwiperCore.use([Navigation, Pagination, Autoplay]);
 const Home = () => {
+    const [windowWidth, setWindowWidth] = useState(window.innerWidth);
     const reloadData = () => { }
     const dispatch = useDispatch();
     const [data, setData] = useState([]);
     useEffect(() => {
+
         axios.get('https://localhost:7241/api/Products/Hot_Product')
             .then(res => {
                 dispatch(listCarts());
@@ -27,79 +33,75 @@ const Home = () => {
             })
     }, []);
 
+    useEffect(() => {
+        const handleResize = () => {
+            setWindowWidth(window.innerWidth);
+        };
 
+        window.addEventListener('resize', handleResize);
 
+        return () => {
+            window.removeEventListener('resize', handleResize);
+        };
+    }, []);
 
-    const productsPerPage = 6;
-    const [currentPage, setCurrentPage] = useState(1);
-    const [loadingMore, setLoadingMore] = useState(false);
-    const [showLoadMore, setShowLoadMore] = useState(true);
-    const [showRetry, setShowRetry] = useState(false);
-
-    const loadMoreProducts = () => {
-        setLoadingMore(true);
-
-        setTimeout(() => {
-            setCurrentPage(currentPage + 1);
-            setLoadingMore(false);
-
-            if (currentPage * productsPerPage >= data.length) {
-                setShowLoadMore(false);
-                setShowRetry(true);
-            }
-        }, 200);
-    };
-
-    const retryLoadMore = () => {
-        setCurrentPage(1);
-        setShowRetry(false);
-        setShowLoadMore(true);
-    };
-
-    const start = (currentPage - 1) * productsPerPage;
-    const end = start + productsPerPage;
-    const displayedProducts = data.slice(0, end);
-
+    let slidesPerView;
+    if (windowWidth >= 1400) {
+        slidesPerView = 6;
+    } else if (windowWidth < 1390 && windowWidth > 1200) {
+        slidesPerView = 5;
+    }
+    else if (windowWidth < 1200 && windowWidth > 1000) {
+        slidesPerView = 4;
+    }
+    else if (windowWidth < 1000 && windowWidth > 800) {
+        slidesPerView = 3;
+    }
+    else {
+        slidesPerView = 2;
+    }
+    const swiperRef = useRef(null);
     return (
         <Helmet title="Home">
             <div className="home-page-log ">
-                <div className="mb-4 " >
-                    <Container className="" style={{ paddingTop: '10px' }}>
-                        <Row style={{ backgroundColor: '#fff', boxShadow: '0 2px 1px 0 rgba(0, 0, 0, .05)' }}>
-                            <Col lg='6' md='6'>
-                                <div className="brid__content">
-                                    <h5 className="mb-3">Esay way to make an order</h5>
-                                    <h1 className="mt-4 bird__title"><span>BIRD SONG?</span> the fascinating sound of nature that harmonizes with your heartbeat.</h1>
-                                    <p>Own a charming bird today and bring life and joy to your space!</p>
 
-                                    <div className="bird__btns d-flex align-items-center gap-5 mt-4">
-                                        <button className="order__btn d-flex align-items-center justify-content-between ">Order now <i className="ri-arrow-right-s-line"></i></button>
-                                        <button className="all__bird-btn"><Link to='/shop'>See all brids</Link></button>
-                                    </div>
+                <div style={{ backgroundColor: '#fff', padding: '15px' }}>
+                    <div className="slider-log">
+                        <Swiper tag="section"
+                            id="swiper"
+                            navigation
+                            spaceBetween={33}
+                            slidesPerView={1}
+                            pagination={{ clickable: true }}
+                            autoplay={{
+                                delay: 3000,
+                                disableOnInteraction: false,
+                            }}
+                            onTransitionEnd={(swiper) => console.log('Swiper Initialized!', swiper)}
+                            onSlideChange={(swiper) => console.log('Slide index changed to:', swiper.activeIndex)}
+                            style={{ marginRight: '10px' }}
+                        >
+                            <SwiperSlide key={1}> <img src="https://th.bing.com/th/id/OIP.CUsYkhGzSRZrgJYzT8GBZAHaEo?w=299&h=186&c=7&r=0&o=5&dpr=1.4&pid=1.7" alt="" style={{ width: '910px', height: '300px' }} /></SwiperSlide>
+                            <SwiperSlide key={2}> <img src="https://th.bing.com/th/id/OIP.CUsYkhGzSRZrgJYzT8GBZAHaEo?w=299&h=186&c=7&r=0&o=5&dpr=1.4&pid=1.7" alt="" style={{ width: '910px', height: '300px' }} /></SwiperSlide>
+                            <SwiperSlide key={3}> <img src="https://th.bing.com/th/id/OIP.CUsYkhGzSRZrgJYzT8GBZAHaEo?w=299&h=186&c=7&r=0&o=5&dpr=1.4&pid=1.7" alt="" style={{ width: '910px', height: '300px' }} /></SwiperSlide>
+                            <SwiperSlide key={4}> <img src="https://th.bing.com/th/id/OIP.CUsYkhGzSRZrgJYzT8GBZAHaEo?w=299&h=186&c=7&r=0&o=5&dpr=1.4&pid=1.7" alt="" style={{ width: '910px', height: '300px' }} /></SwiperSlide>
+                            <SwiperSlide key={5}> <img src="https://th.bing.com/th/id/OIP.CUsYkhGzSRZrgJYzT8GBZAHaEo?w=299&h=186&c=7&r=0&o=5&dpr=1.4&pid=1.7" alt="" style={{ width: '910px', height: '300px' }} /></SwiperSlide>
+                            <SwiperSlide key={6}> <img src="https://th.bing.com/th/id/OIP.CUsYkhGzSRZrgJYzT8GBZAHaEo?w=299&h=186&c=7&r=0&o=5&dpr=1.4&pid=1.7" alt="" style={{ width: '910px', height: '300px' }} /></SwiperSlide>
+                            <SwiperSlide key={7}> <img src="https://th.bing.com/th/id/OIP.CUsYkhGzSRZrgJYzT8GBZAHaEo?w=299&h=186&c=7&r=0&o=5&dpr=1.4&pid=1.7" alt="" style={{ width: '910px', height: '300px' }} /></SwiperSlide>
+                        </Swiper>
+                        <div className="slider-img-small">
+                            <img src="https://i.pinimg.com/originals/35/cb/4f/35cb4f51e0ca6c96c769dfc175177a46.jpg" alt="" />
+                            <img src="https://i.pinimg.com/originals/35/cb/4f/35cb4f51e0ca6c96c769dfc175177a46.jpg" alt="" />
+                        </div>
+                    </div>
 
-                                    <div className=" brid__service d-flex align-item-center gap-5 mt-5">
-                                        <p className="d-flex align-item-center gap-2"><span className="money__icon"><i className="ri-money-cny-box-line"></i></span>Many free benefits.</p>
-                                        <p className="d-flex align-item-center gap-2"><span className="money__icon"><i className="ri-shield-check-line"></i></span>100% secure checkout</p>
-                                    </div>
-                                </div>
-                            </Col>
-
-                            <Col lg='6' md='6'>
-                                <div className="brid__img">
-                                    <img src={BirdImg} alt="brid-img" className="w-100" />
-                                </div>
-
-                            </Col>
-                        </Row>
-
-                    </Container>
                 </div>
 
                 <section className="pt-0">
                     <Category />
                 </section>
 
-                <div className="mb-5 ">
+                {/* <div className="mb-5 ">
                     <Container>
                         <Row>
                             <Col lg='12' className="text-center" >
@@ -109,51 +111,67 @@ const Home = () => {
                             </Col>
                         </Row>
                     </Container>
-                </div>
+                </div> */}
 
-                <div className="pb-5" >
-                    <Container>
-                        {/* <Row>
-                            <Col lg='12' className="text-center mb-5" >
-                                <h2>Best Seller</h2>
-                            </Col>
-                            {
-                                displayedProducts?.map(item => (
-                                    <Col lg='3' md='4' key={item.productId}>
-                                        <ProductCard item={item} />
-                                    </Col>
-                                ))
-                            }
+                <div className="pb-5 product-best-seller" >
 
-                        </Row> */}
-                        <Row style={{ padding: '0px 0px' }}>
-                            {displayedProducts?.map(item => (
-                                <Col lg='3' md='7' sm='7' style={{ padding: '0', marginLeft: '11px', maxWidth: '209px' }} key={item.productId}>
-                                    <ProductCard item={item} onReloadData={reloadData} />
-                                </Col>
-                            ))}
-                        </Row>
-                        {showLoadMore && !loadingMore && (
-                            <button className="load-more-button mt-2" onClick={loadMoreProducts}>
-                                Thêm
+                    <Container >
+                        <div className="best-seller">
+                            <div className="best-seller-text">
+
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="icon-bestseller">
+                                    <path fillRule="evenodd" d="M12.963 2.286a.75.75 0 00-1.071-.136 9.742 9.742 0 00-3.539 6.177A7.547 7.547 0 016.648 6.61a.75.75 0 00-1.152-.082A9 9 0 1015.68 4.534a7.46 7.46 0 01-2.717-2.248zM15.75 14.25a3.75 3.75 0 11-7.313-1.172c.628.465 1.35.81 2.133 1a5.99 5.99 0 011.925-3.545 3.75 3.75 0 013.255 3.717z" clipRule="evenodd" />
+                                </svg>
+                                Sản Phẩm Hot
+                            </div>
+                            <Row style={{ padding: '0px 10px' }} className="container1">
+                                <React.Fragment>
+                                    <Swiper
+                                        ref={swiperRef}
+                                        id="swiper"
+                                        spaceBetween={6}
+                                        slidesPerView={slidesPerView}
+                                        slidesPerGroup={3}
+                                        autoplay={{
+                                            delay: 4000,
+                                            disableOnInteraction: false,
+                                        }}
+                                        onTransitionEnd={(swiper) => console.log('Swiper Initialized!', swiper)}
+                                        onSlideChange={(swiper) => console.log('Slide index changed to:', swiper.activeIndex)}
+                                        style={{ width: '1320px' }}
+                                    >
+                                        {data?.map(item => (
+                                            <SwiperSlide >
+                                                <Col lg='12' md='12' sm='12' style={{ padding: '0', marginLeft: '11px', maxWidth: '209px' }} key={item.productId}>
+                                                    <ProductCard item={item} onReloadData={reloadData} />
+                                                </Col>
+                                            </SwiperSlide>
+
+                                        ))}
+                                    </Swiper>
+                                </React.Fragment>
+
+                            </Row>
+
+
+                            <button className="btn-next" onClick={() => swiperRef.current.swiper.slideNext()}>
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="icon-bestseller">
+                                    <path fillRule="evenodd" d="M16.28 11.47a.75.75 0 010 1.06l-7.5 7.5a.75.75 0 01-1.06-1.06L14.69 12 7.72 5.03a.75.75 0 011.06-1.06l7.5 7.5z" clipRule="evenodd" />
+                                </svg>
                             </button>
-                        )}
-                        {loadingMore && (
-                            <div className="loading-message">
-                                Đang Tải Thêm Sản Phẩm...
-                            </div>
-                        )}
-                        {!showLoadMore && showRetry && (
-                            <div className="no-more-products-message">
-                                Không còn sản phẩm để thêm
-                                <button className="retry-button" onClick={retryLoadMore}>
-                                    Thử Lại
-                                </button>
-                            </div>
-                        )}
+                            <button className="btn-pre" onClick={() => swiperRef.current.swiper.slidePrev()}>
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="icon-bestseller">
+                                    <path fillRule="evenodd" d="M7.72 12.53a.75.75 0 010-1.06l7.5-7.5a.75.75 0 111.06 1.06L9.31 12l6.97 6.97a.75.75 0 11-1.06 1.06l-7.5-7.5z" clipRule="evenodd" />
+                                </svg>
+                            </button>
+                        </div>
+
                     </Container>
+
                 </div>
+
             </div>
+
         </Helmet>
     )
 }

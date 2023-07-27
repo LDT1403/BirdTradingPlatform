@@ -4,6 +4,7 @@ import { useNavigate, NavLink } from "react-router-dom";
 import axios from "axios";
 import '../../../style/toConfirmation.css';
 import numeral from 'numeral';
+import moment from "moment";
 const Failed = () => {
 
      const accessToken = localStorage.getItem('jwtToken');
@@ -102,6 +103,9 @@ const Failed = () => {
                                                        <div>View shop</div>
                                                   </button>
                                              </div>
+                                             <div id="order_date">
+                                                       {moment(shop.orderDate).format('DD-MM-YYYY HH:mm')}
+                                                  </div>
                                              </div>
                                              <div className="toPay-Product-text">
                                                   <div className="toPay-subitem-text">Failed !</div>

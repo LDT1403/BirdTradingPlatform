@@ -76,7 +76,7 @@ const Cart = () => {
                     quantity: product.quantityCart,
                     soldPrice: product.priceProduct,
                     totalPrice: product.priceCart,
-                    cartId : product.cartId
+                    cartId: product.cartId
                 }
                 updatedOrderSelect.push(p)
             }
@@ -99,10 +99,8 @@ const Cart = () => {
 
         if (isAllExist) {
             let afterFilter = orderSelect.filter(o => !products.find(p => p.productId === o.productId))
-            console.log(afterFilter)
             setOrderSelect(afterFilter)
-        }else
-        {
+        } else {
             const newArr = [...orderSelect]
             for (let p of products) {
                 const finded = orderSelect.find(u => u.productId === p.productId)
@@ -116,7 +114,7 @@ const Cart = () => {
                         quantity: p.quantityCart,
                         soldPrice: p.priceProduct,
                         totalPrice: p.priceCart,
-                        cartId : p.cartId
+                        cartId: p.cartId
                     }
                     newArr.push(prd)
                 }
@@ -128,7 +126,6 @@ const Cart = () => {
     const handleShopChecked = (shopId) => {
         const shop = dataCart.find(item => item.shopId === shopId);
         const products = shop.products
-
         let isAllExist = true;
         for (let p of products) {
             let finded = orderSelect.find(o => o.productId === p.productId)
@@ -136,7 +133,6 @@ const Cart = () => {
                 isAllExist = false;
             }
         }
-
         return isAllExist
     }
 
@@ -214,8 +210,10 @@ const Cart = () => {
             for (const p of orderSelect) {
                 const shop = dataCart.find(item => item.shopId === p.shopId);
                 const product = shop.products.find(item => item.productId === p.productId);
-                console.log(product);
                 totalPrice += product.priceProduct * product.quantityCart;
+                p.quantity = product.quantityCart;
+                p.totalPrice = product.priceCart;
+
             }
             setTotal(totalPrice);
         }
@@ -238,23 +236,10 @@ const Cart = () => {
         let finded = orderSelect.find(u => u.productId === productId)
         return !!finded;
     }
-
+    
     return (
         <div className="Cart-page">
-            {
-                showConfirmation && (
-                    <div className="confirmation-modal">
-                        <div className="confirmation-modal-content">
-                            <div className="text-confirmation">Bạn có muốn xóa mục này không?</div>
-                            <div className="productName-confirmation"> {ProductName}</div>
-                            <div className="button-confirm" >
-                                <button className="button-yes-confirm" onClick={() => handleConfirmation()}>Yes</button>
-                                <button onClick={() => setShowConfirmation(false)}>No</button>
-                            </div>
-                        </div>
-                    </div>
-                )
-            }
+
             <div className="Cart-page-body">
                 <div className="Cart-scroll">
                     <div className="Cart-page-inFor">
@@ -392,32 +377,32 @@ const Cart = () => {
 
                     </div>
                 </div>
-                <div className="product-reldate">
-                    <div className="product-text">
-                        CÓ THỂ BẠN CŨNG THÍCH
-                    </div>
-                    <div className="product-item">
-                        <Col lg='12' md=''>
-                            <Container>
-                                <Row style={{ padding: '0px 0px' }}>
-                                    {productsData?.map(item => (
-                                        <Col lg='3' md='7' sm='7' style={{ padding: '0', marginLeft: '7px', maxWidth: '209px' }} key={item.productId}>
-                                            <ProductCard item={item} onReloadData={reloadData} />
-                                        </Col>
-                                    ))}
-                                </Row>
 
-                            </Container>
-                        </Col>
-                    </div>
-
-                </div>
             </div>
             <div className="cart-page-button">
 
             </div>
 
+            <div className="product-reldate">
+                <div className="product-text">
+                    CÓ THỂ BẠN CŨNG THÍCH
+                </div>
+                <div className="product-item" >
+                    <Col lg='12' md=''>
+                        <Container>
+                            <Row style={{ padding: '0px 0px' }}>
+                                {productsData?.map(item => (
+                                    <Col lg='3' md='7' sm='7' style={{ padding: '0', marginLeft: '7px', maxWidth: '209px' }} key={item.productId}>
+                                        <ProductCard item={item} onReloadData={reloadData} />
+                                    </Col>
+                                ))}
+                            </Row>
 
+                        </Container>
+                    </Col>
+                </div>
+
+            </div>
             {showNotification && (
                 <div className="confirmation-modal">
                     <div className="confirm-checkout-OK">
@@ -427,7 +412,20 @@ const Cart = () => {
 
                 </div>
             )}
-
+            {
+                showConfirmation && (
+                    <div className="confirmation-modal">
+                        <div className="confirmation-modal-content">
+                            <div className="text-confirmation">Bạn có muốn xóa mục này không?</div>
+                            <div className="productName-confirmation"> {ProductName}</div>
+                            <div className="button-confirm" >
+                                <button className="button-yes-confirm" onClick={() => handleConfirmation()}>Yes</button>
+                                <button onClick={() => setShowConfirmation(false)}>No</button>
+                            </div>
+                        </div>
+                    </div>
+                )
+            }
         </div >
 
 

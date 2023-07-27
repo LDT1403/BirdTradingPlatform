@@ -8,8 +8,6 @@ const AddFeedback = ({ productId, orderDetailId, productName, setShowFeedTable, 
      const [starRating, setStarRating] = useState(5)
      const [ImageFile, setImageFile] = useState([]);
      const [DetailFB, setDetailFB] = useState();
-     console.log(starRating)
-
      const handleFeedback = () => {
           const formData = new FormData();
           formData.append("ProductId", productId);
@@ -20,16 +18,12 @@ const AddFeedback = ({ productId, orderDetailId, productName, setShowFeedTable, 
           for (let i = 0; i < ImageFile.length; i++) {
                formData.append("ImageFile", ImageFile[i])
           }
-
-
           axios.post(`https://localhost:7241/api/FeedBack/Feedback`, formData, {
                headers: {
                     Authorization: `Bearer ${accessToken}`
                }
           })
                .then((response) => {
-
-
                     if (response.data === 'success') {
                          setLoadApi(false);
                          setShowFeedTable(false)
@@ -38,10 +32,6 @@ const AddFeedback = ({ productId, orderDetailId, productName, setShowFeedTable, 
                .catch((error) => {
                     console.log(error)
                })
-
-
-
-
      }
      const handleFileChange = (event) => {
           console.log(event);
@@ -49,7 +39,6 @@ const AddFeedback = ({ productId, orderDetailId, productName, setShowFeedTable, 
           for (let i = 0; i < event.target.files.length; i++) {
                newImages.push(event.target.files[i]);
           }
-
           setImageFile(newImages);
      };
      const handleStarHover = (rating) => {
@@ -61,12 +50,11 @@ const AddFeedback = ({ productId, orderDetailId, productName, setShowFeedTable, 
           updatedImages.splice(index, 1);
           setImageFile(updatedImages);
      };
-
      return (
           <div className="confirmation-modal">
                <div className="log-add-feedback" style={{ width: "650px", padding: "10px", borderRadius: "2px", background: "#fff" }}>
                     <div id="add-feedback-head" > Đánh giá cho sản phẩm - {productName} -</div>
-                    <div id="title-feedback" > Star Rating </div>
+                    <div id="title-feedback" > Đánh Giá Sao </div>
                     <div className="star-rating">
                          {[1, 2, 3, 4, 5].map((rating) => (
                               <span
@@ -105,10 +93,9 @@ const AddFeedback = ({ productId, orderDetailId, productName, setShowFeedTable, 
                               )
 
                          }
-
                     </div>
                     <div id="title-feedback">
-                         Detailed review
+                         Đánh giá chi tiết
                     </div>
                     <div className="detail-feedback">
                          <textarea name="text"
@@ -116,7 +103,7 @@ const AddFeedback = ({ productId, orderDetailId, productName, setShowFeedTable, 
                          ></textarea>
                     </div>
                     <div id="title-feedback">
-                         Images Feedback
+                         Ảnh đánh giá
                     </div>
                     <div style={{ padding: "5px 10px" }}>
 
@@ -124,6 +111,7 @@ const AddFeedback = ({ productId, orderDetailId, productName, setShowFeedTable, 
 
                               {ImageFile.map((img, index) =>
                                    <div key={index} className="image-container-feedback">
+                             
                                         <img src={URL.createObjectURL(img)} alt="" style={{ width: "80px", height: "80px", margin: "5px" }} />
                                         <button className="delete-button-imgFeedback" onClick={() => handleDeleteImage(index)}>X</button>
                                    </div>
@@ -139,17 +127,15 @@ const AddFeedback = ({ productId, orderDetailId, productName, setShowFeedTable, 
                                         </label>
                                    )
                               }
-
                          </div>
                     </div>
                     <div className="button-add-feedback">
-                         <button onClick={() => setShowFeedTable(false)} style={{ backgroundColor: "#fff", border: '1px solid #c2c7c7', color: '#8d9292', marginRight: '10px' }}> Cancel</button>
-                         <button onClick={handleFeedback}> Feedback</button>
+                         <button onClick={() => setShowFeedTable(false)} style={{ backgroundColor: "#fff", border: '1px solid #c2c7c7', color: '#8d9292', marginRight: '10px' }}> Hủy</button>
+                         <button onClick={handleFeedback}> Đánh Giá</button>
                     </div>
 
                </div>
           </div>
      )
 }
-
 export default AddFeedback;

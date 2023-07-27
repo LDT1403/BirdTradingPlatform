@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import numeral from 'numeral';
 import AddFeedback from "../AddFeedback/AddFeedback";
+import moment from "moment";
 const Received = () => {
 
      const accessToken = localStorage.getItem('jwtToken');
@@ -48,7 +49,7 @@ const Received = () => {
      };
 
      const handleTabClick = (order) => {
-          const orderID = order.orderID
+          const orderID = order.orderId
           navigate(`/OrderDetail/${orderID}`, { state: { order } });
      }
 
@@ -58,6 +59,7 @@ const Received = () => {
      const handleFeedback = () => {
           setShowFeedTable(true)
      }
+     
      return (
           <div className="option-page-MyPurChase"   >
                {ShowLogItemsNull && (
@@ -85,6 +87,9 @@ const Received = () => {
 
                                                             <div>Xem Shop</div>
                                                        </button>
+                                                  </div>
+                                                  <div id="order_date">
+                                                       {moment(shop.orderDate).format('DD-MM-YYYY HH:mm')}
                                                   </div>
                                              </div>
 

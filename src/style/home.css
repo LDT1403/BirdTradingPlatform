@@ -1,8 +1,24 @@
 .feature__subtitle {
     color: #df2020;
 }
-.home-page-log{
+
+.home-page-log {
     background-color: #eff5f5;
+}
+.btn-pre, .btn-next{
+    border : none;
+    background-color: #fff;
+    border-radius:50px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease;
+    perspective: 1000px;
+}
+
+.home-page-log .btn-pre:hover, .btn-next:hover {
+    transform: scale(1.2);
+    /* transform: translate(-1.5px); */
+    box-shadow: 0 0 8px 0.9px rgb(166, 172, 172);
+    
 }
 .feature__title span {
     color: #df2020;
@@ -215,4 +231,43 @@
 
 .retry-button:hover {
     color: #c0392b;
+}
+
+.best-seller {
+    padding: 15px  25px;
+    background-color: #fff;
+    position: relative;
+
+}
+
+.best-seller .btn-pre{
+    position:absolute;
+    bottom: 180px;
+    left: -13px;
+}
+.best-seller .btn-next{
+    position:absolute;
+    bottom: 180px;
+    right: -13px;
+}
+
+
+.icon-bestseller {
+    width: 30px;
+}
+.best-seller-text{
+    font-size: 20px;
+    font-weight: 500;
+    color: #df2020;
+    margin-bottom: 10px;
+}
+.slider-log{
+    display: flex;
+    width: 1300px;
+    margin: auto;
+}
+.slider-img-small img{
+    width: 400px;
+    height:145px;
+    margin-bottom: 10px;
 }
