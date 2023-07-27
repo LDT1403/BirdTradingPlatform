@@ -94,7 +94,7 @@ const ProductsStatistics = () => {
         <div className="col-xl-6 col-lg-12">
             <div className="card mb-4 shadow-sm">
                 <article className="card-body">
-                    <h5 className="card-title">Thống Kê Doanh Thu Tuần</h5>
+                    <div className="card-title" style={{ fontSize: "18px" }}>Thống Kê Doanh Thu Tuần</div>
                     <div style={{
                         background: "#FFFFFF",
                         border: "none",

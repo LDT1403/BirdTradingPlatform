@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import Loading from "../../LoadingError/Loading";
 import Message from "../../LoadingError/Error";
-import { banUser, deleteUser, listUser, unbanUser } from "../../../pages/redux/Actions/userActions";
+import { banUser, deleteUser, listUser, unbanUser, } from "../../../pages/redux/Actions/userActions";
 import logo from '../../../assets/images/account-circle-line.png'
 import moment from "moment";
 
@@ -18,9 +18,11 @@ const UserComponent = () => {
     // const { error: errorDelete, success: successDelete } = userDelete;
     const banList = useSelector((state) => state.banUser);
     const { loading: loadingBaned, success: successBaned } = banList;
+    const unbanUserList = useSelector((state) => state.unbanUser);
+    const { loading: loadingunBaned, success: successunBaned } = unbanUserList;
     useEffect(() => {
         dispatch(listUser());
-    }, [dispatch, successBaned]);
+    }, [dispatch, successBaned, successunBaned]);
 
     const deleteHandler = (userId) => {
         // if (window.confirm("Are you sure?")) {
@@ -31,7 +33,7 @@ const UserComponent = () => {
     const UnBanHandler = (userId) => {
         // if (window.confirm("Are you sure?")) {
         dispatch(unbanUser(userId));
-        window.location.reload();
+
         // }
     };
 
@@ -86,7 +88,7 @@ const UserComponent = () => {
                                             <td className="align-middle">{user.address}</td>
                                             <td className="align-middle">{user.phone}</td>
                                             <td className="d-flex justify-content-end align-item-center">
-                                                {loadingBaned && <Loading />}
+                                                {(loadingBaned || loadingunBaned) && <Loading />}
                                                 {
                                                     user.status === false ? (
                                                         <button

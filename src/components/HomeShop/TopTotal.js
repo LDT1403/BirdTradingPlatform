@@ -1,4 +1,5 @@
 import axios from "axios";
+import { data } from "jquery";
 import numeral from "numeral";
 import React, { useEffect, useState } from "react";
 
@@ -27,23 +28,45 @@ const TopTotal = (props) => {
             })
     }, [accessToken]
     )
+
     return (
         <div className="row">
-            <div className="col-lg-4">
+            <div className="col-lg-3">
                 <div className="card card-body mb-4 shadow-sm">
                     <article className="icontext">
                         <span className="icon icon-sm rounded-circle alert-primary">
                             <i className="text-primary ri-money-dollar-circle-fill" style={{ fontSize: "33px" }}></i>
 
                         </span>
-                        <div className="text">
-                            <h6 className="mb-1">Tổng Doanh Thu</h6>{" "}
-                            <span className="d-flex "><div className="don-vi">₫</div>{numeral(totalSale.toFixed(0)).format('0,0')}</span>
+                        <div className="text d-flex justify-content-between">
+                            <div style={{ marginRight: "50px" }}>
+                                <h6 className="mb-1">Tổng Doanh Thu</h6>{" "}
+                                <span className="d-flex ">₫ {numeral(totalSale.totalRevenue).format('0,0')}</span>
+                            </div>
+                            <div>
+
+                            </div>
+
                         </div>
                     </article>
                 </div>
             </div>
-            <div className="col-lg-4">
+            <div className="col-lg-3">
+                <div className="card card-body mb-4 shadow-sm">
+                    <article className="icontext">
+                        <span className="icon icon-sm rounded-circle alert-success">
+
+                            <i className="text-danger fa-solid fa-wallet" style={{ fontSize: "30px" }}></i>
+                        </span>
+                        <div className="text">
+                            <p className="mb-0 d-flex"><nav style={{ fontWeight: "bold" }}> Phí sàn: </nav>  ₫ {numeral(totalSale.fee).format('0,0')}</p>
+
+                            <p className="mb-0 d-flex"> <nav style={{ fontWeight: "bold" }}> Lợi nhuận: </nav>  ₫ {numeral(totalSale.lastTotalP).format('0,0')}</p>
+                        </div>
+                    </article>
+                </div>
+            </div>
+            <div className="col-lg-3">
                 <div className="card card-body mb-4 shadow-sm">
                     <article className="icontext">
                         <span className="icon icon-sm rounded-circle alert-success">
@@ -56,7 +79,7 @@ const TopTotal = (props) => {
                     </article>
                 </div>
             </div>
-            <div className="col-lg-4">
+            <div className="col-lg-3">
                 <div className="card card-body mb-4 shadow-sm">
                     <article className="icontext">
                         <span className="icon icon-sm rounded-circle alert-warning">

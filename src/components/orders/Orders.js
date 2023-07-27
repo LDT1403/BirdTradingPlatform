@@ -5,6 +5,7 @@ import numeral from "numeral";
 
 const Orders = (props) => {
     const { orders } = props;
+    console.log(orders)
     return (
         <table className="table">
             <thead>
@@ -31,7 +32,7 @@ const Orders = (props) => {
                         <td>
                             {order.status ? (
                                 <span className="badge bg-success">
-                                    Đã Thanh Toán {moment(order.paidAt).format("MMM Do YY")}
+                                    Đã Thanh Toán {moment(order.paidAt).format("DD/MM/YYYY")}
                                 </span>
                             ) : (
                                 <span className="badge bg-danger">
@@ -39,13 +40,15 @@ const Orders = (props) => {
                                 </span>
                             )}
                         </td>
-                        <td>{moment(order.orderDate).format("MMM Do YY")}</td>
+                        <td>{moment(order.orderDate).format("DD/MM/YYYY")}</td>
                         <td>
                             {
                                 order.toConfirm === 2 ? (
                                     <span className="badge bg-warning">Đang xử lý</span>
-                                ) : order.toConfirm === 3 ? (
-                                    <span className="badge bg-success">Đã xác nhận</span>
+                                ) : (order.toConfirm === 3 && order.receivedDate === null) ? (
+                                    <span className="badge bg-primary">Đã xác nhận</span>
+                                ) : (order.toConfirm === 3 && order.receivedDate !== null) ? (
+                                    <span className="badge bg-success">Hoàn Thành</span>
                                 ) : order.toConfirm === 4 ? (
                                     <span className="badge bg-danger">Đã Hủy</span>
                                 ) : (

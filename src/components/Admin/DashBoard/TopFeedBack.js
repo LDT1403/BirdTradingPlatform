@@ -55,7 +55,7 @@ const TopFeedBack = () => {
                     {data?.slice().reverse().map((item, index) => (
                         <tr key={index}>
                             <td>
-                                <img src={item.imageProduct} alt="Product" />
+                                <img src={item.imageProduct} alt="Product" style={{ width: "60px", height: "60px" }} />
                             </td>
                             <td>{item.productName}</td>
                             <td>₫ {numeral(item.price).format('0,0')}</td>

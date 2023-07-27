@@ -69,7 +69,7 @@ export const getOrderDetails = (id) => async (dispatch) => {
                 ? error.response.data.message
                 : error.message;
         if (message === "Not authorized, token failed") {
-          
+
         }
         dispatch({
             type: ORDER_DETAILS_FAIL,
@@ -114,10 +114,11 @@ export const confirmOrder = (order) => async (dispatch) => {
 };
 
 // ORDER DELIVER
-export const cancelOrder = (order) => async (dispatch) => {
+export const cancelOrder = (orderId, reson) => async (dispatch) => {
     try {
+        console.log(reson)
         dispatch({ type: ORDER_CANCEL_REQUEST });
-        console.log(order)
+        console.log(orderId)
         const accessToken = localStorage.getItem('jwtToken');
 
         const config = {
@@ -127,8 +128,8 @@ export const cancelOrder = (order) => async (dispatch) => {
         };
 
         const { data } = await axios.put(
-            `https://localhost:7241/api/Shop/Cancle_Order?orderId=${order.orderId}`,
-            {},
+            `https://localhost:7241/api/Shop/Cancle_Order?orderId=${orderId}`,
+            reson,
             config
         );
         dispatch({ type: ORDER_CANCEL_SUCCESS, payload: data });

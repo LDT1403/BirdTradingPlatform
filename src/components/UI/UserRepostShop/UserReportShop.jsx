@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import {  useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { toast } from 'react-toastify';
 const UserReportShop = ({ shopId, setShowReportShop }) => {
@@ -16,6 +16,7 @@ const UserReportShop = ({ shopId, setShowReportShop }) => {
                     setCateReport(responseShop.data)
                })
      }, [])
+     console.log(CateReport);
 
 
      const ReportData = {
