@@ -4,6 +4,7 @@ import { useNavigate, NavLink } from "react-router-dom";
 import axios from "axios";
 import '../../../style/toConfirmation.css';
 import numeral from 'numeral';
+import moment from "moment";
 const ToConfirmation = () => {
 
      const accessToken = localStorage.getItem('jwtToken');
@@ -72,6 +73,7 @@ const ToConfirmation = () => {
                                                        <path fillRule="evenodd" d="M3 20.25v-8.755c1.42.674 3.08.673 4.5 0A5.234 5.234 0 009.75 12c.804 0 1.568-.182 2.25-.506a5.234 5.234 0 002.25.506c.804 0 1.567-.182 2.25-.506 1.42.674 3.08.675 4.5.001v8.755h.75a.75.75 0 010 1.5H2.25a.75.75 0 010-1.5H3zm3-6a.75.75 0 01.75-.75h3a.75.75 0 01.75.75v3a.75.75 0 01-.75.75h-3a.75.75 0 01-.75-.75v-3zm8.25-.75a.75.75 0 00-.75.75v5.25c0 .414.336.75.75.75h3a.75.75 0 00.75-.75v-5.25a.75.75 0 00-.75-.75h-3z" clipRule="evenodd" />
                                                   </svg>
                                                   {shop.shopName}
+
                                                   <div className="receButton">
                                                        <button className="viewShop" onClick={() => handleViewShopClick(shop.shopId)}>
                                                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="iconShop">
@@ -80,6 +82,9 @@ const ToConfirmation = () => {
 
                                                             <div>Xem Shop</div>
                                                        </button>
+                                                  </div>
+                                                  <div id="order_date">
+                                                       {moment(shop.orderDate).format('DD-MM-YYYY HH:mm')}
                                                   </div>
                                              </div>
 

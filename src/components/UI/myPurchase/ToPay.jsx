@@ -4,6 +4,7 @@ import axios from "axios";
 import '../../../style/toPay.css';
 import numeral from 'numeral';
 import LoadingFive from "../../Loadingfive/LoadingWrap";
+import moment from "moment";
 const ToPay = () => {
      const accessToken = localStorage.getItem('jwtToken');
      const [orderList, setOrderList] = useState([]);
@@ -34,7 +35,7 @@ const ToPay = () => {
      const handlePayNow = (order) => {
           setShowLoadDing(true)
           const orderId = order.orders.map(order => order.parentOrderId)
-    
+
           const paymentMethodSelect = {
                "parentOrderId": orderId[0],
                method: "VnPay"
@@ -58,7 +59,7 @@ const ToPay = () => {
                     <div style={{ minHeight: '85vh', backgroundColor: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                          <div>
                               <img style={{ height: '100px' }} src="https://cdn.haitrieu.com/wp-content/uploads/2022/10/Icon-VNPAY-QR-350x274.png" alt="" />
-                              <div style={{display: 'flex', justifyContent:'center', fontSize: '20px'}}>Chưa có thanh toán nào !</div>
+                              <div style={{ display: 'flex', justifyContent: 'center', fontSize: '20px' }}>Chưa có thanh toán nào !</div>
                          </div>
 
                     </div>
@@ -75,9 +76,14 @@ const ToPay = () => {
                                                        <path fillRule="evenodd" d="M3 20.25v-8.755c1.42.674 3.08.673 4.5 0A5.234 5.234 0 009.75 12c.804 0 1.568-.182 2.25-.506a5.234 5.234 0 002.25.506c.804 0 1.567-.182 2.25-.506 1.42.674 3.08.675 4.5.001v8.755h.75a.75.75 0 010 1.5H2.25a.75.75 0 010-1.5H3zm3-6a.75.75 0 01.75-.75h3a.75.75 0 01.75.75v3a.75.75 0 01-.75.75h-3a.75.75 0 01-.75-.75v-3zm8.25-.75a.75.75 0 00-.75.75v5.25c0 .414.336.75.75.75h3a.75.75 0 00.75-.75v-5.25a.75.75 0 00-.75-.75h-3z" clipRule="evenodd" />
                                                   </svg>
                                                   {shop.shopName}
+                                                  <div id="order_date">
+                                                       {moment(shop.orderDate).format('DD-MM-YYYY HH:mm')}
+                                                  </div>
+
                                              </div>
 
                                              <div className="toPay-Product-text">
+                                                  Thanh Toán Lại
                                              </div>
                                         </div>
 
@@ -118,14 +124,14 @@ const ToPay = () => {
                     </div>
 
                ))}
-                {
-                showLoadDing && (
-                    <div className="confirmation-modal" style={{ background: "none"}}>
-                        <LoadingFive />
-                    </div>
+               {
+                    showLoadDing && (
+                         <div className="confirmation-modal" style={{ background: "none" }}>
+                              <LoadingFive />
+                         </div>
 
-                )
-                }
+                    )
+               }
           </div>
      );
 
