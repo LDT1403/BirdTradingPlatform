@@ -154,3 +154,9 @@
           margin-right: 1px;
      
 }
+#order_date{
+     font-size:18px;
+     font-weight: 400;
+     margin-left: 15px;
+     color: rgb(17, 235, 71);
+}

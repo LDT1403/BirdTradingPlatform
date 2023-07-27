@@ -4,6 +4,7 @@ import { useNavigate, NavLink } from "react-router-dom";
 import axios from "axios";
 import '../../../style/toConfirmation.css';
 import numeral from 'numeral';
+import moment from "moment";
 const Confirmed = () => {
 
      const accessToken = localStorage.getItem('jwtToken');
@@ -100,6 +101,9 @@ const Confirmed = () => {
 
                                                             <div>Xem Shop</div>
                                                        </button>
+                                                  </div>
+                                                  <div id="order_date">
+                                                       {moment(shop.orderDate).format('DD-MM-YYYY HH:mm')}
                                                   </div>
                                              </div>
 

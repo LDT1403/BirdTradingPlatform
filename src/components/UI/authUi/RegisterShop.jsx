@@ -55,9 +55,8 @@ const RegisterShop = () => {
             shopName: shopName,
             address: address,
             phone: phone,
-            description: 'dan choi chim'
+            description: '',
         }
-
         registerShop(newShoper, dispatch, navigate, accessToken);
 
     }
@@ -89,7 +88,5 @@ const RegisterShop = () => {
             </form>
         </div>
     )
-
 }
-
-export default RegisterShop
+export default RegisterShop;
