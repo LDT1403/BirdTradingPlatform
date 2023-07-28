@@ -12,7 +12,7 @@ export default function Shopping() {
  
   const placeholder = "Tìm sản phẩm trong Bird Trading";
   return (
-    <div  className=" pb-4" style={{backgroundColor: '#eff5f5',paddingTop: '10px'}}>
+    <div  className=" pb-4" style={{backgroundColor: 'rgb(213, 226, 231)',paddingTop: '15px'}}>
       <Container className="m-auto search-shopping">
         <Col lg='12' md='10' >
           <Row>

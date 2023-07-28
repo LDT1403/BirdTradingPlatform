@@ -21,6 +21,7 @@ const Cart = () => {
     const [cartID, setcartID] = useState(0);
     const [quantity, setquantity] = useState(0);
     const [total, setTotal] = useState(0);
+    const[ productDeleteItem,setProductDeleteItem] = useState();
     const reloadData = () => {
         axios.get(`https://localhost:7241/api/Order/ViewCart`, {
             headers: {
@@ -165,13 +166,19 @@ const Cart = () => {
             setShowConfirmation(true);
             setcartID(data.cartId);
             setquantity(0)
+            setProductDeleteItem(data.productId)
         }
 
     };
 
 
     const handleConfirmation = () => {
-
+        let updatedOrderSelect = [...orderSelect];
+        const finded = updatedOrderSelect.find(u => u.productId === productDeleteItem )
+        if (finded) {
+            updatedOrderSelect = updatedOrderSelect.filter(u => u.productId !== productDeleteItem )
+        }
+        setOrderSelect(updatedOrderSelect);
         const UpdateCart =
         {
             cartID: cartID,
@@ -188,6 +195,7 @@ const Cart = () => {
                     setDataCart([]);
                     reloadData();
                     setShowConfirmation(false);
+                    setProductDeleteItem();
                     dispatch(listCarts());
                 }
             })
@@ -199,8 +207,8 @@ const Cart = () => {
         setProductName(data.productName);
         setcartID(data.cartId);
         setShowConfirmation(true);
-
-
+        setProductDeleteItem(data.productId)
+       
     };
 
     useEffect(() => {
@@ -236,7 +244,7 @@ const Cart = () => {
         let finded = orderSelect.find(u => u.productId === productId)
         return !!finded;
     }
-    
+
     return (
         <div className="Cart-page">
 
@@ -326,16 +334,16 @@ const Cart = () => {
 
                                                         <div className="cart-products-num"><div className="don-vi">₫</div>{numeral(product.priceProduct).format('0,0')}</div>
                                                         <div className="cart-products-quantity">
-                                                            <button className="cart-clickQuantity" onClick={() => UpdateItem({ cartId: product.cartId, quantity: -1, index: index, indexshop: indexshop, quantityCart: product.quantityCart, productName: product.productName })}><i className="ri-subtract-line" /></button>
+                                                            <button className="cart-clickQuantity" onClick={() => UpdateItem({ cartId: product.cartId, quantity: -1, index: index, indexshop: indexshop, quantityCart: product.quantityCart, productName: product.productName, productId: product.productId })}><i className="ri-subtract-line" /></button>
                                                             <span type="text" className="cart-view-quantity">{product.quantityCart} </span>
-                                                            <button className="cart-clickQuantity" onClick={() => UpdateItem({ cartId: product.cartId, quantity: 1, index: index, indexshop: indexshop, quantityCart: product.quantityCart, productName: product.productName })}><i className="ri-add-line" /></button>
+                                                            <button className="cart-clickQuantity" onClick={() => UpdateItem({ cartId: product.cartId, quantity: 1, index: index, indexshop: indexshop, quantityCart: product.quantityCart, productName: product.productName, productId: product.productId })}><i className="ri-add-line" /></button>
                                                         </div>
 
                                                         <div className="cart-products-num">
                                                             <div className="totalPrice-cart"><div className="don-vi">₫</div>{numeral(product.priceCart).format('0,0')}</div>
                                                         </div>
                                                         <div className="cart-products-num">
-                                                            <button onClick={() => deleteItem({ cartId: product.cartId, productName: product.productName })}>Xóa</button>
+                                                            <button onClick={() => deleteItem({ cartId: product.cartId, productName: product.productName, productId: product.productId })}>Xóa</button>
                                                         </div>
                                                     </>
                                                 )
@@ -356,11 +364,11 @@ const Cart = () => {
 
                 <div className="Cart-page-inFor">
                     <div className="cart-shop-select">
-                        <input class="red-input" type="checkbox" />
+                     
                     </div>
                     <div className="cart-products-info">
                         <div className="cart-inFor">
-                            Chọn Tất Cả
+                            
                         </div>
                     </div>
                     <div className="cart-products-totalCheckOut">

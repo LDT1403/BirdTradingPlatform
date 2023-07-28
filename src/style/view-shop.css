@@ -1,12 +1,12 @@
 .Shop-view {
      display: flex;
-     width: 1300PX;
+     width: 1300px;
      height: 10%;
      margin-left: auto;
      margin-right: auto;
      background-color: #fff;
      padding: 10px;
-     background-color: rgba(203, 209, 209, 0.43);
+     background:linear-gradient(90deg,#fff,#2295a2);
      /* background-image:  url("https://th.bing.com/th/id/OIP.nn4bfuIyJfUpltEbrIGRBAHaEo?pid=ImgDet&rs=1");
       */
      background-position: center -100px; 
@@ -76,7 +76,7 @@
 .detail-value-1 {
      width: 30%;
      padding-left: 15px;
-     color: #0b61d0;
+     color: #020202;
      font-size: 17px;
      font-weight: 500;
 }
@@ -91,7 +91,7 @@
 .detail-value {
      width: 50%;
      padding-left: 15px;
-     color: #0b61d0;
+     color: #000f;
      font-size: 17px;
      font-weight: 500;
 }

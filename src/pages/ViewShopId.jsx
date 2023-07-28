@@ -30,7 +30,7 @@ export default function ViewShopId() {
      const placeholder = `Tìm sản phẩm trong ${infoShop.shopName}`;
      return (
 
-          <div style={{backgroundColor: '#eff5f5' , paddingTop:'10px'}}>
+          <div style={{backgroundColor: 'rgb(213, 226, 231)' , paddingTop:'15px'}}>
                <div className="Shop-view" >
                     <Link to={`/viewShop/${infoShop.shopId}`} className="shopvImg">
                          <img src={infoShop.avatar} alt="" />

@@ -106,7 +106,7 @@ const AddressShop = ({
         <div className="log-add-newAddress-tiltel">Địa chỉ chi tiết</div>
         <div className="Address-log-add ">
           <SelectAddress
-            label="Province"
+            label="Tỉnh/Thành Ph.."
             setCity={setCity}
             setidCity={setidCity}
             Province={Province}
@@ -117,7 +117,7 @@ const AddressShop = ({
             setMsAddress={setMsAddress}
           />
           <SelectAddress
-            label="District"
+            label="Quận/Huyện"
             setDistrict={setDistrict}
             setidDistrict={setidDistrict}
             DistrictData={DistrictData}
@@ -126,7 +126,7 @@ const AddressShop = ({
             setMsAddress={setMsAddress}
           />
           <SelectAddress
-            label="Ward"
+            label="Phường/Xã"
             setWard={setWard}
             WardData={WardData}
             setMsAddress={setMsAddress}

@@ -1,12 +1,8 @@
 
 .search-inShop {
-     background-color:#0e5d0fc7;
+     background:linear-gradient(90deg,#fff,#2295a2);
      margin: 0;
      width: 100%;
-     background-image: url("../assets/images/__opt__aboutcom__coeus__resources__content_migration__mnn__images__2013__07__Trio-Spixs-Macaw-Captivity-41606906c404424fb879f2b26f261f4f.jpg") ;
-     background-position: center -100px; 
-     background-repeat: no-repeat;
-     background-size: cover;
      height:100%;   
      display: flex;
      align-items: center;
