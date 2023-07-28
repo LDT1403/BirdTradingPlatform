@@ -11,7 +11,7 @@ const UserReportShop = ({ shopId, setShowReportShop }) => {
      const [reportNull, setReportNull] = useState(false);
      const [Dreport, setDReport] = useState(false);
      useEffect(() => {
-          axios.get(`https://localhost:7241/api/Customer/GetcatoryReport`)
+          axios.get(`https://birdtradingplatformapi.azurewebsites.net/api/Customer/GetcatoryReport`)
                .then(responseShop => {
                     setCateReport(responseShop.data)
                })
@@ -74,7 +74,7 @@ const UserReportShop = ({ shopId, setShowReportShop }) => {
                          ))}
                     </div>
                     <div id="title-feedback">
-                        Chi Tiết Tố Cáo
+                         Chi Tiết Tố Cáo
                     </div>
                     <div className="detail-feedback">
 
