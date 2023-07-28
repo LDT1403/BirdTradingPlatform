@@ -10,16 +10,14 @@ export default function ViewShopId() {
      const idshop = useParams();
      const [infoShop, setInfoShop] = useState([]);
      const [search, setSearch] = useState("");
-     const ApiLink = `https://localhost:7241/api/Products/Product_ShopId?shopId=${idshop.id}`
+     const ApiLink = `https://birdtradingplatformapi.azurewebsites.net/api/Products/Product_ShopId?shopId=${idshop.id}`
      useEffect(() => {
           window.scrollTo({ top: 0, behavior: 'smooth' });
 
-          axios.get(`https://localhost:7241/api/Products/Shop_Detail_Product?id=${idshop.id}`)
+          axios.get(`https://birdtradingplatformapi.azurewebsites.net/api/Products/Shop_Detail_Product?id=${idshop.id}`)
                .then(responseShop => {
                     setInfoShop(responseShop.data)
                })
-
-
                .catch(err => {
                     console.log(err)
                })
