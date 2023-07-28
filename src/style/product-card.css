@@ -71,9 +71,9 @@
     border-radius: 4px;
     position: relative;
     width: 100%;
-    max-width : 270px;
+    max-width: 270px;
     margin-bottom: 10px;
-    max-height:500px;
+    max-height: 500px;
     transition: transform 0.3s ease;
     box-shadow: 0 0 5px 0.1px rgb(199, 196, 196);
     perspective: 1000px;
@@ -191,12 +191,12 @@
 }
 
 .original-price {
-    display:flex;
+    display: flex;
     text-decoration: line-through;
     color: #999;
     font-size: 15px;
     font-weight: 500;
-    margin-right: 3px;   
+    margin-right: 3px;
 }
 
 .percent {
@@ -204,14 +204,14 @@
 }
 
 .discount-price {
-    display:flex;
+    display: flex;
     font-weight: 500;
     font-size: 19px;
     color: #333;
 }
 
 .discount-price-color {
-    display:flex;
+    display: flex;
     color: #df2020 !important;
 }
 

@@ -111,7 +111,6 @@ const OrderCancel = ({ orderId, isVisible, onSuccess }) => {
 
                 <div style={{ display: "flex", justifyContent: "end" }}>
                     <button onClick={handleReport} className="btn btn-sm btn-outline-danger pb-2 mt-2">
-
                         <h6 style={{ paddingTop: '5px' }}>Xác Nhận</h6>
                     </button>
                 </div>
