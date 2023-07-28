@@ -36,7 +36,7 @@ const ShopDetail = () => {
     const [repAdd, setRepAdd] = useState("");
     const [ShowRepAddFailed, setShowRepAddFailed] = useState(false);
     const reloadData = () => {
-      
+
     };
 
     useEffect(() => {
@@ -275,7 +275,7 @@ const ShopDetail = () => {
             quantity: quantity,
             soldPrice: details.soldPrice,
             totalPrice: quantity * details.soldPrice,
-            cartId :0,
+            cartId: 0,
         }
     }
 
@@ -361,23 +361,26 @@ const ShopDetail = () => {
                     <div className="infor">
                         <div className="decription">{details.productName}</div>
                         <div className="productRate">
-                            <div className="rate-detail">
-                                <div className="num-rate">{details.rate}</div>
-                                <div className="star-rate">{renderRating()}</div>
+                            <div className="productRate1">
+                                <div className="rate-detail">
+                                    <div className="num-rate">{details.rate}</div>
+                                    <div className="star-rate">{renderRating()}</div>
+                                </div>
+                                <div className="feedback-pro">
+                                    <div className="num-sold">{totalFeedback}</div>
+                                    <div className="text-sold"> Đánh Giá</div>
+                                </div>
+                                <div className="quantitySold">
+                                    <div className="num-sold">{details.quantitySold || 0}</div>
+                                    <div className="text-sold">Đã Bán</div>
+                                </div>
                             </div>
-                            <div className="feedback-pro">
-                                <div className="num-sold">{totalFeedback}</div>
-                                <div className="text-sold"> Đánh Giá</div>
-                            </div>
-                            <div className="quantitySold">
-                                <div className="num-sold">{details.quantitySold || 0}</div>
-                                <div className="text-sold">Đã Bán</div>
-                            </div>
-                            <div style={{ width: "55%", display: "flex", justifyContent: "end" }}>
+
+                          
                                 <button onClick={handleReported} style={{ border: 'none', backgroundColor: '#fff', height: '40px', display: 'flex', alignItems: 'center' }}>
                                     <i className="ri-error-warning-line" style={{ color: "red", fontSize: "40px" }} />
                                 </button>
-                            </div>
+                          
                         </div>
                     </div>
                     <div className="viewPrice">

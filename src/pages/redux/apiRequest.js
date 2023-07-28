@@ -23,6 +23,7 @@ export const loginUser = async (user, dispatch, navigate) => {
                     navigate("/dashboard");
                 } else {
                     navigate(-1);
+
                 }
             } else {
                 toast.error(res.data.message);
