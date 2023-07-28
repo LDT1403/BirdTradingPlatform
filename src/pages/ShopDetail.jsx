@@ -51,18 +51,18 @@ const ShopDetail = () => {
 
         window.scrollTo({ top: 0, behavior: 'smooth' });
 
-        axios.get(`https://localhost:7241/api/Products/detail_product?id=${idpro.id}`)
+        axios.get(`https://birdtradingplatformapi.azurewebsites.net/api/Products/detail_product?id=${idpro.id}`)
             .then(resp => {
                 setDetails(resp.data);
 
-                axios.get(`https://localhost:7241/api/Products/Shop_Detail_Product?id=${resp.data.shopId}`)
+                axios.get(`https://birdtradingplatformapi.azurewebsites.net/api/Products/Shop_Detail_Product?id=${resp.data.shopId}`)
                     .then(responseShop => {
                         setInfoShop(responseShop.data)
                     })
                     .catch((err) => {
                         console.log(err);
                     });
-                axios.get(`https://localhost:7241/api/Products/List_Image_ProductID?productId=${resp.data.productId}`)
+                axios.get(`https://birdtradingplatformapi.azurewebsites.net/api/Products/List_Image_ProductID?productId=${resp.data.productId}`)
                     .then(res => {
                         setSelectedImage(res.data[0])
                         setListImg(res.data)
@@ -70,7 +70,7 @@ const ShopDetail = () => {
                     .catch((err) => {
                         console.log(err);
                     });
-                axios.get(`https://localhost:7241/api/FeedBack?productID=${resp.data.productId}`)
+                axios.get(`https://birdtradingplatformapi.azurewebsites.net/api/FeedBack?productID=${resp.data.productId}`)
                     .then(resp => {
                         setFeedback(resp.data);
                         setFilteredFeedback(resp.data);
@@ -80,7 +80,7 @@ const ShopDetail = () => {
                     .catch((err) => {
                         console.log(err);
                     });
-                axios.get(`https://localhost:7241/api/Products/Product_ShopId?shopId=${resp.data.shopId}`)
+                axios.get(`https://birdtradingplatformapi.azurewebsites.net/api/Products/Product_ShopId?shopId=${resp.data.shopId}`)
                     .then(resp => {
                         const maxProducts = resp.data.slice(0, 12);
                         setProductsData(maxProducts);
@@ -126,7 +126,7 @@ const ShopDetail = () => {
             productID: productId
         }
         if (accessToken) {
-            axios.post("https://localhost:7241/api/Order/Addtocart", addProductNow, {
+            axios.post("https://birdtradingplatformapi.azurewebsites.net/api/Order/Addtocart", addProductNow, {
                 headers: {
                     Authorization: `Bearer ${accessToken}`
                 }

@@ -83,7 +83,7 @@ const NewAddress = ({ setShowAddNewAddress, setShowNotification, accessToken }) 
                     setMsAddressDetails(true);
                     break;
                default:
-                    axios.post("https://localhost:7241/api/Order/AddressOder", NewAddressAdd, {
+                    axios.post("https://birdtradingplatformapi.azurewebsites.net/api/Order/AddressOder", NewAddressAdd, {
                          headers: {
                               Authorization: `Bearer ${accessToken}`
                          }

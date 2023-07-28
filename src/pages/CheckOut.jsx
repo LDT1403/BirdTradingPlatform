@@ -33,7 +33,7 @@ const CheckOut = () => {
     }, [orderSelect])
     console.log(cartIdsToDelete);
     const DeleteCartItem = () => {
-        axios.post("https://localhost:7241/api/Order/DeleteCarts", cartIdsToDelete, {
+        axios.post("https://birdtradingplatformapi.azurewebsites.net/api/Order/DeleteCarts", cartIdsToDelete, {
             headers: {
                 Authorization: `Bearer ${accessToken}`
             }
@@ -42,7 +42,7 @@ const CheckOut = () => {
     useEffect(() => {
         const fetchData = () => {
             axios
-                .get("https://localhost:7241/api/Order/GetAddressOder", {
+                .get("https://birdtradingplatformapi.azurewebsites.net/api/Order/GetAddressOder", {
                     headers: {
                         Authorization: `Bearer ${accessToken}`,
                     },
@@ -165,7 +165,7 @@ const CheckOut = () => {
             switch (paymentMethod) {
                 case "Cash":
                     setLoadDing(true)
-                    axios.post("https://localhost:7241/api/Order/Create", orderInfo, {
+                    axios.post("https://birdtradingplatformapi.azurewebsites.net/api/Order/Create", orderInfo, {
                         headers: {
                             Authorization: `Bearer ${accessToken}`
                         }
@@ -182,7 +182,7 @@ const CheckOut = () => {
                                 "method": paymentMethod
                             }
                             console.log(paymentSelect);
-                            axios.post(`https://localhost:7241/api/Order/Pay`, paymentSelect, {
+                            axios.post(`https://birdtradingplatformapi.azurewebsites.net/api/Order/Pay`, paymentSelect, {
                                 headers: {
                                     Authorization: `Bearer ${accessToken}`
                                 }
@@ -208,7 +208,7 @@ const CheckOut = () => {
                     break;
                 case "VnPay":
                     setLoadDing(true)
-                    axios.post("https://localhost:7241/api/Order/Create", orderInfo, {
+                    axios.post("https://birdtradingplatformapi.azurewebsites.net/api/Order/Create", orderInfo, {
                         headers: {
                             Authorization: `Bearer ${accessToken}`
                         }
@@ -225,7 +225,7 @@ const CheckOut = () => {
                                 ,
                                 "method": paymentMethod
                             }
-                            axios.post(`https://localhost:7241/api/Order/Pay`, paymentSelect, {
+                            axios.post(`https://birdtradingplatformapi.azurewebsites.net/api/Order/Pay`, paymentSelect, {
                                 headers: {
                                     Authorization: `Bearer ${accessToken}`
                                 }

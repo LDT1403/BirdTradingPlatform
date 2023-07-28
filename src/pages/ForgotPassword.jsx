@@ -24,7 +24,7 @@ const ForgotPassword = ({ isVisible, onSuccess }) => {
         }
 
         axios
-            .post("https://localhost:7241/api/User/reset-password", { email })
+            .post("https://birdtradingplatformapi.azurewebsites.net/api/User/reset-password", { email })
             .then((response) => {
                 toast.success("Yêu cầu đặt lại mật khẩu đã được gửi thành công!");
                 onSuccess(); // Gọi hàm onSuccess khi yêu cầu thành công

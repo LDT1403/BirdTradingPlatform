@@ -31,7 +31,7 @@ const UserReportShop = ({ shopId, setShowReportShop }) => {
                     setDReport(true);
                }
                if (categoriaI != 0 && DetailFB.length > 1) {
-                    axios.post(`https://localhost:7241/api/Customer/reportShop`, ReportData, {
+                    axios.post(`https://birdtradingplatformapi.azurewebsites.net/api/Customer/reportShop`, ReportData, {
                          headers: {
                               Authorization: `Bearer ${accessToken}`
                          }
