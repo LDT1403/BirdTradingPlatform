@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { cartActions } from "../../../pages/redux/cartSlice";
 import { Link, useNavigate } from "react-router-dom";
 import { cartUiActions } from "../../../store/shopping-cart/cartUiSlice";
+import numeral from "numeral";
 
 const CartItem = ({ item }) => {
     const navigate = useNavigate()
@@ -33,7 +34,7 @@ const CartItem = ({ item }) => {
                 <div className="cart__product-info w-100 d-flex align-items-center gap-4 justify-content-between">
                     <div>
                         <h6 className="cart__product-title">{truncateProductName(productName, 25)}</h6>
-                        <p className="d-flex align-items-center  gap-5 cart__product-price"> <span>{priceProduct}$</span></p>
+                        <p className="d-flex align-items-center  gap-5 cart__product-price"> ₫ {numeral(priceProduct).format('0,0')}</p>
                     </div>
                 </div>
             </div>

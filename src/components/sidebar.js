@@ -17,7 +17,7 @@ const Sidebar = () => {
                             />
                         </Link>
 
-                        <h6 className="brand-wrap">BirdTrading</h6>
+                        <h6 className="brand-wrap" style={{ fontSize: '20px', fontWeight: 'bold' }}>BirdTrading</h6>
                     </nav>
 
 
@@ -38,7 +38,7 @@ const Sidebar = () => {
                                 exact={true}
                             >
                                 <i className="icon fas fa-home"></i>
-                                <span className="text">Dashboard</span>
+                                <span className="text">Thống Kê</span>
                             </NavLink>
                         </li>
                         <li className="menu-item">

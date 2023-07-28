@@ -40,7 +40,7 @@ const TopTotal = (props) => {
                         </span>
                         <div className="text d-flex justify-content-between">
                             <div style={{ marginRight: "50px" }}>
-                                <div className="mb-1" style={{ fontWeight: 'bold', fontSize: '16px' }}>Tổng Tiền</div>{" "}
+                                <div className="mb-1" >Tổng Tiền</div>{" "}
                                 <span className="d-flex ">₫ {numeral(totalSale.totalRevenue).format('0,0')}</span>
                             </div>
                             <div>
@@ -59,9 +59,9 @@ const TopTotal = (props) => {
                             <i className="text-danger fa-solid fa-wallet" style={{ fontSize: "30px" }}></i>
                         </span>
                         <div className="text">
-                            <p className="mb-0 d-flex"><nav style={{ fontWeight: "bold" }}> Phí sàn: </nav>  ₫ {numeral(totalSale.fee).format('0,0')}</p>
+                            <p className="mb-0 d-flex"><nav style={{ fontWeight: "bold", marginRight: '5px' }}> Phí sàn:  </nav >  ₫ {numeral(totalSale.fee).format('0,0')}</p>
 
-                            <p className="mb-0 d-flex"> <nav style={{ fontWeight: "bold" }}> Lợi nhuận: </nav>  ₫ {numeral(totalSale.lastTotalP).format('0,0')}</p>
+                            <p className="mb-0 d-flex"> <nav style={{ fontWeight: "bold", marginRight: '5px' }}> Lợi nhuận:  </nav>  ₫ {numeral(totalSale.lastTotalP).format('0,0')}</p>
                         </div>
                     </article>
                 </div>

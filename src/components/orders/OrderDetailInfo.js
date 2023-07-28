@@ -12,7 +12,7 @@ const OrderDetailInfo = (props) => {
                     </span>
                     <div className="text">
                         <h6 className="mb-1">Khách Hàng</h6>
-                        <p className="mb-1">
+                        <p >
                             <label style={{ fontWeight: 'bold' }}>Tên</label> : {order.userName} <br />
                             <label style={{ fontWeight: 'bold' }}>Email</label>: <a href={`mailto:${order.email}`}>{order.email}</a> <br />
                             <label style={{ fontWeight: 'bold' }}>Số Điện Thoại</label>: {order.phone}
@@ -28,7 +28,7 @@ const OrderDetailInfo = (props) => {
                     </span>
                     <div className="text">
                         <h6 className="mb-1">Thông Tin Đơn Hàng</h6>
-                        <p className="mb-1">
+                        <p >
                             <label style={{ fontWeight: 'bold' }}>Vận Chuyển </label>
                             : {order.address}
                             <br />
@@ -46,7 +46,7 @@ const OrderDetailInfo = (props) => {
                     </span>
                     <div className="text">
                         <h6 className="mb-1">Thông Tin Nhận Hàng</h6>
-                        <p className="mb-1">
+                        <p>
                             <label style={{ fontWeight: 'bold' }}> Địa Chỉ </label>
                             : {order.addressDetail}
                             <br />

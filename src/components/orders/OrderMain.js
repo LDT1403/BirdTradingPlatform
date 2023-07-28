@@ -50,7 +50,7 @@ const OrderMain = () => {
                                 placeholder="Search..."
                                 className="form-control p-2"
                             /> */}
-                            <div style={{ fontWeight: 'bold', fontSize: '35px' }}>Đơn Hàng</div>
+                            <div style={{ fontSize: '30px' }}>Đơn Hàng</div>
                         </div>
                         <div className="col-lg-2 col-6 col-md-3">
                             <select className="form-select" onChange={handleStatusFilterChange}>

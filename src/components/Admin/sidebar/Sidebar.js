@@ -39,7 +39,7 @@ const Sidebar = () => {
                                 exact={true}
                             >
                                 <i className="icon fas fa-home"></i>
-                                <span className="text">Dashboard</span>
+                                <span className="text">Thống Kê</span>
                             </NavLink>
                         </li>
                         {/* <li className="menu-item">

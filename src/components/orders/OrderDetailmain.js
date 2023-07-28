@@ -73,12 +73,12 @@ const OrderDetailmain = (props) => {
                                 <span>
                                     <i className="far fa-calendar-alt mx-2"></i>
                                     <b className="text-white">
-                                        {moment(order.dateOrder).format("llll")}
+                                        {moment(order.dateOrder).format("DD/MM/YYYY HH:MM")}
                                     </b>
                                 </span>
                                 <br />
                                 <small className="text-white mx-3 ">
-                                    Order ID: {order.orderId}
+                                    Mã Đơn Hàng: {order.orderId}
                                 </small>
                             </div>
                             {/* <div className="col-lg-6 col-md-6 ms-auto d-flex justify-content-end align-items-center">

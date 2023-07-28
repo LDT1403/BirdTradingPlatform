@@ -63,9 +63,9 @@ const UserComponent = () => {
                                         <th scope="col">Ngày Sinh</th>
                                         <th scope="col">Địa Chỉ</th>
                                         <th scope="col">Số Điện Thoại</th>
-                                        <th scope="col" className="text-end">
+                                        {/* <th scope="col" className="text-end">
                                             Action
-                                        </th>
+                                        </th> */}
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -87,7 +87,7 @@ const UserComponent = () => {
                                             <td className="align-middle">{moment(user.birth).format("DD/MM/YYYY")}</td>
                                             <td className="align-middle">{user.address}</td>
                                             <td className="align-middle">{user.phone}</td>
-                                            <td className="d-flex justify-content-end align-item-center">
+                                            {/* <td className="d-flex justify-content-end align-item-center">
                                                 {(loadingBaned || loadingunBaned) && <Loading />}
                                                 {
                                                     user.status === false ? (
@@ -112,7 +112,7 @@ const UserComponent = () => {
                                                     )
                                                 }
 
-                                            </td>
+                                            </td> */}
                                         </tr>
                                     ))}
                                 </tbody>
