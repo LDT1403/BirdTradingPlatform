@@ -40,7 +40,7 @@ const TopTotal = (props) => {
                         </span>
                         <div className="text d-flex justify-content-between">
                             <div style={{ marginRight: "50px" }}>
-                                <h6 className="mb-1">Tổng Doanh Thu</h6>{" "}
+                                <div className="mb-1" style={{ fontWeight: 'bold', fontSize: '16px' }}>Tổng Tiền</div>{" "}
                                 <span className="d-flex ">₫ {numeral(totalSale.totalRevenue).format('0,0')}</span>
                             </div>
                             <div>
