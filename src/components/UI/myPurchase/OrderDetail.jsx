@@ -305,7 +305,7 @@ const OrderDetail = () => {
                               <div className="date_status_fail">
                                    <div className=""> {moment(orderSelect.cancelDate).format('DD-MM-YYYY HH:mm')}</div>
                               </div>
-                              <div className="date_status_fail">
+                              <div className="date_status_fail1">
                                   {orderSelect.reasonCancle}
                               </div>
                          </div>

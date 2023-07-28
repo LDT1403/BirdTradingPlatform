@@ -25,14 +25,14 @@ const CheckOut = () => {
     const [addressData, setAddressData] = useState([]);
     const [showLoadDing, setLoadDing] = useState(false);
     const [cartIdsToDelete, setCartIdsToDelete] = useState([]);
-    useEffect(()=>{
+    useEffect(() => {
         const cartIds = Object.values(orderSelect)
-        .map((item) => item.cartId)
-        .filter((cartId) => cartId !== 0);
-      setCartIdsToDelete(cartIds);
-    },[orderSelect])
+            .map((item) => item.cartId)
+            .filter((cartId) => cartId !== 0);
+        setCartIdsToDelete(cartIds);
+    }, [orderSelect])
     console.log(cartIdsToDelete);
-    const DeleteCartItem = ( ) =>{
+    const DeleteCartItem = () => {
         axios.post("https://localhost:7241/api/Order/DeleteCarts", cartIdsToDelete, {
             headers: {
                 Authorization: `Bearer ${accessToken}`
@@ -172,9 +172,9 @@ const CheckOut = () => {
                     })
                         .then(res => {
                             const listOrder = res.data
-                           
+
                             const listOrderId = listOrder.map(id => id.parentOrderId)
-                           
+
                             const paymentSelect = {
 
                                 "parentOrderId": listOrderId[0]
@@ -189,7 +189,9 @@ const CheckOut = () => {
                             })
                                 .then(response => {
                                     if (response.data.paymentUrl === null) {
-                                        DeleteCartItem();
+                                        if (cartIdsToDelete.length > 0) {
+                                            DeleteCartItem();
+                                        }
                                         setLoadDing(false)
                                         navigate("/MyPurchase/to-confirmation");
                                         dispatch(cartActions.deleteMultipleItems(orderSelectID));
@@ -213,10 +215,10 @@ const CheckOut = () => {
                     })
                         .then(res => {
                             const listOrder = res.data
-                          
+
                             const listOrderId = listOrder.map(id => id.parentOrderId)
-                         
-                        
+
+
                             const paymentSelect = {
 
                                 "parentOrderId": listOrderId[0]
@@ -229,7 +231,9 @@ const CheckOut = () => {
                                 }
                             })
                                 .then(response => {
-                                    DeleteCartItem();
+                                    if (cartIdsToDelete.length > 0) {
+                                        DeleteCartItem();
+                                    }
                                     setLoadDing(false);
                                     const paymentUrl = response.data.paymentUrl;
                                     window.location.href = `${paymentUrl}`;
@@ -322,7 +326,7 @@ const CheckOut = () => {
                                     <div className="checkOut-ProductName">{product.productName}</div>
                                     <div className="checkOut-Product-price">
                                         <div className="checkOut-num"><div className="don-vi">₫</div>{numeral(product.soldPrice).format('0,0')}</div>
-                                        <div className="checkOut-num" style={{justifyContent: 'center'}}>{product.quantity}</div>
+                                        <div className="checkOut-num" style={{ justifyContent: 'center' }}>{product.quantity}</div>
                                         <div className="checkOut-subitem"><div className="don-vi">₫</div>{numeral(product.totalPrice).format('0,0')}</div>
                                     </div>
 
@@ -369,7 +373,7 @@ const CheckOut = () => {
                                 <div className="num-payTotal-item">{calculateTotalQuantity()}</div>
                             </div>
                             <div className="checkOut-Total">Tổng thanh toán:
-                                <div className="num-payTotal" style={{display:'flex'}}><div className="don-vi">₫</div>{numeral(calculateTotalPrice()).format('0,0')}</div>
+                                <div className="num-payTotal" style={{ display: 'flex' }}><div className="don-vi">₫</div>{numeral(calculateTotalPrice()).format('0,0')}</div>
                             </div>
                         </div>
 

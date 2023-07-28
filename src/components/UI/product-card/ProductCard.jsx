@@ -129,7 +129,7 @@ const ProductCard = (props) => {
                             <span className="discount-price-color"><div className="don-vi">₫</div>{numeral(soldPrice).format('0,0')}</span>
                         </span>
                         <span className="rate">{rate} {renderRating()}</span><br />
-                        <span className="quantity-sold">Đã Bán: {quantitySold}</span>
+                        <span className="quantity-sold">Đã Bán: {quantitySold||0}</span>
 
                         {discountPercent !== 0 && (
                             <div>

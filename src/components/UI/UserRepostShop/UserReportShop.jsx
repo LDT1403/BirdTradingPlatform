@@ -64,7 +64,7 @@ const UserReportShop = ({ shopId, setShowReportShop }) => {
           <div className="confirmation-modal">
                <div className="log-add-feedback" style={{ width: "500px", padding: "10px", borderRadius: "2px", background: "#fff" }}>
                     <div id="title-feedback">
-                         Option Report
+                         Tùy Chọn Tố Cáo
                     </div>
                     <div style={{ padding: '10px', }}>
                          {CateReport.map((cate) => (
@@ -74,7 +74,7 @@ const UserReportShop = ({ shopId, setShowReportShop }) => {
                          ))}
                     </div>
                     <div id="title-feedback">
-                         Detail Report
+                        Chi Tiết Tố Cáo
                     </div>
                     <div className="detail-feedback">
 
@@ -88,13 +88,13 @@ const UserReportShop = ({ shopId, setShowReportShop }) => {
                          }
                          {
                               Dreport === true && (
-                                   <label style={{ paddingLeft: '5px', color: 'red' }} > Xin Vui Lòng Cung Cấp Đầy Đủ Để Gửi Khiếu Nại</label>
+                                   <label style={{ paddingLeft: '5px', color: 'red' }} > Xin Vui Lòng Cung Cấp Đầy Đủ Để Gửi Tố Cáo</label>
                               )
                          }
                     </div>
                     <div className="button-add-feedback" >
-                         <button onClick={handleCancel} style={{ backgroundColor: "#fff", border: '1px solid #c2c7c7', color: '#8d9292', marginRight: '10px' }}> Cancel</button>
-                         <button onClick={handleReport}> Report</button>
+                         <button onClick={handleCancel} style={{ backgroundColor: "#fff", border: '1px solid #c2c7c7', color: '#8d9292', marginRight: '10px' }}> Hủy</button>
+                         <button onClick={handleReport}> Tố Cáo</button>
                     </div>
                </div>
           </div>
