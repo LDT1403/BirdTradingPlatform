@@ -18,36 +18,33 @@ const Footer = () => {
 
                             <p className="text-center">
 
-                                Bird Trading - fun, reliable, safe and free online shopping app!
-                                Bird Trading is the leading online trading platform in Southeast Asia.
+                                Bird Trading - ứng dụng mua sắm trực tuyến thú vị, đáng tin cậy, an toàn và miễn phí!
+                                Bird Trading là nền tảng giao dịch trực tuyến hàng đầu ở Đông Nam Á.
                             </p>
                         </div>
                     </Col>
                     <Col lg="3" md="4" sm="6">
-                        <h5 className="footer__title mb-2" style={{ paddingLeft: "30px" }}>Category</h5>
+                        <h5 className="footer__title mb-2" style={{ paddingLeft: "30px" }}>Phân Loại</h5>
                         <div className="delivery__time_list">
                             <div className="delivery__time-item border-0 " style={{ paddingLeft: "30px" }}>
-                                <p>Brids</p>
-                                <p>Foods</p>
-                                <p>Bird Cages</p>
-                                <p>Accessory</p>
+                                <p>Chim</p>
+                                <p>Thức Ăn</p>
+                                <p>Lồng Chim</p>
+                                <p>Phụ Kiện</p>
 
                             </div>
-                            <div className="delivery__time-item border-0 " style={{ paddingLeft: "30px" }}>
-                                <span>SIMPLE, FAST AND SAFE ONLINE SHOPPING AND SELLING</span>
 
-                            </div>
                         </div>
                     </Col>
 
                     <Col lg="3" md="4" sm="6">
-                        <h5 className="footer__title">Contact</h5>
+                        <h5 className="footer__title">Liên Hệ</h5>
                         <ListGroup>
 
                             <div className="delivery__time-item border-0 ps-0">
-                                <p> Bird Trading is to allow you to buy and sell goods anytime, anywhere.
+                                <p> Bird Trading là cho phép bạn mua và bán hàng hóa mọi lúc, mọi nơi.
                                 </p>
-                                <span>Phone: 03977337051</span>
+                                <span>Liên Hệ: 03977337051</span>
                             </div>
                             <div className="delivery__time-item border-0 ps-0">
                                 <span>Email: example@gmail.com</span>
@@ -56,58 +53,50 @@ const Footer = () => {
                     </Col>
 
                     <Col lg="3" md="4" sm="6">
-                        <h5 className="footer__title">Newsletter</h5>
-                        <p>Subscribe our newsletter</p>
-                        <div className="newsletter">
-                            <input type="email" placeholder="Enter your email" />
-                            <span>
-                                <i className="ri-send-plane-line"></i>
-                            </span>
-                        </div>
-                    </Col>
-                </Row>
+                        <h5 className="footer__title" style={{ marginLeft: '60px' }}>Theo Dõi</h5>
+                        <Row className="mt-3">
 
-                <Row className="mt-3">
-                    <Col lg="6" md="6">
-                        <p className="copyright__text">
-                            Copyright - 2023, website made by SWP391. All Rights
-                            Reserved.
-                        </p>
-                    </Col>
-                    <Col lg="6" md="6">
-                        <div className="social__links d-flex align-items-center gap-4 justify-content-end">
-                            <p className="m-0">Follow: </p>
-                            <span>
-                                <Link to="https://www.facebook.com/profile.php?id=100017088730777">
-                                    <i className="ri-facebook-line"></i></Link>
+                            <Col lg="6" md="6">
+                                <p className="copyright__text">
+
+                                </p>
+                            </Col>
+                            <Col lg="6" md="6">
+                                <div className="social__links d-flex align-items-center gap-4 justify-content-end">
+                                    <p className="m-0">Chọn: </p>
+                                    <span>
+                                        <Link to="https://www.facebook.com/profile.php?id=100017088730777">
+                                            <i className="ri-facebook-line"></i></Link>
 
 
 
 
-                            </span>
+                                    </span>
 
-                            <span>
-                                <Link to="https://github.com/LDT1403">
-                                    <i className="ri-github-line"></i></Link>
-
-
-                            </span>
-
-                            <span>
+                                    <span>
+                                        <Link to="https://github.com/LDT1403">
+                                            <i className="ri-github-line"></i></Link>
 
 
-                                <Link to=" https://www.youtube.com/">
-                                    <i className="ri-youtube-line"></i></Link>
+                                    </span>
+
+                                    <span>
 
 
-                            </span>
+                                        <Link to=" https://www.youtube.com/">
+                                            <i className="ri-youtube-line"></i></Link>
 
-                            <span>
-                                <Link to="">
-                                    <i className="ri-linkedin-line"></i></Link>
 
-                            </span>
-                        </div>
+                                    </span>
+
+                                    <span>
+                                        <Link to="">
+                                            <i className="ri-linkedin-line"></i></Link>
+
+                                    </span>
+                                </div>
+                            </Col>
+                        </Row>
                     </Col>
                 </Row>
             </Container>

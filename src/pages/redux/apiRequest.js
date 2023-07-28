@@ -14,7 +14,9 @@ export const loginUser = async (user, dispatch, navigate) => {
         const res = await axios.post("https://localhost:7241/api/User/Login", user);
         if (res.status = 200) {
             if (res.data.message === "Email Or Password Incorrect :(") {
-                toast.error(res.data.message);
+                toast.error(res.data.message, {
+                    autoClose: 1000,
+                });
             } else if (res.data.message === "Login Success") {
                 const token = jwt_decode(res.data.data.accessToken);
                 dispatch(loginSuccess(token));
@@ -26,7 +28,9 @@ export const loginUser = async (user, dispatch, navigate) => {
 
                 }
             } else {
-                toast.error(res.data.message);
+                toast.error(res.data.message, {
+                    autoClose: 1500,
+                });
             }
 
         }

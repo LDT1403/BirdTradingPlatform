@@ -5,11 +5,13 @@ import { useEffect } from "react";
 import '../../../style/report-shop.css';
 import { useDispatch } from "react-redux";
 import { banShop } from "../../../pages/redux/Actions/userActions";
+import { toast } from "react-toastify";
 
 const ReportShop = ({ shopId, userId, isVisible, onSuccess }) => {
 
     const [data, setData] = useState({});
     const accessToken = localStorage.getItem('jwtToken');
+    const [lenghtRp, setLeghtRp] = useState([]);
 
     useEffect(() => {
         axios
@@ -20,6 +22,7 @@ const ReportShop = ({ shopId, userId, isVisible, onSuccess }) => {
             })
             .then(res => {
                 setData(res.data);
+                setLeghtRp(res.data.reports)
             })
             .catch(err => {
                 console.log(err);
@@ -31,9 +34,19 @@ const ReportShop = ({ shopId, userId, isVisible, onSuccess }) => {
     };
     const dispatch = useDispatch();
     const shopId2 = data.shopId;
+
+
     const deleteHandler = (shopId2) => {
-        dispatch(banShop(shopId2));
-        onSuccess();
+
+        if (lenghtRp.length > 3) {
+            dispatch(banShop(shopId2));
+            onSuccess();
+        } else {
+            toast.error("Bạn chưa đủ lý do để khóa Shop", {
+                autoClose: 1000,
+            });
+        }
+
 
     };
     return (
