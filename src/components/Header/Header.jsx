@@ -22,7 +22,7 @@ const Header = () => {
       path: "/home",
     },
     {
-      display: "Cửa Hàng",
+      display: "Mua Sắm",
       path: "/shop",
     },
     {
@@ -127,16 +127,16 @@ const Header = () => {
     }
   }
 
-
+const handleGotohome = () => {
+  navigate("/home");
+}
   return (
     <header className="header" ref={headerRef}>
       <Container>
         <div className="nav__wrapper d-flex align-items-center justify-content-between">
-          <div className="logo">
-            <Link to="/home">
-              <img src={logo} alt="logo" />
-            </Link>
-            <h5>Bird Trading</h5>
+          <div className="logo" onClick={handleGotohome}>
+            <img src={logo} alt="logo" />
+            <div className="NameLogo">Bird Trading</div>
           </div>
           {/* ======= menu ======= */}
           <div className="navigation" ref={menuRef} onClick={toggleMenu}>

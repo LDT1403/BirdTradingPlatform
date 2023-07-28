@@ -67,7 +67,7 @@ const Layout = () => {
                 showCart &&
                 <Carts />
             }
-            <div>
+            <div >
                 <Routes path="/MyPurchase" element={<MyPurchase />} />
                 <Router />
             </div>

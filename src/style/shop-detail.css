@@ -1,13 +1,13 @@
 .shopDetail {
-     padding: 10px 30px;
-     background-color: #eff5f5;
+     padding: 15px 30px;
+     background-color:rgb(213, 226, 231);
 }
 .productList{
      min-height:600px;
 }
 .detail-product {
      display: flex;
-     width: 1320px;
+     width: 1300px;
      margin-left: auto;
      margin-right: auto;
      background-color: #fff;
@@ -101,11 +101,14 @@
 /* Css Rateting */
 .productRate {
      display: flex;
+     justify-content: space-between;
      margin-top: 5px;
      width: 100%;
      height: 10%;
 }
-
+.productRate1{
+     display: flex;
+}
 .num-rate {
      color: #f5a623;
      font-weight: 500;
@@ -390,7 +393,7 @@
 .detail-value {
      width: 60%;
      padding-left: 15px;
-     color: #0b61d0;
+     color: #0b0b0b;
      font-size: 17px;
      font-weight: 500;
 }

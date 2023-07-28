@@ -31,7 +31,10 @@ const AccountShop = () => {
   const [loadAPI, setloadAPI] = useState(false);
   const accessToken = localStorage.getItem("jwtToken");
   const [showAddressForm, setShowAddressForm] = useState(false);
-  const [alert, setAlert] = useState({ message: "Update success.", type: "success" });
+  const [alert, setAlert] = useState({
+    message: "Cập nhật thành công.",
+    type: "success",
+  });
   const handleShowAddressForm = () => {
     setShowAddressForm(true);
   };
@@ -58,7 +61,7 @@ const AccountShop = () => {
         .catch((error) => {
           console.log(error);
         });
-    }
+    };
     if (loadAPI === false) {
       loadApi();
       setloadAPI(true);
@@ -70,7 +73,7 @@ const AccountShop = () => {
     address: address,
     phone: phone,
     shopName: shopName,
-    description: description
+    description: description,
   };
 
   const handleUpdate = () => {
@@ -89,11 +92,15 @@ const AccountShop = () => {
       //   break;
       default:
         axios
-          .put(`https://localhost:7241/api/Shop/UpdateShop/${shopId}`, updateShop, {
-            headers: {
-              Authorization: `Bearer ${accessToken}`,
-            },
-          })
+          .put(
+            `https://localhost:7241/api/Shop/UpdateShop/${shopId}`,
+            updateShop,
+            {
+              headers: {
+                Authorization: `Bearer ${accessToken}`,
+              },
+            }
+          )
           .then((res) => {
             setloadAPI(false);
             setShowAlert(true);
@@ -111,13 +118,12 @@ const AccountShop = () => {
   };
   const changeDescription = (newDescription) => {
     setDescription(newDescription);
-  }
+  };
   const changePhone = (newDescription) => {
     if (newDescription.length <= 10) {
       setPhone(newDescription);
     }
-
-  }
+  };
   return (
     <Container>
       <Col lg="8">
@@ -125,31 +131,39 @@ const AccountShop = () => {
           <div>
             <div className="p-3">
               <div>
-                <label>Shop Name</label>
+                <label>Tên cửa hàng</label>
               </div>
               <TextField type="text" value={shopName} />
             </div>
             <div className="p-3">
               <div>
-                <label>Rate</label>
+                <label>Điểm đánh giá</label>
               </div>
               <Rating name="read-only" value={rate} readOnly />
             </div>
             <div className="p-3">
               <div>
-                <label>Phone</label>
+                <label>Số điện thoại</label>
               </div>
-              <TextField type="text" value={phone} onChange={(e) => changePhone(e.target.value)} />
+              <TextField
+                type="text"
+                value={phone}
+                onChange={(e) => changePhone(e.target.value)}
+              />
             </div>
             <div className="p-3">
               <div>
-                <label>Description</label>
+                <label>Mô tả</label>
               </div>
-              <TextField type="text" value={description} onChange={(e) => changeDescription(e.target.value)} />
+              <TextField
+                type="text"
+                value={description}
+                onChange={(e) => changeDescription(e.target.value)}
+              />
             </div>
 
             <div className="p-3">
-              <label>Address</label>
+              <label>Địa chỉ</label>
               <div>
                 <TextField type="text" value={address} />
                 {console.log(address)}
@@ -157,7 +171,7 @@ const AccountShop = () => {
             </div>
 
             <div className="p-3">
-              <label style={{ marginBottom: "10px" }}>Address Details</label>
+              <label style={{ marginBottom: "10px" }}>Địa chỉ chi tiết</label>
               <br />
               <TextField
                 type="text"
@@ -170,7 +184,7 @@ const AccountShop = () => {
               />
 
               <Button variant="contained" onClick={handleShowAddressForm}>
-                UpDate Address
+                Cập nhật địa chỉ
               </Button>
               {showAddressForm && (
                 <AddressShop
@@ -182,7 +196,7 @@ const AccountShop = () => {
               )}
             </div>
             <Button variant="contained" onClick={handleUpdate}>
-              Update profile shop
+              Cập nhật cửa hàng
             </Button>
           </div>
           <div className={`my-alert ${showAlert ? "show" : ""}`}>
@@ -191,7 +205,6 @@ const AccountShop = () => {
             )}
           </div>
         </div>
-
       </Col>
     </Container>
   );

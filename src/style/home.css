@@ -1,273 +1,272 @@
 .feature__subtitle {
-    color: #df2020;
+  color: #df2020;
 }
 
 .home-page-log {
-    background-color: #eff5f5;
+
+    background-color: rgb(213, 226, 231);
 }
-.btn-pre, .btn-next{
-    border : none;
-    background-color: #fff;
-    border-radius:50px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-    transition: transform 0.3s ease;
-    perspective: 1000px;
+.btn-pre,
+.btn-next {
+  border: none;
+  background-color: #fff;
+  border-radius: 50px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s ease;
+  perspective: 1000px;
 }
 
-.home-page-log .btn-pre:hover, .btn-next:hover {
-    transform: scale(1.2);
-    /* transform: translate(-1.5px); */
-    box-shadow: 0 0 8px 0.9px rgb(166, 172, 172);
-    
+.home-page-log .btn-pre:hover,
+.btn-next:hover {
+  transform: scale(1.2);
+  /* transform: translate(-1.5px); */
+  box-shadow: 0 0 8px 0.9px rgb(166, 172, 172);
 }
 .feature__title span {
-    color: #df2020;
+  color: #df2020;
 }
 
 .feature__text {
-    color: #777;
+  color: #777;
 }
 
 .feature__item p {
-    color: #777;
+  color: #777;
 }
 
 .food__category {
-    background: #df2020;
-    text-align: center;
-    margin-top: 30px;
-    padding: 20px 0px;
-    border-radius: 8px;
+  background: #df2020;
+  text-align: center;
+  margin-top: 30px;
+  padding: 20px 0px;
+  border-radius: 8px;
 }
 
 .food__category button {
-    border: none;
-    outline: none;
-    padding: 7px 20px;
-    background: transparent;
-    color: #fff;
+  border: none;
+  outline: none;
+  padding: 7px 20px;
+  background: transparent;
+  color: #fff;
 }
 
 .food__category button img {
-    width: 20px;
-    height: 20px;
+  width: 20px;
+  height: 20px;
 }
 
 .foodBtnActive {
-    background: #fff !important;
-    border-radius: 5px;
-    color: #df2020 !important;
+  background: #fff !important;
+  border-radius: 5px;
+  color: #df2020 !important;
 }
 
 .tasty__treat-title span {
-    color: #df2020;
+  color: #df2020;
 }
 
 .tasty__treat-desc {
-    color: #777;
-    line-height: 28px;
+  color: #777;
+  line-height: 28px;
 }
 
 .choose__us-title {
-    font-weight: 600;
-    margin-bottom: 10px;
+  font-weight: 600;
+  margin-bottom: 10px;
 }
 
 .choose__us-title i {
-    font-weight: 500 !important;
-    color: #df2020;
+  font-weight: 500 !important;
+  color: #df2020;
 }
 
 .choose__us-desc {
-    color: #777;
+  color: #777;
 }
 
 .testimonial__subtitle {
-    color: #df2020;
+  color: #df2020;
 }
 
 .testimonial__title span {
-    color: #df2020;
+  color: #df2020;
 }
 
 .testimonial__desc {
-    color: #777;
-    line-height: 30px;
+  color: #777;
+  line-height: 30px;
 }
 
 @media only screen and (max-width: 768px) {
-    .hero__content h5 {
-        font-size: 1rem;
-    }
+  .hero__content h5 {
+    font-size: 1rem;
+  }
 
-    .hero__content p {
-        font-size: 0.8rem;
-        line-height: 25px;
-    }
+  .hero__content p {
+    font-size: 0.8rem;
+    line-height: 25px;
+  }
 
-    .hero__title {
-        font-size: 1.5rem;
-        line-height: 40px;
-    }
+  .hero__title {
+    font-size: 1.5rem;
+    line-height: 40px;
+  }
 
-    .hero__btns button {
-        padding: 5px 15px;
-        font-size: 0.7rem;
-    }
+  .hero__btns button {
+    padding: 5px 15px;
+    font-size: 0.7rem;
+  }
 
-    .hero__service p {
-        font-size: 0.7rem !important;
-    }
+  .hero__service p {
+    font-size: 0.7rem !important;
+  }
 
-    .feature__item h5 {
-        font-size: 0.9rem;
-    }
+  .feature__item h5 {
+    font-size: 0.9rem;
+  }
 
-    .feature__item p {
-        font-size: 0.8rem;
-        margin-bottom: 0;
-    }
+  .feature__item p {
+    font-size: 0.8rem;
+    margin-bottom: 0;
+  }
 
-    .feature__subtitle {
-        font-size: 1rem;
-    }
+  .feature__subtitle {
+    font-size: 1rem;
+  }
 
-    .feature__text {
-        font-size: 0.8rem;
-        margin-bottom: 0;
-    }
+  .feature__text {
+    font-size: 0.8rem;
+    margin-bottom: 0;
+  }
 
-    .bird__category {
-        padding: 15px;
-    }
+  .bird__category {
+    padding: 15px;
+  }
 
-    .bird__category button {
-        padding: 5px 15px;
-        font-size: 0.7rem;
-    }
+  .bird__category button {
+    padding: 5px 15px;
+    font-size: 0.7rem;
+  }
 
-    .tasty__treat-desc {
-        font-size: 0.8rem;
-        margin-bottom: 0;
-    }
+  .tasty__treat-desc {
+    font-size: 0.8rem;
+    margin-bottom: 0;
+  }
 
-    .choose__us-title {
-        font-size: 0.8rem;
-    }
+  .choose__us-title {
+    font-size: 0.8rem;
+  }
 
-    .choose__us-desc {
-        font-size: 0.7rem;
-    }
+  .choose__us-desc {
+    font-size: 0.7rem;
+  }
 
-    .testimonial__subtitle {
-        font-size: 1rem;
-    }
+  .testimonial__subtitle {
+    font-size: 1rem;
+  }
 
-    .testimonial__desc {
-        font-size: 0.8rem;
-    }
+  .testimonial__desc {
+    font-size: 0.8rem;
+  }
 }
 
 @media only screen and (max-width: 576px) {
-    .hero__content {
-        text-align: center;
-    }
+  .hero__content {
+    text-align: center;
+  }
 
-    .hero__btns {
-        justify-content: center;
-    }
+  .hero__btns {
+    justify-content: center;
+  }
 
-    .hero__service {
-        justify-content: center;
-    }
+  .hero__service {
+    justify-content: center;
+  }
 
-    .why__choose-us {
-        padding-top: 0 !important;
-    }
+  .why__choose-us {
+    padding-top: 0 !important;
+  }
 }
 
 .load-more-button {
-    padding: 12px 24px;
-    background-color: rgb(66, 164, 182);
-    ;
-    color: #fff;
-    border: none;
-    border-radius: 40px;
-    cursor: pointer;
-    font-size: 16px;
-    font-weight: bold;
-    text-transform: uppercase;
-    transition: background-color 0.3s ease;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  padding: 12px 24px;
+  background-color: rgb(66, 164, 182);
+  color: #fff;
+  border: none;
+  border-radius: 40px;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: bold;
+  text-transform: uppercase;
+  transition: background-color 0.3s ease;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
 .load-more-button {
-    padding: 8px 16px;
-    color: #010102;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 12px;
-    font-weight: bold;
-    text-transform: uppercase;
-    transition: color 0.3s ease;
+  padding: 8px 16px;
+  color: #010102;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: bold;
+  text-transform: uppercase;
+  transition: color 0.3s ease;
 }
 
 .load-more-button:hover {
-    color: #fff;
+  color: #fff;
 }
 
 .retry-button {
-    padding: 8px 16px;
-    color: #e74c3c;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 12px;
-    font-weight: bold;
-    text-transform: uppercase;
-    transition: color 0.3s ease;
+  padding: 8px 16px;
+  color: #e74c3c;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: bold;
+  text-transform: uppercase;
+  transition: color 0.3s ease;
 }
 
 .retry-button:hover {
-    color: #c0392b;
+  color: #c0392b;
 }
 
 .best-seller {
-    padding: 15px  25px;
-    background-color: #fff;
-    position: relative;
-
+  padding: 15px 25px;
+  background-color: #fff;
+  position: relative;
 }
 
-.best-seller .btn-pre{
-    position:absolute;
-    bottom: 180px;
-    left: -13px;
+.best-seller .btn-pre {
+  position: absolute;
+  bottom: 180px;
+  left: -13px;
 }
-.best-seller .btn-next{
-    position:absolute;
-    bottom: 180px;
-    right: -13px;
+.best-seller .btn-next {
+  position: absolute;
+  bottom: 180px;
+  right: -13px;
 }
-
 
 .icon-bestseller {
-    width: 30px;
+  width: 30px;
 }
-.best-seller-text{
-    font-size: 20px;
-    font-weight: 500;
-    color: #df2020;
-    margin-bottom: 10px;
+.best-seller-text {
+  font-size: 20px;
+  font-weight: 500;
+  color: #df2020;
+  margin-bottom: 10px;
 }
-.slider-log{
-    display: flex;
-    width: 1300px;
-    margin: auto;
+.slider-log {
+  display: flex;
+  width: 1300px;
+  margin: auto;
 }
-.slider-img-small img{
-    width: 400px;
-    height:145px;
-    margin-bottom: 10px;
+.slider-img-small img {
+  width: 400px;
+  height: 145px;
+  margin-bottom: 10px;
 }
