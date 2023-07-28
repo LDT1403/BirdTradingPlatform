@@ -23,7 +23,7 @@ const UserStatics = () => {
     }, [accessToken]);
 
     const chartData = {
-        labels: data.shopNames,
+        labels: data.name,
         datasets: [
             {
                 label: 'Sales',

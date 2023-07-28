@@ -97,7 +97,11 @@ const EditProductMain = (props) => {
             )
         );
     };
-
+    const handleDeleteImage = (index) => {
+        const updatedImages = [...ImageFile];
+        updatedImages.splice(index, 1);
+        setImageFile(updatedImages);
+    };
 
     return (
         <>
@@ -215,8 +219,8 @@ const EditProductMain = (props) => {
                                                     onChange={(e) => setDescription(e.target.value)}
                                                 ></textarea>
                                             </div>
-                                            <div className="mb-4">
-                                                {/* <label className="form-label">Images</label>
+                                            {/* <div className="mb-4"> */}
+                                            {/* <label className="form-label">Images</label>
                                         <input
                                             className="form-control"
                                             type="text"
@@ -225,7 +229,28 @@ const EditProductMain = (props) => {
                                             required
                                             onChange={(e) => setImage(e.target.value)}
                                         /> */}
-                                                <input className="form-control mt-3" type="file" name="file" onChange={handleFileChange} />
+                                            {/* <input className="form-control mt-3" type="file" name="file" onChange={handleFileChange} />
+                                            </div> */}
+                                            <div className="addImage-feedback" style={{ borderRadius: "5px" }}>
+
+                                                {ImageFile.map((img, index) =>
+                                                    <div key={index} className="image-container-feedback">
+                                                        <img src={URL.createObjectURL(img)} alt="" style={{ width: "80px", height: "80px", margin: "5px" }} />
+                                                        <button className="delete-button-imgFeedback" onClick={() => handleDeleteImage(index)}>X</button>
+                                                    </div>
+                                                )}
+                                                {
+                                                    ImageFile.length < 6 && (
+                                                        <label class="custom-file-upload" style={{ width: "80px", height: "80px", margin: "5px", display: "flex", alignItems: "center", justifyContent: "center" }} >
+                                                            <input type="file" multiple onChange={handleFileChange} style={{ display: "none" }} />
+                                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="icon-addImage-feedback">
+                                                                <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v6m3-3H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                                            </svg>
+
+                                                        </label>
+                                                    )
+                                                }
+
                                             </div>
                                         </>
                                     )}

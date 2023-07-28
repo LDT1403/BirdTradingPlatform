@@ -11,6 +11,7 @@ import Loading from "../LoadingError/Loading";
 import Message from "../LoadingError/Error";
 import moment from "moment";
 import { cancelOrder, confirmOrder, getOrderDetails } from "../../pages/redux/Actions/OrderActions";
+import OrderCancel from "./OrderCancel";
 
 const OrderDetailmain = (props) => {
 
@@ -24,10 +25,14 @@ const OrderDetailmain = (props) => {
 
     const orderComfirm = useSelector((state) => state.comfirmOrder);
     const { loading: loadingComfirmed, success: successConfirmed } = orderComfirm;
+    const orderCancel = useSelector((state) => state.cancelOrder);
+    const { loading: loadingCanceled, success: successCanceled } = orderCancel;
+
+
     useEffect(() => {
 
         dispatch(getOrderDetails(orderId));
-    }, [dispatch, orderId, successConfirmed]);
+    }, [dispatch, orderId, successConfirmed, successCanceled]);
 
     const deliverHandler = () => {
         setConfirmed(true);
@@ -36,9 +41,17 @@ const OrderDetailmain = (props) => {
     const cancelHandler = () => {
         setConfirmed(false);
         dispatch(cancelOrder(order));
-
-        window.location.reload();
     };
+    const [showCancel, setShowCancel] = useState(false);
+
+    const toggle = () => {
+        setShowCancel(true);
+    }
+    const handleCancelSuccess = () => {
+        setShowCancel(false);
+    };
+
+
 
     return (
         <section className="content-main">
@@ -98,13 +111,18 @@ const OrderDetailmain = (props) => {
                             {/* Payment Info */}
                             <div className="col-lg-3">
                                 <div className="box shadow-sm bg-light">
-                                    {order.toConfirm === 3 ? (
+                                    {loadingCanceled && <Loading />}
+                                    {(order.toConfirm === 3 && order.receivedDate === null) ? (
+                                        <button className="btn btn-primary col-12 mb-2 ">
+                                            Đã Xác Nhận ({moment(order.confirmDate).format("DD/MM/YYYY")})
+                                        </button>
+                                    ) : (order.toConfirm === 3 && order.receivedDate !== null) ? (
                                         <button className="btn btn-success col-12 mb-2">
-                                            Đã Xác Nhận ({moment(order.confirmDate).format("MMM Do YY")})
+                                            Hoàn Thành ({moment(order.receivedDate).format("DD/MM/YYYY")})
                                         </button>
                                     ) : order.toConfirm === 4 ? (
                                         <button className="btn btn-danger col-12 mb-2">
-                                            Đã Hủy ({moment(order.cancelDate).format("MMM Do YY")})
+                                            Đã Hủy ({moment(order.cancelDate).format("DD/MM/YYYY")})
                                         </button>
                                     ) : (
                                         <>
@@ -127,10 +145,17 @@ const OrderDetailmain = (props) => {
                                                     Hủy
                                                 </button>
                                             ) : (
-                                                <button onClick={cancelHandler} className="btn btn-dark col-12">
+                                                <button onClick={toggle} className="btn btn-dark col-12">
                                                     Hủy
                                                 </button>
                                             )}
+                                            {
+
+                                                showCancel && (
+                                                    <OrderCancel orderId={orderId} isVisible={showCancel}
+                                                        onSuccess={handleCancelSuccess} />
+                                                )
+                                            }
                                         </>
                                     )}
 
@@ -139,6 +164,7 @@ const OrderDetailmain = (props) => {
                                 </div>
                             </div>
                         </div>
+
                     </div>
                 </div>
             )}

@@ -25,6 +25,7 @@ const AddProductMain = () => {
     const [Quantity, setQuantity] = useState("");
     const [ImageFile, setImageFile] = useState([]);
     const [formErrors, setFormErrors] = useState({});
+    console.log(formErrors.Price)
 
     const handleFileChange = (event) => {
         const newImages = [...ImageFile];
@@ -82,18 +83,20 @@ const AddProductMain = () => {
             errors.Quantity = "Số Lượng phải là một số nguyên dương.";
         }
 
-        const nameRegex = /^[a-zA-Z\s]+$/;
-        if (!nameRegex.test(ProductName)) {
-            errors.ProductName = "Tên Sản Phẩm chỉ được chứa chữ cái và khoảng trắng.";
-        }
+        // const nameRegex = /^[a-zA-Z\s]+$/;
+        // if (!nameRegex.test(ProductName)) {
+        //     errors.ProductName = "Tên Sản Phẩm chỉ được chứa chữ cái và khoảng trắng.";
+        // }
 
-        const descriptionRegex = /^[a-zA-Z0-9\s.,!?'"()-]+$/;
-        if (!descriptionRegex.test(Decription)) {
-            errors.Decription = "Chi Tiết chứa ký tự không hợp lệ.";
-        }
+        // const descriptionRegex = /^[a-zA-Z0-9\s.,!?'"()-]+$/;
+        // if (!descriptionRegex.test(Decription)) {
+        //     errors.Decription = "Chi Tiết chứa ký tự không hợp lệ.";
+        // }
 
         return errors;
+
     };
+
 
     const resetForm = () => {
         setProductName("");
@@ -107,13 +110,21 @@ const AddProductMain = () => {
     };
 
     const submitHandler = (e) => {
+
         e.preventDefault();
+
         const errors = validateForm();
+        console.log(errors);
         if (Object.keys(errors).length === 0) {
             dispatch(createProduct(ProductName, Price, DiscountPercent, CateId, Quantity, Decription, ImageFile));
         } else {
             setFormErrors(errors);
         }
+    };
+    const handleDeleteImage = (index) => {
+        const updatedImages = [...ImageFile];
+        updatedImages.splice(index, 1);
+        setImageFile(updatedImages);
     };
 
     return (
@@ -152,7 +163,7 @@ const AddProductMain = () => {
                                             value={ProductName}
                                             onChange={(e) => setProductName(e.target.value)}
                                         />
-                                        {formErrors.ProductName && <div className="invalid-feedback">{formErrors.ProductName}</div>}
+                                        {formErrors.ProductName && <div className="text-danger">{formErrors.ProductName}</div>}
                                     </div>
                                     <div className="mb-4">
                                         <label htmlFor="product_price" className="form-label">
@@ -167,7 +178,7 @@ const AddProductMain = () => {
                                             value={Price}
                                             onChange={(e) => setPrice(e.target.value)}
                                         />
-                                        {formErrors.Price && <div className="invalid-feedback">{formErrors.Price}</div>}
+                                        {formErrors.Price && <div className="text-danger" >{formErrors.Price}</div>}
                                     </div>
                                     <div className="mb-4">
                                         <label htmlFor="product_price" className="form-label">
@@ -182,7 +193,7 @@ const AddProductMain = () => {
                                             value={DiscountPercent}
                                             onChange={(e) => setDiscountPercent(e.target.value)}
                                         />
-                                        {formErrors.DiscountPercent && <div className="invalid-feedback">{formErrors.DiscountPercent}</div>}
+                                        {formErrors.DiscountPercent && <div className="text-danger">{formErrors.DiscountPercent}</div>}
                                     </div>
                                     <div className="mb-4">
                                         <label htmlFor="product_price" className="form-label">
@@ -197,7 +208,7 @@ const AddProductMain = () => {
                                             value={Quantity}
                                             onChange={(e) => setQuantity(e.target.value)}
                                         />
-                                        {formErrors.Quantity && <div className="invalid-feedback">{formErrors.Quantity}</div>}
+                                        {formErrors.Quantity && <div className="text-danger">{formErrors.Quantity}</div>}
                                     </div>
                                     <div className="mb-4">
                                         <label htmlFor="product_title" className="form-label">
@@ -216,7 +227,7 @@ const AddProductMain = () => {
                                             <option value="long-chim">Lồng Chim</option>
                                             <option value="phu-kien">Phụ Kiện Chim</option>
                                         </select>
-                                        {formErrors.CateId && <div className="invalid-feedback">{formErrors.CateId}</div>}
+                                        {formErrors.CateId && <div className="text-danger">{formErrors.CateId}</div>}
                                     </div>
                                     <div className="mb-4">
                                         <label className="form-label">Chi Tiết</label>
@@ -228,9 +239,10 @@ const AddProductMain = () => {
                                             value={Decription}
                                             onChange={(e) => setDescription(e.target.value)}
                                         ></textarea>
-                                        {formErrors.Decription && <div className="invalid-feedback">{formErrors.Decription}</div>}
+                                        {formErrors.Decription && <div className="text-danger">{formErrors.Decription}</div>}
                                     </div>
-                                    <div className="mb-4">
+                                    <div className="mb-4" >
+                                        <label className="form-label">Thêm Ảnh</label>
                                         {/* <label className="form-label">Images</label>
                                         <input
                                             className="form-control"
@@ -240,12 +252,39 @@ const AddProductMain = () => {
                                             required
                                             onChange={(e) => setImage(e.target.value)}
                                         /> */}
-                                        <input className="form-control mt-3" type="file" multiple name="file" onChange={handleFileChange} />
-                                        {formErrors.ImageFile && <div className="invalid-feedback">{formErrors.ImageFile}</div>}
+                                        {/* <input className="form-control mt-3" type="file" multiple name="file" onChange={handleFileChange} /> */}
+
+
+
+
+                                        <div className="addImage-feedback" style={{ borderRadius: "5px" }}>
+
+                                            {ImageFile.map((img, index) =>
+                                                <div key={index} className="image-container-feedback">
+                                                    <img src={URL.createObjectURL(img)} alt="" style={{ width: "80px", height: "80px", margin: "5px" }} />
+                                                    <button className="delete-button-imgFeedback" onClick={() => handleDeleteImage(index)}>X</button>
+                                                </div>
+                                            )}
+                                            {
+                                                ImageFile.length < 6 && (
+                                                    <label class="custom-file-upload" style={{ width: "80px", height: "80px", margin: "5px", display: "flex", alignItems: "center", justifyContent: "center" }} >
+                                                        <input type="file" multiple onChange={handleFileChange} style={{ display: "none" }} />
+                                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="icon-addImage-feedback">
+                                                            <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v6m3-3H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                                        </svg>
+
+                                                    </label>
+                                                )
+                                            }
+
+                                        </div>
+                                        {formErrors.ImageFile && <div className="text-danger">{formErrors.ImageFile}</div>}
                                     </div>
                                 </div>
+
                             </div>
                         </div>
+
                     </div>
                 </form>
             </section>

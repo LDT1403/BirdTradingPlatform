@@ -8,6 +8,7 @@ import logo from '../../../assets/images/account-circle-line.png'
 import moment from "moment";
 import { useState } from "react";
 import ReportShop from "./ReportShop";
+import numeral from "numeral";
 
 
 const ShopComponent = () => {
@@ -48,6 +49,23 @@ const ShopComponent = () => {
         setUserId(userId);
         setShopId(shopId);
         setIsReportVisible(!isReportVisible);
+
+    };
+    const renderRating = (rate) => {
+        const filledStars = Math.floor(rate);
+        const emptyStars = 5 - filledStars;
+
+        const stars = [];
+
+        for (let i = 0; i < filledStars; i++) {
+            stars.push(<i key={i} className="fas fa-star"></i>);
+        }
+
+        for (let i = 0; i < emptyStars; i++) {
+            stars.push(<i key={filledStars + i} className="far fa-star"></i>);
+        }
+
+        return stars;
     };
     return (
 
@@ -100,13 +118,14 @@ const ShopComponent = () => {
                                         <th scope="col">Tên </th>
 
                                         <th scope="col">Email</th>
-                                        <th scope="col">Giới Tính</th>
-                                        <th scope="col">Ngày Sinh</th>
+
                                         {/* <th scope="col">Address</th>
                                         <th scope="col">Phone</th> */}
                                         <th scope="col">Cửa Hàng</th>
                                         <th scope="col">Số điện thoại</th>
                                         <th scope="col">Địa chỉ</th>
+                                        <th scope="col">Đánh giá</th>
+                                        <th scope="col">Doanh Thu</th>
                                         {/* <th>Status</th> */}
                                         <th scope="col" className="text-end">
                                             Action
@@ -128,13 +147,15 @@ const ShopComponent = () => {
                                                 <b>{user.username} </b>
                                             </td>
                                             <td className="align-middle">{user.email}</td>
-                                            <td className="align-middle">{user.gender}</td>
-                                            <td className="align-middle">{moment(user.birth).format("DD/MM/YYYY")}</td>
+
                                             {/* <td className="align-middle">{user.addressHome}</td>
                                             <td className="align-middle">{user.phoneHome}</td> */}
                                             <td className="align-middle">{user.shopName}</td>
                                             <td className="align-middle">{user.phoneShop}</td>
                                             <td className="align-middle">{user.addressShop}</td>
+                                            <td className="align-middle">{renderRating(user.rateShop)}</td>
+
+                                            <td className="align-middle">₫ {numeral(user.totalRevenue).format('0,0')}</td>
 
                                             <td className="d-flex justify-content-end align-item-center">
                                                 {(loadingunBaned || loadingBaned) && <Loading />}

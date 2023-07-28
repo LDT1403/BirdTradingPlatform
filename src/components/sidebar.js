@@ -17,7 +17,7 @@ const Sidebar = () => {
                             />
                         </Link>
 
-                        <h6 className="brand-wrap">Hien</h6>
+                        <h6 className="brand-wrap">BirdTrading</h6>
                     </nav>
 
 

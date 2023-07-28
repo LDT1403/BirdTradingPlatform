@@ -36,7 +36,7 @@ const Main = () => {
 
                 {/* LATEST ORDER */}
                 <div className="card mb-4 shadow-sm">
-                    <LatestOrder orders={orders} loading={loading} error={error} />
+                    <LatestOrder />
                 </div>
             </section>
         </>
