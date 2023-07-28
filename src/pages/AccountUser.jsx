@@ -91,12 +91,12 @@ const AccountUser = () => {
     if (hasEmptyFields) {
       setAlert({
         type: "error",
-        message: "Update failed. Please fill out all the required information.",
+        message: "Cập nhật thất bại.",
       });
     } else {
       setAlert({
         type: "success",
-        message: "Update success.",
+        message: "Cập nhật thành công.",
       });
     }
     const newUser = {
@@ -139,13 +139,16 @@ const AccountUser = () => {
 
   return (
     <Container>
-      <h1 className="text-center align-self-center my-auto pt-5 pb-5">
-        Your account information
-      </h1>
+      <div>
+        <h1 className="text-center align-self-center my-auto pt-5 pb-5">
+          Thông tin tài khoản của bạn
+        </h1>
+      </div>
+
       <Row>
         <div className="col-xl-3 ">
           <div className="card h-80 ">
-            <div className="card-header">Profile Picture</div>
+            <div className="card-header">Ảnh đại diện</div>
             <div className="card-body text-center">
               <div className="avatar">
                 <div className="img-account-profile rounded-circle ">
@@ -173,7 +176,7 @@ const AccountUser = () => {
                 <div className="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12"></div>
                 <div className="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                   <div className="form-group">
-                    <label for="userName">Full name</label>
+                    <label for="userName">Họ tên</label>
                     <input
                       type="text"
                       className="form-control"
@@ -188,7 +191,7 @@ const AccountUser = () => {
                     />
                     {!inputStates.userName && (
                       <small className="form-text text-danger">
-                        Full name is required.
+                        Cần có Họ tên.
                       </small>
                     )}
                   </div>
@@ -209,14 +212,14 @@ const AccountUser = () => {
                     />
                     {!inputStates.email && (
                       <small className="form-text text-danger">
-                        Email is required.
+                        Cần có Email.
                       </small>
                     )}
                   </div>
                 </div>
                 <div className="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                   <div className="form-group">
-                    <label for="phone">Phone</label>
+                    <label for="phone">Số điện thoại</label>
 
                     <input
                       type="text"
@@ -230,14 +233,14 @@ const AccountUser = () => {
                     />
                     {!inputStates.phone && (
                       <small className="form-text text-danger">
-                        Phone is required.
+                        Cần có số điện thoại.
                       </small>
                     )}
                   </div>
                 </div>
                 <div className="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                   <div className="form-group">
-                    <label for="Dob">Date of birth</label>
+                    <label for="Dob">Ngày sinh</label>
 
                     <input
                       type="datetime-local"
@@ -251,7 +254,7 @@ const AccountUser = () => {
                     />
                     {!inputStates.dob && (
                       <small className="form-text text-danger">
-                        Date of birth is required.
+                        Cần có ngày sinh.
                       </small>
                     )}
                   </div>
@@ -261,7 +264,7 @@ const AccountUser = () => {
                 <div className="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12"></div>
                 <div className="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                   <div className="form-group">
-                    <label for="Gender">Gender</label>
+                    <label for="Gender">Giới tính</label>
                     <div className="gender">
                       <select
                         className="form-control"
@@ -280,7 +283,7 @@ const AccountUser = () => {
                     </div>
                     {!inputStates.gender && (
                       <small className="form-text text-danger pt-2">
-                        Gender is required.
+                        Cần có giới tính.
                       </small>
                     )}
                   </div>
@@ -293,7 +296,7 @@ const AccountUser = () => {
                     />
                   )}
                   <div className="form-group">
-                    <label>Password</label>
+                    <label>Mật khẩu</label>
                     <div className="d-flex">
                       <input
                         className="form-control"
@@ -309,12 +312,12 @@ const AccountUser = () => {
                         className="btn btn-primary"
                         onClick={() => setShowPasswordForm(true)}
                       >
-                        Change
+                        Thay đổi
                       </button>
                     </div>
                     {passwordChanged && (
                       <div className="text-success">
-                        Your password was changed.
+                        Mật khẩu của bạn đã được thay đổi.
                       </div>
                     )}
                   </div>
@@ -322,7 +325,7 @@ const AccountUser = () => {
               </div>
               <div className="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                 <div className="form-group">
-                  <label for="Address">Address</label>
+                  <label for="Address">Địa chỉ</label>
                   <textarea
                     className="form-control"
                     id="address"
@@ -335,7 +338,7 @@ const AccountUser = () => {
                   ></textarea>
                   {!inputStates.address && (
                     <small className="form-text text-danger">
-                      Address is required.
+                      Cần có địa chỉ.
                     </small>
                   )}
                 </div>
@@ -344,7 +347,7 @@ const AccountUser = () => {
                 <div className="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                   <div className="text-right">
                     <button className="btn btn-primary" onClick={handleUpdate}>
-                      Update
+                      Cập nhật
                     </button>
                     <div className={`my-alert ${showAlert ? "show" : ""}`}>
                       {alert.message && (
