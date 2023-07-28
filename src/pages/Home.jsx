@@ -14,6 +14,11 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import SwiperCore, { Navigation, Pagination, Autoplay } from "swiper";
 import "swiper/swiper-bundle.css";
 import { useRef } from "react";
+import chim1 from "../assets/images/chim1.png";
+import chim2 from "../assets/images/1.png";
+import chim3 from "../assets/images/2.png";
+import chim4 from "../assets/images/3.png";
+import chim5 from "../assets/images/4.png";
 SwiperCore.use([Navigation, Pagination, Autoplay]);
 const Home = () => {
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
@@ -85,7 +90,7 @@ const Home = () => {
               <SwiperSlide key={1}>
                 {" "}
                 <img
-                  src="https://sotaynongnghiep.com/wp-content/uploads/2019/09/nhung-cach-phan-biet-chim-chich-choe-than-trong-mai.jpg"
+                  src={chim1}
                   alt=""
                   style={{ width: "910px", height: "300px" }}
                 />
@@ -93,7 +98,7 @@ const Home = () => {
               <SwiperSlide key={2}>
                 {" "}
                 <img
-                  src="https://www.zotal.com/wp-content/uploads/2021/11/avescomomascotas.jpg"
+                  src={chim2}
                   alt=""
                   style={{ width: "910px", height: "300px" }}
                 />
@@ -101,21 +106,15 @@ const Home = () => {
               <SwiperSlide key={3}>
                 {" "}
                 <img
-                  src="https://www.naturephoto-cz.com/photos/mraz/vang-anh-chim-73x_15b443.jpg"
+                  src={chim3}
                   alt=""
                   style={{ width: "910px", height: "300px" }}
                 />
               </SwiperSlide>
             </Swiper>
             <div className="slider-img-small">
-              <img
-                src="https://wall.vn/wp-content/uploads/2020/02/hinh-anh-chim-vet-39.jpg"
-                alt=""
-              />
-              <img
-                src="https://th.bing.com/th/id/R.57ea657ceb4ec486c822d7ea0b3c7b5d?rik=q9r3pTvF6%2fZHsQ&riu=http%3a%2f%2fredsvn.net%2fwp-content%2fuploads%2f2021%2f05%2fimg_60b3adcfe005a.jpg&ehk=5oydhmkGHqJMSGw4Z0m77CU35SiRuMdHA7MlE%2fvP1mc%3d&risl=&pid=ImgRaw&r=0"
-                alt=""
-              />
+              <img src={chim5} alt="" />
+              <img src={chim4} alt="" />
             </div>
           </div>
         </div>

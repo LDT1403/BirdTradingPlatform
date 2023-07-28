@@ -2,9 +2,9 @@ import React from "react";
 import Sidebar from "./../components/sidebar";
 import Header from "./../components/Header";
 
-import AddressShop from "./../components/Categories/AddressShop";
+// import AddressShop from "./../components/Categories/AddressShop";
 
-import MainCategories from "./../components/Categories/MainCategories";
+// import MainCategories from "./../components/Categories/MainCategories";
 
 import AccountShop from "../components/Categories/AccountShop";
 
