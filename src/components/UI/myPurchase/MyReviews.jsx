@@ -16,7 +16,10 @@ const MyReviews = () => {
         })
             .then((response) => {
                 setFeedback(response.data);
-                setShowLogItemsNull(false);
+                if (response.data.lenght !== 0) {
+                    setShowLogItemsNull(false);
+                }
+
             })
             .catch(error => {
                 console.log(error);
@@ -123,7 +126,7 @@ const MyReviews = () => {
                                         </div>
                                     )
                                 }
-                                   {
+                                {
                                     user.quantity < 1 && (
                                         <div className="info-pro" style={{
                                             backgroundColor: 'rgb(239, 245, 245)',
@@ -134,8 +137,8 @@ const MyReviews = () => {
 
                                         }} >
                                             <img src={user.imgProduct} alt="" style={{ width: '60px', height: '60px', marginRight: '10px' }} />
-                                            
-                                            <div style={{ fontSize: '18px', color:'red', fontWeight: '500',display:'flex' }}><div style={{ fontSize: '18px', color:'#000', margin:'0px 5px'}}>{ user.productName } </div> đã hết hàng!</div>
+
+                                            <div style={{ fontSize: '18px', color: 'red', fontWeight: '500', display: 'flex' }}><div style={{ fontSize: '18px', color: '#000', margin: '0px 5px' }}>{user.productName} </div> đã hết hàng!</div>
                                         </div>
                                     )
                                 }
