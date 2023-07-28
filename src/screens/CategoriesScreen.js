@@ -1,7 +1,11 @@
 import React from "react";
 import Sidebar from "./../components/sidebar";
 import Header from "./../components/Header";
-import MainCategories from "./../components/Categories/MainCategories";
+
+// import AddressShop from "./../components/Categories/AddressShop";
+
+// import MainCategories from "./../components/Categories/MainCategories";
+
 import AccountShop from "../components/Categories/AccountShop";
 
 const CategoriesScreen = () => {
@@ -11,6 +15,10 @@ const CategoriesScreen = () => {
             <main className="main-wrap">
                 <Header />
                 <AccountShop />
+
+                {/* <AddressShop /> */}
+
+
             </main>
         </>
     );
