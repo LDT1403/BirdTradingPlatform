@@ -102,10 +102,10 @@ const ChangePassword = ({ onCancelPasswordForm, onPasswordChanged }) => {
   return (
     <div className="password-form-overlay">
       <form className="password-form" onSubmit={handleSubmit}>
-      <h3 className="text-center">Password</h3>
+      <h3 className="text-center">Mật khẩu</h3>
         <div className="mb-3 mt-3 content">
           <label htmlFor="oldPassword" className="form-label">
-            Old Password:
+            Mật khẩu cũ:
           </label>
           <input
             type="password"
@@ -115,12 +115,12 @@ const ChangePassword = ({ onCancelPasswordForm, onPasswordChanged }) => {
             onChange={(e) => setOldPassword(e.target.value)}
           />
           {formErrors.oldPassword && (
-            <div className="text-danger">Please enter your current password.</div>
+            <div className="text-danger">Hãy nhập mật khẩu cũ của bạn.</div>
           )}
         </div>
         <div className="mb-3 content">
           <label htmlFor="newPassword" className="form-label">
-            New Password:
+            Mật khẩu mới:
           </label>
           <input
             type="password"
@@ -130,12 +130,12 @@ const ChangePassword = ({ onCancelPasswordForm, onPasswordChanged }) => {
             onChange={(e) => setNewPassword(e.target.value)}
           />
           {formErrors.newPassword && (
-            <div className="text-danger">Please enter a new password.</div>
+            <div className="text-danger">Hãy nhập mật khẩu mới của bạn.</div>
           )}
         </div>
         <div className="mb-3 content">
           <label htmlFor="confirmNewPassword" className="form-label">
-            Confirm Password:
+            Xác nhận mật khẩu:
           </label>
           <input
             type="password"
@@ -145,17 +145,17 @@ const ChangePassword = ({ onCancelPasswordForm, onPasswordChanged }) => {
             onChange={(e) => setConfirmNewPassword(e.target.value)}
           />
           {formErrors.confirmNewPassword && (
-            <div className="text-danger">Please confirm your new password.</div>
+            <div className="text-danger">Hãy xác nhận mật khẩu của bạn.</div>
           )}
         </div>
         {formErrorMessage && <div className="text-danger">{formErrorMessage}</div>}
         {formSuccessMessage && <div className="text-success">{formSuccessMessage}</div>}
         <div className="button-container">
           <button type="button" className="btn-primary" style={{marginRight:"10px"}} onClick={handleCancel}>
-            Cancel
+            Huỷ
           </button>
           <button type="submit" className="btn-primary" >
-            Submit
+            Xác nhận
           </button>
         </div>
       </form>
