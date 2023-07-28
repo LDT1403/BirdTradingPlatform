@@ -9,7 +9,7 @@ const ProductsStatistics = () => {
     const accessToken = localStorage.getItem('jwtToken');
 
     useEffect(() => {
-        axios.get('https://localhost:7241/api/Shop/Revenue_week', {
+        axios.get('https://birdtradingplatformapi.azurewebsites.net/api/Shop/Revenue_week', {
             headers: {
                 Authorization: `Bearer ${accessToken}`
             }

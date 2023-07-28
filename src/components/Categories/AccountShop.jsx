@@ -42,7 +42,7 @@ const AccountShop = () => {
   useEffect(() => {
     const loadApi = () => {
       axios
-        .get("https://localhost:7241/api/Shop", {
+        .get("https://birdtradingplatformapi.azurewebsites.net/api/Shop", {
           headers: {
             Authorization: `Bearer ${accessToken}`,
           },

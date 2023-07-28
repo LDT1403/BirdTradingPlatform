@@ -15,7 +15,7 @@ const ReportShop = ({ shopId, userId, isVisible, onSuccess }) => {
 
     useEffect(() => {
         axios
-            .get(`https://localhost:7241/api/Admin/getreport?shopid=${shopId}`, {
+            .get(`https://birdtradingplatformapi.azurewebsites.net/api/Admin/getreport?shopid=${shopId}`, {
                 headers: {
                     Authorization: `Bearer ${accessToken}`,
                 },

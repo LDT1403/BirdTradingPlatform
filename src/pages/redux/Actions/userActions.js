@@ -42,7 +42,7 @@ export const listUser = () => async (dispatch) => {
             },
         };
 
-        const { data } = await axios.get(`https://localhost:7241/api/Admin/detailcus`, config);
+        const { data } = await axios.get(`https://birdtradingplatformapi.azurewebsites.net/api/Admin/detailcus`, config);
 
         dispatch({ type: USER_LIST_SUCCESS, payload: data });
     } catch (error) {
@@ -76,7 +76,7 @@ export const deleteUser = (userId) => async (dispatch) => {
             },
         };
 
-        await axios.put(`https://localhost:7241/api/Admin/Bandaccount?userid=${userId}`, config);
+        await axios.put(`https://birdtradingplatformapi.azurewebsites.net/api/Admin/Bandaccount?userid=${userId}`, config);
 
         dispatch({ type: USER_DELETE_SUCCESS });
     } catch (error) {
@@ -108,7 +108,7 @@ export const banUser = (userId) => async (dispatch) => {
         };
 
         const { data } = await axios.put(
-            `https://localhost:7241/api/Admin/Bandaccount?userid=${userId}`,
+            `https://birdtradingplatformapi.azurewebsites.net/api/Admin/Bandaccount?userid=${userId}`,
             {},
             config
         );
@@ -141,7 +141,7 @@ export const unbanUser = (userId) => async (dispatch) => {
         };
 
         const { data } = await axios.put(
-            `https://localhost:7241/api/Admin/OpenAccount?userid=${userId}`,
+            `https://birdtradingplatformapi.azurewebsites.net/api/Admin/OpenAccount?userid=${userId}`,
             {},
             config
         );
@@ -174,7 +174,7 @@ export const banShop = (shopId) => async (dispatch) => {
         };
 
         const { data } = await axios.post(
-            `https://localhost:7241/api/Admin/Sendwarning?shopid=${shopId}`,
+            `https://birdtradingplatformapi.azurewebsites.net/api/Admin/Sendwarning?shopid=${shopId}`,
             {},
             config
         );
@@ -207,7 +207,7 @@ export const unbanShop = (userId) => async (dispatch) => {
         };
 
         const { data } = await axios.put(
-            `https://localhost:7241/api/Admin/OpenAccount?userid=${userId}`,
+            `https://birdtradingplatformapi.azurewebsites.net/api/Admin/OpenAccount?userid=${userId}`,
             {},
             config
         );
@@ -241,7 +241,7 @@ export const listShop = () => async (dispatch) => {
             },
         };
 
-        const { data } = await axios.get(`https://localhost:7241/api/Admin/DetailShop`, config);
+        const { data } = await axios.get(`https://birdtradingplatformapi.azurewebsites.net/api/Admin/DetailShop`, config);
 
         dispatch({ type: SHOP_LIST_SUCCESS, payload: data });
     } catch (error) {
@@ -272,7 +272,7 @@ export const getTotalOrder = () => async (dispatch) => {
             },
         };
 
-        const { data } = await axios.get(`https://localhost:7241/api/Admin/totalOrder`, config);
+        const { data } = await axios.get(`https://birdtradingplatformapi.azurewebsites.net/api/Admin/totalOrder`, config);
 
         dispatch({ type: GET_TOTAL_ORDER_SUCCESS, payload: data });
     } catch (error) {

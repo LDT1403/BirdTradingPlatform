@@ -14,7 +14,7 @@ const TopTotal = (props) => {
     const [totalSale, setTotalSale] = useState(0)
     const accessToken = localStorage.getItem('jwtToken')
     useEffect(() => {
-        axios.get('https://localhost:7241/api/Shop/ToTal_Revenue', {
+        axios.get('https://birdtradingplatformapi.azurewebsites.net/api/Shop/ToTal_Revenue', {
             headers: {
                 Authorization: `Bearer ${accessToken}`
             }

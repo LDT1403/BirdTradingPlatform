@@ -12,7 +12,7 @@ const LatestOrder = () => {
 
     useEffect(() => {
         axios
-            .get('https://localhost:7241/api/Shop/Get_Top5_HotProduct', {
+            .get('https://birdtradingplatformapi.azurewebsites.net/api/Shop/Get_Top5_HotProduct', {
                 headers: {
                     Authorization: `Bearer ${accessToken}`,
                 },

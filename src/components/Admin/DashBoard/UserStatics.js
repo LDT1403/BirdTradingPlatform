@@ -9,7 +9,7 @@ const UserStatics = () => {
 
     useEffect(() => {
         axios
-            .get('https://localhost:7241/api/Admin/TopUsers', {
+            .get('https://birdtradingplatformapi.azurewebsites.net/api/Admin/TopUsers', {
                 headers: {
                     Authorization: `Bearer ${accessToken}`,
                 },
