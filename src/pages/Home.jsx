@@ -22,7 +22,7 @@ import chim5 from "../assets/images/4.png";
 SwiperCore.use([Navigation, Pagination, Autoplay]);
 const Home = () => {
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
-  const reloadData = () => {};
+  const reloadData = () => { };
   const dispatch = useDispatch();
   const [data, setData] = useState([]);
   useEffect(() => {
@@ -66,7 +66,7 @@ const Home = () => {
   return (
     <Helmet title="Home">
       <div className="home-page-log ">
-        <div style={{ backgroundColor: "#fff", padding: "15px" }}>
+        <div style={{ backgroundColor: "#fff", padding: "15px" }} className="mb-3">
           <div className="slider-log">
             <Swiper
               tag="section"
@@ -119,7 +119,7 @@ const Home = () => {
           </div>
         </div>
 
-        <section>
+        <section style={{ backgroundColor: '#fff', width: '1297px', margin: '0 auto' }}>
           <Category />
         </section>
 
@@ -135,7 +135,7 @@ const Home = () => {
                     </Container>
                 </div> */}
 
-        <div className="pb-5 product-best-seller">
+        <div className="pb-5 mt-3 product-best-seller">
           <Container>
             <div className="best-seller">
               <div className="best-seller-text">

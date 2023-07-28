@@ -33,10 +33,7 @@ const Footer = () => {
                                 <p>Phụ Kiện</p>
 
                             </div>
-                            <div className="delivery__time-item border-0 " style={{ paddingLeft: "30px" }}>
-                                <span>MUA BÁN TRỰC TUYẾN ĐƠN GIẢN, NHANH CHÓNG VÀ AN TOÀN</span>
 
-                            </div>
                         </div>
                     </Col>
 
@@ -56,7 +53,7 @@ const Footer = () => {
                     </Col>
 
                     <Col lg="3" md="4" sm="6">
-                        <h5 className="footer__title" style={{ marginLeft: '55px' }}>Theo Dõi</h5>
+                        <h5 className="footer__title" style={{ marginLeft: '60px' }}>Theo Dõi</h5>
                         <Row className="mt-3">
 
                             <Col lg="6" md="6">
