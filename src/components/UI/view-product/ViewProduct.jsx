@@ -47,15 +47,12 @@ const ViewProduct = (api) => {
       });
       const filteredByPrice = updatedFilteredProducts.filter((product) => {
         if (minPrice !== "" && maxPrice !== "") {
-          return product.soldPrice >= minPrice && product.soldPrice <= maxPrice;
+          return product.soldPrice > minPrice && product.soldPrice <= maxPrice;
         } else if (minPrice !== "") {
           return product.soldPrice >= minPrice;
         } else if (maxPrice !== "") {
           return product.soldPrice <= maxPrice;
-        } else
-        if(maxPrice === "" && minPrice === ""){
-          return product.soldPrice;
-        }else {
+        } else {
           return true;
         }
       });
@@ -131,14 +128,14 @@ const ViewProduct = (api) => {
       if (!isNaN(minValue)) {
         setMinPricee(minValue);
       } else if (e.target.value === "") {
-        setMinPricee("");
+        setMinPricee(null);
       }
     } else if (e.target.name === "maxPrice") {
       const maxValue = parseFloat(e.target.value);
       if (!isNaN(maxValue)) {
         setMaxPricee(maxValue);
       } else if (e.target.value === "") {
-        setMaxPricee("");
+        setMaxPricee(null);
       }
     }
   };

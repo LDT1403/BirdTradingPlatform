@@ -1,13 +1,12 @@
 .header {
     width: 100%;
-    line-height: 89px;
+    height: 100px;
+    line-height: 100px;
     position: relative;
     top: 0;
-    background-color: #fff;
-    box-shadow: 5px 5px 15px -5px #acaaaa;
 }
 .header .profile__actions {
-    /* margin-top: 25px; */
+    margin-top: 25px;
     position: absolute;
     left: 0;
     /* right: 0; */
@@ -43,14 +42,13 @@
     left: 0;
     background: #fff;
     z-index: 99999;
-    box-shadow: 5px 5px 15px -5px #acaaaa;
+    box-shadow: 5px 5px 15px -5px #d7d6d6;
     animation-name: animation;
     animation-duration: -3s;
 }
 
 .logo {
-    display: flex;
-    align-items: center;
+    text-align: center;
 }
 
 .logo:hover {
@@ -58,39 +56,34 @@
 }
 
 .logo img {
- 
-    width: 70px;
-    height: 70px;
+    /* width: calc(100% - 60%); */
+    width: 40px;
+    height: 40px;
     object-fit: contain;
+    margin-top: -40px;
+}
 
-}
-.NameLogo{
-    font-weight: 600;
-    font-size: 2rem;
-    color: #1b6353;
-    margin-bottom: 0;
-}
-/* .logo h5 {
+.logo h5 {
     font-weight: 600;
     font-size: 1rem;
     color: #212245;
     margin-top: -40px;
     margin-bottom: 0;
-} */
+}
 
 .menu a {
     font-weight: 600;
-    font-size: 16px;
-    color: #0f0e0e;
+    font-size: 1rem;
+    color: #212245;
     transition: 0.3s;
 }
 
 .menu a:hover {
-    color: #0888c4;
+    color: #df2020;
 }
 
 .active__menu {
-    color: #0888c4 !important;
+    color: #df2020 !important;
 }
 
 .cart__icon {
@@ -149,14 +142,13 @@
     display: none;
 }
 
-@media only screen and (max-width: 1250px) {
+@media only screen and (max-width: 992px) {
     .logo img {
-        width: 50px;
-        height: 50px;
+        width: calc(100% - 70%);
     }
 
-    .NameLogo {
-        font-size: 15px;
+    .logo h5 {
+        font-size: 0.8rem;
         margin-top: -15px;
     }
 
@@ -187,7 +179,7 @@
     }
 
     .menu a {
-        font-size: 20px;
+        font-size: 0.9rem;
     }
 
     .mobile__menu {
@@ -228,14 +220,17 @@
 @media only screen and (max-width: 768px) {
     .header {
         width: 100%;
-        line-height: 65px;
+        height: 80px;
+        line-height: 80px;
     }
 
     .logo img {
-        height: 40px;
+        margin-top: -70px !important;
     }
 
-   
+    .logo h5 {
+        margin-top: -55px;
+    }
 }
 
 @media only screen and (max-width: 480px) {

@@ -99,7 +99,7 @@ const AddressShop = ({ setShowAddressForm, accessToken, setNewAddress,setAddress
         <div className="log-add-newAddress-tiltel">Address detail</div>
         <div className="Address-log-add ">
           <SelectAddress
-            label="Tỉnh/Thành Ph.."
+            label="Province"
             setCity={setCity}
             setidCity={setidCity}
             Province={Province}
@@ -110,7 +110,7 @@ const AddressShop = ({ setShowAddressForm, accessToken, setNewAddress,setAddress
             setMsAddress={setMsAddress}
           />
           <SelectAddress
-            label="Quận/Huyện"
+            label="District"
             setDistrict={setDistrict}
             setidDistrict={setidDistrict}
             DistrictData={DistrictData}
@@ -119,7 +119,7 @@ const AddressShop = ({ setShowAddressForm, accessToken, setNewAddress,setAddress
             setMsAddress={setMsAddress}
           />
           <SelectAddress
-            label="Phường/Xã"
+            label="Ward"
             setWard={setWard}
             WardData={WardData}
             setMsAddress={setMsAddress}

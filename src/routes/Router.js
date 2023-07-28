@@ -38,10 +38,7 @@ const Router = () => {
             <Route path="/checkout" element={user.UserId ? <CheckOut /> : <Navigate to="/login" />} />
             <Route path="/register" element={<Register />} />
             <Route path="/contact" element={<Contact />} />
-          
-                <Route path="/registerShop" element={<RegisterShop />} />
-          
-
+            <Route path="/registerShop" element={<RegisterShop />} />
             <Route path="/orderStatus" element={<OrderStatus />} />
             <Route path="/feedback/*" element={<FeedBack />} />
         </Routes>
