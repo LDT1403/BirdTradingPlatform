@@ -27,7 +27,7 @@ const Home = () => {
   const [data, setData] = useState([]);
   useEffect(() => {
     axios
-      .get("https://localhost:7241/api/Products/Hot_Product")
+      .get("https://birdtradingplatformapi.azurewebsites.net/api/Products/Hot_Product")
       .then((res) => {
         dispatch(listCarts());
         // console.log(res.data);

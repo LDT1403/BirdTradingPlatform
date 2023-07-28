@@ -18,7 +18,7 @@ const AddFeedback = ({ productId, orderDetailId, productName, setShowFeedTable, 
           for (let i = 0; i < ImageFile.length; i++) {
                formData.append("ImageFile", ImageFile[i])
           }
-          axios.post(`https://localhost:7241/api/FeedBack/Feedback`, formData, {
+          axios.post(`https://birdtradingplatformapi.azurewebsites.net/api/FeedBack/Feedback`, formData, {
                headers: {
                     Authorization: `Bearer ${accessToken}`
                }

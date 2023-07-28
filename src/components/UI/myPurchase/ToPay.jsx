@@ -13,7 +13,7 @@ const ToPay = () => {
      const [showLoadDing, setShowLoadDing] = useState(false);
 
      useEffect(() => {
-          axios.get("https://localhost:7241/api/Order/OrderFailed", {
+          axios.get("https://birdtradingplatformapi.azurewebsites.net/api/Order/OrderFailed", {
                headers: {
                     Authorization: `Bearer ${accessToken}`
                }

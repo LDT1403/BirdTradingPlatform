@@ -4,7 +4,7 @@ import ViewProduct from "../components/UI/view-product/ViewProduct";
 import { SearchProduct } from "../components/UI/search-product/Search";
 import '../style/shopping-page.css';
 export default function Shopping() {
-  const ApiLink = "https://localhost:7241/api/Products/All_Product"
+  const ApiLink = "https://birdtradingplatformapi.azurewebsites.net/api/Products/All_Product"
   const [search, setSearch] = useState("");
   const handleSearchQuery = (sear) => {
     setSearch(sear);

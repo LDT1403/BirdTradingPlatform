@@ -28,7 +28,7 @@ const ProductCard = (props) => {
             productID: productId
         }
         if (accessToken) {
-            axios.post("https://localhost:7241/api/Order/Addtocart", addProductNow, {
+            axios.post("https://birdtradingplatformapi.azurewebsites.net/api/Order/Addtocart", addProductNow, {
                 headers: {
                     Authorization: `Bearer ${accessToken}`
                 }

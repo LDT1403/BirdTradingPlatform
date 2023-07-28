@@ -23,7 +23,7 @@ const Cart = () => {
     const [total, setTotal] = useState(0);
     const[ productDeleteItem,setProductDeleteItem] = useState();
     const reloadData = () => {
-        axios.get(`https://localhost:7241/api/Order/ViewCart`, {
+        axios.get(`https://birdtradingplatformapi.azurewebsites.net/api/Order/ViewCart`, {
             headers: {
                 Authorization: `Bearer ${accessToken}`
             }
@@ -49,7 +49,7 @@ const Cart = () => {
 
     useEffect(() => {
         axios
-            .get("https://localhost:7241/api/Products/All_Product")
+            .get("https://birdtradingplatformapi.azurewebsites.net/api/Products/All_Product")
             .then((res) => {
                 setProductsData(res.data);
             })
@@ -145,7 +145,7 @@ const Cart = () => {
             quantity: data.quantity,
         }
         if (data.quantityCart + data.quantity >= 1) {
-            axios.post("https://localhost:7241/api/Order/UpdateQuantity", UpdateCart, {
+            axios.post("https://birdtradingplatformapi.azurewebsites.net/api/Order/UpdateQuantity", UpdateCart, {
                 headers: {
                     Authorization: `Bearer ${accessToken}`
                 }
@@ -185,7 +185,7 @@ const Cart = () => {
             quantity: quantity,
         }
 
-        axios.post("https://localhost:7241/api/Order/UpdateQuantity", UpdateCart, {
+        axios.post("https://birdtradingplatformapi.azurewebsites.net/api/Order/UpdateQuantity", UpdateCart, {
             headers: {
                 Authorization: `Bearer ${accessToken}`
             }

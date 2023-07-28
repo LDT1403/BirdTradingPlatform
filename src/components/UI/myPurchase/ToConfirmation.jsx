@@ -15,7 +15,7 @@ const ToConfirmation = () => {
      const navigate = useNavigate();
 
      useEffect(() => {
-          axios.get(`https://localhost:7241/api/Order/ToConFirmOfuserId/2`, {
+          axios.get(`https://birdtradingplatformapi.azurewebsites.net/api/Order/ToConFirmOfuserId/2`, {
                headers: {
                     Authorization: `Bearer ${accessToken}`
                }
@@ -54,7 +54,7 @@ const ToConfirmation = () => {
                     <div style={{ minHeight: '85vh', backgroundColor: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                          <div>
                               <img style={{ height: '100px' }} src="https://th.bing.com/th/id/R.243d0e0ebe06da1c163b355961f024a7?rik=%2f6oK8VKD8oY%2fmg&riu=http%3a%2f%2fwww.bulongviet.com%2fUploads%2fimages%2ficon_03.png&ehk=1%2fn9ChdNLIGH5HrtYoChSZvw5ST66JFRc7bI7B9OfhA%3d&risl=&pid=ImgRaw&r=0" alt="" />
-                              <div style={{ display: 'flex', justifyContent: 'center', fontSize: '20px' }}>No orders yet</div>
+                              <div style={{ display: 'flex', justifyContent: 'center', fontSize: '20px' }}>Chưa có đơn hàng</div>
                          </div>
 
                     </div>
