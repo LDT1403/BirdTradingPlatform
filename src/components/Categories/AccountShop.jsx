@@ -4,7 +4,7 @@ import React, { useEffect, useState } from "react";
 import Rating from "@mui/material/Rating";
 import Button from "@mui/material/Button";
 import { Col, Container, Row } from "reactstrap";
-import { Alert, TextField } from "@mui/material";
+import { TextField } from "@mui/material";
 import AddressShop from "./AddressShop";
 import SelectAddress from "../UI/addNewAddress/SelectAddress";
 
@@ -13,10 +13,9 @@ const AccountShop = () => {
   const [shopName, setShopName] = useState("");
   const [address, setAddress] = useState("");
   const [phone, setPhone] = useState("");
-  const [description, setDescription] = useState("");
   const [newAddress, setNewAddress] = useState("");
   const [City, setCity] = useState(null);
-  const [shopId, setshopId] = useState(null);
+  const [District, setDistrict] = useState(null);
   const [Ward, setWard] = useState(null);
   const [addressDetails, setAddressDetails] = useState();
   const [Province, setProvince] = useState([]);
@@ -28,9 +27,10 @@ const AccountShop = () => {
   const [Wardag, setWardag] = useState(1);
   const [MsAddress, setMsAddress] = useState(false);
   const [MsAddressDetails, setMsAddressDetails] = useState(false);
-  const [loadAPI, setloadAPI] = useState(false);
+  const [MsAllNull, setMsAllNull] = useState(false);
   const accessToken = localStorage.getItem("jwtToken");
   const [showAddressForm, setShowAddressForm] = useState(false);
+
   const [alert, setAlert] = useState({
     message: "Cập nhật thành công.",
     type: "success",
@@ -68,11 +68,50 @@ const AccountShop = () => {
     }
   }, [loadAPI]);
 
-  const updateShop = {
-    AddressDetail: newAddress,
-    address: address,
+
+  const handleShowAddressForm = () => {
+    setShowAddressForm(true);
+  };
+
+
+  useEffect(() => {
+    axios
+      .get("https://localhost:7241/api/Shop", {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      })
+      .then((res) => {
+        const profileData = res.data;
+        setNewAddress(res.data.address);
+        setRate(profileData.rate);
+        setShopName(profileData.shopName);
+        setAddress(profileData.address);
+        setPhone(profileData.phone);
+        console.log(profileData);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, []);
+  useEffect(() => {
+    const apiProvince = () => {
+      axios.get("https://vapi.vnappmob.com/api/province").then((response) => {
+        const result = response.data.results;
+        setProvince(result);
+      });
+    };
+    if (City === null) {
+      apiProvince();
+    }
+  }, [City]);
+
+  const UpdateShop = {
+    addressDetails: `${City}, ${District}, ${Ward}`,
+    address: Province,
     phone: phone,
     shopName: shopName,
+
     description: description,
   };
 
@@ -124,6 +163,9 @@ const AccountShop = () => {
       setPhone(newDescription);
     }
   };
+
+  };
+
   return (
     <Container>
       <Col lg="8">
@@ -145,6 +187,7 @@ const AccountShop = () => {
               <div>
                 <label>Số điện thoại</label>
               </div>
+
               <TextField
                 type="text"
                 value={phone}
@@ -167,22 +210,36 @@ const AccountShop = () => {
               <div>
                 <TextField type="text" value={address} />
                 {console.log(address)}
+             <TextField type="text" value={phone} />
+            </div>
+            <div>
+              <div className="p-3">
+                <label>Address</label>
+                <div className="Address-log-add ">
+                  <SelectAddress
+                    label="Province"
+                    setCity={setCity}
+                    setidCity={setidCity}
+                    Province={Province}
+                    setDistrictag={setDistrictag}
+                    setWardag={setWardag}
+                    setDistrict={setDistrict}
+                    setidDistrict={setidDistrict}
+                    setMsAddress={setMsAddress}
+                  />
+                </div>
+
               </div>
             </div>
-
             <div className="p-3">
               <label style={{ marginBottom: "10px" }}>Địa chỉ chi tiết</label>
               <br />
               <TextField
                 type="text"
                 value={newAddress}
-                style={{
-                  marginBottom: "10px",
-                  width: "500px",
-                  marginRight: "20px",
-                }}
+                style={{ marginBottom: "10px", width: "500px" }}
               />
-
+              <br />
               <Button variant="contained" onClick={handleShowAddressForm}>
                 Cập nhật địa chỉ
               </Button>
@@ -191,10 +248,10 @@ const AccountShop = () => {
                   accessToken={accessToken}
                   setShowAddressForm={setShowAddressForm}
                   setNewAddress={setNewAddress}
-                  setAddress={setAddress}
                 />
               )}
             </div>
+
             <Button variant="contained" onClick={handleUpdate}>
               Cập nhật
             </Button>
@@ -203,6 +260,7 @@ const AccountShop = () => {
             {alert.message && (
               <Alert severity={alert.type}>{alert.message}</Alert>
             )}
+
           </div>
         </div>
       </Col>
