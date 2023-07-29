@@ -125,7 +125,7 @@ const Received = () => {
                                                        <div className="toPay-quantity">x{product.quantity}</div>
                                                   </div>
                                              </div>
-                                             { console.log(product)}
+                                             {console.log(product)}
                                              <div className="toPay-Product-price" onClick={() => handleTabClick(shop)}>
                                                   <div className="toPay-num" style={{ textDecoration: "line-through" }}><div className="don-vi-pay" >₫</div>{numeral(product.productPrice).format('0,0')}</div>
                                                   <div className="toPay-numSoldPrice"><div className="don-vi-pay" >₫</div>{numeral(product.discountPrice).format('0,0')}</div>
@@ -149,7 +149,7 @@ const Received = () => {
                                              } */}
                                              {
                                                   ShowFeedTable && (
-                                                       
+
                                                        <AddFeedback productId={product.productId} orderDetailId={product.id} productName={product.productName} setShowFeedTable={setShowFeedTable} setLoadApi={setLoadApi} />
                                                   )
                                              }
