@@ -127,9 +127,9 @@ const Header = () => {
     }
   }
 
-const handleGotohome = () => {
-  navigate("/home");
-}
+  const handleGotohome = () => {
+    navigate("/home");
+  }
   return (
     <header className="header" ref={headerRef}>
       <Container>
@@ -196,8 +196,8 @@ const handleGotohome = () => {
 
           {/* ======== nav right icons ========= */}
           <div className="nav__right d-flex align-items-center gap-4">
-            <span className="cart__icon" onClick={toggleCart}>
-              <i className="ri-shopping-basket-line"></i>
+            <span className="cart__icon" onClick={toggleCart} style={{ fontSize: '35px' }}>
+              <i className="ri-shopping-basket-line" ></i>
 
               <span className="cart__badge">{sub?.length || 0}</span>
             </span>
@@ -214,10 +214,10 @@ const handleGotohome = () => {
                     alt="User Profile"
                   />
 
-                  <h6 className="profile__title">{user.unique_name}</h6>
+                  <h6 className="profile__title" style={{ fontSize: '20px', fontWeight: 'bold' }}>{user.unique_name}</h6>
                 </div>
               ) : (
-                <i className="ri-user-line" onClick={toggleProfileActions}>
+                <i className="ri-user-line" style={{ fontSize: '28px' }} onClick={toggleProfileActions}>
                   {user.unique_name}
                 </i>
               )}
@@ -228,7 +228,7 @@ const handleGotohome = () => {
                 onClick={toggleProfileActions}
               >
                 {user.UserId ? (
-                  <div className="d-flex align-items-center justify-content-center flex-column">
+                  <div className="d-flex align-items-center justify-content-left flex-column">
 
                     <div onClick={checkShop} style={{ fontSize: "18px" }}>
                       Cửa Hàng của Tôi

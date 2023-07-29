@@ -8,7 +8,7 @@ const ShopStatistics = () => {
 
     useEffect(() => {
         axios
-            .get('https://localhost:7241/api/Admin/TotalAmount/HighShop', {
+            .get('https://birdtradingplatformapi.azurewebsites.net/api/Admin/TotalAmount/HighShop', {
                 headers: {
                     Authorization: `Bearer ${accessToken}`,
                 },

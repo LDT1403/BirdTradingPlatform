@@ -66,7 +66,7 @@ const ToRate = () => {
                                    </div>
                                    <div className="toPay-Product-text">
 
-                                        <div className="toPay-subitem-text" style={{ color: "green" }}>FeedBack Now</div>
+                                        <div className="toPay-subitem-text" style={{ color: "green" }}>Đánh Giá Ngay</div>
                                    </div>
                               </div>
 
@@ -85,10 +85,10 @@ const ToRate = () => {
                                         <div className="toPay-numSoldPrice"><div className="don-vi-pay" >₫</div>{orderListItem.discountPrice}</div>
 
                                    </div>
-                                   <div style={{ width: "20%", display: "flex", justifyContent: "center", alignItems: "center" }}>Into Money: <div style={{ width: "20%", display: "flex", fontSize: "20px", fontWeight: "500", paddingLeft: "10px", color: "#dc3545" }}><div className="don-vi-pay" >₫</div> {orderListItem.totalDetail}</div></div>
+                                   <div style={{ width: "20%", display: "flex", justifyContent: "center", alignItems: "center" }}>Thành Tiền: <div style={{ width: "20%", display: "flex", fontSize: "20px", fontWeight: "500", paddingLeft: "10px", color: "#dc3545" }}><div className="don-vi-pay" >₫</div> {orderListItem.totalDetail}</div></div>
                                    <div className="button-feedback" style={{ width: "15%", display: "flex", alignItems: "center", justifyContent: "center", }}>
                                         <button style={{ border: "none", backgroundColor: "#176eb0", color: "#fff", padding: "5px 10px", borderRadius: "3px" }} onClick={() => handleFeedback(orderListItem)}>
-                                             Feedback
+                                             Đánh Giá
                                         </button>
                                    </div>
                               </div>

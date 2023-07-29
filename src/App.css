@@ -120,6 +120,11 @@ a.disabled {
   height: 40px;
 }
 
+.mb-1 {
+  font-weight: bold;
+  font-size: 16px;
+}
+
 .img-sm {
   width: 60px;
   height: 60px;

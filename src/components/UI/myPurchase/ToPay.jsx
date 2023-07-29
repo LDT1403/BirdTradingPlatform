@@ -40,7 +40,7 @@ const ToPay = () => {
                "parentOrderId": orderId[0],
                method: "VnPay"
           }
-          axios.post(`https://localhost:7241/api/Order/Pay`, paymentMethodSelect, {
+          axios.post(`https://birdtradingplatformapi.azurewebsites.net/api/Order/Pay`, paymentMethodSelect, {
                headers: {
                     Authorization: `Bearer ${accessToken}`
                }

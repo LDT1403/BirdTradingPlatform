@@ -127,8 +127,8 @@ const ShopComponent = () => {
                                         <th scope="col">Đánh giá</th>
                                         <th scope="col">Doanh Thu</th>
                                         {/* <th>Status</th> */}
-                                        <th scope="col" className="text-end">
-                                            Action
+                                        <th scope="col" >
+                                            Tố Cáo
                                         </th>
                                     </tr>
                                 </thead>
@@ -169,7 +169,7 @@ const ShopComponent = () => {
                                                             user.status === true && (
                                                                 <>
                                                                     <div className="badge bg-danger mt-2 pt-2" style={{ marginRight: '5px' }}>
-                                                                        Baned
+                                                                        Khóa
                                                                     </div>
                                                                     <button
                                                                         onClick={() => UnBanHandler(user.userId)}

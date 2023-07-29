@@ -28,7 +28,7 @@ export const listOrders = () => async (dispatch) => {
             },
         };
 
-        const { data } = await axios.get(`https://localhost:7241/api/Shop/orders`, config);
+        const { data } = await axios.get(`https://birdtradingplatformapi.azurewebsites.net/api/Shop/orders`, config);
         console.log(data)
         dispatch({ type: ORDER_LIST_SUCCESS, payload: data });
     } catch (error) {
@@ -60,7 +60,7 @@ export const getOrderDetails = (id) => async (dispatch) => {
             },
         };
 
-        const { data } = await axios.get(`https://localhost:7241/api/Shop/Detail_Order?orderId=${id}`, config);
+        const { data } = await axios.get(`https://birdtradingplatformapi.azurewebsites.net/api/Shop/Detail_Order?orderId=${id}`, config);
         console.log(data)
         dispatch({ type: ORDER_DETAILS_SUCCESS, payload: data });
     } catch (error) {
@@ -93,7 +93,7 @@ export const confirmOrder = (order) => async (dispatch) => {
 
         const { data } = await axios.put(
             `
-            https://localhost:7241/api/Shop/Confim_Order?orderId=${order.orderId}`,
+            https://birdtradingplatformapi.azurewebsites.net/api/Shop/Confim_Order?orderId=${order.orderId}`,
             {},
             config
         );
@@ -128,7 +128,7 @@ export const cancelOrder = (orderId, reson) => async (dispatch) => {
         };
 
         const { data } = await axios.put(
-            `https://localhost:7241/api/Shop/Cancle_Order?orderId=${orderId}`,
+            `https://birdtradingplatformapi.azurewebsites.net/api/Shop/Cancle_Order?orderId=${orderId}`,
             reson,
             config
         );

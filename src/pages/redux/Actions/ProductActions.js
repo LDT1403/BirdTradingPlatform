@@ -33,7 +33,7 @@ export const listProducts = () => async (dispatch) => {
             },
         };
 
-        const { data } = await axios.get(`https://localhost:7241/api/Shop/getproductshop`, config);
+        const { data } = await axios.get(`https://birdtradingplatformapi.azurewebsites.net/api/Shop/getproductshop`, config);
 
 
         dispatch({ type: PRODUCT_LIST_SUCCESS, payload: data });
@@ -68,7 +68,7 @@ export const deleteProduct = (productId) => async (dispatch) => {
             },
         };
 
-        await axios.delete(`https://localhost:7241/api/Shop/Delete_Product?productId=${productId}`, config);
+        await axios.delete(`https://birdtradingplatformapi.azurewebsites.net/api/Shop/Delete_Product?productId=${productId}`, config);
 
         dispatch({ type: PRODUCT_DELETE_SUCCESS });
     } catch (error) {
@@ -115,7 +115,7 @@ export const createProduct =
                 };
                 console.log(accessToken)
                 const { data } = await axios.post(
-                    `https://localhost:7241/api/Shop/Add_Product`,
+                    `https://birdtradingplatformapi.azurewebsites.net/api/Shop/Add_Product`,
                     formData,
                     config,
 
@@ -148,7 +148,7 @@ export const editProduct = (ProductId) => async (dispatch) => {
                 Authorization: `Bearer ${accessToken}`,
             },
         };
-        const { data } = await axios.get(`https://localhost:7241/api/Shop/Detail_Product?productId=${ProductId}`, config);
+        const { data } = await axios.get(`https://birdtradingplatformapi.azurewebsites.net/api/Shop/Detail_Product?productId=${ProductId}`, config);
         dispatch({ type: PRODUCT_EDIT_SUCCESS, payload: data });
     } catch (error) {
         const message =
@@ -189,7 +189,7 @@ export const updateProduct = (ProductId, ProductName, Price, DiscountPercent, Ca
         };
 
         const { data } = await axios.put(
-            `https://localhost:7241/api/Shop/Update_Product`,
+            `https://birdtradingplatformapi.azurewebsites.net/api/Shop/Update_Product`,
             formData,
             config
         );

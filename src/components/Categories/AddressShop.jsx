@@ -142,14 +142,14 @@ const AddressShop = ({
           />
         </div>*/}
         {MsAddressDetails && (
-          <p id="massage-er-input">please input your address details</p>
+          <p id="massage-er-input">Hãy nhập địa chỉ chi tiết</p>
         )}
         <div className="height-log"></div>
-        {MsAllNull && <h5>Please provide complete information</h5>}
+        {MsAllNull && <h5>Hãy kiểm tra lại thông tin</h5>}
         <div className="cf-ad-bt-bottom">
-          <Button onClick={handleCancelAdd}>Cancel</Button>
+          <Button onClick={handleCancelAdd}>Hủy</Button>
           <Button className="cf-ad-bt-confirm" onClick={handleSubmit}>
-            Submit
+            Xác nhận
           </Button>
         </div>
       </div>

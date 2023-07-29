@@ -58,7 +58,7 @@ const EditProductMain = (props) => {
     useEffect(() => {
         if (successUpdate) {
             dispatch({ type: PRODUCT_UPDATE_RESET });
-            toast.success("Product Updated", ToastObjects);
+            toast.success("Sửa Thành Công", ToastObjects);
         } else {
             if (!product || !product.productName || product.productId !== Number(productId)) {
                 dispatch(editProduct(productId));

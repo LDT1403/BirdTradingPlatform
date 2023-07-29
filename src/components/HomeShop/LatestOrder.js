@@ -12,7 +12,7 @@ const LatestOrder = () => {
 
     useEffect(() => {
         axios
-            .get('https://localhost:7241/api/Shop/Get_Top5_HotProduct', {
+            .get('https://birdtradingplatformapi.azurewebsites.net/api/Shop/Get_Top5_HotProduct', {
                 headers: {
                     Authorization: `Bearer ${accessToken}`,
                 },
@@ -52,7 +52,7 @@ const LatestOrder = () => {
                         <th scope="col">Giá Bán</th>
                         <th scope="col">Lượt Bán</th>
                         <th scope="col">Đánh giá </th>
-                        <th scope="col" className="text-center">Phân Loại</th>
+                        <th scope="col" >Phân Loại</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -67,7 +67,7 @@ const LatestOrder = () => {
                                 {item.quantitySold}
                             </td>
                             <td>{renderRating(item.rate)}</td>
-                            <td className="text-center">
+                            <td >
                                 {
                                     item.cateName
                                 }

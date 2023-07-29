@@ -25,8 +25,8 @@ const AddFeedback = ({ productId, orderDetailId, productName, setShowFeedTable, 
           })
                .then((response) => {
                     if (response.data === 'success') {
-                         setLoadApi(false);
                          setShowFeedTable(false)
+                         setLoadApi(false);
                     }
                })
                .catch((error) => {
@@ -111,7 +111,7 @@ const AddFeedback = ({ productId, orderDetailId, productName, setShowFeedTable, 
 
                               {ImageFile.map((img, index) =>
                                    <div key={index} className="image-container-feedback">
-                             
+
                                         <img src={URL.createObjectURL(img)} alt="" style={{ width: "80px", height: "80px", margin: "5px" }} />
                                         <button className="delete-button-imgFeedback" onClick={() => handleDeleteImage(index)}>X</button>
                                    </div>
