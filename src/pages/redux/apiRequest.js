@@ -10,6 +10,9 @@ export const loginUser = async (user, dispatch, navigate) => {
     dispatch(loginStart());
     // console.log(user)
     // console.log(dispatch)
+
+
+
     try {
         const res = await axios.post("https://birdtradingplatformapi.azurewebsites.net/api/User/Login", user);
         if (res.status = 200) {
@@ -21,25 +24,26 @@ export const loginUser = async (user, dispatch, navigate) => {
                 const token = jwt_decode(res.data.data.accessToken);
                 dispatch(loginSuccess(token));
                 saveTokenToLocalStorage(res.data.data.accessToken);
+
                 if (token.role === 'AD') {
                     navigate("/dashboard");
                 } else {
                     navigate(-1);
-
                 }
-            } else {
-                toast.error(res.data.message, {
-                    autoClose: 1500,
-                });
             }
-
+         else {
+            toast.error(res.data.message, {
+                autoClose: 1500,
+            });
         }
 
-    } catch (err) {
-        console.log(err)
-        dispatch(loginFailed());
-        toast.error("Not information");
     }
+
+    } catch (err) {
+    console.log(err)
+    dispatch(loginFailed());
+    toast.error("Not information");
+}
 };
 function saveTokenToLocalStorage(token) {
     localStorage.setItem('jwtToken', token);
