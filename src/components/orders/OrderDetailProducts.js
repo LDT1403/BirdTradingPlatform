@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 
 const OrderDetailProducts = (props) => {
     const { order } = props;
-    console.log(order)
+
 
     // if (!loading) {
     //     // Calculate Price
@@ -75,7 +75,7 @@ const OrderDetailProducts = (props) => {
                             <dl className="dlist">
                                 <dt className="text-muted">Trạng Thái:</dt>
                                 <dd>
-                                    {order.isPaid ? (
+                                    {(order.paymentMethod === "VnPay" || order.receivedDate !== null) ? (
                                         <span className="badge rounded-pill alert alert-success text-success">
                                             Đã Thanh Toán
                                         </span>
