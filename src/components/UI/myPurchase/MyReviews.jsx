@@ -56,7 +56,7 @@ const MyReviews = () => {
                 image.classList.remove("clicked");
             });
         } else {
-            imageViewElement.innerHTML = `<img src="${clickedImageSrc}" alt="Clicked Image" style="max-width: 300px; max-height: 300px;" />`;
+            imageViewElement.innerHTML = `<img src="${clickedImageSrc}" alt="Clicked Image" style="max-width: 400px; max-height: 400px;" />`;
             imageViewElement.classList.remove("hidden");
             currentImageSrc = clickedImageSrc;
             images.forEach((image) => {

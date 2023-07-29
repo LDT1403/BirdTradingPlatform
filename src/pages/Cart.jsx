@@ -427,8 +427,8 @@ const Cart = () => {
                             <div className="text-confirmation">Bạn có muốn xóa mục này không?</div>
                             <div className="productName-confirmation"> {ProductName}</div>
                             <div className="button-confirm" >
-                                <button className="button-yes-confirm" onClick={() => handleConfirmation()}>Yes</button>
-                                <button onClick={() => setShowConfirmation(false)}>No</button>
+                                <button className="button-yes-confirm" onClick={() => handleConfirmation()}>Đồng Ý</button>
+                                <button onClick={() => setShowConfirmation(false)}>Hủy</button>
                             </div>
                         </div>
                     </div>

@@ -8,6 +8,7 @@ import axios from "axios";
 import { useLocation } from "react-router-dom";
 import numeral from 'numeral';
 import LoadingFive from "../components/Loadingfive/LoadingWrap";
+import { listCarts } from "./redux/Actions/CartActions";
 const CheckOut = () => {
     const accessToken = localStorage.getItem('jwtToken');
     const location = useLocation();
@@ -192,6 +193,7 @@ const CheckOut = () => {
                                         if (cartIdsToDelete.length > 0) {
                                             DeleteCartItem();
                                         }
+                                        dispatch(listCarts());
                                         setLoadDing(false)
                                         navigate("/MyPurchase/to-confirmation");
                                         dispatch(cartActions.deleteMultipleItems(orderSelectID));
@@ -237,6 +239,7 @@ const CheckOut = () => {
                                     setLoadDing(false);
                                     const paymentUrl = response.data.paymentUrl;
                                     window.location.href = `${paymentUrl}`;
+                                    dispatch(listCarts());
                                     dispatch(cartActions.deleteMultipleItems(orderSelectID));
 
                                 })
