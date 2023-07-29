@@ -484,12 +484,13 @@
 }
 
 .userImage {
-     width: 4%;
+     width: 80px;
      margin-right: 10px;
 }
 
 .userImage img {
-     width: 100%;
+     width: 60px;
+     height: 60px;
      border-radius: 100%;
 }
 

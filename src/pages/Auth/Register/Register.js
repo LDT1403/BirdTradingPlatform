@@ -55,7 +55,7 @@ function Register() {
     console.log(registerInfo);
 
     const handleRegister = async () => {
-        // validate
+        localStorage.setItem("previousPage", window.location.pathname);// validate
         const {
             phone,
             email,
