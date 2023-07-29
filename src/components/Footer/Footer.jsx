@@ -13,7 +13,7 @@ const Footer = () => {
                         <div className="logo footer__logo text-start">
                             <div className="text-center">
                                 <img src={logo} alt="logo" />
-                                <h5>Brid Trading</h5>
+                                <h5>Bird Trading</h5>
                             </div>
 
                             <p className="text-center">

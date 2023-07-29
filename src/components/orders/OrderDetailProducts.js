@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 
 const OrderDetailProducts = (props) => {
     const { order } = props;
+    console.log(order)
 
     // if (!loading) {
     //     // Calculate Price

@@ -38,7 +38,7 @@ const UserReportShop = ({ shopId, setShowReportShop }) => {
 
                     }).then(response => {
                          setShowReportShop(false)
-                         toast.success("Report Success")
+                         toast.success("Tố Cáo Thành Công")
 
                     }
 

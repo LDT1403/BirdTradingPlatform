@@ -64,7 +64,7 @@ const LatestOrder = () => {
                             <td>{item.productName}</td>
                             <td>₫ {numeral(item.soldPrice).format('0,0')}</td>
                             <td>
-                                {item.quantitySold}
+                                {item.quantitySold || 0}
                             </td>
                             <td>{renderRating(item.rate)}</td>
                             <td >

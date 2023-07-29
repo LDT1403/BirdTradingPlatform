@@ -303,12 +303,12 @@ const Register = () => {
                                             type="radio"
                                             name="gender"
                                             id="flexRadioDefault1"
-                                            value="male"
+                                            value="Nam"
                                             // required
                                             ref={(element) => {
-                                                inputRef.current["male"] = element;
+                                                inputRef.current["Nam"] = element;
                                             }}
-                                            checked={gender === "male"}
+                                            checked={gender === "Nam"}
                                             onChange={handleGenderChange}
                                             onInput={(e) => {
                                                 hanldeCheckEmptyCheckBox(e);
@@ -326,11 +326,11 @@ const Register = () => {
                                             type="radio"
                                             name="gender"
                                             id="flexRadioDefault1"
-                                            value="female"
+                                            value="Nữ"
                                             ref={(element) => {
-                                                inputRef.current["female"] = element;
+                                                inputRef.current["Nữ"] = element;
                                             }}
-                                            checked={gender === "female"}
+                                            checked={gender === "Nữ"}
                                             onChange={handleGenderChange}
                                             onInput={(e) => {
                                                 hanldeCheckEmptyCheckBox(e);

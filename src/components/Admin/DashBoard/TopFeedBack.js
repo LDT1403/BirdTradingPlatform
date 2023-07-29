@@ -48,7 +48,7 @@ const TopFeedBack = () => {
                         <th scope="col">Tổng Tiền</th>
                         <th scope="col">Cửa Hàng</th>
                         <th scope="col">Đánh giá </th>
-                        <th scope="col" className="text-center">Số lượng Đánh Giá</th>
+                        <th scope="col" style={{ textAlign: 'center' }} >Số lượng Đánh Giá</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -63,7 +63,7 @@ const TopFeedBack = () => {
                                 {item.shopName}
                             </td>
                             <td>{renderRating(item.rate)}</td>
-                            <td className="text-center">
+                            <td style={{ textAlign: 'center' }}>
                                 {
                                     item.feedbackCount
                                 }

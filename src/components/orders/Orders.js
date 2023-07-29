@@ -30,9 +30,9 @@ const Orders = (props) => {
                         <td>{order.email}</td>
                         <td>₫ {numeral(order.totalPrice).format('0,0')}</td>
                         <td>
-                            {order.status ? (
+                            {(order.status || order.receivedDate !== null) ? (
                                 <span className="badge bg-success">
-                                    Đã Thanh Toán {moment(order.paidAt).format("DD/MM/YYYY")}
+                                    Đã Thanh Toán
                                 </span>
                             ) : (
                                 <span className="badge bg-danger">
